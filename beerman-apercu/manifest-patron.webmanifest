@@ -1,0 +1,24 @@
+{
+ "lang": "fr",
+ "scope": "./",
+ "display": "standalone",
+ "background_color": "#0D0B09",
+ "theme_color": "#0D0B09",
+ "id": "./patron.html",
+ "name": "Beerman · Patron",
+ "short_name": "Patron",
+ "start_url": "./patron.html?patron=1",
+ "description": "Gérer la carte du Beerman : prix, épuisés, nouveautés",
+ "icons": [
+  {
+   "src": "patron-icon-192.png",
+   "sizes": "192x192",
+   "type": "image/png"
+  },
+  {
+   "src": "patron-icon-512.png",
+   "sizes": "512x512",
+   "type": "image/png"
+  }
+ ]
+}
