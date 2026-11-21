@@ -54,7 +54,26 @@ export class Bar extends DurableObject {
       CREATE TABLE IF NOT EXISTS stats(jour TEXT, h INTEGER, ev TEXT, cle TEXT, n INTEGER, PRIMARY KEY(jour, h, ev, cle));
       CREATE TABLE IF NOT EXISTS sessions(jeton TEXT PRIMARY KEY, exp INTEGER);
       CREATE TABLE IF NOT EXISTS limites(cle TEXT PRIMARY KEY, n INTEGER, fen INTEGER);
-      CREATE TABLE IF NOT EXISTS reglages(k TEXT PRIMARY KEY, v TEXT);`);
+      CREATE TABLE IF NOT EXISTS reglages(k TEXT PRIMARY KEY, v TEXT);
+      CREATE TABLE IF NOT EXISTS blocages(tabl INTEGER PRIMARY KEY, jusqua INTEGER, raison TEXT);`);
+    for (const c of ["raison TEXT", "alerte TEXT"]) { try { this.sql.exec("ALTER TABLE cmd ADD COLUMN " + c); } catch (_) {} }
+  }
+  // table bloquée par le bar ? (renvoie la fin du blocage, ou 0)
+  bloquee(table) { const r = this.sql.exec("SELECT jusqua FROM blocages WHERE tabl=?", table).toArray()[0]; return r && r.jusqua > this.now() ? r.jusqua : 0; }
+  blocages() { return this.sql.exec("SELECT tabl, jusqua, raison FROM blocages WHERE jusqua>? ORDER BY tabl", this.now()).toArray().map(r => ({ table: r.tabl, jusqua: r.jusqua, raison: r.raison })); }
+  // clé du QR de chaque table : empêche de commander pour une table en tapant son numéro dans l'adresse
+  async cle(table) {
+    if (!this.env.SECRET_QR) return "";
+    const k = await crypto.subtle.importKey("raw", new TextEncoder().encode(this.env.SECRET_QR), { name: "HMAC", hash: "SHA-256" }, false, ["sign"]);
+    const sig = new Uint8Array(await crypto.subtle.sign("HMAC", k, new TextEncoder().encode("table-" + table)));
+    return [...sig.slice(0, 4)].map(b => b.toString(16).padStart(2, "0")).join("");
+  }
+  async garde(table, corps, nbT) {
+    if (!(table >= 1 && table <= nbT)) return err("table", "Numéro de table inconnu. Scannez le QR de votre table.");
+    if (this.env.SECRET_QR && String(corps.k || "") !== await this.cle(table)) return err("qr", "Scannez le QR posé sur votre table pour commander.", 403);
+    const b = this.bloquee(table);
+    if (b) return err("bloquee", "Les commandes depuis cette table sont en pause. Faites signe au bar, on arrive.", 403);
+    return null;
   }
   now() { return Date.now(); }
   reglage(k, def) { const r = this.sql.exec("SELECT v FROM reglages WHERE k=?", k).toArray()[0]; return r ? JSON.parse(r.v) : def; }
@@ -73,7 +92,7 @@ export class Bar extends DurableObject {
     const r = this.sql.exec("SELECT exp FROM sessions WHERE jeton=?", j).toArray()[0];
     return !!(r && r.exp > this.now());
   }
-  ligne(r) { return { id: r.id, num: r.num, genre: r.genre, table: r.tabl, items: JSON.parse(r.items || "[]"), total: r.total, note: r.note, st: r.st, cree: r.cree, maj: r.maj, qui: r.qui }; }
+  ligne(r) { return { id: r.id, num: r.num, genre: r.genre, table: r.tabl, items: JSON.parse(r.items || "[]"), total: r.total, note: r.note, st: r.st, cree: r.cree, maj: r.maj, qui: r.qui, raison: r.raison || "", alerte: r.alerte || "" }; }
   ouvertes() {
     const jour = paris(this.now()).jour, limite = this.now() - 6 * 3600e3;
     return this.sql.exec("SELECT * FROM cmd WHERE (st IN (0,1) AND cree>?) OR (jour=? AND st=2 AND maj>?) ORDER BY cree ASC", limite, jour, this.now() - 20 * 60e3).toArray().map(r => this.ligne(r));
@@ -95,7 +114,7 @@ export class Bar extends DurableObject {
     if (p === "/api/commande" && req.method === "POST") {
       if (pause) return err("pause", "Les commandes depuis la table sont coupées pour le moment. Passez au bar, on vous sert avec plaisir.", 403);
       const table = parseInt(corps.table, 10);
-      if (!(table >= 1 && table <= nbT)) return err("table", "Numéro de table inconnu. Scannez le QR de votre table.");
+      const g = await this.garde(table, corps, nbT); if (g) return g;
       if (this.limite("c:" + ip, 6, 10 * 60e3) || this.limite("ct:" + table, 6, 10 * 60e3)) return err("trop", "Beaucoup de commandes d'un coup. Faites signe au bar.", 429);
       const items = (Array.isArray(corps.items) ? corps.items : []).slice(0, 25).map(x => ({ id: txt(x.id, 40), nom: txt(x.nom, 80), choix: txt(x.choix, 40), qte: Math.max(1, Math.min(12, parseInt(x.qte, 10) || 1)), prix: Number.isFinite(+x.prix) ? Math.max(0, Math.min(500, +x.prix)) : null })).filter(x => x.nom);
       if (!items.length) return err("vide", "Votre commande est vide.");
@@ -103,10 +122,17 @@ export class Bar extends DurableObject {
       if (nbArt > 30) return err("gros", "Pour une grosse commande, passez au bar.");
       const total = Math.round(items.reduce((s, x) => s + (x.prix || 0) * x.qte, 0) * 100) / 100;
       const t = this.now(), P = paris(t);
+      // commandes inhabituelles : elles arrivent marquées « à vérifier » sur la tablette
+      const al = [];
+      const avant = this.sql.exec("SELECT COUNT(*) n FROM cmd WHERE tabl=? AND cree>? AND st<>9", table, t - 3 * 3600e3).toArray()[0].n;
+      if (!avant) al.push("1re commande de la table");
+      if (nbArt >= 10 || total >= 80) al.push("grosse commande");
+      const ouv = this.sql.exec("SELECT COUNT(*) n FROM cmd WHERE tabl=? AND st=0 AND genre='commande'", table).toArray()[0].n;
+      if (ouv) al.push("déjà une commande en attente");
       const num = (this.sql.exec("SELECT COUNT(*) n FROM cmd WHERE jour=?", P.jour).toArray()[0].n || 0) + 1;
       const id = alea(8), secret = alea(12);
-      this.sql.exec("INSERT INTO cmd(id,num,jour,genre,tabl,items,total,note,st,secret,cree,maj,qui) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)",
-        id, num, P.jour, "commande", table, JSON.stringify(items), total, txt(corps.note, 200), ST.NOUVELLE, secret, t, t, "");
+      this.sql.exec("INSERT INTO cmd(id,num,jour,genre,tabl,items,total,note,st,secret,cree,maj,qui,alerte) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+        id, num, P.jour, "commande", table, JSON.stringify(items), total, txt(corps.note, 200), ST.NOUVELLE, secret, t, t, "", al.join(" · "));
       for (const x of items) this.compter(P.jour, P.h, "commande", x.nom, x.qte);
       const l = this.ligne(this.sql.exec("SELECT * FROM cmd WHERE id=?", id).toArray()[0]);
       this.diffuser({ type: "nouvelle", commande: l });
@@ -115,7 +141,7 @@ export class Bar extends DurableObject {
 
     if (p === "/api/appel" && req.method === "POST") {
       const table = parseInt(corps.table, 10);
-      if (!(table >= 1 && table <= nbT)) return err("table", "Numéro de table inconnu.");
+      const g = await this.garde(table, corps, nbT); if (g) return g;
       if (this.limite("a:" + table, 1, 90e3) || this.limite("ai:" + ip, 4, 10 * 60e3)) return err("trop", "C'est noté, la serveuse arrive.", 429);
       const t = this.now(), P = paris(t), id = alea(8), secret = alea(12);
       const motif = ["commander", "addition", "question"].includes(corps.motif) ? corps.motif : "commander";
@@ -130,7 +156,7 @@ export class Bar extends DurableObject {
     if (p === "/api/suivi" && req.method === "GET") {
       const r = this.sql.exec("SELECT * FROM cmd WHERE id=? AND secret=?", url.searchParams.get("id") || "", url.searchParams.get("s") || "").toArray()[0];
       if (!r) return err("inconnu", "Commande introuvable.", 404);
-      return json({ ok: true, st: r.st, num: r.num, genre: r.genre, qui: r.qui });
+      return json({ ok: true, st: r.st, num: r.num, genre: r.genre, qui: r.qui, raison: r.raison || "" });
     }
 
     // statistiques anonymes : pas de cookie, pas d'identifiant, juste des compteurs par heure
@@ -160,19 +186,39 @@ export class Bar extends DurableObject {
       if (req.headers.get("Upgrade") !== "websocket") return err("ws", "WebSocket attendu.", 426);
       const pair = new WebSocketPair();
       this.ctx.acceptWebSocket(pair[1]);
-      pair[1].send(JSON.stringify({ type: "etat", commandes: this.ouvertes(), pause }));
+      pair[1].send(JSON.stringify({ type: "etat", commandes: this.ouvertes(), pause, blocages: this.blocages() }));
       return new Response(null, { status: 101, webSocket: pair[0] });
     }
-    if (p === "/api/bar/liste" && req.method === "GET") return json({ ok: true, commandes: this.ouvertes(), pause });
+    if (p === "/api/bar/liste" && req.method === "GET") return json({ ok: true, commandes: this.ouvertes(), pause, blocages: this.blocages() });
     if (p === "/api/bar/statut" && req.method === "POST") {
       const st = parseInt(corps.st, 10);
       if (![ST.NOUVELLE, ST.PRISE, ST.SERVIE, ST.ANNULEE].includes(st)) return err("st", "Statut inconnu.");
       const r = this.sql.exec("SELECT * FROM cmd WHERE id=?", corps.id || "").toArray()[0];
       if (!r) return err("inconnu", "Commande introuvable.", 404);
-      this.sql.exec("UPDATE cmd SET st=?, maj=?, qui=? WHERE id=?", st, this.now(), txt(corps.qui, 30) || r.qui, r.id);
+      this.sql.exec("UPDATE cmd SET st=?, maj=?, qui=?, raison=? WHERE id=?", st, this.now(), txt(corps.qui, 30) || r.qui, st === ST.ANNULEE ? txt(corps.raison, 80) : "", r.id);
       const l = this.ligne(this.sql.exec("SELECT * FROM cmd WHERE id=?", r.id).toArray()[0]);
       this.diffuser({ type: "maj", commande: l });
       return json({ ok: true, commande: l });
+    }
+    // bloquer une table : minutes = 0 pour débloquer ; les commandes en attente de la table sont annulées
+    if (p === "/api/bar/bloquer" && req.method === "POST") {
+      const table = parseInt(corps.table, 10), min = Math.max(0, Math.min(720, parseInt(corps.minutes, 10) || 0));
+      if (!(table >= 1 && table <= nbT)) return err("table", "Table inconnue.");
+      if (!min) this.sql.exec("DELETE FROM blocages WHERE tabl=?", table);
+      else {
+        this.sql.exec("INSERT OR REPLACE INTO blocages(tabl,jusqua,raison) VALUES(?,?,?)", table, this.now() + min * 60e3, txt(corps.raison, 80));
+        if (corps.annuler) for (const r of this.sql.exec("SELECT id FROM cmd WHERE tabl=? AND st=0", table).toArray()) {
+          this.sql.exec("UPDATE cmd SET st=9, maj=?, raison=? WHERE id=?", this.now(), "Commandes de la table mises en pause par le bar", r.id);
+          this.diffuser({ type: "maj", commande: this.ligne(this.sql.exec("SELECT * FROM cmd WHERE id=?", r.id).toArray()[0]) });
+        }
+      }
+      const b = this.blocages(); this.diffuser({ type: "blocages", blocages: b });
+      return json({ ok: true, blocages: b });
+    }
+    // liens QR des tables (avec leur clé), pour imprimer ou graver
+    if (p === "/api/bar/qr" && req.method === "GET") {
+      const out = []; for (let i = 1; i <= nbT; i++) out.push({ table: i, k: await this.cle(i) });
+      return json({ ok: true, tables: out });
     }
     if (p === "/api/bar/pause" && req.method === "POST") {
       this.regle("pause", !!corps.pause); this.diffuser({ type: "pause", pause: !!corps.pause });

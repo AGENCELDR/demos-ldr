@@ -72,6 +72,18 @@ header{display:flex;align-items:center;gap:14px;padding:12px max(16px,env(safe-a
 #pop .k{font:800 15px var(--sc);letter-spacing:.2em;color:var(--or)}#pop .tbig{font:800 92px var(--fd);line-height:1;color:var(--or2);margin:6px 0}
 #pop ul{list-style:none;padding:0;margin:8px 0 0;font-size:20px;text-align:left}#pop li{padding:4px 0;border-bottom:1px solid var(--ligne)}#pop li b{color:var(--or);margin-right:8px}
 #pop .plus{color:var(--ink2);margin-top:8px}
+.al{grid-column:2/4;display:inline-flex;align-items:center;gap:6px;justify-self:start;background:rgba(229,154,58,.16);border:1px solid var(--orange);color:#F6C98A;border-radius:999px;padding:2px 10px;font:800 13px var(--sc);letter-spacing:.05em}
+.bt.bloc{border-color:var(--rouge);color:#ffb3a5}
+#modal{position:fixed;inset:0;z-index:45;display:flex;align-items:center;justify-content:center;background:rgba(13,11,9,.8);backdrop-filter:blur(4px);padding:20px}
+#modal .bx{max-width:560px;text-align:left}#modal h3{font:800 26px var(--fd);margin:0 0 4px}#modal p{margin:0 0 14px}
+.choix{display:grid;grid-template-columns:1fr 1fr;gap:10px}.choix button{min-height:58px;border-radius:12px;border:1.5px solid var(--ligne);font:800 16px var(--sc);letter-spacing:.03em;padding:6px 10px;text-align:left}
+.choix button[aria-pressed=true]{background:var(--or);color:#17110A;border-color:var(--or)}
+.sep{font:800 13px var(--sc);letter-spacing:.16em;color:var(--or);margin:18px 0 8px}
+.rang{display:flex;gap:10px;margin-top:18px}.rang button{flex:1}
+.sec{display:block;width:100%;font:800 17px var(--sc);border-radius:14px;padding:14px;margin-top:14px;border:1.5px solid var(--ligne)}
+.danger{background:linear-gradient(180deg,#d4573f,#9c2b1a);color:#fff}
+.grille{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}.grille button{aspect-ratio:1;border-radius:12px;border:1.5px solid var(--ligne);font:800 22px var(--fd);display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1}
+.grille button small{font:700 11px var(--ft);color:#ffb3a5;margin-top:3px}.grille button.b{background:#5a1b10;border-color:var(--rouge)}
 @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(216,179,108,.45)}50%{box-shadow:0 0 0 8px rgba(216,179,108,0)}}
 @keyframes cl{50%{opacity:.3}}@keyframes entre{from{transform:scale(.85);opacity:0}}
 .sig{position:fixed;right:12px;bottom:6px;font:700 11px var(--sc);letter-spacing:.14em;color:var(--ink2);opacity:.55;text-decoration:none}
@@ -89,6 +101,7 @@ header{display:flex;align-items:center;gap:14px;padding:12px max(16px,env(safe-a
     <span id="heure">--:--</span>
     <span class="esp"></span>
     <button class="bt vert" id="bpause" type="button">Commandes à table : ouvertes</button>
+    <button class="bt" id="btables" type="button">Tables</button>
     <a class="bt" href="stats.html">Statistiques</a>
   </header>
   <main id="board">
@@ -99,10 +112,11 @@ header{display:flex;align-items:center;gap:14px;padding:12px max(16px,env(safe-a
 
 <div id="go" class="cache"><div class="bx"><div class="mono">BPC</div><h1>Démarrer le service</h1><p>Touchez pour activer la sonnerie et garder l'écran allumé.</p><button class="gros" id="demarrer">Démarrer</button></div></div>
 <div id="pop" class="cache"></div>
+<div id="modal" class="cache"></div>
 <a class="sig" href="https://agence-ldr.fr" target="_blank" rel="noopener">Réalisé par Agence LDR</a>
 
 <script>
-var API=location.origin+'/api',J=null,ws=null,cmds={},pause=false,vus={},aRetry=1000,ctx=null,verrou=null,popFile=[];
+var API=location.origin+'/api',J=null,ws=null,cmds={},pause=false,blocs=[],vus={},aRetry=1000,ctx=null,verrou=null,popFile=[];
 try{J=localStorage.getItem('bm-bar-j');}catch(e){}
 function $(i){return document.getElementById(i);}
 function esc(t){return String(t==null?'':t).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
@@ -122,7 +136,8 @@ function brancher(){
   ws=new WebSocket(API.replace(/^http/,'ws')+'/bar/direct?t='+encodeURIComponent(J));
   ws.onopen=function(){aRetry=1000;enLigne(true);};
   ws.onmessage=function(m){if(m.data==='pong')return;var d=JSON.parse(m.data);
-    if(d.type==='etat'){cmds={};d.commandes.forEach(function(c){cmds[c.id]=c;vus[c.id]=true;});majPause(d.pause);rendre();}
+    if(d.type==='etat'){cmds={};d.commandes.forEach(function(c){cmds[c.id]=c;vus[c.id]=true;});majPause(d.pause);majBlocs(d.blocages||[]);rendre();}
+    else if(d.type==='blocages'){majBlocs(d.blocages);rendre();}
     else if(d.type==='nouvelle'){cmds[d.commande.id]=d.commande;rendre();alerte(d.commande);}
     else if(d.type==='maj'){cmds[d.commande.id]=d.commande;rendre();}
     else if(d.type==='pause'){majPause(d.pause);}};
@@ -138,12 +153,14 @@ var MOTIF={commander:'veut commander',addition:'demande l\'addition',question:'a
 function carte(c){
   var cl='c'+(c.genre==='appel'?' appel':'')+(c.st===0&&!vus[c.id]?' neuve':'')+(c.st===2?' fini':'');
   var h='<div class="'+cl+'" data-id="'+c.id+'"><div class="tb"><small>TABLE</small><b>'+c.table+'</b></div>';
+  if(c.alerte&&c.st===0)h+='<div class="al">⚠ À vérifier : '+esc(c.alerte)+'</div>';
+  if(bloquee(c.table))h+='<div class="al" style="border-color:var(--rouge);color:#ffb3a5">⛔ Table bloquée</div>';
   if(c.genre==='appel')h+='<div class="qt">Vous appelle<span class="rg">'+esc(MOTIF[c.note]||'')+'</span></div>'+tpsHTML(c);
   else{var n=c.items.reduce(function(s,x){return s+x.qte;},0);h+='<div class="qt">Commande n° '+c.num+'<span class="rg">'+n+' article'+(n>1?'s':'')+'</span></div>'+tpsHTML(c);
     h+='<ul class="its">'+c.items.map(function(x){return '<li><b>'+x.qte+'×</b> '+esc(x.nom)+(x.choix?' <i>('+esc(x.choix)+')</i>':'')+'</li>';}).join('')+'</ul>';
     if(c.note)h+='<div class="nt">« '+esc(c.note)+' »</div>';
     if(c.total)h+='<div class="tot">À encaisser au bar : '+c.total.toFixed(2).replace('.',',')+' €</div>';}
-  if(c.st===0)h+='<div class="ac"><button class="prends" data-st="1">'+(c.genre==='appel'?'J\'y vais':'Je prends')+'</button><button class="ann" data-st="9" aria-label="Retirer">✕</button></div>';
+  if(c.st===0)h+='<div class="ac"><button class="prends" data-st="1">'+(c.genre==='appel'?'J\'y vais':'Je prends')+'</button><button class="ann" data-annule aria-label="Annuler ou bloquer">✕ Annuler</button></div>';
   else if(c.st===1)h+='<div class="ac"><button class="servi" data-st="2">'+(c.genre==='appel'?'C\'est fait':'Servi')+'</button><button class="ann" data-st="0" aria-label="Remettre à prendre">↩</button></div>';
   return h+'</div>';
 }
@@ -156,7 +173,35 @@ function rendre(){
   document.title=(a.length?'('+a.length+') ':'')+'Beerman · Bar';
 }
 document.addEventListener('click',function(e){var b=e.target.closest('[data-st]');if(!b)return;var id=b.closest('[data-id]').dataset.id;vus[id]=true;
-  var st=+b.dataset.st;if(st===9&&!confirm2(b))return;api('/bar/statut',{corps:{id:id,st:st}}).then(function(d){if(d.ok){cmds[id]=d.commande;rendre();}});});
+  var st=+b.dataset.st;api('/bar/statut',{corps:{id:id,st:st}}).then(function(d){if(d.ok){cmds[id]=d.commande;rendre();}});});
+document.addEventListener('click',function(e){var b=e.target.closest('[data-annule]');if(b)annuler(cmds[b.closest('[data-id]').dataset.id]);});
+var RAISONS={commande:['Personne à cette table','Commande en double','Produit épuisé','Commande pour rire'],appel:['Personne à cette table','Appel en double','Déjà servie','Appel pour rire']};
+var DUREES=[[0,'Ne pas bloquer'],[15,'15 min'],[60,'1 heure'],[480,'Toute la soirée']];
+function modal(h,brancher){var o=$('modal'),m=o.cloneNode(false);o.parentNode.replaceChild(m,o);m.innerHTML='<div class="bx">'+h+'</div>';m.classList.remove('cache');m.onclick=function(e){if(e.target===m||e.target.closest('[data-fermer]'))m.classList.add('cache');};if(brancher)brancher(m);}
+function annuler(c){if(!c)return;vus[c.id]=true;var r=0,d=0,L=RAISONS[c.genre==='appel'?'appel':'commande'];
+  function dessin(){return '<h3>Annuler · table '+c.table+'</h3><p style="color:var(--ink2)">Le client voit la raison sur son téléphone.</p><div class="choix">'
+   +L.map(function(x,i){return '<button data-r="'+i+'" aria-pressed="'+(i===r)+'">'+esc(x)+'</button>';}).join('')+'</div>'
+   +'<div class="sep">ET BLOQUER LA TABLE '+c.table+' ?</div><div class="choix">'+DUREES.map(function(x,i){return '<button data-d="'+i+'" aria-pressed="'+(i===d)+'">'+x[1]+'</button>';}).join('')+'</div>'
+   +'<div class="rang"><button class="sec" data-fermer>Retour</button><button class="gros danger" data-ok style="margin-top:14px">Annuler'+(d?' et bloquer':'')+'</button></div>';}
+  modal(dessin(),function(m){m.addEventListener('click',function e2(e){var x=e.target.closest('[data-r],[data-d],[data-ok]');if(!x)return;
+    if(x.dataset.r!=null){r=+x.dataset.r;m.firstChild.innerHTML=dessin();return;}if(x.dataset.d!=null){d=+x.dataset.d;m.firstChild.innerHTML=dessin();return;}
+    m.removeEventListener('click',e2);m.classList.add('cache');
+    api('/bar/statut',{corps:{id:c.id,st:9,raison:L[r]}}).then(function(o){if(o.ok){cmds[c.id]=o.commande;rendre();}});
+    if(d)api('/bar/bloquer',{corps:{table:c.table,minutes:DUREES[d][0],raison:L[r],annuler:true}}).then(function(o){if(o.ok){majBlocs(o.blocages);rendre();}});});});}
+function bloquee(t){return blocs.filter(function(b){return b.table===t&&b.jusqua>Date.now();})[0];}
+function majBlocs(b){blocs=b||[];var n=blocs.length,bt=$('btables');bt.textContent=n?'Tables bloquées ('+n+')':'Tables';bt.className='bt'+(n?' bloc':'');}
+function reste(b){var m=Math.ceil((b.jusqua-Date.now())/60000);return m>=60?Math.floor(m/60)+' h '+(m%60?m%60:''):m+' min';}
+$('btables').onclick=tables;
+function tables(){var N=30;
+  function dessin(){var h='<h3>Les tables</h3><p style="color:var(--ink2)">Touchez une table pour mettre ses commandes en pause (blague, client parti…). Touchez une table rouge pour la débloquer.</p><div class="grille">';
+   for(var i=1;i<=N;i++){var b=bloquee(i);h+='<button data-t="'+i+'" class="'+(b?'b':'')+'">'+i+(b?'<small>'+reste(b)+'</small>':'')+'</button>';}
+   return h+'</div><button class="sec" data-fermer>Fermer</button>';}
+  modal(dessin(),function(m){m.addEventListener('click',function(e){var x=e.target.closest('[data-t]');if(!x)return;var t=+x.dataset.t;
+    if(bloquee(t)){api('/bar/bloquer',{corps:{table:t,minutes:0}}).then(function(o){if(o.ok){majBlocs(o.blocages);m.firstChild.innerHTML=dessin();rendre();}});return;}
+    m.firstChild.innerHTML='<h3>Bloquer la table '+t+'</h3><p style="color:var(--ink2)">Ses commandes et ses appels depuis le téléphone sont refusés pendant ce temps. Le client voit « faites signe au bar ».</p><div class="choix">'
+     +DUREES.slice(1).map(function(x){return '<button data-m="'+x[0]+'">'+x[1]+'</button>';}).join('')+'</div><button class="sec" data-retour>Retour</button>';
+    m.onclick=function(e3){if(e3.target===m){m.classList.add('cache');return;}if(e3.target.closest('[data-retour]')){tables();return;}var y=e3.target.closest('[data-m]');if(!y)return;
+      api('/bar/bloquer',{corps:{table:t,minutes:+y.dataset.m,raison:'Bloquée par le bar',annuler:true}}).then(function(o){if(o.ok){majBlocs(o.blocages);rendre();tables();}});};});});}
 function confirm2(b){if(b.dataset.ok)return true;b.dataset.ok=1;b.textContent='Retirer ?';setTimeout(function(){delete b.dataset.ok;b.textContent='✕';},3000);return false;}
 function alerte(c){popFile.push(c);bip(null,c.genre==='appel');if(navigator.vibrate)navigator.vibrate(300);if($('pop').classList.contains('cache'))pop();}
 function pop(){var c=popFile.shift();if(!c){$('pop').classList.add('cache');return;}

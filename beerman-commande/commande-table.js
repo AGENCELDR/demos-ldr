@@ -19,8 +19,8 @@
   function etat(){var h=hote();return (h&&h.etat&&h.etat())||window.S||null;}
 
   /* ---------- table ---------- */
-  var m=location.search.match(/[?&](?:table|t)=(\d{1,3})/),TABLE=m?+m[1]:lire(KT);
-  if(m)ecrire(KT,TABLE);
+  var m=location.search.match(/[?&](?:table|t)=(\d{1,3})/),mk=location.search.match(/[?&]k=([0-9a-f]{4,16})/),TABLE=m?+m[1]:lire(KT),CLE=mk?mk[1]:(lire(KT+'-k')||'');
+  if(m){ecrire(KT,TABLE);ecrire(KT+'-k',CLE);}
 
   /* ---------- statistiques anonymes (aucun cookie, aucun identifiant) ---------- */
   var file=[];
@@ -232,7 +232,7 @@
         if(b){var x=panier[+b.dataset.i];x.qte=Math.min(12,x.qte+ +b.dataset.d);if(x.qte<=0)panier.splice(+b.dataset.i,1);sauver();if(!panier.length){fermer();return;}f.innerHTML='<div class="ldr-cmd-poi"></div>'+html();return;}
         if(e.target.closest('[data-plus]')){fermer();return;}
         var go=e.target.closest('[data-envoi]');if(!go||go.disabled)return;go.disabled=true;go.firstChild.textContent='Envoi…';
-        poste('/commande',{table:TABLE,note:CFG._note||'',items:panier.map(function(x){return {id:x.id,nom:x.nom,choix:x.choix,qte:x.qte,prix:x.prix};})}).then(function(d){
+        poste('/commande',{table:TABLE,k:CLE,note:CFG._note||'',items:panier.map(function(x){return {id:x.id,nom:x.nom,choix:x.choix,qte:x.qte,prix:x.prix};})}).then(function(d){
           if(!d.ok){q('.ldr-cmd-err',f).textContent=d.message||'Le bar ne répond pas. Faites-lui signe.';go.disabled=false;go.firstChild.textContent='Envoyer au bar';return;}
           panier=[];CFG._note='';sauver();suivi={id:d.id,s:d.secret,st:0,genre:'commande',num:d.num};ecrire(KS,suivi);barre();voirSuivi();suivre();});
       });});
@@ -244,7 +244,7 @@
       +[['commander','verre','Je veux commander','Elle vient prendre la commande'],['addition','note','L\'addition','Elle vous l\'apporte'],['question','question','Une question','Allergie, conseil, autre']].map(function(x){return '<button type="button" data-m="'+x[0]+'">'+IC[x[1]]+'<span><b>'+x[2]+'</b><span>'+x[3]+'</span></span></button>';}).join('')
       +'</div><button type="button" class="ldr-cmd-sec" data-non>Finalement non</button><div class="ldr-cmd-err" role="alert"></div></div>',function(f){
       f.addEventListener('click',function(e){if(e.target.closest('[data-non]')){fermer();return;}var b=e.target.closest('[data-m]');if(!b||b.disabled)return;b.disabled=true;
-        poste('/appel',{table:TABLE,motif:b.dataset.m}).then(function(d){
+        poste('/appel',{table:TABLE,k:CLE,motif:b.dataset.m}).then(function(d){
           if(!d.ok&&d.erreur!=='trop'){q('.ldr-cmd-err',f).textContent=d.message||'Le bar ne répond pas.';b.disabled=false;return;}
           if(d.ok){suivi={id:d.id,s:d.secret,st:0,genre:'appel'};ecrire(KS,suivi);suivre();}
           fermer();toast(d.ok?'C\'est envoyé au bar':'Déjà noté',d.ok?'La serveuse arrive.':d.message);barre();});});});
@@ -254,12 +254,14 @@
     var E=g==='appel'?[['Appel reçu au bar',0],['La serveuse arrive',1]]:[['Commande reçue au bar',0],['Le bar la prépare',1],['Servie à votre table',2]];
     feuille(tete(g==='appel'?'Votre appel':'Commande n° '+(suivi.num||''),g==='appel'?'':'On règle au bar, comme d\'habitude.')+'<div class="ldr-cmd-corps"><ul class="ldr-cmd-etapes">'
       +E.map(function(x,i){var ok=st>=x[1];return '<li class="'+(ok?'ok':'')+(ok&&(i===E.length-1||st<E[i+1][1])?' ici':'')+'"><i>'+(ok?'✓':i+1)+'</i>'+x[0]+'</li>';}).join('')+'</ul><button type="button" class="ldr-cmd-sec" data-ok>Revenir à la carte</button></div>',function(f){q('[data-ok]',f).onclick=function(){fermer();};});}
+  function annulee(g,raison){feuille(tete(g==='appel'?'Appel annulé':'Commande annulée','Par le bar')+'<div class="ldr-cmd-corps"><p style="font:600 17px var(--f-d);margin:18px 0 4px">'+esc(raison||'Le bar a annulé.')+'</p><p class="ldr-cmd-paie">Une question ? Faites signe au bar, on arrive.</p><button type="button" class="ldr-cmd-sec" data-ok>Revenir à la carte</button></div>',function(f){q('[data-ok]',f).onclick=function(){fermer();};});if(navigator.vibrate)navigator.vibrate([80,60,80]);}
   var tS=null;
   function suivre(){clearTimeout(tS);if(!suivi)return;
     fetch(API+'/suivi?id='+encodeURIComponent(suivi.id)+'&s='+encodeURIComponent(suivi.s)).then(function(r){return r.json();}).then(function(d){
       if(!d.ok){suivi=null;ecrire(KS,null);barre();return;}
-      var av=suivi.st;suivi.st=d.st;ecrire(KS,suivi);
-      if(d.st===9||(d.st===2&&av===2)||(suivi.genre==='appel'&&d.st===2)){suivi=null;ecrire(KS,null);barre();return;}
+      var av=suivi.st,g0=suivi.genre;suivi.st=d.st;ecrire(KS,suivi);
+      if(d.st===9){suivi=null;ecrire(KS,null);barre();annulee(g0,d.raison);return;}
+      if((d.st===2&&av===2)||(suivi.genre==='appel'&&d.st===2)){suivi=null;ecrire(KS,null);barre();return;}
       if(av!==d.st){barre();if(F&&q('.ldr-cmd-etapes',F.f))voirSuivi();if(navigator.vibrate)navigator.vibrate(120);}
       tS=setTimeout(suivre,d.st===2?60000:5000);
     }).catch(function(){tS=setTimeout(suivre,10000);});}

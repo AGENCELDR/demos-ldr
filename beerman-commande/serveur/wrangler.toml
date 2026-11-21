@@ -18,4 +18,4 @@ new_sqlite_classes = ["Bar"]
 # Adresses de la carte autorisées à envoyer des commandes (séparées par des virgules)
 SITE_ORIGINES = "https://agenceldr.github.io"
 NB_TABLES = "30"
-# Secret à ajouter avec `wrangler secret put PIN_BAR` (code de la tablette et des stats)
+# Secrets à ajouter avec `wrangler secret put` : PIN_BAR (code de la tablette et des stats), SECRET_QR (clé des QR de table)
