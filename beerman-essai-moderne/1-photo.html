@@ -1,0 +1,181 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow"><title>Beerman · la carte</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,500..900&family=Manrope:wght@400..800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0}html{-webkit-text-size-adjust:100%}
+body{font-family:'Manrope',system-ui,sans-serif;font-size:16px;line-height:1.4;-webkit-font-smoothing:antialiased;background:var(--bg);color:var(--ink)}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;text-align:left}a{color:inherit;text-decoration:none}
+img{display:block;width:100%;height:100%;object-fit:cover}
+.dp{font-family:'Archivo',sans-serif;font-stretch:112%;font-weight:800;letter-spacing:-.02em;text-transform:uppercase;line-height:.92}
+.open{white-space:nowrap;display:inline-flex;align-items:center;gap:7px;font-weight:700;font-size:14px}
+.open:before{content:"";width:8px;height:8px;border-radius:50%;background:#3DDC84;box-shadow:0 0 0 4px rgba(61,220,132,.18)}
+.tabs{position:sticky;top:0;z-index:5;display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding:10px 16px;background:var(--tabbg);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.tabs::-webkit-scrollbar{display:none}
+.tab{flex:none;min-height:44px;padding:0 18px;border-radius:999px;font-weight:700;font-size:15px;background:var(--chip);color:var(--ink2);white-space:nowrap}
+.tab.on{background:var(--acc);color:var(--onacc)}
+.cat{padding:22px 16px 4px}.cat h3{display:flex;align-items:baseline;gap:8px;font-family:'Archivo',sans-serif;font-stretch:112%;font-weight:800;font-size:22px;letter-spacing:-.01em;margin-bottom:6px}
+.cat h3 span{font-family:'Manrope';font-weight:600;font-size:13px;color:var(--ink3)}
+.it{display:flex;align-items:center;gap:12px;width:100%;padding:10px 0;border-bottom:1px solid var(--line);min-height:76px}
+.vg{flex:none;width:56px;height:56px;border-radius:14px;overflow:hidden;background:var(--chip)}
+.vg.vide{display:grid;place-items:center}.vg.vide i{width:20px;height:26px;border-radius:3px 3px 8px 8px;background:var(--t);opacity:.9;box-shadow:inset 0 5px 0 rgba(255,255,255,.55)}
+.tx{flex:1;min-width:0}.tx b{display:block;font-weight:700;font-size:16px}.tx em{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font-style:normal;font-size:13.5px;color:var(--ink3);margin-top:1px}
+.pxs{flex:none;display:flex;gap:12px;text-align:right}.px b{display:block;font-weight:800;font-size:15.5px;white-space:nowrap;font-variant-numeric:tabular-nums}.px small{display:block;font-size:11.5px;color:var(--ink3)}.px.dem{font-size:12.5px;color:var(--ink3)}
+.legal{padding:26px 16px 40px;font-size:12.5px;color:var(--ink3);text-align:center}
+@media(min-width:900px){.its{display:grid;grid-template-columns:repeat(var(--cols,2),minmax(0,1fr));column-gap:36px}.cat{padding:28px 0 4px}.tabs{padding:12px 0}.cat h3{font-size:26px}}
+
+:root{--bg:#0B0B0C;--ink:#F4F1EA;--ink2:#D8D3C8;--ink3:#9A958B;--line:rgba(255,255,255,.09);--chip:rgba(255,255,255,.08);--acc:#E8B04B;--onacc:#15110A;--tabbg:rgba(11,11,12,.82)}
+.hero{position:relative;height:56svh;min-height:400px;max-height:560px;overflow:hidden}
+.hero>img{position:absolute;inset:0;object-position:50% 38%}
+.hero:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,11,12,.55) 0,rgba(11,11,12,0) 28%,rgba(11,11,12,.25) 55%,#0B0B0C 100%)}
+.top{position:absolute;z-index:2;left:16px;right:16px;top:14px;display:flex;justify-content:space-between;align-items:center}
+.glass{background:rgba(15,15,16,.55);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-radius:999px;padding:9px 14px}
+.bpc{font-family:'Archivo';font-weight:800;font-size:15px;letter-spacing:.06em}
+.hd{position:absolute;z-index:2;left:16px;right:16px;bottom:14px}
+.hd h1{font-size:clamp(44px,14.6vw,84px)}
+.hd p{margin-top:8px;font-size:16px;color:var(--ink2)}
+.act{display:flex;gap:8px;margin-top:14px}
+.btn{flex:1;display:flex;align-items:center;justify-content:center;min-height:48px;border-radius:999px;font-weight:800;font-size:15.5px}
+.btn.p{background:var(--acc);color:var(--onacc)}.btn.s{background:rgba(255,255,255,.12)}
+.now{padding:16px 0 6px}.now h2{padding:0 16px;font-size:13px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--acc)}
+.rail{display:flex;gap:10px;overflow-x:auto;scrollbar-width:none;padding:10px 16px 6px;scroll-snap-type:x mandatory}.rail::-webkit-scrollbar{display:none}
+.st{position:relative;flex:none;width:62%;max-width:260px;aspect-ratio:5/4;border-radius:20px;overflow:hidden;scroll-snap-align:start;background:#1b1b1d}
+.st:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 35%,rgba(0,0,0,.86))}
+.st div{position:absolute;z-index:1;left:14px;right:14px;bottom:12px}.st small{font-size:12px;font-weight:800;color:var(--acc);text-transform:uppercase;letter-spacing:.08em}
+.st b{display:block;font-family:'Archivo';font-stretch:112%;font-weight:800;font-size:19px;line-height:1.1;margin-top:2px}.st span{display:block;font-size:13px;color:var(--ink2);margin-top:2px}
+@media(min-width:900px){
+body{display:grid;grid-template-columns:minmax(380px,40vw) 1fr}
+.hero{position:sticky;top:0;height:100vh;max-height:none}
+.hero:after{background:linear-gradient(180deg,rgba(11,11,12,.5) 0,rgba(11,11,12,0) 25%,rgba(11,11,12,.2) 55%,rgba(11,11,12,.92) 100%)}
+.top,.hd{left:40px;right:40px}.top{top:28px}.hd{bottom:40px}.hd h1{font-size:clamp(56px,5.6vw,104px)}.hd p{font-size:18px}.act{max-width:420px}
+main{padding:28px 48px 0;min-width:0}.now h2{padding:0}.rail{padding:12px 0 6px}.st{width:260px}
+.legal{grid-column:2}
+}
+@media(min-width:1500px){:root{--cols:3}}
+</style></head><body>
+<header class="hero"><img src="img/salle.jpg" alt="La salle du Beerman">
+<div class="top"><span class="glass bpc">BPC</span><span class="glass open">Ouvert dès 16 h</span></div>
+<div class="hd"><h1 class="dp">Beerman</h1><p>Pub &amp; club · 64 rue Chanzy, Sainte-Menehould</p>
+<div class="act"><a class="btn p" href="#carte" data-go="0">Voir la carte</a><a class="btn s" href="https://www.google.com/maps/search/?api=1&query=Beerman+64+rue+Chanzy+Sainte-Menehould">Y aller</a><a class="btn s" href="https://www.instagram.com/beerman.pubclub/">Instagram</a></div></div></header>
+<main><section class="now"><h2>À ne pas manquer</h2><div class="rail">
+<button class="st" data-go="3"><img src="img/pz1.jpg" alt=""><div><small>La pizzeria</small><b>Pizzas dès 10 €</b><span>Reine, 4 Fromages, Kebab…</span></div></button>
+<div class="st"><img src="img/poker-jeudis.jpg" alt="" style="object-position:50% 92%"><div><small>Tous les jeudis</small><b>Soirée poker</b><span>Dès 19 h · inscription gratuite</span></div></div>
+<div class="st"><img src="img/flechettes.jpg" alt=""><div><small>Au fond du bar</small><b>Fléchettes</b><span>Deux cibles vous attendent</span></div></div>
+<button class="st" data-go="3"><img src="img/planche-1.jpg" alt=""><div><small>À partager</small><b>Planche charcuterie</b><span>10,50 €</span></div></button>
+</div></section>
+<div id="carte"><nav class="tabs" aria-label="La carte"><button type="button" class="tab on" data-g="0">Bières</button><button type="button" class="tab" data-g="1">Alcools &amp; vins</button><button type="button" class="tab" data-g="2">Softs &amp; café</button><button type="button" class="tab" data-g="3">À manger</button></nav></div><section class="grp" data-g="0">
+<div class="cat"><h3>Pression<span>6</span></h3><div class="its">
+<button class="it" type="button"><span class="vg"><img src="img/b1.webp" alt="" loading="lazy"></span><span class="tx"><b>Poids Plume</b><em>Bière à la pression, 5°.</em></span><span class="pxs"><span class="px"><b>3,00 €</b><small>25 cl</small></span><span class="px"><b>6,00 €</b><small>50 cl</small></span></span></button>
+<button class="it" type="button"><span class="vg"><img src="img/b8.webp" alt="" loading="lazy"></span><span class="tx"><b>Slash Citrus</b><em>Bière aromatisée au citron, avec une pointe de basilic, de la Brasserie Licorne (Saverne, Alsace). Jaune pâle, légèrement trouble · 4,3°.</em></span><span class="pxs"><span class="px"><b>–</b><small>25 cl</small></span><span class="px"><b>9,50 €</b><small>50 cl</small></span></span></button>
+<button class="it" type="button"><span class="vg"><img src="img/b3.webp" alt="" loading="lazy"></span><span class="tx"><b>Kasteel Rouge</b><em>Belge rouge aux cerises, ronde et veloutée · 8°</em></span><span class="pxs"><span class="px"><b>5,50 €</b><small>25 cl</small></span><span class="px"><b>9,50 €</b><small>50 cl</small></span></span></button>
+<button class="it" type="button"><span class="vg"><img src="img/b4.webp" alt="" loading="lazy"></span><span class="tx"><b>Paix Dieu</b><em>Triple d&#x27;abbaye blonde, fruits mûrs et épices · 10°</em></span><span class="pxs"><span class="px"><b>5,50 €</b><small>25 cl</small></span><span class="px"><b>10,50 €</b><small>50 cl</small></span></span></button>
+<button class="it" type="button"><span class="vg"><img src="img/b6.webp" alt="" loading="lazy"></span><span class="tx"><b>Picon bière</b><em>Bière blonde relevée d&#x27;un trait d&#x27;amer Picon (orange, gentiane) · 8°</em></span><span class="pxs"><span class="px"><b>4,50 €</b><small>25 cl</small></span><span class="px"><b>8,00 €</b><small>50 cl</small></span></span></button>
+<button class="it" type="button"><span class="vg"><img src="img/b7.webp" alt="" loading="lazy"></span><span class="tx"><b>Bière du moment</b><em>Bière pression qui change selon les arrivages. Demandez au bar le style, la brasserie et le degré.</em></span><span class="pxs"><span class="px"><b>5,00 €</b><small>25 cl</small></span><span class="px"><b>9,50 €</b><small>50 cl</small></span></span></button>
+</div></div>
+<div class="cat"><h3>Bouteilles<span>17</span></h3><div class="its">
+<button class="it" type="button"><span class="vg"><img src="img/bt11.webp" alt="" loading="lazy"></span><span class="tx"><b>Desperados</b><em>Blonde aromatisée à la tequila, douce et pétillante · 4,5°</em></span><span class="pxs"><span class="px"><b>6,50 €</b></span></span></button>
+<button class="it" type="button"><span class="vg"><img src="img/bt19.webp" alt="" loading="lazy"></span><span class="tx"><b>Kasteel Framboise</b><em>Belge à la framboise, fruitée et finale sèche · 7°</em></span><span class="pxs"><span class="px"><b>6,50 €</b></span></span></button>
+<button class="it" type="button"><span class="vg"><img src="img/bt4.webp" alt="" loading="lazy"></span><span class="tx"><b>Kasteel Tropical</b><em>Belge aux fruits tropicaux : mangue, pêche, passion · 7°</em></span><span class="pxs"><span class="px"><b>6,50 €</b></span></span></button>
+<button class="it" type="button"><span class="vg"><img src="img/bt20.webp" alt="" loading="lazy"></span><span class="tx"><b>Slash Mango</b><em>Bière aromatisée mangue et fruit de la passion, douce · 8°</em></span><span class="pxs"><span class="px"><b>6,50 €</b></span></span></button>
+<button class="it" type="button"><span class="vg"><img src="img/bt2.webp" alt="" loading="lazy"></span><span class="tx"><b>Slash Berry</b><em>Bière aux fruits rouges : framboise, cassis, mûre · 8°</em></span><span class="pxs"><span class="px"><b>6,50 €</b></span></span></button>
+<button class="it" type="button"><span class="vg"><img src="img/bt3.webp" alt="" loading="lazy"></span><span class="tx"><b>Slash IPA</b><em>IPA dorée, florale et houblonnée, amertume douce · 5,9°</em></span><span class="pxs"><span class="px"><b>6,50 €</b></span></span></button>
+<button class="it" type="button"><span class="vg"><img src="img/bt7.webp" alt="" loading="lazy"></span><span class="tx"><b>Pêche Mel Bush</b><em>Ambrée à la pêche, notes de caramel, légère amertume · 8,5°</em></span><span class="pxs"><span class="px"><b>6,50 €</b></span></span></button>
+<button class="it" type="button"><span class="vg"><img src="img/bt10.webp" alt="" loading="lazy"></span><span class="tx"><b>Paix Dieu Nova</b><em>Blonde dorée, fruitée et légèrement épicée · 6°</em></span><span class="pxs"><span class="px"><b>6,50 €</b></span></span></button>
+<button class="it" type="button"><span class="vg"><img src="img/bt12.webp" alt="" loading="lazy"></span><span class="tx"><b>Cuvée des Trolls</b><em>Blonde non filtrée, agrumes et fruits jaunes · 7°</em></span><span class="pxs"><span class="px"><b>6,50 €</b></span></span></button>
+<button class="it" type="button"><span class="vg"><img src="img/bt13.webp" alt="" loading="lazy"></span><span class="tx"><b>Cuvée des Trolls sans alcool</b><em>Version sans alcool de la famille Trolls, florale et citronnée</em></span><span class="pxs"><span class="px"><b>6,50 €</b></span></span></button>
+<button class="it" type="button"><span class="vg vide" style="--t:#C98B2B"><i></i></span><span class="tx"><b>Hoegaarden blanche</b><em>Blanche belge, coriandre et écorce d&#x27;orange · 4,9°</em></span><span class="pxs"><span class="px"><b>6,50 €</b></span></span></button>
+<button class="it" type="button"><span class="vg vide" style="--t:#C98B2B"><i></i></span><span class="tx"><b>La Chouffe blonde</b><em>Blonde des Ardennes belges, fruitée et épicée · 8°</em></span><span class="pxs"><span class="px"><b>6,50 €</b></span></span></button>
+<button class="it" type="button"><span class="vg vide" style="--t:#C98B2B"><i></i></span><span class="tx"><b>Bush Beer Triple</b><em>Triple blonde, fruits jaunes et agrumes, ronde · 10,5°</em></span><span class="pxs"><span class="px"><b>6,50 €</b></span></span></button>
+<button class="it" type="button"><span class="vg vide" style="--t:#C98B2B"><i></i></span><span class="tx"><b>Ardwen blonde</b><em>Blonde artisanale, houblon floral et agrumes · 5,6°</em></span><span class="pxs"><span class="px"><b>6,50 €</b></span></span></button>
+<button class="it" type="button"><span class="vg vide" style="--t:#C98B2B"><i></i></span><span class="tx"><b>Ardwen ambrée</b><em>Ambrée artisanale aux malts caramélisés · 6,5°</em></span><span class="pxs"><span class="px"><b>6,50 €</b></span></span></button>
+<button class="it" type="button"><span class="vg vide" style="--t:#C98B2B"><i></i></span><span class="tx"><b>Bon Secours Prestige</b><em>Bière belge de la gamme Bon Secours · 9°</em></span><span class="pxs"><span class="px"><b>6,50 €</b></span></span></button>
+<button class="it" type="button"><span class="vg vide" style="--t:#C98B2B"><i></i></span><span class="tx"><b>Pêcheresse</b><em>Lambic à la pêche, sucrée et légèrement acidulée · 1,5°</em></span><span class="pxs"><span class="px"><b>5,50 €</b></span></span></button>
+</div></div>
+</section>
+<section class="grp" data-g="1" hidden>
+<div class="cat"><h3>Apéritifs<span>5</span></h3><div class="its">
+<button class="it" type="button"><span class="vg vide" style="--t:#B8324A"><i></i></span><span class="tx"><b>Kir royal · 12 cl</b><em>Crème de cassis allongée de champagne, servie en flûte (12 cl).</em></span><span class="pxs"><span class="px"><b>9,50 €</b></span></span></button>
+<button class="it" type="button"><span class="vg vide" style="--t:#B8324A"><i></i></span><span class="tx"><b>Kir vin blanc · 12 cl</b><em>Crème de cassis allongée de vin blanc sec, apéritif traditionnel de Bourgogne (12 cl).</em></span><span class="pxs"><span class="px"><b>4,50 €</b></span></span></button>
+<button class="it" type="button"><span class="vg vide" style="--t:#B8324A"><i></i></span><span class="tx"><b>Ricard · 2 cl</b><em>Pastis de Marseille (anis étoilé, réglisse) · 45°. Servi en dose de 2 cl, à allonger d&#x27;eau fraîche.</em></span><span class="pxs"><span class="px"><b>3,00 €</b></span></span></button>
+<button class="it" type="button"><span class="vg vide" style="--t:#B8324A"><i></i></span><span class="tx"><b>Ratafia · 10 cl</b><em>Ratafia champenois : moût de raisin de Champagne muté à l&#x27;eau-de-vie, puis vieilli en fût. Doux et fruité, notes de fruits secs et de miel (10 cl).</em></span><span class="pxs"><span class="px"><b>5,50 €</b></span></span></button>
+<button class="it" type="button"><span class="vg vide" style="--t:#B8324A"><i></i></span><span class="tx"><b>Porto rouge ou blanc · 6 cl</b><em>Vin muté de la vallée du Douro (Portugal), rouge ou blanc. Doux, notes de fruits rouges ou de fruits secs (6 cl).</em></span><span class="pxs"><span class="px"><b>5,00 €</b></span></span></button>
+</div></div>
+<div class="cat"><h3>Liqueurs<span>6</span></h3><div class="its">
+<button class="it" type="button"><span class="vg vide" style="--t:#7A4B2A"><i></i></span><span class="tx"><b>Bailey&#x27;s</b><em>Crème de whiskey irlandais (Irlande), à la crème et au cacao. Douce et onctueuse · 17°.</em></span><span class="pxs"><span class="px"><b>5,50 €</b><small>verre</small></span><span class="px"><b>55,00 €</b><small>bouteille</small></span></span></button>
+<button class="it" type="button"><span class="vg vide" style="--t:#7A4B2A"><i></i></span><span class="tx"><b>Get 27 ou Get 31 · 1 L</b><em>Liqueurs de menthe françaises : Get 27 (menthe verte, 17,9°) ou Get 31 (menthe poivrée blanche, 24°). Servies sur glace.</em></span><span class="pxs"><span class="px"><b>5,50 €</b><small>verre</small></span><span class="px"><b>80,00 €</b><small>bouteille</small></span></span></button>
+<button class="it" type="button"><span class="vg vide" style="--t:#7A4B2A"><i></i></span><span class="tx"><b>Belle Poire</b><em>Liqueur de poire. Si c&#x27;est la Belle de Brillet : poire William et cognac, Charente · 30°.</em></span><span class="pxs"><span class="px"><b>4,50 €</b></span></span></button>
+<button class="it" type="button"><span class="vg vide" style="--t:#7A4B2A"><i></i></span><span class="tx"><b>Cognac</b><em>Eau-de-vie de vin de la région de Cognac (Charente), double distillation et vieillissement en fût de chêne · 40°.</em></span><span class="pxs"><span class="px"><b>7,00 €</b></span></span></button>
+<button class="it" type="button"><span class="vg vide" style="--t:#7A4B2A"><i></i></span><span class="tx"><b>Jägermeister</b><em>Liqueur allemande aux 56 plantes, racines et épices (Wolfenbüttel). Notes d&#x27;herbes, d&#x27;anis et d&#x27;agrumes · 35°. Se sert très frais.</em></span><span class="pxs"><span class="px"><b>5,00 €</b><small>verre</small></span><span class="px"><b>70,00 €</b><small>bouteille</small></span></span></button>
+<button class="it" type="button"><span class="vg vide" style="--t:#7A4B2A"><i></i></span><span class="tx"><b>La Spécial</b><em>Préparation de la maison. Composition et degré à demander au bar.</em></span><span class="pxs"><span class="px"><b>7,50 €</b></span></span></button>
+</div></div>
+<div class="cat"><h3>Champagnes<span>2</span></h3><div class="its">
+<button class="it" type="button"><span class="vg vide" style="--t:#E6CF8E"><i></i></span><span class="tx"><b>Roger Guy</b><em>Champagne brut (assemblage de cépages champenois, prise de mousse en bouteille). Servi en bouteille.</em></span><span class="pxs"><span class="px dem">au comptoir</span></span></button>
+<button class="it" type="button"><span class="vg vide" style="--t:#E6CF8E"><i></i></span><span class="tx"><b>Ruinart</b><em>Champagne de la maison Ruinart, fondée à Reims en 1729. Servi en bouteille.</em></span><span class="pxs"><span class="px dem">au comptoir</span></span></button>
+</div></div>
+<div class="cat"><h3>Vins<span>3</span></h3><div class="its">
+<button class="it" type="button"><span class="vg vide" style="--t:#7B1E3A"><i></i></span><span class="tx"><b>Côtes du Rhône · rouge</b><em>Vin rouge de la vallée du Rhône, à base de grenache et de syrah. Fruits rouges, épices douces.</em></span><span class="pxs"><span class="px"><b>35,00 €</b></span></span></button>
+<button class="it" type="button"><span class="vg vide" style="--t:#7B1E3A"><i></i></span><span class="tx"><b>Chablis · blanc</b><em>Vin blanc sec de Bourgogne (nord de l&#x27;Yonne), 100 % chardonnay. Vif et minéral, notes d&#x27;agrumes.</em></span><span class="pxs"><span class="px"><b>9,00 €</b><small>verre</small></span><span class="px"><b>50,00 €</b><small>bouteille</small></span></span></button>
+<button class="it" type="button"><span class="vg vide" style="--t:#7B1E3A"><i></i></span><span class="tx"><b>Coteaux du Layon · blanc</b><em>Vin blanc moelleux de l&#x27;Anjou (Loire), 100 % chenin. Doux, notes de miel, de coing et de fruits confits.</em></span><span class="pxs"><span class="px"><b>6,50 €</b><small>verre</small></span><span class="px"><b>35,00 €</b><small>bouteille</small></span></span></button>
+</div></div>
+<div class="cat"><h3>Alcools<span>13</span></h3><div class="its">
+<button class="it" type="button"><span class="vg vide" style="--t:#B5772E"><i></i></span><span class="tx"><b>Lawson</b><em>Blended scotch whisky (Écosse) · 40°. Malté et léger, notes de céréales et de vanille.</em></span><span class="pxs"><span class="px"><b>5,50 €</b><small>verre</small></span><span class="px"><b>65,00 €</b><small>bouteille</small></span></span></button>
+<button class="it" type="button"><span class="vg vide" style="--t:#B5772E"><i></i></span><span class="tx"><b>Jack Daniel&#x27;s</b><em>Whiskey du Tennessee (Lynchburg, États-Unis), filtré au charbon d&#x27;érable avant vieillissement. Notes de vanille, caramel et bois · 40°.</em></span><span class="pxs"><span class="px"><b>7,50 €</b><small>verre</small></span><span class="px"><b>75,00 €</b><small>bouteille</small></span></span></button>
+<button class="it" type="button"><span class="vg vide" style="--t:#B5772E"><i></i></span><span class="tx"><b>Table Whisky single malt</b><em>Whisky écossais de la Port of Leith Distillery (Édimbourg). Corps léger, notes de fruits rouges, vanille et pain d&#x27;épices · 43°.</em></span><span class="pxs"><span class="px"><b>8,00 €</b><small>verre</small></span><span class="px"><b>100,00 €</b><small>bouteille</small></span></span></button>
+<button class="it" type="button"><span class="vg vide" style="--t:#B5772E"><i></i></span><span class="tx"><b>Captain Morgan</b><em>Rhum épicé des Caraïbes, notes de vanille et d&#x27;épices · 35°. Servi pur ou avec un soft (+1,50 €).</em></span><span class="pxs"><span class="px"><b>5,50 €</b><small>verre</small></span><span class="px"><b>70,00 €</b><small>bouteille</small></span></span></button>
+<button class="it" type="button"><span class="vg vide" style="--t:#B5772E"><i></i></span><span class="tx"><b>Diplomatico</b><em>Rhum ambré du Venezuela. La Reserva Exclusiva (40°) présente des notes de caramel, de vanille et de fruits secs.</em></span><span class="pxs"><span class="px"><b>7,50 €</b><small>verre</small></span><span class="px"><b>80,00 €</b><small>bouteille</small></span></span></button>
+<button class="it" type="button"><span class="vg vide" style="--t:#B5772E"><i></i></span><span class="tx"><b>Rhum caramel vanille</b><em>Rhum aromatisé au caramel et à la vanille. Marque et degré à demander au bar.</em></span><span class="pxs"><span class="px"><b>7,50 €</b></span></span></button>
+<button class="it" type="button"><span class="vg vide" style="--t:#B5772E"><i></i></span><span class="tx"><b>Eristoff</b><em>Vodka de blé filtrée au charbon de bois (groupe Bacardi) · 37,5°. Servie pure ou avec une boisson énergisante.</em></span><span class="pxs"><span class="px"><b>6,00 €</b><small>verre</small></span><span class="px"><b>70,00 €</b><small>bouteille</small></span></span></button>
+<button class="it" type="button"><span class="vg vide" style="--t:#B5772E"><i></i></span><span class="tx"><b>Absolut</b><em>Vodka suédoise distillée à partir de blé d&#x27;hiver, produite à Åhus · 40°. Servie à la bouteille.</em></span><span class="pxs"><span class="px"><b>80,00 €</b></span></span></button>
+<button class="it" type="button"><span class="vg vide" style="--t:#B5772E"><i></i></span><span class="tx"><b>Grey Goose poire, berry ou citron</b><em>Vodka française de blé de Picardie, aromatisée poire, fruits rouges ou citron · 40°. Servie à la bouteille.</em></span><span class="pxs"><span class="px"><b>120,00 €</b></span></span></button>
+<button class="it" type="button"><span class="vg vide" style="--t:#B5772E"><i></i></span><span class="tx"><b>Grey Goose original</b><em>Vodka française de blé de Picardie, coupée à l&#x27;eau de source de Gensac (Charente) · 40°. Servie à la bouteille.</em></span><span class="pxs"><span class="px"><b>120,00 €</b></span></span></button>
+<button class="it" type="button"><span class="vg vide" style="--t:#B5772E"><i></i></span><span class="tx"><b>Grey Goose original · magnum</b><em>Vodka française Grey Goose en magnum (1,5 L), blé de Picardie et eau de source de Gensac · 40°.</em></span><span class="pxs"><span class="px"><b>250,00 €</b></span></span></button>
+<button class="it" type="button"><span class="vg vide" style="--t:#B5772E"><i></i></span><span class="tx"><b>San José · tequila</b><em>Tequila silver produite au Mexique à partir d&#x27;agave bleu · 35°.</em></span><span class="pxs"><span class="px"><b>5,50 €</b><small>verre</small></span><span class="px"><b>55,00 €</b><small>bouteille</small></span></span></button>
+<button class="it" type="button"><span class="vg vide" style="--t:#B5772E"><i></i></span><span class="tx"><b>Gordon&#x27;s · gin</b><em>Gin London dry, aux baies de genièvre, coriandre et agrumes · 37,5°. Servi pur ou avec un soft (+1,50 €).</em></span><span class="pxs"><span class="px"><b>5,00 €</b><small>verre</small></span><span class="px"><b>60,00 €</b><small>bouteille</small></span></span></button>
+</div></div>
+</section>
+<section class="grp" data-g="2" hidden>
+<div class="cat"><h3>Softs<span>12</span></h3><div class="its">
+<button class="it" type="button"><span class="vg"><img src="img/s6.jpg" alt="" loading="lazy"></span><span class="tx"><b>Coca-Cola</b><em>Soda au cola, servi frais (33 cl).</em></span><span class="pxs"><span class="px"><b>3,00 €</b></span></span></button>
+<button class="it" type="button"><span class="vg vide" style="--t:#4E9E8C"><i></i></span><span class="tx"><b>Coca-Cola Cherry</b><em>Soda au cola aromatisé à la cerise, servi frais (33 cl).</em></span><span class="pxs"><span class="px"><b>3,00 €</b></span></span></button>
+<button class="it" type="button"><span class="vg vide" style="--t:#4E9E8C"><i></i></span><span class="tx"><b>Coca-Cola Zéro</b><em>Soda au cola sans sucres, avec édulcorants, servi frais (33 cl).</em></span><span class="pxs"><span class="px"><b>3,00 €</b></span></span></button>
+<button class="it" type="button"><span class="vg vide" style="--t:#4E9E8C"><i></i></span><span class="tx"><b>Fuze Tea</b><em>Boisson au thé glacé, plate, servie fraîche (33 cl). Parfum selon disponibilité.</em></span><span class="pxs"><span class="px"><b>3,00 €</b></span></span></button>
+<button class="it" type="button"><span class="vg vide" style="--t:#4E9E8C"><i></i></span><span class="tx"><b>Oasis Tropical</b><em>Boisson aux fruits plate, saveurs tropicales (orange, ananas, mangue, fruit de la passion), servie fraîche (33 cl).</em></span><span class="pxs"><span class="px"><b>3,00 €</b></span></span></button>
+<button class="it" type="button"><span class="vg"><img src="img/s9.jpg" alt="" loading="lazy"></span><span class="tx"><b>Orangina</b><em>Boisson gazeuse à l&#x27;orange, avec pulpe, servie fraîche (33 cl).</em></span><span class="pxs"><span class="px"><b>3,00 €</b></span></span></button>
+<button class="it" type="button"><span class="vg vide" style="--t:#4E9E8C"><i></i></span><span class="tx"><b>Red Bull</b><em>Boisson énergisante gazeuse contenant de la caféine et de la taurine (25 cl). Déconseillée aux enfants et aux femmes enceintes.</em></span><span class="pxs"><span class="px"><b>5,00 €</b></span></span></button>
+<button class="it" type="button"><span class="vg vide" style="--t:#4E9E8C"><i></i></span><span class="tx"><b>Schweppes Agrumes ou Tonic</b><em>Soda aux agrumes ou tonic à la quinine (amer), servi frais (33 cl).</em></span><span class="pxs"><span class="px"><b>3,00 €</b></span></span></button>
+<button class="it" type="button"><span class="vg"><img src="img/s1.jpg" alt="" loading="lazy"></span><span class="tx"><b>Perrier</b><em>Eau minérale naturelle gazeuse de Vergèze (Gard), servie fraîche (33 cl).</em></span><span class="pxs"><span class="px"><b>3,50 €</b></span></span></button>
+<button class="it" type="button"><span class="vg vide" style="--t:#4E9E8C"><i></i></span><span class="tx"><b>Jus de fruits</b><em>orange, ananas, abricot, fraise, pomme, mangue, tomate</em></span><span class="pxs"><span class="px"><b>4,00 €</b></span></span></button>
+<button class="it" type="button"><span class="vg vide" style="--t:#4E9E8C"><i></i></span><span class="tx"><b>Sirop à l&#x27;eau</b><em>Sirop de fruit allongé d&#x27;eau fraîche (25 cl). Parfum au choix.</em></span><span class="pxs"><span class="px"><b>2,00 €</b></span></span></button>
+<button class="it" type="button"><span class="vg"><img src="img/s10.jpg" alt="" loading="lazy"></span><span class="tx"><b>Diabolo</b><em>Limonade allongée d&#x27;un sirop de fruit au choix (25 cl).</em></span><span class="pxs"><span class="px"><b>2,50 €</b></span></span></button>
+</div></div>
+<div class="cat"><h3>Caféterie<span>6</span></h3><div class="its">
+<button class="it" type="button"><span class="vg vide" style="--t:#5B4032"><i></i></span><span class="tx"><b>Café</b><em>Café expresso, servi en tasse.</em></span><span class="pxs"><span class="px"><b>1,50 €</b></span></span></button>
+<button class="it" type="button"><span class="vg vide" style="--t:#5B4032"><i></i></span><span class="tx"><b>Boisson chaude n° 2 (nom illisible)</b><em></em></span><span class="pxs"><span class="px"><b>3,00 €</b></span></span></button>
+<button class="it" type="button"><span class="vg vide" style="--t:#5B4032"><i></i></span><span class="tx"><b>Boisson chaude n° 3 (nom illisible)</b><em></em></span><span class="pxs"><span class="px"><b>2,00 €</b></span></span></button>
+<button class="it" type="button"><span class="vg vide" style="--t:#5B4032"><i></i></span><span class="tx"><b>Boisson chaude n° 4 (nom illisible)</b><em></em></span><span class="pxs"><span class="px"><b>3,50 €</b></span></span></button>
+<button class="it" type="button"><span class="vg vide" style="--t:#5B4032"><i></i></span><span class="tx"><b>Boisson chaude n° 5 (nom illisible)</b><em></em></span><span class="pxs"><span class="px"><b>3,00 €</b></span></span></button>
+<button class="it" type="button"><span class="vg vide" style="--t:#5B4032"><i></i></span><span class="tx"><b>Boisson chaude n° 6 (nom illisible)</b><em></em></span><span class="pxs"><span class="px"><b>3,00 €</b></span></span></button>
+</div></div>
+</section>
+<section class="grp" data-g="3" hidden>
+<div class="cat"><h3>Pizzas<span>5</span></h3><div class="its">
+<button class="it" type="button"><span class="vg"><img src="img/pz1.jpg" alt="" loading="lazy"></span><span class="tx"><b>Reine</b><em>tomate, jambon, champignon</em></span><span class="pxs"><span class="px"><b>10,00 €</b></span></span></button>
+<button class="it" type="button"><span class="vg"><img src="img/pz2.jpg" alt="" loading="lazy"></span><span class="tx"><b>4 Fromages</b><em>mozzarella, gouda, emmental, gorgonzola, fines herbes</em></span><span class="pxs"><span class="px"><b>10,00 €</b></span></span></button>
+<button class="it" type="button"><span class="vg"><img src="img/pz3.jpg" alt="" loading="lazy"></span><span class="tx"><b>Kebab</b><em>sauce crème, fromage blanc, kebab, oignon, poivrons, épices</em></span><span class="pxs"><span class="px"><b>10,00 €</b></span></span></button>
+<button class="it" type="button"><span class="vg"><img src="img/pz4.jpg" alt="" loading="lazy"></span><span class="tx"><b>Romana</b><em>tomate, gouda, tranche de jambon ou salami</em></span><span class="pxs"><span class="px"><b>10,00 €</b></span></span></button>
+<button class="it" type="button"><span class="vg"><img src="img/pz5.jpg" alt="" loading="lazy"></span><span class="tx"><b>Tarte flambée</b><em>sauce crème fraîche, lardons, oignons</em></span><span class="pxs"><span class="px"><b>11,00 €</b></span></span></button>
+</div></div>
+<div class="cat"><h3>Snacks<span>3</span></h3><div class="its">
+<button class="it" type="button"><span class="vg vide" style="--t:#A8683C"><i></i></span><span class="tx"><b>Planche charcuterie</b><em>coppa, rosette, comté, brie</em></span><span class="pxs"><span class="px"><b>10,50 €</b></span></span></button>
+<button class="it" type="button"><span class="vg vide" style="--t:#A8683C"><i></i></span><span class="tx"><b>Saucissons</b><em>taureau, cèpes, noisette, piment d&#x27;Espelette, beaufort</em></span><span class="pxs"><span class="px"><b>6,00 €</b></span></span></button>
+<button class="it" type="button"><span class="vg vide" style="--t:#A8683C"><i></i></span><span class="tx"><b>Jambon ibérique · 100 g</b><em>Jambon sec de porc ibérique (Espagne), affiné plusieurs mois, servi en tranches fines (100 g).</em></span><span class="pxs"><span class="px"><b>7,00 €</b></span></span></button>
+</div></div>
+</section></main><p class="legal">L&#x27;abus d&#x27;alcool est dangereux pour la santé, à consommer avec modération.<br>Beerman · 64 rue Chanzy, Sainte-Menehould</p><script>
+document.querySelectorAll('[data-g].tab,[data-go]').forEach(function(b){b.addEventListener('click',function(){
+var g=b.dataset.g||b.dataset.go;
+document.querySelectorAll('.tab').forEach(function(t){t.classList.toggle('on',t.dataset.g===g)});
+document.querySelectorAll('.grp').forEach(function(s){s.hidden=s.dataset.g!==g});
+if(b.dataset.go){document.querySelector('.tabs').scrollIntoView({behavior:'smooth',block:'start'})}
+var t=document.querySelector('.tab.on');if(t&&t.scrollIntoView)t.scrollIntoView({inline:'center',block:'nearest'});
+})});
+</script></body></html>
