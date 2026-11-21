@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Beerman · le film</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;800&family=Libre+Franklin:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--noir:#0B0A09;--or:#D9B36C;--or2:#F1D9A0;--creme:#F3EAD7}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--noir);color:var(--creme);font-family:"Libre Franklin",system-ui,sans-serif}
+body{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:clamp(12px,3vw,40px) 16px;gap:clamp(14px,2.4vh,26px);
+  background:radial-gradient(120% 80% at 50% 0%,#241a0f 0%,var(--noir) 60%)}
+h1{margin:0;font-family:"Playfair Display",serif;font-weight:800;letter-spacing:.14em;font-size:clamp(26px,4.6vw,54px);
+  background:linear-gradient(180deg,var(--creme),var(--or));-webkit-background-clip:text;background-clip:text;color:transparent}
+p.sous{margin:0;letter-spacing:.32em;text-transform:uppercase;font-size:clamp(10px,1.3vw,14px);color:var(--or)}
+.cadre{width:min(100%,calc((100vh - 300px)*16/9),1600px);min-width:min(100%,300px);padding:6px;border:1px solid rgba(217,179,108,.55);border-radius:6px;
+  box-shadow:0 30px 80px rgba(0,0,0,.6),0 0 0 1px rgba(0,0,0,.6) inset}
+video{display:block;width:100%;aspect-ratio:16/9;background:#000;border-radius:3px}
+.act{display:flex;flex-wrap:wrap;gap:12px;justify-content:center}
+.act button,.act a{font:600 15px "Libre Franklin",system-ui,sans-serif;color:var(--creme);background:transparent;border:1px solid rgba(217,179,108,.6);
+  border-radius:999px;padding:11px 20px;min-height:44px;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:background .2s,color .2s}
+.act button:hover,.act a:hover,.act button[aria-pressed=true]{background:var(--or);color:#1a1206}
+.act button:focus-visible,.act a:focus-visible{outline:2px solid var(--or2);outline-offset:3px}
+footer{font-size:12px;letter-spacing:.08em;color:rgba(243,234,215,.55)}
+@media (prefers-reduced-motion:reduce){.act button,.act a{transition:none}}
+</style>
+</head>
+<body>
+<h1>BEERMAN</h1>
+<p class="sous">Pub &amp; Club · Sainte-Menehould</p>
+<div class="cadre"><video id="v" controls playsinline preload="metadata" poster="affiche.jpg">
+  <source src="beerman-1080p.mp4" type="video/mp4">
+</video></div>
+<div class="act">
+  <button id="q" type="button" aria-pressed="false">Passer en 4K</button>
+  <a href="beerman-4k.mp4" download>Télécharger le film 4K</a>
+</div>
+<footer>Film de présentation · 32 secondes · Agence LDR</footer>
+<script>
+const v=document.getElementById('v'),q=document.getElementById('q');
+q.addEventListener('click',()=>{const k=q.getAttribute('aria-pressed')==='true',t=v.currentTime,jeu=!v.paused;
+  v.src=k?'beerman-1080p.mp4':'beerman-4k.mp4';q.setAttribute('aria-pressed',String(!k));q.textContent=k?'Passer en 4K':'Revenir en HD';
+  v.addEventListener('loadedmetadata',()=>{v.currentTime=t;if(jeu)v.play()},{once:true});v.load()});
+</script>
+</body>
+</html>
