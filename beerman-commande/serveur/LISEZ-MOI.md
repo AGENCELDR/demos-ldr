@@ -9,4 +9,6 @@ Serveur **séparé d'Uno** (nom `beerman-commandes`, son propre stockage). Rien 
 Mise en ligne (une fois) : `npm install`, `npx wrangler login`, `npx wrangler secret put PIN_BAR`, `npx wrangler secret put SECRET_QR`, `npx wrangler deploy`.
 Ensuite : `python3 ../brancher.py ../../beerman-apercu ../carte <adresse>/api` refait la carte branchée.
 
+Données (doit rester vrai, c'est écrit dans les mentions légales de la carte) : aucun nom, téléphone ni cookie ; une commande (table, articles, mot pour le bar) est effacée au bout de 30 jours, il n'en reste qu'un total anonyme par soirée pour les statistiques (table `bilan`) ; l'adresse IP n'est jamais gardée, seulement une empreinte chiffrée qui change chaque jour, effacée en quelques heures. Le ménage tourne tout seul (alarme toutes les 6 h). Si on change la durée ici, changer aussi `mentions.conservation` dans `commande-table.js`.
+
 Garde-fous : chaque QR de table porte une clé (`?table=7&k=…`, liste via `/api/bar/qr`) ; la tablette annule avec une raison (le client la voit) et bloque une table 15 min, 1 h ou la soirée ; commandes inhabituelles marquées « À vérifier » ; limites de fréquence par téléphone et par table ; bouton pour couper toutes les commandes à table.
