@@ -55,8 +55,37 @@ export class Bar extends DurableObject {
       CREATE TABLE IF NOT EXISTS sessions(jeton TEXT PRIMARY KEY, exp INTEGER);
       CREATE TABLE IF NOT EXISTS limites(cle TEXT PRIMARY KEY, n INTEGER, fen INTEGER);
       CREATE TABLE IF NOT EXISTS reglages(k TEXT PRIMARY KEY, v TEXT);
-      CREATE TABLE IF NOT EXISTS blocages(tabl INTEGER PRIMARY KEY, jusqua INTEGER, raison TEXT);`);
+      CREATE TABLE IF NOT EXISTS blocages(tabl INTEGER PRIMARY KEY, jusqua INTEGER, raison TEXT);
+      CREATE TABLE IF NOT EXISTS bilan(jour TEXT, genre TEXT, n INTEGER, total REAL, att INTEGER, natt INTEGER, PRIMARY KEY(jour, genre));`);
     for (const c of ["raison TEXT", "alerte TEXT"]) { try { this.sql.exec("ALTER TABLE cmd ADD COLUMN " + c); } catch (_) {} }
+  }
+  // ménage (au plus une fois par heure, et par l'alarme même sans passage) :
+  // au bout de 30 jours une commande est effacée (table, articles, mot pour le bar) ; il n'en reste qu'un total
+  // anonyme par soirée pour les statistiques du patron. Les empreintes anti-abus sont effacées au bout d'une heure.
+  purger(force) {
+    const t = this.now();
+    if (!force && this._menage && t - this._menage < 3600e3) return;
+    this._menage = t;
+    const lim = t - 30 * 864e5;
+    this.sql.exec(`INSERT INTO bilan(jour,genre,n,total,att,natt)
+      SELECT jour, genre, COUNT(*), COALESCE(SUM(total),0), COALESCE(SUM(CASE WHEN st=2 THEN maj-cree END),0), COUNT(CASE WHEN st=2 THEN 1 END)
+      FROM cmd WHERE cree<? AND st<>9 GROUP BY jour, genre
+      ON CONFLICT(jour,genre) DO UPDATE SET n=n+excluded.n, total=total+excluded.total, att=att+excluded.att, natt=natt+excluded.natt`, lim);
+    this.sql.exec("DELETE FROM cmd WHERE cree<?", lim);
+    this.sql.exec("DELETE FROM limites WHERE fen<?", t - 3600e3);
+    // le ménage se relance tout seul 6 h plus tard, même si plus personne ne passe
+    // (l'alarme ne se réarme elle-même que s'il reste quelque chose à effacer)
+    try {
+      const reste = this.sql.exec("SELECT (SELECT COUNT(*) FROM cmd)+(SELECT COUNT(*) FROM limites) n").toArray()[0].n;
+      if (!force || reste) this.ctx.storage.setAlarm(t + 6 * 3600e3);
+    } catch (_) {}
+  }
+  async alarm() { this.purger(true); }
+  // l'adresse IP n'est jamais gardée : seulement une empreinte chiffrée, différente chaque jour, pour limiter les abus
+  async empreinte(ip) {
+    if (!this._kIp) this._kIp = await crypto.subtle.importKey("raw", new TextEncoder().encode("ip:" + (this.env.SECRET_QR || "beerman")), { name: "HMAC", hash: "SHA-256" }, false, ["sign"]);
+    const sig = new Uint8Array(await crypto.subtle.sign("HMAC", this._kIp, new TextEncoder().encode(new Date(this.now()).toISOString().slice(0, 10) + "|" + ip)));
+    return [...sig.slice(0, 8)].map(b => b.toString(16).padStart(2, "0")).join("");
   }
   // une commande annulée ne compte plus dans les statistiques (et revient si on la remet « à prendre »)
   annulerStats(r, st) {
@@ -108,7 +137,8 @@ export class Bar extends DurableObject {
   }
 
   async fetch(req) {
-    const url = new URL(req.url), p = url.pathname, ip = req.headers.get("x-ip") || "?";
+    const url = new URL(req.url), p = url.pathname, ip = await this.empreinte(req.headers.get("x-ip") || "?");
+    this.purger();
     let corps = {};
     if (req.method === "POST") { try { const t = await req.text(); if (t.length > 20000) return err("gros", "Trop gros."); corps = t ? JSON.parse(t) : {}; } catch (_) { return err("json", "Demande illisible."); } }
     const nbT = Number(this.env.NB_TABLES || 30);
@@ -136,7 +166,6 @@ export class Bar extends DurableObject {
       const ouv = this.sql.exec("SELECT COUNT(*) n FROM cmd WHERE tabl=? AND st=0 AND genre='commande'", table).toArray()[0].n;
       if (ouv) al.push("déjà une commande en attente");
       const num = (this.sql.exec("SELECT COUNT(*) n FROM cmd WHERE jour=?", P.jour).toArray()[0].n || 0) + 1;
-      this.sql.exec("DELETE FROM cmd WHERE cree<?", t - 30 * 864e5); // les commandes ne sont gardées que 30 jours
       const id = alea(8), secret = alea(12);
       this.sql.exec("INSERT INTO cmd(id,num,jour,genre,tabl,items,total,note,st,secret,cree,maj,qui,alerte) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
         id, num, P.jour, "commande", table, JSON.stringify(items), total, txt(corps.note, 200), ST.NOUVELLE, secret, t, t, "", al.join(" · "));
@@ -233,7 +262,7 @@ export class Bar extends DurableObject {
     // remise à zéro avant la vraie mise en service : efface commandes d'essai et statistiques
     if (p === "/api/bar/remise-a-zero" && req.method === "POST") {
       if (corps.confirme !== "OUI") return err("confirme", "Confirmation manquante.");
-      this.sql.exec("DELETE FROM cmd"); this.sql.exec("DELETE FROM stats"); this.sql.exec("DELETE FROM limites");
+      this.sql.exec("DELETE FROM cmd"); this.sql.exec("DELETE FROM stats"); this.sql.exec("DELETE FROM limites"); this.sql.exec("DELETE FROM bilan");
       this.diffuser({ type: "etat", commandes: [], pause: this.reglage("pause", false), blocages: this.blocages() });
       return json({ ok: true });
     }
@@ -248,7 +277,13 @@ export class Bar extends DurableObject {
       const parCle = this.sql.exec("SELECT ev, cle, SUM(n) n FROM stats WHERE jour>=? GROUP BY ev, cle", depuis).toArray();
       const parHeure = this.sql.exec("SELECT ev, h, SUM(n) n FROM stats WHERE jour>=? GROUP BY ev, h", depuis).toArray();
       const parJour = this.sql.exec("SELECT ev, jour, SUM(n) n FROM stats WHERE jour>=? GROUP BY ev, jour", depuis).toArray();
-      const cmd = this.sql.exec("SELECT genre, COUNT(*) n, SUM(total) total, AVG(CASE WHEN st=2 THEN maj-cree END) attente FROM cmd WHERE jour>=? AND st<>9 GROUP BY genre", depuis).toArray();
+      const tot = {};
+      for (const r of this.sql.exec("SELECT genre, COUNT(*) n, COALESCE(SUM(total),0) total, COALESCE(SUM(CASE WHEN st=2 THEN maj-cree END),0) att, COUNT(CASE WHEN st=2 THEN 1 END) natt FROM cmd WHERE jour>=? AND st<>9 GROUP BY genre", depuis).toArray()
+        .concat(this.sql.exec("SELECT genre, SUM(n) n, SUM(total) total, SUM(att) att, SUM(natt) natt FROM bilan WHERE jour>=? GROUP BY genre", depuis).toArray())) {
+        const x = tot[r.genre] || (tot[r.genre] = { genre: r.genre, n: 0, total: 0, att: 0, natt: 0 });
+        x.n += r.n; x.total += r.total; x.att += r.att; x.natt += r.natt;
+      }
+      const cmd = Object.values(tot).map(x => ({ genre: x.genre, n: x.n, total: Math.round(x.total * 100) / 100, attente: x.natt ? x.att / x.natt : null }));
       return json({ ok: true, depuis, jours, parCle, parHeure, parJour, cmd });
     }
     return err("route", "Introuvable.", 404);
