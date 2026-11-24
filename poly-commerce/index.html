@@ -44,7 +44,7 @@ h2 em,h1 em{font-style:normal;color:var(--jaune)}
 
 /* ---------- haut ---------- */
 .haut{position:relative;padding:12px 0 26px;overflow:hidden}
-.haut:before{content:"";position:absolute;inset:0;background:url(https://d1grzqaobpv15j.cloudfront.net/export/536-402/17160/44801596/44801596_1715701211_2.jpg) center/cover;filter:blur(28px) saturate(.6) brightness(.35);transform:scale(1.2)}
+.haut:before{content:"";position:absolute;inset:0;background:url(photos/44801596_1715701211_2.jpg) center/cover;filter:blur(28px) saturate(.6) brightness(.35);transform:scale(1.2)}
 .haut .w{position:relative;display:grid;gap:14px}
 .photo-h{position:relative;border-radius:10px;overflow:hidden;border:1px solid #ffffff22;box-shadow:0 30px 60px -20px #000}
 .photo-h img{width:100%;aspect-ratio:16/10;object-fit:cover}
@@ -181,7 +181,7 @@ dialog::backdrop{background:#000c}
 <div class="haut">
   <div class="w">
     <div class="photo-h">
-      <img src="https://d1grzqaobpv15j.cloudfront.net/export/536-402/17160/44801596/44801596_1715701211_2.jpg" alt="Débusqueur John Deere 648 L sur le parc de Poly Commerce à Givry-en-Argonne" width="536" height="402" fetchpriority="high">
+      <img src="photos/44801596_1715701211_2.jpg" alt="Débusqueur John Deere 648 L sur le parc de Poly Commerce à Givry-en-Argonne" width="536" height="402" fetchpriority="high">
       <div class="plaque">
         <div class="nom"><b>John Deere 648 L</b>Débusqueur · grapple · 2016</div>
         <div class="horametre" data-h="8924" aria-label="8 924 heures au compteur"></div>
@@ -315,7 +315,7 @@ dialog::backdrop{background:#000c}
 <dialog id="fiche" aria-label="Fiche machine"><div class="panneau" id="panneau"></div></dialog>
 
 <script>
-const IMG='https://d1grzqaobpv15j.cloudfront.net/export/536-402/17160/';
+const IMG='photos/';
 const ANNONCE='https://www.polycommerce.fr/fr/www-polycommerce-fr/cla/';
 // Données relevées sur polycommerce.fr le 24/11/2026. h = heures affichées ; hs = repère du compteur franc
 const M=[
@@ -340,7 +340,7 @@ const M=[
 ];
 const HS={o:["Heures d'origine",""],a:["Lu au compteur","a"],r:["Compteur remis à zéro","r"]};
 const eur=v=>v.toLocaleString('fr-FR').replace(/ | /g,' ')+' €';
-const src=(m,i)=>IMG+m.id+'/'+m.id+'_'+m.ph[i]+'.jpg';
+const src=(m,i)=>IMG+m.id+'_'+m.ph[i]+'.jpg';
 
 // Horamètre à rouleaux
 function horametre(el,h,anim){
