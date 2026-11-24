@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0D0B09">
+<link rel="manifest" href="manifest-stats.json">
+<link rel="apple-touch-icon" href="icone.png">
+<title>Beerman · Ce qui marche</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,700;0,800;1,700&family=Alegreya+Sans:wght@500;700;800&family=Alegreya+Sans+SC:wght@700;800&display=swap">
+<style>
+/* Statistiques du patron : ce que les clients regardent, lisent, commandent. Anonyme, sans cookie. */
+:root{--nuit:#0D0B09;--bois:#1E1610;--cuir:#2C2017;--or:#D8B36C;--or2:#F1DCA6;--orf:#8C6C33;--ink:#F4EBDC;--ink2:#BFB09A;--ligne:rgba(216,179,108,.2);
+ --rouge:#E0614A;--vert:#4FB07A;--fd:"Alegreya",Georgia,serif;--ft:"Alegreya Sans",system-ui,sans-serif;--sc:"Alegreya Sans SC",system-ui,sans-serif;color-scheme:dark}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--nuit);color:var(--ink);font-family:var(--ft);font-size:16px;-webkit-tap-highlight-color:transparent}
+body{background:radial-gradient(900px 500px at 50% -160px,#2a1f15 0,transparent 70%),var(--nuit)}
+button{font:inherit;color:inherit;cursor:pointer;border:0;background:none}
+.cache{display:none!important}
+.w{max-width:760px;margin:0 auto;padding:18px 16px 60px}
+.mono{font-family:var(--fd);font-weight:800;color:var(--or)}
+#cx{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
+.bx{width:min(400px,100%);background:linear-gradient(180deg,var(--cuir),var(--bois));border:1px solid var(--ligne);border-radius:22px;padding:28px 24px;text-align:center}
+.bx .mono{font-size:50px}.bx h1{font:800 24px var(--fd);margin:8px 0 2px}.bx p{color:var(--ink2);margin:0 0 18px}
+.bx input{width:100%;font:800 30px var(--fd);letter-spacing:.4em;text-align:center;padding:12px;border-radius:14px;border:2px solid var(--ligne);background:var(--nuit);color:var(--ink)}
+.gros{display:block;width:100%;font:800 18px var(--sc);letter-spacing:.06em;border-radius:14px;padding:15px;margin-top:12px;background:linear-gradient(180deg,var(--or2),var(--or) 45%,var(--orf));color:#17110A}
+.err{color:#ff9b85;min-height:20px;margin-top:10px;font-weight:700}
+.tete{display:flex;align-items:center;gap:12px;margin-bottom:6px}.tete .mono{font-size:34px}
+.tete h1{font:800 26px var(--fd);margin:0;line-height:1.05}.tete small{display:block;font:700 13px var(--sc);letter-spacing:.16em;color:var(--ink2)}
+.ex{display:inline-block;background:var(--or);color:#17110A;font:800 12px var(--sc);letter-spacing:.12em;border-radius:999px;padding:3px 10px;margin:10px 0 0}
+.per{display:flex;gap:8px;margin:16px 0 6px}
+.per button{flex:1;border:1.5px solid var(--ligne);border-radius:999px;padding:10px;font:800 15px var(--sc);letter-spacing:.06em;color:var(--ink2)}
+.per button[aria-pressed=true]{background:var(--or);border-color:var(--or);color:#17110A}
+.kpi{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:14px 0}
+@media(min-width:620px){.kpi{grid-template-columns:repeat(4,1fr)}}
+.k{background:linear-gradient(180deg,var(--cuir),var(--bois));border:1px solid var(--ligne);border-radius:16px;padding:12px 14px}
+.k b{display:block;font:800 30px var(--fd);color:var(--or2);font-variant-numeric:tabular-nums;line-height:1.1}.k span{color:var(--ink2);font-size:14px}
+section{margin-top:26px}
+h2{font:800 20px var(--fd);margin:0 0 2px}h2+p{color:var(--ink2);margin:0 0 12px;font-size:15px}
+.bar{display:grid;grid-template-columns:1fr auto;gap:2px 10px;padding:8px 0;border-bottom:1px solid var(--ligne)}
+.bar .n{font-weight:700}.bar .v{font:800 17px var(--fd);color:var(--or);font-variant-numeric:tabular-nums;text-align:right}
+.bar .g{grid-column:1/3;height:8px;border-radius:99px;background:rgba(216,179,108,.12);overflow:hidden}.bar .g i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,var(--orf),var(--or))}
+.bar .s{grid-column:1/3;color:var(--ink2);font-size:14px}
+.conseil{background:rgba(216,179,108,.08);border:1px solid var(--ligne);border-left:3px solid var(--or);border-radius:12px;padding:12px 14px;margin:8px 0;font-size:15px}
+.conseil b{color:var(--or2)}
+.heures{display:flex;align-items:flex-end;gap:5px;height:150px;padding-top:10px;border-bottom:1px solid var(--ligne)}
+.heures div{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;height:100%;gap:4px}
+.heures i{display:block;width:100%;border-radius:6px 6px 0 0;background:linear-gradient(180deg,var(--or),var(--orf));min-height:2px}
+.heures i.top{background:linear-gradient(180deg,var(--or2),var(--or))}
+.heures em{font-style:normal;font-size:12px;color:var(--ink2)}
+.vide{color:var(--ink2);padding:14px 0}
+.pied{margin-top:34px;color:var(--ink2);font-size:13px;line-height:1.5;border-top:1px solid var(--ligne);padding-top:14px}
+.pied a{color:var(--or)}
+.retour{display:inline-block;margin-top:14px;color:var(--or);font-weight:700}
+</style>
+</head>
+<body>
+<div id="cx" class="cache"><div class="bx"><div class="mono">BPC</div><h1>Ce qui marche au Beerman</h1><p>Le code du bar ouvre les statistiques.</p>
+  <input id="pin" inputmode="numeric" autocomplete="off" maxlength="8" placeholder="····" aria-label="Code">
+  <button class="gros" id="entrer">Voir</button><div class="err" id="e1"></div></div></div>
+
+<div id="app" class="w cache">
+  <div class="tete"><span class="mono">BPC</span><div><small>BEERMAN · CARTE QR</small><h1>Ce qui marche</h1></div></div>
+  <div id="exemple" class="ex cache">EXEMPLE · chiffres inventés pour la démonstration</div>
+  <div class="per" role="group" aria-label="Période"><button data-j="7">7 jours</button><button data-j="30" aria-pressed="true">30 jours</button><button data-j="90">3 mois</button></div>
+  <div class="kpi" id="kpi"></div>
+  <div id="conseils"></div>
+  <section><h2>Ce qui attire l'œil</h2><p>Les articles que les clients touchent le plus pour en savoir plus.</p><div id="top"></div></section>
+  <section><h2>Regardé, mais peu commandé</h2><p>Ça intéresse, mais ça ne se commande pas. Le texte, la photo ou le prix sont à revoir.</p><div id="flop"></div></section>
+  <section><h2>Les descriptions vraiment lues</h2><p>Fiche restée ouverte plus de 4 secondes : le client a lu le texte.</p><div id="lus"></div></section>
+  <section><h2>Les heures de pointe</h2><p>Commandes et appels depuis les tables, par heure.</p><div class="heures" id="heures"></div></section>
+  <section><h2>Les pages de la carte</h2><p>Où les clients vont en premier.</p><div id="pages"></div></section>
+  <div class="pied">Statistiques anonymes : aucun cookie, aucun nom, aucun numéro. Seulement des compteurs, comme un ticket de caisse sans le client.<br>
+    <a class="retour" href="./">← Tablette du bar</a><br><br>Réalisé par <a href="https://agence-ldr.fr" target="_blank" rel="noopener">Agence LDR</a></div>
+</div>
+
+<script>
+var API=location.origin+'/api',J=null,DEMO=/demo=1/.test(location.search),jours=30;
+try{J=localStorage.getItem('bm-bar-j');}catch(e){}
+function $(i){return document.getElementById(i);}
+function esc(t){return String(t==null?'':t).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+function api(ch,o){o=o||{};var h={'content-type':'application/json'};if(J)h.authorization='Bearer '+J;return fetch(API+ch,{method:o.corps?'POST':'GET',headers:h,body:o.corps?JSON.stringify(o.corps):undefined}).then(function(r){return r.json().then(function(d){d._s=r.status;return d;});});}
+$('entrer').onclick=function(){api('/bar/entrer',{corps:{pin:$('pin').value}}).then(function(d){if(!d.ok){$('e1').textContent=d.message||'Erreur';return;}J=d.jeton;try{localStorage.setItem('bm-bar-j',J);}catch(e){}ouvrir();});};
+$('pin').addEventListener('keydown',function(e){if(e.key==='Enter')$('entrer').click();});
+document.querySelectorAll('.per button').forEach(function(b){b.onclick=function(){jours=+b.dataset.j;document.querySelectorAll('.per button').forEach(function(x){x.setAttribute('aria-pressed',x===b);});charger();};});
+function ouvrir(){$('cx').classList.add('cache');$('app').classList.remove('cache');charger();}
+function charger(){if(DEMO){dessiner(exemple(jours));return;}api('/bar/stats?jours='+jours).then(function(d){if(d._s===401){J=null;$('app').classList.add('cache');$('cx').classList.remove('cache');return;}dessiner(d);});}
+function somme(L,ev){var o={};L.filter(function(x){return x.ev===ev;}).forEach(function(x){o[x.cle]=(o[x.cle]||0)+x.n;});return o;}
+function tot(o){return Object.keys(o).reduce(function(s,k){return s+o[k];},0);}
+function barres(o,max,suffixe,sous){var k=Object.keys(o).sort(function(a,b){return o[b]-o[a];}).slice(0,max||8);if(!k.length)return '<div class="vide">Pas encore assez de données. Revenez après quelques soirées.</div>';var m=o[k[0]]||1;
+  return k.map(function(n){return '<div class="bar"><span class="n">'+esc(n)+'</span><span class="v">'+o[n]+(suffixe||'')+'</span><span class="g"><i style="width:'+Math.max(3,o[n]/m*100)+'%"></i></span>'+(sous?'<span class="s">'+sous(n)+'</span>':'')+'</div>';}).join('');}
+function dessiner(d){
+  $('exemple').classList.toggle('cache',!DEMO);
+  var L=d.parCle||[],fic=somme(L,'fiche'),lu=somme(L,'lu'),com=somme(L,'commande'),pag=somme(L,'page'),vis=tot(somme(L,'visite'));
+  var nc=0,na=0,att=0;(d.cmd||[]).forEach(function(c){if(c.genre==='commande'){nc=c.n;att=c.attente||0;}else na=c.n;});
+  $('kpi').innerHTML=[[vis,'cartes ouvertes'],[tot(fic),'fiches regardées'],[nc,'commandes à table'],[att?Math.round(att/60000)+' min':'–','pour servir une commande']].map(function(x){return '<div class="k"><b>'+x[0]+'</b><span>'+x[1]+'</span></div>';}).join('');
+  $('top').innerHTML=barres(fic,8,'',function(n){return (com[n]||0)+' commandé'+((com[n]||0)>1?'s':'')+' depuis la table';});
+  var flop={};Object.keys(fic).forEach(function(n){if(fic[n]>=5){var r=(com[n]||0)/fic[n];if(r<.2)flop[n]=fic[n];}});
+  $('flop').innerHTML=barres(flop,6,' vues',function(n){return 'commandé '+(com[n]||0)+' fois · '+Math.round(((com[n]||0)/fic[n])*100)+' % des curieux';});
+  var taux={};Object.keys(lu).forEach(function(n){if(fic[n]>=3)taux[n]=Math.min(100,Math.round(lu[n]/fic[n]*100));});
+  $('lus').innerHTML=barres(taux,6,' %',function(n){return lu[n]+' lectures sur '+fic[n]+' ouvertures';});
+  var h={};(d.parHeure||[]).forEach(function(x){if(x.ev==='commande'||x.ev==='appel')h[x.h]=(h[x.h]||0)+x.n;});
+  var H=[16,17,18,19,20,21,22,23,0,1],m=Math.max.apply(null,H.map(function(k){return h[k]||0;}).concat([1])),hmax=H.reduce(function(a,k){return (h[k]||0)>(h[a]||0)?k:a;},16);
+  $('heures').innerHTML=H.map(function(k){return '<div title="'+(h[k]||0)+'"><i class="'+(k===hmax&&h[k]?'top':'')+'" style="height:'+((h[k]||0)/m*100)+'%"></i><em>'+k+'h</em></div>';}).join('');
+  $('pages').innerHTML=barres(pag,6);
+  var c=[],kt=Object.keys(flop).sort(function(a,b){return flop[b]-flop[a];})[0];
+  if(kt)c.push('<b>'+esc(kt)+'</b> est regardé '+fic[kt]+' fois mais presque pas commandé. Une photo plus appétissante, un conseil de la serveuse ou un « prix du moment » peut la faire partir.');
+  var best=Object.keys(com).sort(function(a,b){return com[b]-com[a];})[0];if(best)c.push('<b>'+esc(best)+'</b> est le plus commandé depuis la table. À garder bien visible en haut de la carte.');
+  if(h[hmax])c.push('Le rush, c\'est vers <b>'+hmax+' h</b>. C\'est là que la tablette fait gagner le plus de temps au bar.');
+  $('conseils').innerHTML=c.map(function(t){return '<div class="conseil">'+t+'</div>';}).join('');
+}
+/* Données d'exemple (démonstration seulement) */
+function exemple(j){var f=j/30,r=function(n){return Math.max(0,Math.round(n*f));},L=[];
+  function a(ev,o){Object.keys(o).forEach(function(k){L.push({ev:ev,cle:k,n:r(o[k])});});}
+  a('visite',{'-':1240});
+  a('fiche',{'Paix Dieu':212,'Pizza du moment':180,'Planche du Beerman':164,'Mojito':121,'BMW':96,'Triple Karmeliet':88,'TGV':71,'Whisky single malt':64,'Chouffe':52,'Kwak':47});
+  a('lu',{'Paix Dieu':171,'Pizza du moment':102,'Planche du Beerman':140,'Mojito':40,'BMW':72,'Triple Karmeliet':70,'TGV':55,'Whisky single malt':58,'Chouffe':20,'Kwak':12});
+  a('commande',{'Paix Dieu':148,'Pizza du moment':96,'Mojito':63,'BMW':12,'Triple Karmeliet':37,'Planche du Beerman':22,'TGV':9,'Whisky single malt':6,'Chouffe':30,'Kwak':25});
+  a('page',{'Les bières':820,'À manger':610,'Cocktails':430,'Softs':160});
+  var ph={16:4,17:9,18:18,19:31,20:44,21:52,22:47,23:30,0:14,1:5},PH=[];Object.keys(ph).forEach(function(k){PH.push({ev:'commande',h:+k,n:r(ph[k])});});
+  return {parCle:L,parHeure:PH,cmd:[{genre:'commande',n:r(254),attente:4.6*60000},{genre:'appel',n:r(88)}]};}
+if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(function(){});
+if(DEMO||J)ouvrir();else $('cx').classList.remove('cache');
+</script>
+</body>
+</html>

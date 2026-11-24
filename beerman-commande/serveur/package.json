@@ -1,0 +1,1 @@
+{ "name": "beerman-commandes", "private": true, "devDependencies": { "wrangler": "^3.114.17" } }

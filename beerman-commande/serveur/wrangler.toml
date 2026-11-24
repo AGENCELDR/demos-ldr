@@ -1,0 +1,21 @@
+# Beerman : commande à table + statistiques. Serveur SÉPARÉ d'Uno (autre nom, autre stockage).
+name = "beerman-commandes"
+main = "src/index.js"
+compatibility_date = "2024-11-01"
+
+[assets]
+directory = "./public"
+
+[[durable_objects.bindings]]
+name = "BAR"
+class_name = "Bar"
+
+[[migrations]]
+tag = "v1"
+new_sqlite_classes = ["Bar"]
+
+[vars]
+# Adresses de la carte autorisées à envoyer des commandes (séparées par des virgules)
+SITE_ORIGINES = "https://agenceldr.github.io"
+NB_TABLES = "30"
+# Secrets à ajouter avec `wrangler secret put` : PIN_BAR (code de la tablette et des stats), SECRET_QR (clé des QR de table)
