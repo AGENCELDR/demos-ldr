@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Poly Commerce · Le parc en direct</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#0E0F0D">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{--fond:#0E0F0D;--pan:#171916;--pan2:#1F221D;--trait:#2D3029;--txt:#F1F0E8;--doux:#A3A698;--olive:#AAAE25;--olive-c:#D9DB8F;--x:"Archivo",system-ui,sans-serif;--m:"JetBrains Mono",ui-monospace,monospace}
+*{box-sizing:border-box;margin:0}
+[hidden]{display:none!important}
+html,body{height:100%}
+body{background:var(--fond);color:var(--txt);font:400 15px/1.45 var(--x);overflow:hidden;-webkit-font-smoothing:antialiased}
+button,input,select{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--olive);outline-offset:2px}
+.lab{font:700 10px/1.2 var(--m);letter-spacing:.14em;text-transform:uppercase;color:var(--doux)}
+
+/* ossature : une appli, rien ne défile sauf la liste */
+.app{height:100dvh;display:grid;grid-template-rows:auto minmax(0,1fr) auto;grid-template-areas:"haut" "corps" "onglets"}
+.haut{grid-area:haut;display:flex;align-items:center;gap:12px;padding:8px 14px;border-bottom:1px solid var(--trait);background:var(--pan)}
+.haut img{height:34px;width:auto;display:block}
+.etat{margin-left:auto;text-align:right}
+.etat b{display:flex;align-items:center;justify-content:flex-end;gap:7px;font:800 13px var(--x);font-stretch:118%}
+.etat b:before{content:"";width:8px;height:8px;border-radius:50%;background:var(--olive);box-shadow:0 0 0 3px #aaae2533}
+.etat span{font:500 10px var(--m);color:var(--doux)}
+.corps{grid-area:corps;min-height:0;display:grid;grid-template-rows:auto minmax(0,1fr)}
+
+/* l'écran : la machine ouverte */
+.ecran{background:var(--pan);border-bottom:1px solid var(--trait)}
+.vue{position:relative;aspect-ratio:536/300;background:#000;overflow:hidden}
+.vue img{width:100%;height:100%;object-fit:cover;display:block}
+.vue:after{content:"";position:absolute;inset:auto 0 0 0;height:62%;background:linear-gradient(180deg,transparent,#0b0c0af2)}
+.vue .titre{position:absolute;left:14px;right:14px;bottom:10px;z-index:2}
+.vue h1{font:800 23px/1.05 var(--x);font-stretch:125%;letter-spacing:-.01em;margin-top:4px}
+.vue .lab{color:var(--olive-c)}
+.pas{position:absolute;top:10px;right:10px;z-index:2;display:flex;align-items:center;gap:2px;background:#0b0c0acc;border:1px solid #ffffff26;border-radius:999px;padding:2px}
+.pas button{width:38px;height:38px;border:0;background:none;border-radius:50%;font-size:20px}
+.pas span{font:700 11px var(--m);min-width:46px;text-align:center}
+.vignettes{position:absolute;top:10px;left:10px;z-index:2;display:flex;gap:5px}
+.vignettes button{width:10px;height:10px;padding:0;border-radius:50%;border:1.5px solid #fff;background:none;opacity:.75}
+.vignettes button[aria-pressed=true]{background-color:var(--olive);border-color:var(--olive);opacity:1}
+.bord{display:grid;grid-template-columns:1.2fr .7fr 1.3fr;border-top:1px solid var(--trait)}
+.bord>div{padding:10px 12px;border-right:1px solid var(--trait);min-width:0}
+.bord>div:last-child{border:0}
+.bord b{display:block;font:800 20px/1.1 var(--x);font-stretch:125%;margin-top:5px;white-space:nowrap}
+.bord b small{font:600 10px var(--m);color:var(--doux);margin-left:4px}
+.rep{display:flex;align-items:baseline;gap:6px;font:600 10px/1.25 var(--m);color:var(--doux);margin-top:5px}
+.rep:before{content:"";width:7px;height:7px;border-radius:50%;background:var(--olive);flex:none}
+.rep.a:before{background:#E0A93B}.rep.r:before{background:#E0603B}
+.horametre{display:inline-flex;align-items:center;gap:5px;background:#060706;border:2px solid #42463c;border-radius:5px;padding:4px 6px;box-shadow:inset 0 2px 8px #000;margin-top:4px}
+.horametre .roul{display:inline-flex;gap:2px}
+.horametre .c{width:14px;height:22px;overflow:hidden;background:linear-gradient(#262725,#060606 45%,#060606 55%,#262725);border-radius:2px;position:relative}
+.horametre .c i{position:absolute;left:0;right:0;top:0;font:700 15px/22px var(--m);text-align:center;color:#f4f1e6;font-style:normal;transition:transform .9s cubic-bezier(.2,.8,.2,1)}
+.horametre .c.dix{background:linear-gradient(#5a1c12,#2b0b06 45%,#2b0b06 55%,#5a1c12)}
+.horametre small{font:700 10px var(--m);color:var(--olive)}
+.plus{display:none}
+.actes{display:grid;grid-template-columns:1fr auto;gap:8px;padding:10px 12px;border-top:1px solid var(--trait)}
+.btn{display:flex;align-items:center;justify-content:center;gap:8px;min-height:46px;padding:0 16px;border-radius:8px;border:1px solid var(--trait);background:var(--pan2);font:800 14px var(--x);font-stretch:112%;text-decoration:none;color:var(--txt)}
+.btn.p{background:var(--olive);border-color:var(--olive);color:#121311}
+.btn svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:2}
+.btn[aria-pressed=true] svg{fill:var(--olive);stroke:var(--olive)}
+
+/* la liste : tout le parc sous le pouce */
+.liste{min-height:0;display:grid;grid-template-rows:auto minmax(0,1fr)}
+.commande{display:flex;gap:6px;padding:8px 12px;overflow-x:auto;scrollbar-width:none;border-bottom:1px solid var(--trait)}
+.commande::-webkit-scrollbar{display:none}
+.commande input{flex:1 0 132px;min-width:0;height:38px;border-radius:8px;border:1px solid var(--trait);background:#060706;padding:0 12px;font-size:14px}
+.commande input::placeholder{color:#7d8074}
+.commande button{flex:none;height:38px;padding:0 12px;border-radius:8px;border:1px solid var(--trait);background:var(--pan);font:700 12.5px var(--x);white-space:nowrap}
+.commande button b{font:700 10px var(--m);color:var(--doux);margin-left:5px}
+.commande button[aria-pressed=true]{background:var(--olive);border-color:var(--olive);color:#121311}
+.commande button[aria-pressed=true] b{color:#121311}
+.rangs{overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:#3a3d35 transparent}
+.rang{display:grid;grid-template-columns:62px minmax(0,1fr) auto;gap:11px;align-items:center;width:100%;text-align:left;padding:7px 12px;border:0;border-bottom:1px solid var(--trait);background:none;position:relative}
+.rang img{width:62px;height:46px;object-fit:cover;border-radius:4px;display:block}
+.rang .n{font:800 14.5px/1.15 var(--x);font-stretch:118%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block}
+.rang .d{font:500 10.5px var(--m);color:var(--doux);display:block;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rang .p{font:800 15px var(--x);font-stretch:118%;white-space:nowrap}
+.rang[aria-current=true]{background:var(--pan2)}
+.rang[aria-current=true]:before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--olive)}
+.vide{padding:22px 14px;color:var(--doux)}
+
+.onglets{grid-area:onglets;display:grid;grid-template-columns:repeat(4,1fr);background:var(--pan);border-top:1px solid var(--trait);padding-bottom:env(safe-area-inset-bottom)}
+.onglets a,.onglets button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;height:58px;border:0;background:none;font:700 10.5px var(--x);color:var(--doux);text-decoration:none;position:relative}
+.onglets svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.onglets [aria-pressed=true]{color:var(--txt)}
+.onglets [aria-pressed=true]:before{content:"";position:absolute;top:0;left:22%;right:22%;height:2px;background:var(--olive)}
+.onglets .appel{color:var(--olive)}
+.onglets i{position:absolute;top:7px;left:calc(50% + 8px);min-width:17px;height:17px;border-radius:9px;background:var(--olive);color:#121311;font:700 10px/17px var(--m);font-style:normal;text-align:center;padding:0 4px}
+
+/* panneaux Alertes et Sélection */
+.panneau{grid-area:corps;overflow-y:auto;padding:22px 16px;background:var(--fond)}
+.panneau h2{font:800 24px/1.1 var(--x);font-stretch:125%;margin:8px 0 10px}
+.panneau p{color:var(--doux);max-width:36em}
+.form{display:grid;gap:10px;margin-top:18px;max-width:420px}
+.form select,.form input{height:50px;border-radius:8px;border:1px solid var(--trait);background:var(--pan);padding:0 12px;font-size:16px}
+.note{font:500 11px var(--m);color:var(--doux);margin-top:12px}
+
+/* PC : rail, liste, machine ouverte, sur un seul écran */
+@media(min-width:1000px){
+ .app{grid-template-columns:86px 430px minmax(0,1fr);grid-template-rows:auto minmax(0,1fr);grid-template-areas:"onglets haut haut" "onglets corps corps"}
+ .haut{padding:12px 24px}.haut img{height:44px}
+ .etat b{font-size:15px}.etat span{font-size:11px}
+ .onglets{grid-template-columns:none;grid-auto-rows:78px;align-content:start;border-top:0;border-right:1px solid var(--trait);padding-top:8px}
+ .onglets a,.onglets button{height:78px;font-size:11px}
+ .onglets [aria-pressed=true]:before{top:22%;bottom:22%;left:0;right:auto;width:3px;height:auto}
+ .corps{grid-template-columns:430px minmax(0,1fr);grid-template-rows:minmax(0,1fr)}
+ .liste{order:-1;border-right:1px solid var(--trait)}
+ .commande{flex-wrap:wrap;padding:14px 16px}.commande input{flex:1 0 100%;height:44px}
+ .rang{grid-template-columns:84px minmax(0,1fr) auto;padding:9px 16px}.rang img{width:84px;height:62px}
+ .rang .n{font-size:16px}.rang .d{font-size:11.5px}.rang .p{font-size:17px}
+ .rang:hover{background:var(--pan)}
+ .ecran{border:0;overflow-y:auto;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,360px);grid-template-rows:auto auto 1fr;gap:0 28px;padding:24px 28px;align-content:start;background:var(--fond)}
+ .vue{grid-row:1/4;aspect-ratio:536/402;border-radius:10px;border:1px solid var(--trait);align-self:start}
+ .vue:after{display:none}
+ .vue .titre{display:none}
+ .tete-pc{display:block!important}
+ .tete-pc h1{font:800 34px/1.02 var(--x);font-stretch:125%;letter-spacing:-.015em;margin:8px 0 18px}
+ .tete-pc .lab{color:var(--olive-c)}
+ .bord{grid-template-columns:.8fr 1.2fr;border:1px solid var(--trait);border-radius:10px;background:var(--pan);overflow:hidden}
+ .bord>div{padding:16px 18px}
+ .bord>div:first-child{grid-column:1/-1;border-right:0;border-bottom:1px solid var(--trait)}
+ .bord b{font-size:26px}.bord>div:first-child b{font-size:38px}.ecran>div{min-width:0}.vue{max-width:640px}
+ .horametre .c{width:20px;height:32px}.horametre .c i{font-size:22px;line-height:32px}
+ .plus{display:block;margin-top:18px}
+ .plus ul{list-style:none;padding:0;margin:8px 0 16px;display:grid;gap:6px}
+ .plus li{padding-left:20px;position:relative}.plus li:before{content:"";position:absolute;left:2px;top:.5em;width:9px;height:5px;border-left:2px solid var(--olive);border-bottom:2px solid var(--olive);transform:rotate(-45deg)}
+ .plus q{display:block;quotes:none;color:var(--doux);border-left:2px solid var(--olive);padding-left:12px;margin-top:8px}
+ .actes{grid-column:2;padding:18px 0 0;border:0;align-self:start}
+ .btn{min-height:52px;font-size:15px}
+ .vignettes{top:auto;bottom:12px;left:12px;gap:6px}
+ .vignettes button{width:58px;height:44px;border-radius:5px;border:2px solid #ffffff80;background-size:cover;background-position:center;opacity:1}
+ .vignettes button[aria-pressed=true]{border-color:var(--olive)}
+ .panneau{grid-column:2/4;padding:40px}
+}
+.tete-pc{display:none}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="app">
+  <header class="haut">
+    <img src="../photos/logo-clair.png" alt="Poly Commerce" width="520" height="270">
+    <div class="etat"><b>Le parc en direct</b><span id="etat"></span></div>
+  </header>
+
+  <main class="corps" id="v-stock">
+    <section class="ecran" aria-live="polite">
+      <div class="vue">
+        <img id="photo" alt="" width="536" height="402">
+        <div class="vignettes" id="vignettes"></div>
+        <div class="pas"><button type="button" id="prec" aria-label="Machine précédente">‹</button><span id="rangno"></span><button type="button" id="suiv" aria-label="Machine suivante">›</button></div>
+        <div class="titre"><div class="lab" id="type"></div><h1 id="nom"></h1></div>
+      </div>
+      <div class="tete-pc"><div class="lab" id="type2"></div><h1 id="nom2"></h1></div>
+      <div>
+        <div class="bord">
+          <div><span class="lab">Prix HT</span><b id="prix"></b></div>
+          <div><span class="lab">Année</span><b id="annee"></b></div>
+          <div><span class="lab">Heures</span><div class="horametre" id="hora"></div><div class="rep" id="rep"></div></div>
+        </div>
+        <div class="plus"><span class="lab">Équipements</span><ul id="eq"></ul><span class="lab">Ce qu'en dit Dominique</span><q id="dit"></q></div>
+      </div>
+      <div class="actes">
+        <a class="btn p" id="appeler" href="tel:+33687858436">Appeler pour cette machine</a>
+        <button type="button" class="btn" id="garder" aria-pressed="false" aria-label="Garder dans ma sélection"><svg viewBox="0 0 24 24"><path d="M12 20.5s-7.5-4.6-9.3-9.2C1.4 8 3.4 4.5 7 4.5c2.1 0 3.6 1.2 5 3 1.4-1.8 2.9-3 5-3 3.6 0 5.6 3.5 4.3 6.8-1.8 4.6-9.3 9.2-9.3 9.2z"/></svg></button>
+      </div>
+    </section>
+    <section class="liste">
+      <div class="commande">
+        <input type="search" id="cherche" placeholder="Chercher…" aria-label="Chercher une machine">
+        <button type="button" aria-pressed="true" data-f="tout">Tout<b></b></button>
+        <button type="button" aria-pressed="false" data-f="foret">Forêt<b></b></button>
+        <button type="button" aria-pressed="false" data-f="tp">Travaux publics<b></b></button>
+        <button type="button" aria-pressed="false" data-f="agri">Agricole<b></b></button>
+        <button type="button" id="tri" data-t="">Prix ↕</button>
+      </div>
+      <div class="rangs" id="rangs"></div>
+    </section>
+  </main>
+
+  <main class="panneau" id="v-alertes" hidden>
+    <span class="lab">Alertes d'arrivage</span>
+    <h2>Prévenu avant tout le monde.</h2>
+    <p>Dites quelle machine vous cherchez. Dès qu'elle entre sur le parc, vous recevez un SMS, avant la mise en annonce.</p>
+    <form class="form" onsubmit="event.preventDefault();this.querySelector('button').textContent='C\'est noté (démonstration)'">
+      <select aria-label="Type de machine"><option>Débusqueur</option><option>Porteur forestier</option><option>Pelle</option><option>Télescopique</option><option>Tracteur</option><option>Autre machine</option></select>
+      <input type="tel" inputmode="tel" placeholder="Votre portable" aria-label="Votre portable" required>
+      <button class="btn p" type="submit">Me prévenir par SMS</button>
+    </form>
+    <p class="note">Aperçu : l'envoi de SMS sera branché à la mise en service.</p>
+  </main>
+
+  <main class="panneau" id="v-sel" hidden>
+    <span class="lab">Ma sélection</span>
+    <h2 id="sel-t"></h2>
+    <div class="rangs" id="sel-l" style="margin:14px -16px 0;border-top:1px solid var(--trait)"></div>
+  </main>
+
+  <nav class="onglets" aria-label="Menu">
+    <button type="button" data-v="stock" aria-pressed="true"><svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></svg>Stock</button>
+    <button type="button" data-v="alertes" aria-pressed="false"><svg viewBox="0 0 24 24"><path d="M6 17V11a6 6 0 1112 0v6l1.5 2h-15zM10 21h4"/></svg>Alertes</button>
+    <button type="button" data-v="sel" aria-pressed="false"><svg viewBox="0 0 24 24"><path d="M12 20.5s-7.5-4.6-9.3-9.2C1.4 8 3.4 4.5 7 4.5c2.1 0 3.6 1.2 5 3 1.4-1.8 2.9-3 5-3 3.6 0 5.6 3.5 4.3 6.8-1.8 4.6-9.3 9.2-9.3 9.2z"/></svg>Sélection<i id="seln" hidden></i></button>
+    <a class="appel" href="tel:+33687858436"><svg viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z"/></svg>Appeler</a>
+  </nav>
+</div>
+<script>
+const M=[
+{id:"44801596",f:"foret",t:"Débusqueur",n:"John Deere 648 L",a:2016,h:8924,p:108800,hs:"a",eq:["Grapple et treuil","Pneus 30.5-32 à 75 %","Inspection générale complète"],ph:["1715701211_2","1715701211_518","1715701211_59","1715701211_174","1715701212_61"],dit:"Très beau débusqueur, inspection générale complète et lavage complet. Intérieur soigné."},
+{id:"46819975",f:"foret",t:"Débusqueur avec grue",n:"John Deere 648 H · grue Charlier",a:2011,h:8850,p:178800,hs:"o",eq:["Grue Charlier G4, pince 3 m","Radiocommande Falard du treuil","Pneus bons à 95 %"],ph:["1774949277_746","1774949277_627","1774949278_452","1774949278_711","1774949278_525"],dit:"Carrosserie superbe, marchepied large, 8 850 heures d'origine. Pinces sur lame avant. Largeur hors tout 2,98 m."},
+{id:"47116721",f:"foret",t:"Débusqueur reconditionné",n:"John Deere 648 H · reconditionné",a:2014,h:25,p:118800,hs:"r",tot:"heures avant reconditionnement : à confirmer",eq:["Moteur et boîte révisés","Peinture intégrale neuve","Pneus neufs 30.5/32, treuil 20 t"],ph:["1790925939_793","1790925939_511","1790925940_265","1790925940_590","1790925940_78"],dit:"Reconditionné à neuf : articulation et axes neufs, vitres et intérieur neufs, climatisation, aucune fuite. Voie réductible à 2,99 m."},
+{id:"47161115",f:"foret",t:"Débusqueur",n:"John Deere 548 G II · grapple",a:2000,h:21,p:86800,hs:"r",tot:"environ 11 000 h d'origine, selon l'annonce",eq:["Pompe hydraulique neuve","Télécommande de treuil","Pont révisé"],ph:["1793175751_780","1793175751_443","1793175752_892","1793175752_371","1793175752_645"],dit:"Machine aux normes CE, révision récente, poulie tournante sur arche, carrosserie en très bon état."},
+{id:"46983768",f:"foret",t:"Porteur",n:"Logset 5 FP GT",a:2021,h:5650,p:218000,hs:"a",eq:["Grue 10 m, flexibles intégrés","Rallonge de berce coulissante","Cabine suspendue, pneus 700"],ph:["1783002687_309","1783002688_59","1783002688_406","1783002688_926","1783002688_723"],dit:"État d'exception, mis en service fin 2021. Grille avant coulissante."},
+{id:"40791163",f:"foret",t:"Broyeur forestier",n:"Vermeer FT 300",a:2016,h:1120,p:158800,hs:"a",eq:["Moteur Cummins 290 ch","Chenilles de 90 cm","Largeur de travail 1,8 m"],ph:["1711722261_857","1711722261_650","1711722261_57","1711722261_839","1711722262_526"],dit:"Très bon état, utilisable de suite, pas de frais à prévoir. Service après-vente assuré par nos soins."},
+{id:"42710799",f:"tp",t:"Pelle sur chenilles · 22 t",n:"Volvo EC 220 E",a:2016,h:3850,p:94800,hs:"a",eq:["3 godets, attache rapide Arden","Graissage centralisé automatique","Révision des 500 h récente"],ph:["1676544209_519","1676544209_361","1654872660_884","1654872660_143","1654872661_607"],dit:"État d'exception. Clapets de sécurité, 2 lignes hydrauliques proportionnelles, tuiles de 600."},
+{id:"47204061",f:"tp",t:"Pelle sur chenilles · 14 t",n:"Komatsu PC138US-11",a:2019,h:3831,p:64800,hs:"a",eq:["2 godets, attache rapide hydraulique","Double ligne BRH","Climatisation, tuiles de 700"],ph:["1795000764_909","1795000764_817","1795000764_823","1795000764_603","1795000765_492"],dit:"État d'exception, peinture d'origine."},
+{id:"46957854",f:"tp",t:"Pelle sur chenilles · 27 t",n:"Sany SY 265 LC",a:2021,h:1880,p:78800,hs:"a",eq:["Godet de curage + terrassement","Double ligne BRH","Caméras arrière et latérale"],ph:["1781611062_117","1781611062_566","1781611062_774","1781611063_258","1781611063_219"],dit:"État exceptionnel. Attache hydraulique, clapets de sécurité, largeur hors tout 3,20 m."},
+{id:"45029160",f:"tp",t:"Pelle sur chenilles",n:"Hitachi ZX 135 US-5 · lame",a:2014,h:4310,p:63800,hs:"a",eq:["Injection et filtration neuves","Chenilles fer, patins démontables","Attache hydraulique Geith"],ph:["1765796291_45","1765796291_960","1765796291_305","1765796292_802","1765796292_427"],dit:"Très belle machine. Un godet, deux lignes hydrauliques avec retour libre, climatisation."},
+{id:"45477224",f:"tp",t:"Tombereau articulé · 25 t",n:"Volvo A25D",a:2004,h:7800,p:97800,hs:"o",eq:["6 pneus neufs","Benne chauffante","Certificat de conformité"],ph:["1734964703_178","1734964703_479","1734964704_172","1733742108_36","1733742109_176"],dit:"Superbe état, heures d'origine, porte hydraulique arrière, intérieur très soigné. Visible au travail."},
+{id:"46876759",f:"tp",t:"Mini-pelle · 2 t",n:"Kubota KX019-4",a:2022,h:539,p:19800,hs:"a",eq:["4 godets + dent à dessoucher","Attache rapide, ligne BRH","Voie variable"],ph:["1778591922_392","1778591923_529","1778591925_968","1778591925_801","1778591926_547"],dit:"Très bon état, vitesse rapide."},
+{id:"46977702",f:"agri",t:"Télescopique · 18 m",n:"Manitou MT 1840 Easy",a:2020,h:1593,p:69800,hs:"o",eq:["4 t, 18 m, stabilisateurs","Correcteur de dévers","Un seul propriétaire"],ph:["1782723446_804","1782723446_54","1782723446_924","1782723447_37","1782723447_515"],dit:"Plaque constructeur 2019, mise en service en 2020. Heures d'origine certifiées. Fourches à palettes."},
+{id:"47134198",f:"agri",t:"Télescopique · 10 m",n:"Manitou MT 1030 Easy Comfort",a:2020,h:945,p:46800,hs:"o",eq:["Machine de démonstration","Fourches réglables hydrauliquement","Moteur Deutz, stabilisateurs"],ph:["1794313939_414","1794313940_383","1794313940_637","1794314088_91","1794313940_629"],dit:"Excellent état, proche du neuf. Heures certifiées, peinture d'origine."},
+{id:"44541498",f:"agri",t:"Télescopique agricole",n:"JCB 542-70 Agri Super",a:2020,h:2845,p:69800,hs:"a",eq:["Moteur 145 ch","Frein à air, ABS","Crochet hydraulique, joystick"],ph:["1709285537_87","1709285537_351","1709285538_835","1709285538_647","1709285538_837"],dit:"Excellent état. Climatisation, pneus Michelin 460/70R24, fourches à palettes."},
+{id:"45823067",f:"agri",t:"Tracteur · 95 ch",n:"John Deere 5090 GF",a:2018,h:2701,p:34800,hs:"a",eq:["4 roues motrices","Pneus neufs avant et arrière","Roule à 40 km/h"],ph:["1743515944_167","1743515944_971","1743515945_928","1743515945_334","1743515945_764"],dit:"Très bon état, boîte mécanique."},
+{id:"44128996",f:"agri",t:"Tracteur · 74 ch",n:"Kubota M 4072",a:2019,h:132,p:41800,hs:"a",eq:["132 heures","Climatisation, masse avant","Pneus gazon"],ph:["1697017963_441","1697017963_141","1697017964_479","1697017964_610","1697017964_880"],dit:"Très bon état, proche du neuf. 6 vitesses, 3 gammes, distributeurs électriques."},
+{id:"46925985",f:"agri",t:"Transporteur 4x4",n:"John Deere Gator XUV 855",a:2019,h:443,p:23800,hs:"a",eq:["Double cabine","Portes et pare-brise","Jantes alliage"],ph:["1780065606_924","1780065606_42","1780065607_567","1780065607_72","1780065607_763"],dit:"Très beau Gator, 4x4."}
+];const IMG='../photos/';
+const HSL=["Heures d'origine","Lu au compteur","Compteur remis à zéro"],HSC={o:0,a:1,r:2},HSK={o:'',a:'a',r:'r'};
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const src=(m,i)=>IMG+m.id+'_'+m.ph[i]+'.jpg';
+const eur=v=>v.toLocaleString('fr-FR').replace(/[  ]/g,' ')+' €';
+const nom=m=>m.n.split(' · ')[0];
+const mem={get(k){try{return JSON.parse(localStorage.getItem(k))}catch(e){return null}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+let FIL='tout',VUE=[],CUR=M[0],SEL=(mem.get('pc-sel')||[]).filter(id=>M.some(m=>m.id==id)),TRI='';
+$('#etat').textContent=M.length+' machines · relevé du 24/11/2026';
+
+function horametre(el,h){const s=String(h).padStart(5,'0');
+  if(!el.firstChild)el.innerHTML='<span class="roul">'+[0,1,2,3,4].map(i=>'<span class="c'+(i==4?' dix':'')+'"><i>'+'0123456789'.split('').join('<br>')+'</i></span>').join('')+'</span><small>h</small>';
+  requestAnimationFrame(()=>el.querySelectorAll('i').forEach((i,k)=>i.style.transform='translateY(-'+(+s[k]*i.parentElement.clientHeight)+'px)'))}
+
+function rangHTML(m){return '<button type="button" class="rang" data-id="'+m.id+'"><img src="'+src(m,0)+'" alt="" loading="lazy" width="84" height="62"><span><span class="n">'+nom(m)+'</span><span class="d">'+m.t+' · '+m.a+' · '+m.h.toLocaleString('fr-FR')+' h</span></span><span class="p">'+eur(m.p)+'</span></button>'}
+
+function liste(){const mots=$('#cherche').value.trim().toLowerCase().split(/\s+/).filter(Boolean);
+  let l=M.filter(m=>(FIL=='tout'||m.f==FIL)&&mots.every(x=>(m.n+' '+m.t+' '+m.a).toLowerCase().includes(x)));
+  if(TRI)l=[...l].sort((a,b)=>TRI=='+'?a.p-b.p:b.p-a.p);
+  VUE=l;$('#rangs').innerHTML=l.length?l.map(rangHTML).join(''):'<p class="vide">Aucune machine ne correspond. Appelez Dominique : il en trouve souvent hors catalogue.</p>';
+  if(l.length&&!l.includes(CUR))ouvrir(l[0],false);else marque()}
+function marque(){$$('#rangs .rang').forEach(r=>r.setAttribute('aria-current',r.dataset.id==CUR.id));
+  const i=VUE.indexOf(CUR);$('#rangno').textContent=(i+1)+' / '+VUE.length}
+
+function ouvrir(m,defile){CUR=m;const k=HSC[m.hs];
+  $('#photo').src=src(m,0);$('#photo').alt=m.n;
+  $('#vignettes').innerHTML=m.ph.map((p,i)=>'<button type="button" aria-pressed="'+(i==0)+'" aria-label="Photo '+(i+1)+'" style="background-image:url('+src(m,i)+')"></button>').join('');
+  $$('#vignettes button').forEach((b,i)=>b.onclick=()=>{$('#photo').src=src(m,i);$$('#vignettes button').forEach(x=>x.setAttribute('aria-pressed',x==b))});
+  $('#type').textContent=$('#type2').textContent=m.t;$('#nom').textContent=$('#nom2').textContent=nom(m);
+  $('#prix').innerHTML=eur(m.p);$('#annee').textContent=m.a;horametre($('#hora'),m.h);
+  $('#rep').className='rep '+HSK[m.hs];$('#rep').textContent=HSL[k];
+  $('#eq').innerHTML=m.eq.map(e=>'<li>'+e+'</li>').join('');$('#dit').textContent=m.dit;
+  $('#garder').setAttribute('aria-pressed',SEL.includes(m.id));marque();
+  if(defile!==false){const r=$('#rangs .rang[aria-current=true]');r&&r.scrollIntoView({block:'nearest'})}}
+function pas(d){if(!VUE.length)return;const i=(VUE.indexOf(CUR)+d+VUE.length)%VUE.length;ouvrir(VUE[i])}
+
+$('#rangs').onclick=e=>{const r=e.target.closest('.rang');if(r)ouvrir(M.find(m=>m.id==r.dataset.id),false)};
+$('#prec').onclick=()=>pas(-1);$('#suiv').onclick=()=>pas(1);
+addEventListener('keydown',e=>{if(e.target.matches('input,select'))return;if(e.key=='ArrowDown'||e.key=='ArrowRight'){e.preventDefault();pas(1)}if(e.key=='ArrowUp'||e.key=='ArrowLeft'){e.preventDefault();pas(-1)}});
+let x0=null;$('.vue').addEventListener('touchstart',e=>x0=e.touches[0].clientX,{passive:true});
+$('.vue').addEventListener('touchend',e=>{if(x0==null)return;const d=e.changedTouches[0].clientX-x0;if(Math.abs(d)>45)pas(d<0?1:-1);x0=null});
+$('#cherche').oninput=liste;
+const FB=$$('.commande button[data-f]');
+FB.forEach(b=>{b.querySelector('b').textContent=b.dataset.f=='tout'?M.length:M.filter(m=>m.f==b.dataset.f).length;b.onclick=()=>{FIL=b.dataset.f;FB.forEach(x=>x.setAttribute('aria-pressed',x==b));liste()}});
+$('#tri').onclick=e=>{TRI=TRI==''?'+':TRI=='+'?'-':'';e.target.textContent=TRI=='+'?'Prix ↑':TRI=='-'?'Prix ↓':'Prix ↕';e.target.setAttribute('aria-pressed',!!TRI);liste()};
+
+function majSel(){$('#seln').hidden=!SEL.length;$('#seln').textContent=SEL.length;
+  const l=M.filter(m=>SEL.includes(m.id));$('#sel-t').textContent=l.length?l.length+(l.length>1?' machines gardées':' machine gardée'):'Rien pour l\'instant.';
+  $('#sel-l').innerHTML=l.map(rangHTML).join('')||'<p class="vide">Touchez le cœur sur une machine pour la retrouver ici.</p>'}
+$('#garder').onclick=()=>{SEL=SEL.includes(CUR.id)?SEL.filter(x=>x!=CUR.id):[...SEL,CUR.id];mem.set('pc-sel',SEL);$('#garder').setAttribute('aria-pressed',SEL.includes(CUR.id));majSel()};
+$('#sel-l').onclick=e=>{const r=e.target.closest('.rang');if(r){vue('stock');ouvrir(M.find(m=>m.id==r.dataset.id))}};
+function vue(v){$$('.onglets button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.v==v));['stock','alertes','sel'].forEach(k=>$('#v-'+k).hidden=k!=v)}
+$$('.onglets button').forEach(b=>b.onclick=()=>vue(b.dataset.v));
+liste();ouvrir(M[0],false);majSel();
+</script>
+</body>
+</html>
