@@ -6,7 +6,7 @@
 (function(){
   var CFG=window.LDR_COMMANDE||{},API=CFG.api||'';
   if(!API)return;
-  var D=document,KP='ldr-cmd-panier',KS='ldr-cmd-suivi',KT='ldr-cmd-table';
+  var D=document,KP='ldr-cmd-panier',KS='ldr-cmd-suivi',KT='ldr-cmd-table',KA='ldr-cmd-averti';
   function q(s,r){return (r||D).querySelector(s);}
   function esc(t){return String(t==null?'':t).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
   function lire(k){try{return JSON.parse(sessionStorage.getItem(k));}catch(e){return null;}}
@@ -177,6 +177,19 @@
       +'<h4>Éditeur</h4><p>'+esc(ML.editeur)+(ML.siret?' · SIRET '+esc(ML.siret):'')+'.</p><p>Carte et commande à table réalisées et gérées par <a href="https://agence-ldr.fr" target="_blank" rel="noopener" style="color:var(--p-or)">Agence LDR</a>.</p>'
       +'<button type="button" class="ldr-cmd-sec" data-ok>Revenir à la commande</button></div>',function(f){q('[data-ok]',f).onclick=function(){if(panier.length)voirPanier();else fermer();};});}
 
+  /* ---------- avertissement avant toute commande (une fois par visite) ---------- */
+  function avertir(suite){
+    if(lire(KA)){suite();return;}
+    feuille('<div class="ldr-cmd-tete"><div class="tb"><small>TABLE</small><b>'+TABLE+'</b></div><div><h3>Avant de commander</h3><p>À lire, c\'est rapide</p></div></div><div class="ldr-cmd-corps">'
+      +'<p class="ldr-cmd-legal"><b>Toute commande envoyée est ferme :</b> chaque article commandé sera servi à la table '+TABLE+', <b>facturé et à régler au bar</b>. Prix nets, TVA et service compris.</p>'
+      +'<p class="ldr-cmd-legal">Une erreur ? Prévenez le bar tout de suite. Le bar peut refuser ou annuler une commande (table inconnue, doublon, produit épuisé).</p>'
+      +'<p class="ldr-cmd-legal">'+esc(ML.alcool)+'</p>'
+      +'<button type="button" class="ldr-cmd-big" data-oui>J\'ai compris, je commande'+IC.envoi+'</button>'
+      +'<p class="ldr-cmd-pied"><button type="button" data-ment>Mentions légales</button></p></div>',function(f){
+      q('[data-oui]',f).onclick=function(){ecrire(KA,1);fermer();suite();};
+      q('[data-ment]',f).onclick=function(){mentions();};});
+  }
+
   var IC={
     cloche:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 17h16M5.5 17a6.5 6.5 0 0 1 13 0M12 10.5V9M10 9h4M3 20h18"/></svg>',
     envoi:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h13M12 6l6 6-6 6"/></svg>',
@@ -211,7 +224,7 @@
     bar.innerHTML=h;
   }
   D.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('.ldr-cmd-barre [data-x]');if(!b)return;var x=b.dataset.x;
-    if(x==='appel')appel();else if(x==='panier')voirPanier();else if(x==='suivi')voirSuivi();else toast('Touchez un article de la carte','puis « Ajouter à ma commande »');});
+    if(x==='appel')appel();else if(x==='panier')voirPanier();else if(x==='suivi')voirSuivi();else avertir(function(){toast('Touchez un article de la carte','puis « Ajouter à ma commande »');});});
 
   /* ---------- « Ajouter à ma commande » dans la fiche de l'article ---------- */
   new MutationObserver(function(ms){ms.forEach(function(mu){
@@ -231,7 +244,7 @@
     dessin();
     d.addEventListener('click',function(e){var c=e.target.closest('[data-c]'),qq=e.target.closest('[data-q]'),go=e.target.closest('.ldr-cmd-go');
       if(c){sel=+c.dataset.c;dessin();}else if(qq){qte=Math.max(1,Math.min(12,qte+ +qq.dataset.q));dessin();}
-      else if(go){ajouter(a,ch.length?ch[sel][0]:'',px(),qte);var f=q('[data-ferme]:not(.voile)',t)||q('[data-ferme]',t);if(f)f.click();}});
+      else if(go){avertir(function(){ajouter(a,ch.length?ch[sel][0]:'',px(),qte);var f=q('[data-ferme]:not(.voile)',t)||q('[data-ferme]',t);if(f)f.click();});}});
     var ct=q('.ct',t);if(ct&&ct.parentNode===t)t.insertBefore(d,ct.nextSibling);else t.appendChild(d);
   }
 
