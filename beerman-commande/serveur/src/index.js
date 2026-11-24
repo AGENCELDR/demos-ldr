@@ -136,6 +136,7 @@ export class Bar extends DurableObject {
       const ouv = this.sql.exec("SELECT COUNT(*) n FROM cmd WHERE tabl=? AND st=0 AND genre='commande'", table).toArray()[0].n;
       if (ouv) al.push("déjà une commande en attente");
       const num = (this.sql.exec("SELECT COUNT(*) n FROM cmd WHERE jour=?", P.jour).toArray()[0].n || 0) + 1;
+      this.sql.exec("DELETE FROM cmd WHERE cree<?", t - 30 * 864e5); // les commandes ne sont gardées que 30 jours
       const id = alea(8), secret = alea(12);
       this.sql.exec("INSERT INTO cmd(id,num,jour,genre,tabl,items,total,note,st,secret,cree,maj,qui,alerte) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
         id, num, P.jour, "commande", table, JSON.stringify(items), total, txt(corps.note, 200), ST.NOUVELLE, secret, t, t, "", al.join(" · "));
