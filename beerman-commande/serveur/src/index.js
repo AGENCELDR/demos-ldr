@@ -58,6 +58,12 @@ export class Bar extends DurableObject {
       CREATE TABLE IF NOT EXISTS blocages(tabl INTEGER PRIMARY KEY, jusqua INTEGER, raison TEXT);`);
     for (const c of ["raison TEXT", "alerte TEXT"]) { try { this.sql.exec("ALTER TABLE cmd ADD COLUMN " + c); } catch (_) {} }
   }
+  // une commande annulée ne compte plus dans les statistiques (et revient si on la remet « à prendre »)
+  annulerStats(r, st) {
+    if (r.genre !== "commande" || (r.st === 9) === (st === 9)) return;
+    const P = paris(r.cree), sens = st === 9 ? -1 : 1;
+    for (const x of JSON.parse(r.items || "[]")) this.sql.exec("UPDATE stats SET n=MAX(0,n+?) WHERE jour=? AND h=? AND ev='commande' AND cle=?", sens * x.qte, P.jour, P.h, x.nom);
+  }
   // table bloquée par le bar ? (renvoie la fin du blocage, ou 0)
   bloquee(table) { const r = this.sql.exec("SELECT jusqua FROM blocages WHERE tabl=?", table).toArray()[0]; return r && r.jusqua > this.now() ? r.jusqua : 0; }
   blocages() { return this.sql.exec("SELECT tabl, jusqua, raison FROM blocages WHERE jusqua>? ORDER BY tabl", this.now()).toArray().map(r => ({ table: r.tabl, jusqua: r.jusqua, raison: r.raison })); }
@@ -196,6 +202,7 @@ export class Bar extends DurableObject {
       const r = this.sql.exec("SELECT * FROM cmd WHERE id=?", corps.id || "").toArray()[0];
       if (!r) return err("inconnu", "Commande introuvable.", 404);
       this.sql.exec("UPDATE cmd SET st=?, maj=?, qui=?, raison=? WHERE id=?", st, this.now(), txt(corps.qui, 30) || r.qui, st === ST.ANNULEE ? txt(corps.raison, 80) : "", r.id);
+      this.annulerStats(r, st);
       const l = this.ligne(this.sql.exec("SELECT * FROM cmd WHERE id=?", r.id).toArray()[0]);
       this.diffuser({ type: "maj", commande: l });
       return json({ ok: true, commande: l });
@@ -208,7 +215,9 @@ export class Bar extends DurableObject {
       else {
         this.sql.exec("INSERT OR REPLACE INTO blocages(tabl,jusqua,raison) VALUES(?,?,?)", table, this.now() + min * 60e3, txt(corps.raison, 80));
         if (corps.annuler) for (const r of this.sql.exec("SELECT id FROM cmd WHERE tabl=? AND st=0", table).toArray()) {
+          const avant = this.sql.exec("SELECT * FROM cmd WHERE id=?", r.id).toArray()[0];
           this.sql.exec("UPDATE cmd SET st=9, maj=?, raison=? WHERE id=?", this.now(), "Commandes de la table mises en pause par le bar", r.id);
+          this.annulerStats(avant, 9);
           this.diffuser({ type: "maj", commande: this.ligne(this.sql.exec("SELECT * FROM cmd WHERE id=?", r.id).toArray()[0]) });
         }
       }
@@ -219,6 +228,13 @@ export class Bar extends DurableObject {
     if (p === "/api/bar/qr" && req.method === "GET") {
       const out = []; for (let i = 1; i <= nbT; i++) out.push({ table: i, k: await this.cle(i) });
       return json({ ok: true, tables: out });
+    }
+    // remise à zéro avant la vraie mise en service : efface commandes d'essai et statistiques
+    if (p === "/api/bar/remise-a-zero" && req.method === "POST") {
+      if (corps.confirme !== "OUI") return err("confirme", "Confirmation manquante.");
+      this.sql.exec("DELETE FROM cmd"); this.sql.exec("DELETE FROM stats"); this.sql.exec("DELETE FROM limites");
+      this.diffuser({ type: "etat", commandes: [], pause: this.reglage("pause", false), blocages: this.blocages() });
+      return json({ ok: true });
     }
     if (p === "/api/bar/pause" && req.method === "POST") {
       this.regle("pause", !!corps.pause); this.diffuser({ type: "pause", pause: !!corps.pause });
