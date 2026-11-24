@@ -106,6 +106,7 @@ section{padding:56px 0}
 .machine h3{font-size:19px;line-height:1.1;font-weight:800}
 .machine .type{font:600 11.5px var(--m);color:var(--olive-f);text-transform:uppercase;letter-spacing:.1em}
 .machine ul{margin:2px 0 0;padding:0;list-style:none;font-size:14px;color:#3a3c36}
+@media(max-width:599px){.machine ul{display:none}.machine .corps{padding:12px 14px}.grille{gap:14px}}
 .machine li{padding-left:14px;position:relative}.machine li:before{content:"";position:absolute;left:0;top:.62em;width:7px;height:2px;background:var(--olive)}
 .machine .bas{display:flex;justify-content:space-between;align-items:center;margin-top:auto;padding-top:10px;border-top:1px solid var(--ligne)}
 .prix{font:800 22px/1 var(--x);font-stretch:125%}.prix small{font:600 11px var(--m);color:var(--doux);margin-left:4px;font-stretch:100%}
@@ -389,6 +390,8 @@ const M=[
 ];
 const HS={o:["Heures d'origine",""],a:["Lu au compteur","a"],r:["Compteur remis à zéro","r"]};
 const eur=v=>v.toLocaleString('fr-FR').replace(/ | /g,' ')+' €';
+const nom=m=>m.n.split(' · ')[0].replace(/ (\S{1,3})$/,'\u00a0$1');
+const sous=m=>{const t=m.t.toLowerCase(),r=(m.n.split(' · ')[1]||'').split(' ').filter(x=>!t.includes(x.toLowerCase())).join(' ');return r?' · '+r:''};
 const src=(m,i)=>IMG+m.id+'_'+m.ph[i]+'.jpg';
 
 // Horamètre à rouleaux
@@ -405,7 +408,7 @@ function horametre(el,h,anim){
 const G=document.getElementById('grille');
 function carte(m){
   const b=document.createElement('button');b.className='machine';b.dataset.f=m.f;b.type='button';
-  b.innerHTML='<div class="im"><img loading="lazy" src="'+src(m,0)+'" alt="'+m.n+', '+m.t.toLowerCase()+' '+m.a+'" width="536" height="402" onerror="this.style.opacity=.15"><span class="an">'+m.a+'</span><span class="horametre"></span></div><div class="corps"><div class="type">'+m.t+'</div><h3>'+m.n+'</h3><span class="franc '+HS[m.hs][1]+'">'+HS[m.hs][0]+'</span><ul>'+m.eq.map(x=>'<li>'+x+'</li>').join('')+'</ul><div class="bas"><span class="prix">'+eur(m.p)+'<small>HT</small></span><span class="voir">Fiche →</span></div></div>';
+  b.innerHTML='<div class="im"><img loading="lazy" src="'+src(m,0)+'" alt="'+m.n+', '+m.t.toLowerCase()+' '+m.a+'" width="536" height="402" onerror="this.style.opacity=.15"><span class="an">'+m.a+'</span><span class="horametre"></span></div><div class="corps"><div class="type">'+m.t+sous(m)+'</div><h3>'+nom(m)+'</h3><span class="franc '+HS[m.hs][1]+'">'+HS[m.hs][0]+'</span><ul>'+m.eq.map(x=>'<li>'+x+'</li>').join('')+'</ul><div class="bas"><span class="prix">'+eur(m.p)+'<small>HT</small></span><span class="voir">Fiche →</span></div></div>';
   b.onclick=()=>ouvrir(m);G.appendChild(b);horametre(b.querySelector('.horametre'),m.h);
 }
 M.forEach(carte);
@@ -418,7 +421,7 @@ const D=document.getElementById('fiche'),P=document.getElementById('panneau');
 function ouvrir(m){
   const hs=HS[m.hs];
   P.innerHTML='<button class="fermer" aria-label="Fermer">×</button><div class="galerie">'+m.ph.map((x,i)=>'<img src="'+src(m,i)+'" alt="'+m.n+', photo '+(i+1)+'" loading="'+(i?'lazy':'eager')+'">').join('')+'</div><div class="compte">← glissez : '+m.ph.length+' photos</div>'+
-  '<div class="p-corps"><div><div class="sur">'+m.t+'</div><h3>'+m.n+'</h3></div>'+
+  '<div class="p-corps"><div><div class="sur">'+m.t+sous(m)+'</div><h3>'+nom(m)+'</h3></div>'+
   '<div class="tableau"><div><small>Année</small><b>'+m.a+'</b></div><div><small>Prix</small><b>'+eur(m.p)+' HT</b></div><div><small>Heures</small><b>'+m.h.toLocaleString('fr-FR')+' h</b></div><div><small>Compteur franc</small><b>'+hs[0]+'</b></div>'+(m.tot?'<div style="grid-column:1/-1"><small>Total estimé</small><b>'+m.tot+'</b></div>':'')+'</div>'+
   '<div class="dit"><div class="sur">Ce qu\'en dit Dominique</div><p>'+m.dit+'</p><ul style="margin:8px 0 0;padding-left:18px">'+m.eq.map(x=>'<li>'+x+'</li>').join('')+'</ul></div>'+
   ((new Date().getFullYear()-m.a>15)?'<div class="regle" style="margin:0">Machine de plus de 15 ans : venez avec un mécanicien, ou faites-en venir un sur le parc avant l\'achat.</div>':'')+
