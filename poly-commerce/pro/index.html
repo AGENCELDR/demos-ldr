@@ -1,0 +1,627 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Poly Commerce · Machines forestières, TP et agricoles d'occasion · Givry-en-Argonne</title>
+<meta name="description" content="Débusqueurs, porteurs, pelles, télescopiques et tracteurs d'occasion à Givry-en-Argonne (51). Heures, prix et photos de chaque machine. Visite sur rendez-vous, livraison France et Europe.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#121311">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --papier:#F3F2EC;--blanc:#FFFFFF;--encre:#121311;--gris:#63665C;--trait:#1213111c;--trait2:#12131133;
+  --olive:#AAAE25;--olive-f:#565909;--olive-c:#EDEED5;--ambre:#C98A06;--rouge:#C24E25;
+  --x:"Archivo",system-ui,sans-serif;--m:"JetBrains Mono",ui-monospace,monospace;
+}
+[hidden]{display:none!important}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;scroll-padding-top:120px}
+body{margin:0;background:var(--papier);color:var(--encre);font:16px/1.5 var(--x);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+img{max-width:100%;height:auto;display:block}
+a{color:inherit}button{font:inherit;color:inherit}
+.w{width:100%;max-width:1160px;margin:0 auto;padding:0 18px}
+h1,h2,h3{margin:0;font-stretch:125%;font-weight:800;letter-spacing:-.018em;overflow-wrap:break-word}
+h2{font-size:clamp(27px,6.6vw,44px);line-height:1.02;margin-top:12px}
+h1 em,h2 em{font-style:normal;color:var(--olive-f)}
+.sur{display:flex;align-items:center;gap:10px;font:700 11px/1.2 var(--m);letter-spacing:.15em;text-transform:uppercase;color:var(--olive-f)}
+.sur:before{content:"";flex:none;width:26px;height:9px;background:linear-gradient(currentColor,currentColor) 0 0/100% 2px no-repeat,linear-gradient(currentColor,currentColor) 0 50%/78% 2px no-repeat,linear-gradient(var(--olive),var(--olive)) 0 100%/56% 2px no-repeat}
+.gris{color:var(--gris)}.mini{font-size:12px;color:var(--gris)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:50px;padding:12px 20px;border-radius:6px;font:700 15px var(--x);text-decoration:none;border:1.5px solid var(--encre);background:transparent;cursor:pointer;transition:background .2s,color .2s}
+.btn:hover{background:var(--encre);color:#fff}
+.btn.p{background:var(--encre);color:#fff}.btn.p:hover{background:#000}
+.btn.o{background:var(--olive);border-color:var(--olive);color:var(--encre)}.btn.o:hover{background:#b9bd35;color:var(--encre)}
+.btn:active{transform:translateY(1px)}
+section{padding:60px 0}
+
+/* barre */
+.barre{position:sticky;top:0;z-index:40;background:#fffffff5;backdrop-filter:blur(12px);border-bottom:1px solid var(--trait)}
+.barre .w{display:flex;align-items:center;justify-content:space-between;height:60px;gap:10px}
+.logo img{height:42px;width:auto}
+.barre nav{display:none;gap:26px;font-size:14px;font-weight:600}
+.barre nav a{text-decoration:none;color:var(--gris)}.barre nav a:hover{color:var(--encre)}
+.droite{display:flex;align-items:center;gap:8px}
+.langue{position:relative}
+.langue>button{min-height:40px;min-width:50px;padding:0 10px;border-radius:6px;border:1px solid var(--trait2);background:none;font:700 12px var(--m);letter-spacing:.06em;cursor:pointer}
+.langue .menu{position:absolute;right:0;top:46px;background:#fff;border:1px solid var(--trait2);border-radius:10px;padding:6px;min-width:220px;display:none;box-shadow:0 20px 50px #0003}
+.langue.on .menu{display:block}
+.langue .menu button{display:flex;justify-content:space-between;align-items:center;width:100%;min-height:44px;padding:0 12px;border:0;background:none;border-radius:6px;text-align:left;font:600 15px var(--x);cursor:pointer}
+.langue .menu button:hover{background:var(--papier)}
+.langue .menu b{font:700 11px var(--m);color:var(--gris)}
+.langue .menu button[aria-current=true] b{color:var(--olive-f)}
+.langue .autre{border-top:1px solid var(--trait);margin-top:6px;padding:10px 12px 6px}
+.langue .autre label{display:block;font:600 10.5px var(--m);letter-spacing:.08em;text-transform:uppercase;color:var(--gris);margin-bottom:6px}
+.tel{display:inline-flex;align-items:center;gap:6px;min-height:40px;padding:0 13px;border-radius:6px;background:var(--olive);font:700 14px var(--x);text-decoration:none;white-space:nowrap}
+.tel span{display:none}
+@media(min-width:372px){.tel span{display:inline}}
+@media(min-width:1000px){.barre .w{height:68px}.barre nav{display:flex}.logo img{height:48px}}
+
+/* tête : la recherche d'abord */
+.tete{position:relative;background:var(--encre);color:#fff;overflow:hidden}
+.tete:before{content:"";position:absolute;inset:0;background:url(../photos/banniere.jpg) 58% 40%/cover;opacity:.75}
+.tete:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,#12131199 0%,#121311e0 50%,#121311 100%)}
+.tete .w{position:relative;z-index:2;padding-top:26px;padding-bottom:22px}
+.tete .sur{color:#D9DB8F}
+.tete h1{font-size:clamp(30px,8.4vw,58px);line-height:1;margin-top:14px;max-width:13em}
+.tete h1 em{color:var(--olive)}
+.champ{position:relative;margin-top:18px;max-width:640px}
+.champ input{width:100%;height:58px;border-radius:8px;border:0;background:#fff;color:var(--encre);font:500 17px var(--x);padding:0 16px 0 50px;outline-offset:2px}
+.champ input:focus{outline:3px solid var(--olive)}
+.champ svg{position:absolute;left:16px;top:18px;width:22px;height:22px;stroke:var(--encre);fill:none;stroke-width:2.2;stroke-linecap:round}
+.genres{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;margin:12px -18px 0;padding:0 18px 2px}
+.genres::-webkit-scrollbar{display:none}
+.genres button{flex:none;min-height:44px;padding:0 15px;border-radius:999px;border:1px solid #ffffff40;background:#ffffff10;color:#fff;font:600 14px var(--x);cursor:pointer;white-space:nowrap}
+.genres button b{font:700 11px var(--m);opacity:.7;margin-left:6px}
+.genres button[aria-pressed=true]{background:var(--olive);border-color:var(--olive);color:var(--encre)}
+.genres button[aria-pressed=true] b{opacity:.8}
+.faits{display:flex;flex-wrap:wrap;gap:4px 16px;margin-top:16px;font:600 11.5px var(--m);color:#C9CABF}
+.faits span:before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--olive);margin-right:8px;vertical-align:1px}
+@media(min-width:1000px){.tete:before{left:38%;background-position:50% 55%;opacity:.9}.tete:after{background:linear-gradient(90deg,#121311 38%,#121311cc 55%,#12131140 100%)}.tete .w{padding-top:54px;padding-bottom:40px}.genres{margin:14px 0 0;padding:0}}
+
+/* outils du stock */
+.outils{position:sticky;top:60px;z-index:30;background:#f3f2ecf5;backdrop-filter:blur(10px);border-bottom:1px solid var(--trait)}
+.outils .w{display:flex;align-items:center;gap:8px;height:58px}
+.outils .n{font:700 10.5px/1.1 var(--m);letter-spacing:.04em;margin-right:auto;display:flex;flex-direction:column;flex:none;padding-right:4px}
+.outils .n b{font:800 20px/1 var(--x);font-stretch:125%;letter-spacing:-.01em}
+.pilule{position:relative;flex:1 1 0;min-width:0;max-width:150px}
+.pilule select{appearance:none;-webkit-appearance:none;height:42px;border-radius:999px;border:1px solid var(--trait2);background:#fff;color:var(--encre);font:600 16px var(--x);padding:0 22px 0 11px;width:100%;text-overflow:ellipsis;cursor:pointer}
+.pilule:after{content:"";position:absolute;right:11px;top:17px;width:7px;height:7px;border-right:2px solid var(--encre);border-bottom:2px solid var(--encre);transform:rotate(45deg) translateY(-2px);pointer-events:none}
+.pilule.actif select{background:var(--encre);color:#fff;border-color:var(--encre)}.pilule.actif:after{border-color:#fff}
+@media(min-width:1000px){.outils{top:68px}.pilule{flex:none;max-width:none}.pilule select{width:auto}.outils .n{flex-direction:row;align-items:baseline;gap:6px;font-size:12px}}
+
+/* le stock : une ligne par machine */
+#parc{padding:0 0 56px}
+.ligne{position:relative;display:grid;grid-template-columns:126px 1fr;gap:14px;padding:14px 0;border-bottom:1px solid var(--trait)}
+.ligne .ouvrir{all:unset;position:absolute;inset:0;cursor:pointer;z-index:1}
+.ligne .ouvrir:focus-visible{outline:2px solid var(--olive-f);outline-offset:-2px;border-radius:6px}
+.ligne .im{position:relative;border-radius:6px;overflow:hidden;background:#ddd;align-self:start}
+.ligne .im img{width:100%;aspect-ratio:4/3;object-fit:cover;transition:transform .5s}
+.ligne:hover .im img{transform:scale(1.05)}
+.ligne .im span{position:absolute;left:6px;bottom:6px;font:700 10.5px var(--m);background:#121311d9;color:#fff;padding:3px 6px;border-radius:3px}
+.ligne .tx{min-width:0;display:flex;flex-direction:column;gap:3px}
+.ligne .type{font:600 10.5px/1.3 var(--m);color:var(--olive-f);text-transform:uppercase;letter-spacing:.1em}
+.ligne h3{font-size:16.5px;line-height:1.14}
+.ligne .ch{font:500 13.5px var(--x);color:#33352f;margin-top:2px}
+.ligne .ch b{font-weight:700}
+.rep{display:inline-flex;align-items:center;gap:6px;font:600 12px/1.2 var(--x);color:var(--gris)}
+.rep:before{content:"";flex:none;width:8px;height:8px;border-radius:50%;background:var(--olive)}
+.rep.a:before{background:var(--ambre)}.rep.r:before{background:var(--rouge)}
+.ligne .prix{margin-top:auto;padding-top:6px;font:800 19px/1 var(--x);font-stretch:125%;letter-spacing:-.01em}
+.prix small{font:600 10.5px var(--m);color:var(--gris);margin-left:5px;font-stretch:100%;letter-spacing:.04em}
+.garder{position:absolute;bottom:6px;right:-8px;z-index:2;width:44px;height:44px;border:0;background:none;cursor:pointer;display:grid;place-items:center}
+.garder svg{width:22px;height:22px;fill:none;stroke:var(--encre);stroke-width:1.7;transition:transform .2s}
+.garder[aria-pressed=true] svg{fill:var(--olive);stroke:var(--olive-f);transform:scale(1.12)}
+.fleche{display:none}
+.vide{padding:34px 0;color:var(--gris)}
+.plus{margin-top:22px;display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+@media(min-width:1000px){
+  .ligne{grid-template-columns:168px 1fr;gap:26px;padding:16px 12px;margin:0 -12px;border-radius:8px;transition:background .2s}
+  .ligne:hover{background:#fff}
+  .ligne .tx{display:grid;grid-template-columns:1.5fr .5fr 1fr .9fr 40px;align-items:center;gap:20px;padding-right:44px}
+  .ligne .tx>div:first-child{display:flex;flex-direction:column;gap:5px}
+  .ligne h3{font-size:19px}
+  .ligne .ch{margin:0;font-size:15px}.ligne .prix{margin:0;padding:0;font-size:21px;text-align:right}
+  .garder{bottom:auto;top:50%;margin-top:-22px;right:4px}
+  .fleche{display:block;font:700 18px var(--x);color:var(--gris);text-align:right}
+}
+
+.ligne .tx>div:first-child{display:flex;flex-direction:column;gap:3px}
+.ligne .an{display:none}.ligne .he .rep{display:flex;margin-top:4px}
+.entetes{display:none}
+@media(min-width:1000px){.ligne .an{display:block}.tel-an{display:none}
+.entetes{display:grid;grid-template-columns:168px 1fr;gap:26px;padding:18px 0 8px;border-bottom:1px solid var(--trait2);font:600 10.5px var(--m);letter-spacing:.1em;text-transform:uppercase;color:var(--gris)}
+.entetes>div{display:grid;grid-template-columns:1.5fr .5fr 1fr .9fr 40px;gap:20px;padding-right:44px}.entetes>div span:nth-child(4){text-align:right}}
+/* horamètre */
+.horametre{display:inline-flex;align-items:center;gap:6px;background:#0d0e0c;border:2px solid #42463c;border-radius:5px;padding:5px 7px;box-shadow:inset 0 2px 8px #000}
+.horametre .roul{display:inline-flex;gap:2px}
+.horametre .c{width:16px;height:26px;overflow:hidden;background:linear-gradient(#262725,#060606 45%,#060606 55%,#262725);border-radius:2px;position:relative}
+.horametre .c i{position:absolute;left:0;right:0;top:0;font:700 18px/26px var(--m);text-align:center;color:#f4f1e6;font-style:normal;transition:transform 1.5s cubic-bezier(.2,.8,.2,1)}
+.horametre .c.dix{background:linear-gradient(#5a1c12,#2b0b06 45%,#2b0b06 55%,#5a1c12)}
+.horametre small{font:700 11px var(--m);color:var(--olive)}
+
+/* compteur franc */
+.franc-s{background:var(--blanc);border-top:1px solid var(--trait);border-bottom:1px solid var(--trait)}
+.demo{display:grid;gap:22px;margin-top:26px;align-items:center}
+@media(min-width:1000px){.demo{grid-template-columns:minmax(0,520px) 1fr;gap:56px}}
+.cadran{position:relative;border-radius:8px;overflow:hidden;aspect-ratio:4/3;max-width:520px}
+.cadran img{position:absolute;inset:0;width:100%;height:100%!important;object-fit:cover;transition:opacity .5s}
+.cadran:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 45%,#000d)}
+.cadran .horametre{position:absolute;left:14px;bottom:14px;z-index:2;padding:8px 10px;border-width:3px}
+.cadran .horametre .c{width:26px;height:42px}.cadran .horametre .c i{font-size:30px;line-height:42px}
+.cadran .horametre small{font-size:15px}
+.cadran .leg{position:absolute;right:14px;bottom:18px;z-index:2;font:700 13px var(--m);text-align:right;color:#fff}
+.choix{display:grid;border-top:1px solid var(--trait2)}
+.choix button{display:grid;grid-template-columns:auto 1fr;gap:3px 12px;text-align:left;background:none;border:0;border-bottom:1px solid var(--trait);padding:16px 0;cursor:pointer;transition:padding .2s}
+.choix button .rep{grid-row:span 2;align-self:start;margin-top:7px}
+.choix button b{font:800 17px/1.15 var(--x);font-stretch:125%}
+.choix button span.t{font-size:14px;color:var(--gris)}
+.choix button[aria-pressed=true]{box-shadow:inset 3px 0 0 var(--olive);padding-left:14px}
+.regle{margin-top:22px;padding:4px 0 4px 14px;border-left:3px solid var(--olive);font-size:15px;max-width:44em}
+
+/* à distance */
+.etapes{counter-reset:e;display:grid;gap:0 30px;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));margin-top:26px}
+.etape{position:relative;border-top:2px solid var(--encre);padding:16px 0 22px}
+.etape:before{counter-increment:e;content:"0" counter(e);display:block;font:700 12px var(--m);color:var(--olive-f);letter-spacing:.1em;margin-bottom:8px}
+.etape b{display:block;font-size:16.5px;line-height:1.25;margin-bottom:5px}
+.etape p{margin:0;font-size:14.5px;color:#3a3c36}
+.ou{display:grid;gap:26px 40px;margin-top:20px;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+.route{list-style:none;padding:0;margin:12px 0 0}
+.route li{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--trait);font-size:15px}
+.route li b{font:700 14px var(--m)}
+
+/* demande */
+.demande{background:var(--encre);color:#F1F0E9}
+.demande .sur{color:#D9DB8F}.demande h2 em{color:var(--olive)}.demande .gris,.demande .mini{color:#A9AB9F}
+.onglets{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:22px 0 16px;max-width:640px}
+.onglets button{min-height:48px;border-radius:6px;border:1px solid #ffffff30;background:none;color:#fff;font:700 14px var(--x);cursor:pointer;padding:6px 8px}
+.onglets button[aria-selected=true]{background:#fff;color:var(--encre);border-color:#fff}
+@media(min-width:760px){.onglets{grid-template-columns:repeat(4,1fr)}}
+form{display:grid;gap:12px;max-width:640px}
+label{display:grid;gap:6px;font:600 13px var(--x);color:#C9CABF}
+input,select,textarea{font:16px var(--x)}
+form input,form select{width:100%;min-height:52px;border-radius:6px;border:1px solid #ffffff30;background:#1c1d1a;color:#fff;padding:10px 14px}
+form input:focus{outline:2px solid var(--olive);outline-offset:1px}
+.langue select{width:100%;min-height:44px;border-radius:6px;border:1px solid var(--trait2);background:#fff;padding:0 10px}
+.deux{display:grid;gap:10px;grid-template-columns:1fr 1fr}
+.code{display:none;gap:8px;align-items:end}.code.on{display:grid;grid-template-columns:1fr auto}
+.ok{display:none;padding:16px;border-radius:6px;background:#AAAE2526;border:1px solid var(--olive)}.ok.on{display:block}
+.choisies{display:none;padding:12px 14px;border-radius:6px;border:1px dashed #ffffff40;font-size:14px}.choisies.on{display:block}
+.demande .btn.o{border-color:var(--olive)}
+
+/* pied */
+.helico{display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between;border-bottom:1px solid var(--trait);padding:26px 0}
+footer{padding:30px 0 108px;font-size:14px;color:var(--gris)}
+footer .w{display:grid;gap:16px}
+footer b{color:var(--encre)}
+footer .logo img{height:52px}
+.signe{font-size:12px;padding-top:14px;border-top:1px solid var(--trait)}.signe a{color:var(--gris)}
+
+/* barre du bas */
+.fixe{position:fixed;left:10px;right:10px;bottom:10px;z-index:35;display:flex;gap:6px;padding:6px;background:#fff;border-radius:10px;box-shadow:0 10px 34px #0000004d;transform:translateY(140%);transition:transform .35s cubic-bezier(.2,.8,.2,1)}
+.fixe.on{transform:none}
+.fixe .btn{flex:1;min-height:50px;padding:8px 10px;font-size:15px}
+.sel{display:none}.sel.on{display:inline-flex}
+.sel b{display:inline-grid;place-items:center;min-width:22px;height:22px;border-radius:11px;background:var(--olive);color:var(--encre);font:700 12px var(--m)}
+.pc-sel{position:fixed;right:24px;bottom:24px;z-index:35;background:#fff;box-shadow:0 10px 34px #0000004d}
+.pc-sel:not(.on){display:none}
+@media(max-width:999px){.pc-sel{display:none!important}}
+@media(min-width:1000px){.fixe{display:none}footer{padding-bottom:30px}}
+
+/* fiche machine */
+dialog{border:0;padding:0;margin:0;max-width:none;max-height:none;width:100%;height:100%;background:transparent;color:var(--encre)}
+dialog::backdrop{background:#121311cc}
+.page{position:absolute;inset:0;overflow:auto;background:var(--papier);animation:entre .28s ease-out}
+@keyframes entre{from{transform:translateY(24px);opacity:0}}
+.f-barre{position:sticky;top:0;z-index:5;display:flex;align-items:center;justify-content:space-between;gap:8px;height:56px;padding:0 8px 0 4px;background:#fffffff5;backdrop-filter:blur(10px);border-bottom:1px solid var(--trait)}
+.f-barre button{min-height:44px;min-width:44px;border:0;background:none;font:700 14px var(--x);cursor:pointer;border-radius:6px;padding:0 10px}
+.f-barre button:hover{background:var(--papier)}
+.f-barre .nav{display:flex;align-items:center;gap:2px;font:700 12px var(--m)}
+.f-barre .nav button{font-size:20px;padding:0}
+.f-corps{max-width:1100px;margin:0 auto;padding-bottom:96px}
+.galerie{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:3px;background:#000;scrollbar-width:none}
+.galerie::-webkit-scrollbar{display:none}
+.galerie img{flex:none;width:100%;aspect-ratio:4/3;object-fit:cover;scroll-snap-align:start}
+.vignettes{display:flex;gap:6px;padding:8px 18px 0;overflow-x:auto;scrollbar-width:none}
+.vignettes button{flex:none;all:unset;cursor:pointer;width:64px;border-radius:4px;overflow:hidden;opacity:.55;outline:2px solid transparent;outline-offset:1px}
+.vignettes button[aria-current=true]{opacity:1;outline-color:var(--encre)}
+.vignettes img{width:64px;aspect-ratio:4/3;object-fit:cover}
+.f-tx{padding:18px 18px 0;display:grid;gap:18px}
+.f-tx h3{font-size:clamp(26px,7vw,40px);line-height:1.02;margin-top:8px}
+.plaque{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:1px;background:#3b3e36;border-radius:8px;overflow:hidden;border:1px solid #3b3e36;box-shadow:0 14px 30px #12131126}
+.plaque>div{background:linear-gradient(160deg,#262823,#171815);padding:13px 15px;color:#fff;min-width:0}
+.plaque small{display:block;font:600 10px var(--m);letter-spacing:.14em;text-transform:uppercase;color:#A9AB9F;margin-bottom:5px}
+.plaque b{font:800 21px/1.1 var(--x);font-stretch:125%;letter-spacing:-.01em;white-space:nowrap}
+.plaque b small{display:inline;font:600 10.5px var(--m);color:#A9AB9F;margin:0 0 0 5px;letter-spacing:.04em}
+.plaque .large{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.plaque .rep{color:#E9E8DE;font-size:13px}
+.plaque:before,.plaque:after{content:"";position:absolute;top:6px;width:5px;height:5px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#8a8d80,#2e302a);z-index:2}
+.plaque:before{left:6px}.plaque:after{right:6px}
+.expl{font-size:14.5px;color:#3a3c36;margin:-6px 0 0}
+.equip{list-style:none;margin:0;padding:0;display:grid;gap:0}
+.equip li{position:relative;padding:11px 0 11px 28px;border-bottom:1px solid var(--trait);font-size:15.5px}
+.equip li:before{content:"";position:absolute;left:2px;top:17px;width:12px;height:6px;border-left:2px solid var(--olive-f);border-bottom:2px solid var(--olive-f);transform:rotate(-45deg)}
+.dit{border-left:3px solid var(--olive);padding:2px 0 2px 16px}
+.dit p{margin:8px 0 0;font-size:17px;line-height:1.45}
+.f-actions{position:fixed;left:0;right:0;bottom:0;z-index:6;display:flex;gap:8px;padding:10px 12px calc(10px + env(safe-area-inset-bottom));background:#fffffff5;backdrop-filter:blur(10px);border-top:1px solid var(--trait)}
+.f-actions .btn{flex:1;min-height:52px;padding:8px 10px}
+.f-actions .coeur{flex:none;width:52px;padding:0}
+.f-actions .coeur svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8}
+.f-actions .coeur[aria-pressed=true]{background:var(--olive-c)}.f-actions .coeur[aria-pressed=true] svg{fill:var(--olive);stroke:var(--olive-f)}
+@media(min-width:1000px){
+  .page{inset:4vh 0;left:50%;right:auto;width:min(1100px,94vw);transform:translateX(-50%);border-radius:12px;animation:none}
+  .f-corps{display:grid;grid-template-columns:540px 1fr;gap:10px 36px;padding:24px 28px 100px;align-items:start}
+  .f-gal{position:sticky;top:80px}.galerie{border-radius:8px}.vignettes{padding:8px 0 0}
+  .f-tx{padding:0}
+  .f-actions{position:sticky;bottom:0;border-radius:0 0 12px 12px;padding:12px 28px}
+}
+
+/* sélection */
+.panneau{position:absolute;left:0;right:0;bottom:0;max-height:92vh;overflow:auto;background:#fff;border-radius:14px 14px 0 0;animation:entre .28s ease-out}
+@media(min-width:1000px){.panneau{left:50%;top:50%;bottom:auto;width:min(960px,94vw);transform:translate(-50%,-50%);border-radius:12px;animation:none}}
+.p-corps{padding:22px 18px 26px;display:grid;gap:16px}
+.p-corps h3{font-size:26px}
+.fermer{position:absolute;right:8px;top:8px;z-index:3;width:44px;height:44px;border-radius:50%;border:0;background:var(--papier);font:400 24px var(--x);cursor:pointer}
+.comparer{overflow-x:auto;margin:0 -18px;padding:0 18px}
+.comparer table{border-collapse:collapse;min-width:100%;font-size:14.5px}
+.comparer th,.comparer td{padding:10px 12px 10px 0;border-bottom:1px solid var(--trait);text-align:left;vertical-align:top;min-width:150px}
+.comparer th{font:600 10.5px var(--m);color:var(--gris);text-transform:uppercase;letter-spacing:.1em;min-width:86px;position:sticky;left:0;background:#fff}
+.comparer img{width:150px;aspect-ratio:4/3;object-fit:cover;border-radius:6px}
+.comparer .mieux{font-weight:800;box-shadow:inset 0 -9px 0 var(--olive-c)}
+.retirer{background:none;border:0;color:var(--gris);font:600 12px var(--x);cursor:pointer;padding:6px 0;text-decoration:underline}
+.rv{opacity:0;transform:translateY(18px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.8,.2,1)}.rv.vu{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<header class="barre"><div class="w">
+  <a class="logo" href="#haut"><img src="../photos/logo.png" alt="Poly Commerce" width="520" height="270"></a>
+  <nav><a href="#parc" data-t="nav1">Le stock</a><a href="#franc" data-t="nav2">Compteur franc</a><a href="#distance" data-t="nav3">Acheter à distance</a><a href="#demande" data-t="nav4">Vendre ou chercher</a></nav>
+  <div class="droite">
+    <div class="langue" id="langue">
+      <button type="button" aria-haspopup="true" aria-expanded="false" id="langue-btn" aria-label="Langue">FR</button>
+      <div class="menu">
+        <button type="button" data-l="fr">Français <b>FR</b></button>
+        <button type="button" data-l="de">Deutsch <b>DE</b></button>
+        <button type="button" data-l="en">English <b>EN</b></button>
+        <button type="button" data-l="it">Italiano <b>IT</b></button>
+        <div class="autre"><label for="autre-l" data-t="autre">Autre langue (traduction automatique)</label>
+          <select id="autre-l"><option value="" data-t="choisir">Choisir…</option><option value="es">Español</option><option value="pl">Polski</option><option value="ro">Română</option><option value="nl">Nederlands</option><option value="pt">Português</option><option value="cs">Čeština</option><option value="hu">Magyar</option><option value="bg">Български</option><option value="uk">Українська</option><option value="tr">Türkçe</option><option value="ar">العربية</option></select></div>
+      </div>
+    </div>
+    <a class="tel" href="tel:+33687858436" aria-label="Appeler le 06 87 85 84 36">✆ <span>06 87 85 84 36</span></a>
+  </div>
+</div></header>
+
+<main id="haut">
+<div class="tete"><div class="w">
+  <div class="sur" data-t="sur1">Givry-en-Argonne · Occasion</div>
+  <h1 data-t="h1">Quelle machine <em>cherchez-vous&nbsp;?</em></h1>
+  <div class="champ"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/></svg><input type="search" id="cherche" placeholder="Débusqueur, pelle 20 t, John Deere…" aria-label="Rechercher une machine" enterkeyhint="search"></div>
+  <div class="genres" role="toolbar" aria-label="Usage">
+    <button aria-pressed="true" data-f="tout"><span data-t="f0">Tout</span><b></b></button>
+    <button aria-pressed="false" data-f="foret"><span data-t="f1">Forêt</span><b></b></button>
+    <button aria-pressed="false" data-f="tp"><span data-t="f2">Travaux publics</span><b></b></button>
+    <button aria-pressed="false" data-f="agri"><span data-t="f3">Agricole &amp; levage</span><b></b></button>
+  </div>
+  <div class="faits"><span data-t="fa1">Visite sur rendez-vous</span><span data-t="fa2">Livraison France &amp; Europe</span><span data-t="fa3">7 j/7, 8 h – 21 h</span></div>
+</div></div>
+
+<div class="stock">
+<div class="outils" id="outils"><div class="w">
+  <div class="n"><b id="nb">18</b><span data-t="machines">machines</span></div>
+  <div class="pilule" id="pb"><select id="budget" aria-label="Budget"><option value="" data-t="bu0">Prix</option><option value="50000">≤ 50 000 €</option><option value="100000">≤ 100 000 €</option><option value="150000">≤ 150 000 €</option></select></div>
+  <div class="pilule" id="ph"><select id="hmax" aria-label="Heures"><option value="" data-t="he0">Heures</option><option value="1000">≤ 1 000 h</option><option value="3000">≤ 3 000 h</option><option value="6000">≤ 6 000 h</option></select></div>
+  <div class="pilule" id="pt"><select id="trier" aria-label="Trier"><option value="" data-t="t0">Trier</option><option value="p+" data-t="t1">Prix croissant</option><option value="p-" data-t="t2">Prix décroissant</option><option value="a-" data-t="t3">Plus récentes</option><option value="h+" data-t="t4">Moins d'heures</option></select></div>
+</div></div>
+
+<section id="parc"><div class="w">
+  <div class="entetes"><span></span><div><span data-t="col1">Machine</span><span data-t="annee">Année</span><span data-t="col3">Heures</span><span data-t="col4">Prix HT</span><span></span></div></div>
+  <div id="grille"></div>
+  <p class="vide" id="vide" hidden><span data-t="vide">Aucune machine ne correspond. Dites-nous ce que vous cherchez : Dominique en trouve souvent hors catalogue.</span><br><br><a class="btn p" href="#demande" data-t="b6">Faire une demande</a></p>
+  <div class="plus">
+    <a class="btn" href="https://www.polycommerce.fr/fr/91071-nos-occasions" rel="noopener" data-t="b3">Les 61 annonces</a>
+    <span class="mini" style="max-width:36em" data-t="m1">Prix hors taxes, tels qu'affichés par Poly Commerce le 24/11/2026. Une machine peut partir vite : appelez avant de vous déplacer.</span>
+  </div>
+</div></section>
+</div>
+
+<section id="franc" class="franc-s"><div class="w">
+  <div class="sur" data-t="sur3">Notre façon de faire</div>
+  <h2 data-t="h2b">Le compteur <em>franc.</em></h2>
+  <p class="gris" style="max-width:38em;margin:12px 0 0" data-t="p3">Sur une machine d'occasion, la première question, c'est les heures. Chaque fiche dit clairement d'où vient le chiffre affiché, avec trois repères simples.</p>
+  <div class="demo rv">
+    <div class="cadran"><img id="cadran-img" src="../photos/46819975_1774949277_746.jpg" alt="" width="536" height="402" loading="lazy"><div class="horametre" id="cadran-h"></div><div class="leg" id="cadran-leg"></div></div>
+    <div class="choix" id="choix">
+      <button type="button" aria-pressed="true" data-i="0"><span class="rep"></span><b data-t="c1">Heures d'origine</b><span class="t" data-t="c1t">Le vrai total de la machine, écrit dans l'annonce. Ex. : John Deere 648 H, 8 850 h.</span></button>
+      <button type="button" aria-pressed="false" data-i="1"><span class="rep a"></span><b data-t="c2">Lu au compteur</b><span class="t" data-t="c2t">Le chiffre de l'horamètre le jour de la photo. Venez le vérifier, ou envoyez votre mécanicien.</span></button>
+      <button type="button" aria-pressed="false" data-i="2"><span class="rep r"></span><b data-t="c3">Compteur remis à zéro</b><span class="t" data-t="c3t">Machine reconditionnée ou horamètre changé : on donne aussi l'estimation du total quand on l'a.</span></button>
+    </div>
+  </div>
+  <div class="regle" data-t="regle">Pour les machines de plus de 15 ans ou 6 000 heures, nous conseillons de venir avec une personne compétente pour contrôler le moteur et la boîte avant l'achat. C'est écrit dans nos conditions de vente.</div>
+  <p class="mini" style="margin-top:12px" data-t="m2">Aperçu : les repères ci-dessus sont tirés du texte des annonces, à valider machine par machine avec Dominique.</p>
+</div></section>
+
+<section id="distance"><div class="w">
+  <div class="sur" data-t="sur4">Sans vous déplacer, si vous le souhaitez</div>
+  <h2 data-t="h2c">Acheter <em>à distance,</em> en quatre temps.</h2>
+  <div class="etapes">
+    <div class="etape rv"><b data-t="e1">Photos détaillées</b><p data-t="e1t">On vous envoie toutes les photos que vous demandez : moteur, articulation, pneus, cabine.</p></div>
+    <div class="etape rv"><b data-t="e2">Votre mécanicien, si vous voulez</b><p data-t="e2t">Vous pouvez faire venir un mécanicien sur le parc. Conseillé pour les machines de plus de 15 ans.</p></div>
+    <div class="etape rv"><b data-t="e3">Acompte, la machine est bloquée</b><p data-t="e3t">Un chèque de réservation ou un virement d'acompte réserve la machine pour vous. Facture éditée à réception.</p></div>
+    <div class="etape rv"><b data-t="e4">Livraison, solde au livreur</b><p data-t="e4t">On organise le transport et on vous appelle avant. Le solde se règle avant livraison, par virement ou chèque au livreur.</p></div>
+  </div>
+  <div class="ou">
+    <div class="rv">
+      <div class="sur" data-t="sur5">Venir voir la machine</div>
+      <p style="margin:12px 0 0"><b>1 avenue de la Gare, 51330 Givry-en-Argonne</b><br><span class="gris" data-t="rdv">Sur rendez-vous uniquement : appelez avant de venir.</span></p>
+      <ul class="route"><li>Châlons-en-Champagne<b>30 min</b></li><li>Reims<b>45 min</b></li><li>Metz<b>2 h</b></li><li>Paris<b>2 h 30</b></li></ul>
+      <p style="margin:16px 0 0"><a class="btn" href="https://www.google.com/maps/search/?api=1&query=Poly+Commerce+1+avenue+de+la+Gare+51330+Givry-en-Argonne" rel="noopener" data-t="b4">Itinéraire</a></p>
+    </div>
+    <div class="rv">
+      <div class="sur" data-t="sur6">Livraison</div>
+      <p style="margin:12px 0 0" data-t="livr">Transport organisé dans toute la France et en Europe, en général en moins de dix jours. Les mises aux normes propres à chaque pays restent à la charge de l'acheteur.</p>
+      <p class="mini" style="margin-top:14px" data-t="m3">Références clients disponibles sur demande : demandez à Dominique.</p>
+    </div>
+  </div>
+</div></section>
+
+<section id="demande" class="demande"><div class="w">
+  <div class="sur" data-t="sur7">Une demande, une réponse</div>
+  <h2 data-t="h2d">Vous cherchez, <em>ou vous vendez&nbsp;?</em></h2>
+  <p class="gris" style="max-width:36em;margin:12px 0 0" data-t="p4">Nous achetons aussi des machines. Dites-nous ce que vous cherchez ou ce que vous vendez : Dominique vous rappelle.</p>
+  <div class="onglets" role="tablist">
+    <button role="tab" aria-selected="true" data-o="cherche" data-t="o1">Je cherche</button>
+    <button role="tab" aria-selected="false" data-o="alerte" data-t="o2">Prévenez-moi</button>
+    <button role="tab" aria-selected="false" data-o="vends" data-t="o3">Je vends</button>
+    <button role="tab" aria-selected="false" data-o="visite" data-t="o4">Visite du parc</button>
+  </div>
+  <form id="form" novalidate>
+    <div class="choisies" id="choisies"></div>
+    <p class="mini" id="l-alerte" hidden style="margin:0" data-t="alerte">Dès qu'une machine qui correspond arrive au parc, vous recevez un SMS, avant qu'elle soit en ligne.</p>
+    <label id="l-machine"><span id="l-machine-t">Quelle machine ?</span><input name="machine" id="f-machine"></label>
+    <div class="deux" id="l-vends" hidden>
+      <label><span data-t="annee">Année</span><input name="annee" inputmode="numeric" placeholder="2015"></label>
+      <label><span data-t="heures">Heures</span><input name="heures" inputmode="numeric" placeholder="6 500"></label>
+    </div>
+    <label id="l-photos" hidden><span data-t="photos">Photos de votre machine</span><input type="file" accept="image/*" multiple></label>
+    <label id="l-date" hidden><span data-t="jour">Quel jour vous arrange ?</span><input type="date" name="date"></label>
+    <div class="deux">
+      <label><span data-t="prenom">Prénom</span><input name="prenom" autocomplete="given-name" required></label>
+      <label><span data-t="portable">Portable</span><input name="portable" type="tel" autocomplete="tel" inputmode="tel" placeholder="06 …" required></label>
+    </div>
+    <button class="btn o" type="submit" id="envoyer" data-t="sms">Recevoir mon code par SMS</button>
+    <div class="code" id="code"><label><span data-t="code">Code reçu par SMS</span><input inputmode="numeric" maxlength="4" placeholder="1234" id="code-in"></label><button class="btn o" type="button" id="valider" data-t="valider">Valider</button></div>
+    <p class="mini" id="demo-note" hidden data-t="demo">Démonstration : le code est 1234. Sur le vrai site, il part par SMS.</p>
+    <div class="ok" id="ok" role="status" data-t="ok"><b>C'est envoyé.</b> Dominique vous rappelle sur votre portable.</div>
+    <p class="mini" data-t="m4">Le code SMS évite les fausses demandes. Votre numéro sert seulement à vous rappeler.</p>
+  </form>
+</div></section>
+
+<section style="padding:0"><div class="w">
+  <div class="helico">
+    <div><div class="sur" data-t="sur8">Et aussi</div><p style="margin:8px 0 0;font-size:17px" data-t="helico"><b>Rachat et vente d'hélicoptères.</b> <span class="gris">Un Robinson R44 Raven II en ce moment : renseignements par téléphone.</span></p></div>
+    <a class="btn" href="tel:+33687858436" data-t="b5">En parler</a>
+  </div>
+</div></section>
+</main>
+
+<footer><div class="w">
+  <a class="logo" href="#haut"><img src="../photos/logo.png" alt="Poly Commerce" width="520" height="270" loading="lazy"></a>
+  <div><b>SARL Poly Commerce</b> · 1 avenue de la Gare, 51330 Givry-en-Argonne · SIRET 509 844 205 00021<br>Dominique Campana · <a href="tel:+33687858436">06 87 85 84 36</a> · <span data-t="horaires">7 jours sur 7, de 8 h à 21 h</span></div>
+  <div class="mini" data-t="m5">Prix et caractéristiques relevés le 24/11/2026 sur les annonces de Poly Commerce. Prix hors taxes, sous réserve de vente.</div>
+  <div class="signe"><span data-t="signe">Site réalisé par</span> <a href="https://agence-ldr.fr/" rel="noopener">Agence LDR</a></div>
+</div></footer>
+
+<div class="fixe" id="fixe"><a class="btn o" href="tel:+33687858436" data-t="appeler">Appeler</a><a class="btn p" href="#demande" data-t="demande">Demande</a><button class="btn sel" type="button"><span data-t="sel">Sélection</span> <b>0</b></button></div>
+<button class="btn sel pc-sel" type="button"><span data-t="sel">Sélection</span> <b>0</b></button>
+
+<dialog id="fiche" aria-label="Fiche machine"><div class="page" id="page"></div></dialog>
+<dialog id="selection" aria-label="Ma sélection"><div class="panneau" id="panneau-sel"></div></dialog>
+<script>
+const M=[
+{id:"44801596",f:"foret",t:"Débusqueur",n:"John Deere 648 L",a:2016,h:8924,p:108800,hs:"a",eq:["Grapple et treuil","Pneus 30.5-32 à 75 %","Inspection générale complète"],ph:["1715701211_2","1715701211_518","1715701211_59","1715701211_174","1715701212_61"],dit:"Très beau débusqueur, inspection générale complète et lavage complet. Intérieur soigné."},
+{id:"46819975",f:"foret",t:"Débusqueur avec grue",n:"John Deere 648 H · grue Charlier",a:2011,h:8850,p:178800,hs:"o",eq:["Grue Charlier G4, pince 3 m","Radiocommande Falard du treuil","Pneus bons à 95 %"],ph:["1774949277_746","1774949277_627","1774949278_452","1774949278_711","1774949278_525"],dit:"Carrosserie superbe, marchepied large, 8 850 heures d'origine. Pinces sur lame avant. Largeur hors tout 2,98 m."},
+{id:"47116721",f:"foret",t:"Débusqueur reconditionné",n:"John Deere 648 H · reconditionné",a:2014,h:25,p:118800,hs:"r",tot:"heures avant reconditionnement : à confirmer",eq:["Moteur et boîte révisés","Peinture intégrale neuve","Pneus neufs 30.5/32, treuil 20 t"],ph:["1790925939_793","1790925939_511","1790925940_265","1790925940_590","1790925940_78"],dit:"Reconditionné à neuf : articulation et axes neufs, vitres et intérieur neufs, climatisation, aucune fuite. Voie réductible à 2,99 m."},
+{id:"47161115",f:"foret",t:"Débusqueur",n:"John Deere 548 G II · grapple",a:2000,h:21,p:86800,hs:"r",tot:"environ 11 000 h d'origine, selon l'annonce",eq:["Pompe hydraulique neuve","Télécommande de treuil","Pont révisé"],ph:["1793175751_780","1793175751_443","1793175752_892","1793175752_371","1793175752_645"],dit:"Machine aux normes CE, révision récente, poulie tournante sur arche, carrosserie en très bon état."},
+{id:"46983768",f:"foret",t:"Porteur",n:"Logset 5 FP GT",a:2021,h:5650,p:218000,hs:"a",eq:["Grue 10 m, flexibles intégrés","Rallonge de berce coulissante","Cabine suspendue, pneus 700"],ph:["1783002687_309","1783002688_59","1783002688_406","1783002688_926","1783002688_723"],dit:"État d'exception, mis en service fin 2021. Grille avant coulissante."},
+{id:"40791163",f:"foret",t:"Broyeur forestier",n:"Vermeer FT 300",a:2016,h:1120,p:158800,hs:"a",eq:["Moteur Cummins 290 ch","Chenilles de 90 cm","Largeur de travail 1,8 m"],ph:["1711722261_857","1711722261_650","1711722261_57","1711722261_839","1711722262_526"],dit:"Très bon état, utilisable de suite, pas de frais à prévoir. Service après-vente assuré par nos soins."},
+{id:"42710799",f:"tp",t:"Pelle sur chenilles · 22 t",n:"Volvo EC 220 E",a:2016,h:3850,p:94800,hs:"a",eq:["3 godets, attache rapide Arden","Graissage centralisé automatique","Révision des 500 h récente"],ph:["1676544209_519","1676544209_361","1654872660_884","1654872660_143","1654872661_607"],dit:"État d'exception. Clapets de sécurité, 2 lignes hydrauliques proportionnelles, tuiles de 600."},
+{id:"47204061",f:"tp",t:"Pelle sur chenilles · 14 t",n:"Komatsu PC138US-11",a:2019,h:3831,p:64800,hs:"a",eq:["2 godets, attache rapide hydraulique","Double ligne BRH","Climatisation, tuiles de 700"],ph:["1795000764_909","1795000764_817","1795000764_823","1795000764_603","1795000765_492"],dit:"État d'exception, peinture d'origine."},
+{id:"46957854",f:"tp",t:"Pelle sur chenilles · 27 t",n:"Sany SY 265 LC",a:2021,h:1880,p:78800,hs:"a",eq:["Godet de curage + terrassement","Double ligne BRH","Caméras arrière et latérale"],ph:["1781611062_117","1781611062_566","1781611062_774","1781611063_258","1781611063_219"],dit:"État exceptionnel. Attache hydraulique, clapets de sécurité, largeur hors tout 3,20 m."},
+{id:"45029160",f:"tp",t:"Pelle sur chenilles",n:"Hitachi ZX 135 US-5 · lame",a:2014,h:4310,p:63800,hs:"a",eq:["Injection et filtration neuves","Chenilles fer, patins démontables","Attache hydraulique Geith"],ph:["1765796291_45","1765796291_960","1765796291_305","1765796292_802","1765796292_427"],dit:"Très belle machine. Un godet, deux lignes hydrauliques avec retour libre, climatisation."},
+{id:"45477224",f:"tp",t:"Tombereau articulé · 25 t",n:"Volvo A25D",a:2004,h:7800,p:97800,hs:"o",eq:["6 pneus neufs","Benne chauffante","Certificat de conformité"],ph:["1734964703_178","1734964703_479","1734964704_172","1733742108_36","1733742109_176"],dit:"Superbe état, heures d'origine, porte hydraulique arrière, intérieur très soigné. Visible au travail."},
+{id:"46876759",f:"tp",t:"Mini-pelle · 2 t",n:"Kubota KX019-4",a:2022,h:539,p:19800,hs:"a",eq:["4 godets + dent à dessoucher","Attache rapide, ligne BRH","Voie variable"],ph:["1778591922_392","1778591923_529","1778591925_968","1778591925_801","1778591926_547"],dit:"Très bon état, vitesse rapide."},
+{id:"46977702",f:"agri",t:"Télescopique · 18 m",n:"Manitou MT 1840 Easy",a:2020,h:1593,p:69800,hs:"o",eq:["4 t, 18 m, stabilisateurs","Correcteur de dévers","Un seul propriétaire"],ph:["1782723446_804","1782723446_54","1782723446_924","1782723447_37","1782723447_515"],dit:"Plaque constructeur 2019, mise en service en 2020. Heures d'origine certifiées. Fourches à palettes."},
+{id:"47134198",f:"agri",t:"Télescopique · 10 m",n:"Manitou MT 1030 Easy Comfort",a:2020,h:945,p:46800,hs:"o",eq:["Machine de démonstration","Fourches réglables hydrauliquement","Moteur Deutz, stabilisateurs"],ph:["1794313939_414","1794313940_383","1794313940_637","1794314088_91","1794313940_629"],dit:"Excellent état, proche du neuf. Heures certifiées, peinture d'origine."},
+{id:"44541498",f:"agri",t:"Télescopique agricole",n:"JCB 542-70 Agri Super",a:2020,h:2845,p:69800,hs:"a",eq:["Moteur 145 ch","Frein à air, ABS","Crochet hydraulique, joystick"],ph:["1709285537_87","1709285537_351","1709285538_835","1709285538_647","1709285538_837"],dit:"Excellent état. Climatisation, pneus Michelin 460/70R24, fourches à palettes."},
+{id:"45823067",f:"agri",t:"Tracteur · 95 ch",n:"John Deere 5090 GF",a:2018,h:2701,p:34800,hs:"a",eq:["4 roues motrices","Pneus neufs avant et arrière","Roule à 40 km/h"],ph:["1743515944_167","1743515944_971","1743515945_928","1743515945_334","1743515945_764"],dit:"Très bon état, boîte mécanique."},
+{id:"44128996",f:"agri",t:"Tracteur · 74 ch",n:"Kubota M 4072",a:2019,h:132,p:41800,hs:"a",eq:["132 heures","Climatisation, masse avant","Pneus gazon"],ph:["1697017963_441","1697017963_141","1697017964_479","1697017964_610","1697017964_880"],dit:"Très bon état, proche du neuf. 6 vitesses, 3 gammes, distributeurs électriques."},
+{id:"46925985",f:"agri",t:"Transporteur 4x4",n:"John Deere Gator XUV 855",a:2019,h:443,p:23800,hs:"a",eq:["Double cabine","Portes et pare-brise","Jantes alliage"],ph:["1780065606_924","1780065606_42","1780065607_567","1780065607_72","1780065607_763"],dit:"Très beau Gator, 4x4."}
+];
+const TR={
+de:{nav1:"Bestand",nav2:"Ehrlicher Zähler",nav3:"Fernkauf",nav4:"Kaufen oder verkaufen",autre:"Andere Sprache (automatische Übersetzung)",choisir:"Wählen…",
+sur1:"Givry-en-Argonne · Forst · Bau · Landwirtschaft",h1:"Gebrauchtmaschinen, <em>ohne Grauzone.</em>",chapo:"Rund sechzig Maschinen auf unserem Platz zwischen Reims und Verdun. Jedes Inserat sagt, woher die angezeigten Stunden stammen. Besichtigung nach Termin oder Kauf aus der Ferne, Lieferung in Frankreich und ganz Europa.",b1:"Zum Bestand",b2:"Dominique anrufen",
+sur2:"Der Bestand · Stand 24.11.2026",h2a:"Einzeln <em>ausgewählt.</em>",p2:"Tippen Sie auf eine Maschine, um alle Fotos zu sehen. Merken Sie sich Maschinen mit dem Herz: Sie können sie nebeneinander vergleichen und an Dominique schicken.",f0:"Alle",f1:"Forst",f2:"Bau",f3:"Landwirtschaft &amp; Heben",t0:"Sort.",t1:"Preis aufsteigend",t2:"Preis absteigend",t3:"Neueste zuerst",t4:"Wenigste Stunden",vide:"Keine passende Maschine. Sagen Sie uns, was Sie suchen: Dominique findet oft auch Maschinen außerhalb des Katalogs.",b3:"Alle 61 Inserate",m1:"Nettopreise zzgl. MwSt., wie von Poly Commerce angegeben. Eine Maschine kann schnell verkauft sein: Rufen Sie vor Ihrem Besuch an.",
+sur3:"Unsere Arbeitsweise",h2b:"Der ehrliche <em>Zähler.</em>",p3:"Bei einer Gebrauchtmaschine ist die erste Frage: die Stunden. Jedes Inserat sagt klar, woher die angezeigte Zahl stammt, mit drei einfachen Kennzeichen.",c1:"Originalstunden",c1t:"Die tatsächliche Gesamtlaufzeit, im Inserat angegeben. Beispiel: John Deere 648 H, 8 850 h.",c2:"Am Zähler abgelesen",c2t:"Der Stand des Betriebsstundenzählers am Tag des Fotos. Prüfen Sie ihn selbst oder schicken Sie Ihren Mechaniker.",c3:"Zähler auf null",c3t:"Überholte Maschine oder ausgetauschter Zähler: Wir nennen auch die geschätzte Gesamtlaufzeit, wenn wir sie kennen.",regle:"Bei Maschinen über 15 Jahre oder 6 000 Stunden empfehlen wir, mit einer fachkundigen Person zu kommen, um Motor und Getriebe vor dem Kauf zu prüfen. Das steht in unseren Verkaufsbedingungen.",m2:"Vorschau: Die Kennzeichen stammen aus den Inseratstexten und werden mit Dominique Maschine für Maschine bestätigt.",
+sur4:"Ohne Anreise, wenn Sie möchten",h2c:"Kauf <em>aus der Ferne,</em> in vier Schritten.",e1:"Detaillierte Fotos",e1t:"Wir schicken Ihnen alle gewünschten Fotos: Motor, Knickgelenk, Reifen, Kabine.",e2:"Ihr Mechaniker, wenn Sie möchten",e2t:"Sie können einen Mechaniker auf unseren Platz schicken. Empfohlen für Maschinen über 15 Jahre.",e3:"Anzahlung, die Maschine ist reserviert",e3t:"Ein Reservierungsscheck oder eine Anzahlung per Überweisung reserviert die Maschine für Sie. Rechnung nach Eingang.",e4:"Lieferung, Restzahlung",e4t:"Wir organisieren den Transport und rufen Sie vorher an. Der Restbetrag wird vor der Lieferung per Überweisung oder Scheck an den Fahrer bezahlt.",sur5:"Maschine besichtigen",rdv:"Nur nach Terminvereinbarung: Bitte rufen Sie vorher an.",b4:"Route",sur6:"Lieferung",livr:"Transport in ganz Frankreich und Europa, meist in weniger als zehn Tagen. Länderspezifische Anpassungen an Normen trägt der Käufer.",m3:"Kundenreferenzen auf Anfrage: Fragen Sie Dominique.",
+sur7:"Eine Anfrage, eine Antwort",h2d:"Sie suchen <em>oder verkaufen?</em>",p4:"Wir kaufen auch Maschinen an. Sagen Sie uns, was Sie suchen oder verkaufen: Dominique ruft Sie zurück.",o1:"Ich suche",o2:"Benachrichtigen",o3:"Ich verkaufe",o4:"Besichtigung",alerte:"Sobald eine passende Maschine auf den Platz kommt, erhalten Sie eine SMS, noch bevor sie online ist.",q1:"Welche Maschine?",annee:"Baujahr",heures:"Stunden",photos:"Fotos Ihrer Maschine",jour:"Welcher Tag passt Ihnen?",prenom:"Vorname",portable:"Mobilnummer",sms:"Code per SMS erhalten",code:"Per SMS erhaltener Code",valider:"Bestätigen",demo:"Demo: Der Code ist 1234. Auf der echten Website kommt er per SMS.",ok:"<b>Gesendet.</b> Dominique ruft Sie auf Ihrem Handy zurück.",m4:"Der SMS-Code verhindert falsche Anfragen. Ihre Nummer dient nur dem Rückruf.",
+sur8:"Außerdem",helico:"<b>An- und Verkauf von Hubschraubern.</b> <span class=\"doux\">Derzeit ein Robinson R44 Raven II: Auskunft telefonisch.</span>",b5:"Darüber sprechen",horaires:"7 Tage die Woche, 8 bis 21 Uhr",m5:"Preise und Daten am 24.11.2026 den Inseraten von Poly Commerce entnommen. Nettopreise, Zwischenverkauf vorbehalten.",signe:"Website erstellt von",appeler:"Anrufen",demande:"Anfrage",sel:"Auswahl",
+_:{voir:"Details",photos:"Fotos",glissez:"wischen",annee:"Baujahr",prix:"Preis",heures:"Stunden",repere:"Ehrlicher Zähler",total:"Geschätzte Gesamtlaufzeit",dit:"Was Dominique dazu sagt",fr:"Originalbeschreibung auf Französisch",vieux:"Maschine über 15 Jahre: Kommen Sie mit einem Mechaniker oder schicken Sie einen auf den Platz, bevor Sie kaufen.",appeler:"Anrufen",visite:"Besichtigung buchen",garder:"Merken",garde:"Gemerkt",annonce:"Originalinserat ansehen",ma:"Meine Auswahl",vide:"Noch keine Maschine gemerkt. Tippen Sie auf das Herz einer Maschine.",envoyer:"Auswahl an Dominique senden",retirer:"Entfernen",machine:"Maschine",usage:"Einsatz",choisies:"Ausgewählte Maschinen:",q:{cherche:"Welche Maschine?",alerte:"Welche Maschine sollen wir für Sie finden?",vends:"Ihre Maschine (Marke, Modell)",visite:"Welche Maschine möchten Sie sehen?"},ph:{cherche:"z. B. Skidder mit Kran, Budget 80 000 € netto",alerte:"z. B. Kettenbagger 20 t, unter 5 000 h",vends:"z. B. John Deere 548 G III",visite:"z. B. Komatsu PC138US-11"},fil:["Alle","Forst","Bau","Landwirtschaft"],ban:["61 Maschinen online","Wir sprechen FR · DE · EN · IT","Lieferung Frankreich & Europa","Besichtigung nach Termin","7 Tage die Woche, 8–21 Uhr"]}},
+en:{nav1:"Stock",nav2:"Honest hours",nav3:"Buy remotely",nav4:"Buy or sell",autre:"Other language (automatic translation)",choisir:"Choose…",
+sur1:"Givry-en-Argonne · Forestry · Construction · Farming",h1:"Used machinery, <em>nothing hidden.</em>",chapo:"Around sixty machines on our yard between Reims and Verdun. Every listing tells you where the hours shown come from. Visits by appointment, or buy remotely with delivery across France and Europe.",b1:"See the stock",b2:"Call Dominique",
+sur2:"The stock · updated 24/11/2026",h2a:"Chosen <em>one by one.</em>",p2:"Tap a machine to see all its photos. Keep the ones you like with the heart: you can compare them side by side and send them to Dominique.",f0:"All",f1:"Forestry",f2:"Construction",f3:"Farming &amp; lifting",t0:"Sort",t1:"Price: low to high",t2:"Price: high to low",t3:"Newest first",t4:"Fewest hours",vide:"No matching machine. Tell us what you need: Dominique often finds machines outside the catalogue.",b3:"All 61 listings",m1:"Prices excluding VAT, as listed by Poly Commerce. A machine can sell quickly: call before you travel.",
+sur3:"How we work",h2b:"Honest <em>hours.</em>",p3:"With a used machine, the first question is always the hours. Every listing states clearly where the figure comes from, with three simple labels.",c1:"Original hours",c1t:"The machine's true total, stated in the listing. E.g. John Deere 648 H, 8,850 h.",c2:"Read on the meter",c2t:"The hour meter reading on the day of the photo. Come and check it, or send your mechanic.",c3:"Meter reset",c3t:"Rebuilt machine or replaced meter: we also give the estimated total when we have it.",regle:"For machines over 15 years old or 6,000 hours, we advise coming with a qualified person to check the engine and transmission before buying. It is written in our terms of sale.",m2:"Preview: these labels come from the listing texts and are to be confirmed machine by machine with Dominique.",
+sur4:"No need to travel, if you prefer",h2c:"Buy <em>remotely,</em> in four steps.",e1:"Detailed photos",e1t:"We send you every photo you ask for: engine, articulation, tyres, cab.",e2:"Your mechanic, if you wish",e2t:"You can send a mechanic to our yard. Advised for machines over 15 years old.",e3:"Deposit, the machine is held",e3t:"A reservation cheque or a deposit by bank transfer holds the machine for you. Invoice issued on receipt.",e4:"Delivery, balance on arrival",e4t:"We arrange transport and call you beforehand. The balance is paid before delivery, by transfer or cheque to the driver.",sur5:"Come and see the machine",rdv:"By appointment only: please call before coming.",b4:"Directions",sur6:"Delivery",livr:"Transport arranged throughout France and Europe, usually in under ten days. Country-specific compliance work is the buyer's responsibility.",m3:"Customer references available on request: ask Dominique.",
+sur7:"One request, one answer",h2d:"Buying <em>or selling?</em>",p4:"We also buy machines. Tell us what you are looking for or selling: Dominique will call you back.",o1:"I'm looking",o2:"Alert me",o3:"I'm selling",o4:"Visit the yard",alerte:"As soon as a matching machine arrives at the yard, you get a text, before it goes online.",q1:"Which machine?",annee:"Year",heures:"Hours",photos:"Photos of your machine",jour:"Which day suits you?",prenom:"First name",portable:"Mobile",sms:"Get my code by text",code:"Code received by text",valider:"Confirm",demo:"Demo: the code is 1234. On the real site it is sent by text.",ok:"<b>Sent.</b> Dominique will call you back on your mobile.",m4:"The text code stops fake requests. Your number is only used to call you back.",
+sur8:"Also",helico:"<b>We buy and sell helicopters.</b> <span class=\"doux\">A Robinson R44 Raven II right now: details by phone.</span>",b5:"Ask about it",horaires:"7 days a week, 8 am to 9 pm",m5:"Prices and specifications taken from Poly Commerce listings on 24/11/2026. Prices excluding VAT, subject to prior sale.",signe:"Website by",appeler:"Call",demande:"Request",sel:"Selection",
+_:{voir:"Details",photos:"photos",glissez:"swipe",annee:"Year",prix:"Price",heures:"Hours",repere:"Honest hours",total:"Estimated total",dit:"What Dominique says",fr:"Original description in French",vieux:"Machine over 15 years old: come with a mechanic, or have one inspect it on our yard before buying.",appeler:"Call",visite:"Book a visit",garder:"Keep",garde:"Kept",annonce:"See the original listing",ma:"My selection",vide:"No machine kept yet. Tap the heart on a machine.",envoyer:"Send my selection to Dominique",retirer:"Remove",machine:"Machine",usage:"Use",choisies:"Selected machines:",q:{cherche:"Which machine?",alerte:"Which machine should we find for you?",vends:"Your machine (make, model)",visite:"Which machine would you like to see?"},ph:{cherche:"e.g. skidder with crane, budget €80,000 ex VAT",alerte:"e.g. 20 t crawler excavator, under 5,000 h",vends:"e.g. John Deere 548 G III",visite:"e.g. Komatsu PC138US-11"},fil:["All","Forestry","Construction","Farming"],ban:["61 machines online","We speak FR · DE · EN · IT","Delivery France & Europe","Visits by appointment","7 days a week, 8 am–9 pm"]}},
+it:{nav1:"Il parco",nav2:"Contaore onesto",nav3:"Acquisto a distanza",nav4:"Comprare o vendere",autre:"Altra lingua (traduzione automatica)",choisir:"Scegli…",
+sur1:"Givry-en-Argonne · Forestale · Movimento terra · Agricolo",h1:"L'usato, <em>senza zone d'ombra.</em>",chapo:"Una sessantina di macchine nel nostro piazzale tra Reims e Verdun. Ogni scheda indica da dove vengono le ore mostrate. Visita su appuntamento, oppure acquisto a distanza con consegna in Francia e in Europa.",b1:"Vedi il parco",b2:"Chiama Dominique",
+sur2:"Il parco · aggiornato al 24/11/2026",h2a:"Scelte <em>una per una.</em>",p2:"Tocca una macchina per vedere tutte le foto. Salva quelle che ti interessano con il cuore: potrai confrontarle fianco a fianco e inviarle a Dominique.",f0:"Tutte",f1:"Forestale",f2:"Movimento terra",f3:"Agricolo &amp; sollevamento",t0:"Ordina",t1:"Prezzo crescente",t2:"Prezzo decrescente",t3:"Più recenti",t4:"Meno ore",vide:"Nessuna macchina corrisponde. Dicci cosa cerchi: Dominique trova spesso macchine fuori catalogo.",b3:"Tutti i 61 annunci",m1:"Prezzi IVA esclusa, come indicati da Poly Commerce. Una macchina può essere venduta in fretta: chiama prima di partire.",
+sur3:"Il nostro modo di lavorare",h2b:"Il contaore <em>onesto.</em>",p3:"Per una macchina usata la prima domanda sono le ore. Ogni scheda dice chiaramente da dove viene la cifra, con tre indicazioni semplici.",c1:"Ore originali",c1t:"Il vero totale della macchina, indicato nell'annuncio. Es.: John Deere 648 H, 8.850 h.",c2:"Lette sul contaore",c2t:"Il valore del contaore il giorno della foto. Vieni a verificarlo o manda il tuo meccanico.",c3:"Contaore azzerato",c3t:"Macchina ricondizionata o contaore sostituito: indichiamo anche il totale stimato quando lo conosciamo.",regle:"Per le macchine con più di 15 anni o 6.000 ore consigliamo di venire con una persona competente per controllare motore e cambio prima dell'acquisto. È scritto nelle nostre condizioni di vendita.",m2:"Anteprima: queste indicazioni vengono dai testi degli annunci, da confermare macchina per macchina con Dominique.",
+sur4:"Senza spostarti, se preferisci",h2c:"Acquistare <em>a distanza,</em> in quattro passi.",e1:"Foto dettagliate",e1t:"Ti inviamo tutte le foto che chiedi: motore, snodo, pneumatici, cabina.",e2:"Il tuo meccanico, se vuoi",e2t:"Puoi mandare un meccanico al nostro piazzale. Consigliato per macchine con più di 15 anni.",e3:"Acconto, la macchina è bloccata",e3t:"Un assegno di prenotazione o un bonifico di acconto riserva la macchina per te. Fattura emessa al ricevimento.",e4:"Consegna, saldo all'autista",e4t:"Organizziamo il trasporto e ti chiamiamo prima. Il saldo si paga prima della consegna, con bonifico o assegno all'autista.",sur5:"Venire a vedere la macchina",rdv:"Solo su appuntamento: chiama prima di venire.",b4:"Indicazioni",sur6:"Consegna",livr:"Trasporto organizzato in tutta la Francia e in Europa, di solito in meno di dieci giorni. Gli adeguamenti alle norme di ogni paese sono a carico dell'acquirente.",m3:"Referenze clienti su richiesta: chiedi a Dominique.",
+sur7:"Una richiesta, una risposta",h2d:"Cerchi <em>o vendi?</em>",p4:"Acquistiamo anche macchine. Dicci cosa cerchi o cosa vendi: Dominique ti richiama.",o1:"Cerco",o2:"Avvisami",o3:"Vendo",o4:"Visita",alerte:"Appena arriva al piazzale una macchina che corrisponde, ricevi un SMS, prima che sia online.",q1:"Quale macchina?",annee:"Anno",heures:"Ore",photos:"Foto della tua macchina",jour:"Quale giorno ti va bene?",prenom:"Nome",portable:"Cellulare",sms:"Ricevi il codice via SMS",code:"Codice ricevuto via SMS",valider:"Conferma",demo:"Dimostrazione: il codice è 1234. Sul sito vero arriva via SMS.",ok:"<b>Inviato.</b> Dominique ti richiama sul cellulare.",m4:"Il codice SMS evita le false richieste. Il tuo numero serve solo per richiamarti.",
+sur8:"Inoltre",helico:"<b>Compravendita di elicotteri.</b> <span class=\"doux\">Al momento un Robinson R44 Raven II: informazioni per telefono.</span>",b5:"Parliamone",horaires:"7 giorni su 7, dalle 8 alle 21",m5:"Prezzi e caratteristiche rilevati il 24/11/2026 dagli annunci di Poly Commerce. Prezzi IVA esclusa, salvo venduto.",signe:"Sito realizzato da",appeler:"Chiama",demande:"Richiesta",sel:"Selezione",
+_:{voir:"Dettagli",photos:"foto",glissez:"scorri",annee:"Anno",prix:"Prezzo",heures:"Ore",repere:"Contaore onesto",total:"Totale stimato",dit:"Cosa dice Dominique",fr:"Descrizione originale in francese",vieux:"Macchina con più di 15 anni: vieni con un meccanico o fallo venire al piazzale prima dell'acquisto.",appeler:"Chiama",visite:"Prenota una visita",garder:"Salva",garde:"Salvata",annonce:"Vedi l'annuncio originale",ma:"La mia selezione",vide:"Nessuna macchina salvata. Tocca il cuore su una macchina.",envoyer:"Invia la selezione a Dominique",retirer:"Rimuovi",machine:"Macchina",usage:"Uso",choisies:"Macchine selezionate:",q:{cherche:"Quale macchina?",alerte:"Quale macchina dobbiamo trovarti?",vends:"La tua macchina (marca, modello)",visite:"Quale macchina vuoi vedere?"},ph:{cherche:"Es. skidder con gru, budget 80.000 € + IVA",alerte:"Es. escavatore cingolato 20 t, meno di 5.000 h",vends:"Es. John Deere 548 G III",visite:"Es. Komatsu PC138US-11"},fil:["Tutte","Forestale","Movimento terra","Agricolo"],ban:["61 macchine online","Parliamo FR · DE · EN · IT","Consegna Francia & Europa","Visita su appuntamento","7 giorni su 7, 8–21"]}}
+};
+const FR_={cmp:"Côte à côte",voir:"Voir la fiche",photos:"photos",glissez:"glissez",annee:"Année",prix:"Prix",heures:"Heures",repere:"Compteur franc",total:"Total estimé",dit:"Ce qu'en dit Dominique",fr:"",vieux:"Machine de plus de 15 ans : venez avec un mécanicien, ou faites-en venir un sur le parc avant l'achat.",appeler:"Appeler",visite:"Réserver une visite",garder:"Garder",garde:"Gardée",annonce:"Voir l'annonce d'origine",ma:"Ma sélection",vide:"Aucune machine gardée pour l'instant. Touchez le cœur d'une machine.",envoyer:"Envoyer ma sélection à Dominique",retirer:"Retirer",machine:"Machine",usage:"Usage",choisies:"Machines choisies :",q:{cherche:"Quelle machine ?",alerte:"Quelle machine doit-on vous trouver ?",vends:"Votre machine (marque, modèle)",visite:"Quelle machine voulez-vous voir ?"},ph:{cherche:"Ex. débusqueur avec grue, budget 80 000 € HT",alerte:"Ex. pelle sur chenilles 20 t, moins de 5 000 h",vends:"Ex. John Deere 548 G III",visite:"Ex. Komatsu PC138US-11"},fil:["Tout","Forêt","TP","Agricole"],ban:["61 machines en ligne","On parle FR · DE · EN · IT","Livraison France & Europe","Visite sur rendez-vous","7 j/7, de 8 h à 21 h"]};
+const HSL={fr:["Heures d'origine","Lu au compteur","Compteur remis à zéro"],de:["Originalstunden","Am Zähler abgelesen","Zähler auf null"],en:["Original hours","Read on the meter","Meter reset"],it:["Ore originali","Lette sul contaore","Contaore azzerato"]};
+const TYP={de:[["Débusqueur avec grue","Skidder mit Kran"],["Débusqueur reconditionné","Skidder, generalüberholt"],["Débusqueur","Skidder"],["Porteur","Rückezug"],["Broyeur forestier","Forstmulcher"],["Pelle sur chenilles","Kettenbagger"],["Tombereau articulé","Knickgelenkter Dumper"],["Mini-pelle","Minibagger"],["Télescopique agricole","Landwirtschaftlicher Teleskoplader"],["Télescopique","Teleskoplader"],["Tracteur","Traktor"],["Transporteur 4x4","Geländefahrzeug 4x4"]],
+en:[["Débusqueur avec grue","Skidder with crane"],["Débusqueur reconditionné","Rebuilt skidder"],["Débusqueur","Skidder"],["Porteur","Forwarder"],["Broyeur forestier","Forestry mulcher"],["Pelle sur chenilles","Crawler excavator"],["Tombereau articulé","Articulated dump truck"],["Mini-pelle","Mini excavator"],["Télescopique agricole","Agricultural telehandler"],["Télescopique","Telehandler"],["Tracteur","Tractor"],["Transporteur 4x4","4x4 utility vehicle"]],
+it:[["Débusqueur avec grue","Skidder con gru"],["Débusqueur reconditionné","Skidder ricondizionato"],["Débusqueur","Skidder"],["Porteur","Forwarder"],["Broyeur forestier","Trincia forestale"],["Pelle sur chenilles","Escavatore cingolato"],["Tombereau articulé","Dumper articolato"],["Mini-pelle","Miniescavatore"],["Télescopique agricole","Sollevatore telescopico agricolo"],["Télescopique","Sollevatore telescopico"],["Tracteur","Trattore"],["Transporteur 4x4","Veicolo utility 4x4"]]};
+Object.assign(TR.de,{nav1:"Bestand",sur1:"Givry-en-Argonne · Gebrauchtmaschinen",h1:"Welche Maschine <em>suchen Sie?</em>",fa1:"Besichtigung nach Termin",fa2:"Lieferung Frankreich &amp; Europa",fa3:"Täglich 8–21 Uhr",machines:"Maschinen",bu0:"Preis",he0:"Std.",col1:"Maschine",col3:"Stunden",col4:"Preis netto",b6:"Anfrage stellen",m1:"Nettopreise zzgl. MwSt., wie von Poly Commerce am 24.11.2026 angegeben. Eine Maschine kann schnell verkauft sein: Rufen Sie vor Ihrem Besuch an."});
+Object.assign(TR.de._,{cmp:"Nebeneinander",sph:"Skidder, Bagger 20 t, John Deere…",retour:"← Zurück",dem:"Fotos anfordern",equip:"Ausstattung",ex:["Tatsächliche Gesamtlaufzeit der Maschine, vom Verkäufer im Inserat angegeben.","Am Betriebsstundenzähler am Tag des Fotos abgelesen. Vor Ort zu prüfen.","Zähler nach Überholung oder Zählertausch auf null gestellt."],dph:"Detailfotos gewünscht: "});
+Object.assign(TR.en,{nav1:"Stock",sur1:"Givry-en-Argonne · Used machinery",h1:"Which machine <em>are you looking for?</em>",fa1:"Visits by appointment",fa2:"Delivery France &amp; Europe",fa3:"7 days a week, 8 am – 9 pm",machines:"machines",bu0:"Price",he0:"Hours",col1:"Machine",col3:"Hours",col4:"Price ex VAT",b6:"Send a request",m1:"Prices excluding VAT, as listed by Poly Commerce on 24/11/2026. A machine can sell quickly: call before you travel."});
+Object.assign(TR.en._,{cmp:"Side by side",sph:"Skidder, 20 t excavator, John Deere…",retour:"← Back",dem:"Request photos",equip:"Equipment",ex:["The machine's true total, stated by the seller in the listing.","Read on the hour meter on the day of the photo. To be checked on site.","Meter reset after a rebuild or a meter replacement."],dph:"Detailed photos wanted: "});
+Object.assign(TR.it,{nav1:"Lo stock",sur1:"Givry-en-Argonne · Macchine usate",h1:"Quale macchina <em>cerchi?</em>",fa1:"Visita su appuntamento",fa2:"Consegna Francia &amp; Europa",fa3:"7 giorni su 7, 8–21",machines:"macchine",bu0:"Prezzo",he0:"Ore",col1:"Macchina",col3:"Ore",col4:"Prezzo + IVA",b6:"Fai una richiesta",m1:"Prezzi IVA esclusa, come indicati da Poly Commerce il 24/11/2026. Una macchina può essere venduta in fretta: chiama prima di partire."});
+Object.assign(TR.it._,{cmp:"Fianco a fianco",sph:"Skidder, escavatore 20 t, John Deere…",retour:"← Indietro",dem:"Chiedi le foto",equip:"Dotazioni",ex:["Il vero totale della macchina, indicato dal venditore nell'annuncio.","Letto sul contaore il giorno della foto. Da verificare sul posto.","Contaore azzerato dopo ricondizionamento o sostituzione."],dph:"Foto dettagliate richieste: "});
+Object.assign(FR_,{sph:"Débusqueur, pelle 20 t, John Deere…",retour:"← Retour",dem:"Demander les photos",equip:"Équipements",ex:["Total réel de la machine, indiqué par le vendeur dans l'annonce.","Chiffre lu sur l'horamètre le jour de la photo. À vérifier sur place.","Compteur remis à zéro après reconditionnement ou changement d'horamètre."],dph:"Photos détaillées souhaitées : "});
+const IMG='../photos/';
+const ANNONCE='https://www.polycommerce.fr/fr/www-polycommerce-fr/cla/';
+const PUBLIC='https://agenceldr.github.io/demos-ldr/poly-commerce/pro/';
+const HSC={o:0,a:1,r:2},HSK={o:'',a:'a',r:'r'};
+const src=(m,i)=>IMG+m.id+'_'+m.ph[i]+'.jpg';
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+let L='fr';
+const U=()=>L=='fr'?FR_:TR[L]._;
+const loc=()=>({fr:'fr-FR',de:'de-DE',en:'en-GB',it:'it-IT'})[L];
+const nb=v=>v.toLocaleString(loc()).replace(/[  ]/g,' ');
+const eur=v=>nb(v)+' €';
+const typ=t=>{if(L=='fr')return t;for(const[a,b]of TYP[L])if(t.includes(a))return t.replace(a,b);return t};
+const nom=m=>m.n.split(' · ')[0].replace(/ (\S{1,3})$/,'\u00a0$1');
+const sous=m=>{const t=m.t.toLowerCase(),r=(m.n.split(' · ')[1]||'').split(' ').filter(x=>!t.includes(x.toLowerCase())).join(' ');return r?' · '+r:''};
+const ht=()=>({fr:'HT',de:'netto',en:'ex VAT',it:'+ IVA'})[L];
+const mem={get(k){try{return JSON.parse(localStorage.getItem(k))}catch(e){return null}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+const COEUR='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20.5s-7.5-4.6-9.3-9.2C1.4 8 3.4 4.5 7 4.5c2.1 0 3.6 1.2 5 3 1.4-1.8 2.9-3 5-3 3.6 0 5.6 3.5 4.3 6.8-1.8 4.6-9.3 9.2-9.3 9.2z"/></svg>';
+
+function horametre(el,h,anim){
+  const s=String(h).padStart(5,'0');
+  if(!el.querySelector('.roul'))el.innerHTML='<span class="roul">'+[0,1,2,3,4].map(i=>'<span class="c'+(i==4?' dix':'')+'"><i>'+'0123456789'.split('').join('<br>')+'</i></span>').join('')+'</span><small>h</small>';
+  el.dataset.v=s;
+  const set=()=>{const v=el.dataset.v;el.querySelectorAll('i').forEach((i,k)=>{i.style.transform='translateY(-'+(+v[k]*(i.parentElement.clientHeight||26))+'px)'})};
+  if(anim===false){setTimeout(set,60);return}
+  const io=new IntersectionObserver(e=>{if(e[0].isIntersecting){setTimeout(set,150);io.disconnect()}},{threshold:.4});io.observe(el);
+}
+
+// Sélection
+let SEL=(mem.get('pc-sel')||[]).filter(id=>M.some(m=>m.id==id));
+function garder(id){SEL=SEL.includes(id)?SEL.filter(x=>x!=id):[...SEL,id];mem.set('pc-sel',SEL);majSel()}
+function majSel(){$$('.garder,.coeur').forEach(b=>{const on=SEL.includes(b.dataset.id);b.setAttribute('aria-pressed',on);b.setAttribute('aria-label',on?U().garde:U().garder)});
+  $$('.sel').forEach(b=>{b.querySelector('b').textContent=SEL.length;b.classList.toggle('on',SEL.length>0)})}
+
+// Stock
+const G=$('#grille');let FIL='tout',VUE=[];
+function grille(){
+  const q=$('#cherche').value.trim().toLowerCase(),tri=$('#trier').value,bm=+$('#budget').value,hm=+$('#hmax').value;
+  const mots=q.split(/\s+/).filter(Boolean);
+  let l=M.filter(m=>{const t=(m.n+' '+m.t+' '+typ(m.t)+' '+m.a).toLowerCase();return(FIL=='tout'||m.f==FIL)&&mots.every(x=>t.includes(x))&&(!bm||m.p<=bm)&&(!hm||m.h<=hm)});
+  const k={'p+':(a,b)=>a.p-b.p,'p-':(a,b)=>b.p-a.p,'a-':(a,b)=>b.a-a.a,'h+':(a,b)=>a.h-b.h}[tri];if(k)l=[...l].sort(k);
+  VUE=l;$('#nb').textContent=l.length;$('#vide').hidden=l.length>0;
+  $('#pb').classList.toggle('actif',!!bm);$('#ph').classList.toggle('actif',!!hm);$('#pt').classList.toggle('actif',!!tri);
+  G.innerHTML=l.map(m=>'<article class="ligne"><div class="im"><img loading="lazy" src="'+src(m,0)+'" alt="'+m.n+'" width="536" height="402"><span>'+m.ph.length+' '+U().photos+'</span></div>'+
+   '<div class="tx"><div><div class="type">'+typ(m.t)+sous(m)+'</div><h3>'+nom(m)+'</h3></div><div class="ch an">'+m.a+'</div><div class="ch he"><span class="tel-an">'+m.a+' · </span><b>'+nb(m.h)+' h</b><span class="rep '+HSK[m.hs]+'">'+HSL[L][HSC[m.hs]]+'</span></div><div class="prix">'+eur(m.p)+'<small>'+ht()+'</small></div><span class="fleche" aria-hidden="true">→</span></div>'+
+   '<button type="button" class="ouvrir" data-id="'+m.id+'" aria-label="'+U().voir+' : '+m.n+'"></button><button type="button" class="garder" data-id="'+m.id+'">'+COEUR+'</button></article>').join('');
+  G.querySelectorAll('.ouvrir').forEach(b=>b.onclick=()=>ouvrir(M.find(m=>m.id==b.dataset.id)));
+  G.querySelectorAll('.garder').forEach(b=>b.onclick=()=>garder(b.dataset.id));
+  majSel();
+}
+const FB=$$('.genres button');
+FB.forEach(b=>{b.querySelector('b').textContent=b.dataset.f=='tout'?M.length:M.filter(m=>m.f==b.dataset.f).length;
+  b.onclick=()=>{FIL=b.dataset.f;FB.forEach(x=>x.setAttribute('aria-pressed',x==b));grille();versStock()}});
+function versStock(){const o=$('#outils');if(o.getBoundingClientRect().top>innerHeight*.55)o.scrollIntoView({behavior:'smooth',block:'start'})}
+$('#cherche').oninput=grille;$('#cherche').onkeydown=e=>{if(e.key=='Enter'){e.target.blur();$('#outils').scrollIntoView({behavior:'smooth',block:'start'})}};
+['#trier','#budget','#hmax'].forEach(s=>$(s).onchange=grille);
+
+// Fiche machine : une page, avec précédente / suivante
+const D=$('#fiche'),P=$('#page');
+function ouvrir(m){const u=U(),l=VUE.includes(m)?VUE:M,i=l.indexOf(m),hk=HSC[m.hs];
+  P.innerHTML='<div class="f-barre"><button type="button" id="f-retour">'+u.retour+'</button><div class="nav"><button type="button" id="f-prec" aria-label="‹">‹</button><span>'+(i+1)+' / '+l.length+'</span><button type="button" id="f-suiv" aria-label="›">›</button></div></div>'+
+  '<div class="f-corps"><div class="f-gal"><div class="galerie" id="gal">'+m.ph.map((x,k)=>'<img src="'+src(m,k)+'" alt="'+m.n+' '+(k+1)+'" width="536" height="402">').join('')+'</div><div class="vignettes">'+m.ph.map((x,k)=>'<button type="button" aria-current="'+(k==0)+'" data-k="'+k+'"><img src="'+src(m,k)+'" alt="" loading="lazy"></button>').join('')+'</div></div>'+
+  '<div class="f-tx"><div><div class="sur">'+typ(m.t)+sous(m)+'</div><h3>'+nom(m)+'</h3></div>'+
+  '<div class="plaque"><div><small>'+u.annee+'</small><b>'+m.a+'</b></div><div><small>'+u.prix+'</small><b>'+eur(m.p)+'<small>'+ht()+'</small></b></div><div class="large"><div><small>'+u.heures+'</small><span class="horametre" id="f-h"></span></div><span class="rep '+HSK[m.hs]+'">'+HSL[L][hk]+'</span></div></div>'+
+  '<p class="expl">'+u.ex[hk]+(m.tot&&L=='fr'?' <b>Total : '+m.tot+'.</b>':'')+'</p>'+
+  '<div><div class="sur">'+u.equip+'</div><ul class="equip" lang="fr" style="margin-top:8px">'+m.eq.map(x=>'<li>'+x+'</li>').join('')+'</ul></div>'+
+  '<div class="dit"><div class="sur">'+u.dit+'</div><p lang="fr">« '+m.dit+' »</p>'+(u.fr?'<div class="mini" style="margin-top:6px">'+u.fr+'</div>':'')+'</div>'+
+  ((new Date().getFullYear()-m.a>15)?'<div class="regle" style="margin:0">'+u.vieux+'</div>':'')+
+  '<a class="mini" href="'+ANNONCE+m.id+'" rel="noopener">'+u.annonce+'</a></div></div>'+
+  '<div class="f-actions"><a class="btn o" href="tel:+33687858436">'+u.appeler+'</a><button type="button" class="btn p" id="f-dem">'+u.dem+'</button><button type="button" class="btn coeur" data-id="'+m.id+'">'+COEUR+'</button></div>';
+  $('#f-retour').onclick=()=>D.close();
+  $('#f-prec').onclick=()=>ouvrir(l[(i-1+l.length)%l.length]);$('#f-suiv').onclick=()=>ouvrir(l[(i+1)%l.length]);
+  $('#f-dem').onclick=()=>{D.close();onglet('cherche');$('#f-machine').value=u.dph+m.n+' ('+m.a+')';location.hash='';location.hash='demande'};
+  P.querySelector('.coeur').onclick=()=>garder(m.id);
+  const gal=$('#gal'),vg=[...P.querySelectorAll('.vignettes button')];
+  vg.forEach(b=>b.onclick=()=>gal.scrollTo({left:gal.clientWidth*b.dataset.k,behavior:'smooth'}));
+  gal.onscroll=()=>{const k=Math.round(gal.scrollLeft/gal.clientWidth);vg.forEach((b,j)=>b.setAttribute('aria-current',j==k))};
+  majSel();if(!D.open)D.showModal();P.scrollTop=0;horametre($('#f-h'),m.h,false);
+}
+D.addEventListener('click',e=>{if(e.target==D)D.close()});
+D.addEventListener('keydown',e=>{if(e.key=='ArrowRight')$('#f-suiv')?.click();if(e.key=='ArrowLeft')$('#f-prec')?.click()});
+
+// Ma sélection : côte à côte
+const DS=$('#selection'),PS=$('#panneau-sel');
+function selection(){const u=U(),l=SEL.map(id=>M.find(m=>m.id==id));
+  if(!l.length){PS.innerHTML='<button class="fermer" aria-label="Fermer">×</button><div class="p-corps"><h3>'+u.ma+'</h3><p class="gris">'+u.vide+'</p></div>'}
+  else{const minP=Math.min(...l.map(m=>m.p)),minH=Math.min(...l.map(m=>m.h)),maxA=Math.max(...l.map(m=>m.a)),plus=l.length>1;
+  const ligne=(t,f)=>'<tr><th>'+t+'</th>'+l.map(f).join('')+'</tr>';
+  PS.innerHTML='<button class="fermer" aria-label="Fermer">×</button><div class="p-corps"><div><div class="sur">'+u.cmp+'</div><h3 style="margin-top:8px">'+u.ma+'</h3></div><div class="comparer"><table>'+
+   ligne('',m=>'<td><img src="'+src(m,0)+'" alt=""><b style="display:block;margin-top:8px">'+m.n+'</b></td>')+
+   ligne(u.usage,m=>'<td>'+typ(m.t)+'</td>')+
+   ligne(u.annee,m=>'<td><span class="'+(plus&&m.a==maxA?'mieux':'')+'">'+m.a+'</span></td>')+
+   ligne(u.heures,m=>'<td><span class="'+(plus&&m.h==minH?'mieux':'')+'">'+nb(m.h)+' h</span><br><span class="rep '+HSK[m.hs]+'" style="margin-top:4px">'+HSL[L][HSC[m.hs]]+'</span></td>')+
+   ligne(u.prix,m=>'<td><span class="'+(plus&&m.p==minP?'mieux':'')+'">'+eur(m.p)+'</span> '+ht()+'</td>')+
+   ligne('',m=>'<td><button type="button" class="retirer" data-id="'+m.id+'">'+u.retirer+'</button></td>')+
+   '</table></div><button type="button" class="btn p" id="envoyer-sel">'+u.envoyer+'</button></div>';
+  PS.querySelectorAll('.retirer').forEach(b=>b.onclick=()=>{garder(b.dataset.id);selection()});
+  $('#envoyer-sel').onclick=()=>{DS.close();onglet('cherche');location.hash='';location.hash='demande'}}
+  PS.querySelector('.fermer').onclick=()=>DS.close();
+  if(!DS.open)DS.showModal();
+}
+$$('.sel').forEach(b=>b.onclick=selection);
+DS.addEventListener('click',e=>{if(e.target==DS)DS.close()});
+
+// Compteur franc
+const EX=[{m:'46819975',h:8850,leg:{fr:"8 850 h d'origine",de:"8 850 h original",en:"8,850 original hours",it:"8.850 h originali"}},{m:'47204061',h:3831,leg:{fr:'3 831 h lues au compteur',de:'3 831 h abgelesen',en:'3,831 h on the meter',it:'3.831 h lette'}},{m:'47161115',h:21,leg:{fr:"21 h au compteur<br>≈ 11 000 h d'origine",de:"21 h am Zähler<br>≈ 11 000 h original",en:"21 h on the meter<br>≈ 11,000 original hours",it:"21 h sul contaore<br>≈ 11.000 h originali"}}];
+let ei=0;const CH=$('#cadran-h');horametre(CH,EX[0].h);
+const leg=()=>$('#cadran-leg').innerHTML=EX[ei].leg[L];
+$$('#choix button').forEach(b=>b.onclick=()=>{ei=+b.dataset.i;const e=EX[ei],m=M.find(x=>x.id===e.m);
+  $$('#choix button').forEach(x=>x.setAttribute('aria-pressed',x===b));
+  const im=$('#cadran-img');im.style.opacity=0;setTimeout(()=>{im.src=src(m,0);im.style.opacity=1},250);
+  horametre(CH,e.h,false);leg()});
+
+// Demande
+const T=$$('.onglets button');let OG='cherche';
+function onglet(o){OG=o;const u=U();T.forEach(t=>t.setAttribute('aria-selected',t.dataset.o==o));
+  $('#l-vends').hidden=o!='vends';$('#l-photos').hidden=o!='vends';$('#l-date').hidden=o!='visite';$('#l-alerte').hidden=o!='alerte';
+  $('#l-machine-t').textContent=u.q[o];$('#f-machine').placeholder=u.ph[o];
+  const c=$('#choisies'),l=SEL.map(id=>M.find(m=>m.id==id));c.classList.toggle('on',o=='cherche'&&l.length>0);
+  c.innerHTML='<b>'+u.choisies+'</b> '+l.map(m=>m.n+' ('+m.a+')').join(' · ');}
+T.forEach(t=>t.onclick=()=>onglet(t.dataset.o));
+const fo=$('#form');
+fo.onsubmit=e=>{e.preventDefault();const pr=fo.prenom.value.trim(),po=fo.portable.value.replace(/\D/g,'');
+  if(!pr||po.length<10){(pr?fo.portable:fo.prenom).focus();return}
+  $('#code').classList.add('on');$('#demo-note').hidden=false;$('#code-in').focus();};
+$('#valider').onclick=()=>{if($('#code-in').value==='1234'){$('#ok').classList.add('on');$('#code').classList.remove('on');$('#demo-note').hidden=true}else{$('#code-in').value='';$('#code-in').focus()}};
+
+// Langues
+const FRT={};$$('[data-t]').forEach(el=>FRT[el.dataset.t]=el.innerHTML);
+function langue(l){L=l;document.documentElement.lang=l;const d=TR[l];
+  $$('[data-t]').forEach(el=>{const k=el.dataset.t;el.innerHTML=l=='fr'?FRT[k]:(d[k]||FRT[k])});
+  $('#langue-btn').textContent=l.toUpperCase();$$('.langue .menu button').forEach(b=>b.setAttribute('aria-current',b.dataset.l==l));
+  $('#cherche').placeholder=U().sph;mem.set('pc-lang',l);grille();leg();onglet(OG);}
+const LG=$('#langue');
+$('#langue-btn').onclick=e=>{e.stopPropagation();LG.classList.toggle('on');$('#langue-btn').setAttribute('aria-expanded',LG.classList.contains('on'))};
+document.addEventListener('click',e=>{if(!LG.contains(e.target))LG.classList.remove('on')});
+$$('.langue .menu button').forEach(b=>b.onclick=()=>{langue(b.dataset.l);LG.classList.remove('on')});
+$('#autre-l').onchange=e=>{const t=e.target.value;if(!t)return;
+  const url=location.protocol.startsWith('http')&&!/claude|usercontent/.test(location.host)?location.href.split('#')[0]:PUBLIC;
+  window.open('https://translate.google.com/translate?sl=fr&tl='+t+'&u='+encodeURIComponent(url),'_blank','noopener');e.target.value=''};
+const nav=(navigator.language||'fr').slice(0,2);
+langue(mem.get('pc-lang')||(TR[nav]?nav:'fr'));
+
+// Barre du bas : dès qu'on a passé la recherche
+const FX=$('#fixe');
+new IntersectionObserver(e=>FX.classList.toggle('on',!e[0].isIntersecting&&e[0].boundingClientRect.top<0)).observe($('.champ'));
+const RV=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vu');RV.unobserve(e.target)}}),{threshold:.12});
+$$('.rv').forEach(el=>RV.observe(el));
+</script>
+</body></html>

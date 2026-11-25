@@ -1,0 +1,41 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Poly Commerce · direction C · De l'Argonne à l'Europe</title>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;600&family=DM+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+:root{--fond:#0A1A33;--fond2:#0F2447;--blanc:#F4F6FA;--rouge:#F0483E;--doux:#9FB0CC}
+*{box-sizing:border-box}body{margin:0;background:var(--fond);color:var(--blanc);font:16px/1.5 Archivo,sans-serif;overflow-x:hidden}
+.top{display:flex;justify-content:space-between;align-items:center;padding:14px 16px}
+.logo{font:400 20px/1 "Archivo Black"}.logo span{color:var(--rouge)}
+.lg{display:flex;gap:4px;font:500 11px "DM Mono"}.lg i{font-style:normal;padding:5px 6px;border:1px solid #9fb0cc55;border-radius:3px}.lg i:first-child{background:var(--blanc);color:var(--fond)}
+.carte{position:relative;height:300px;margin:4px 0 0;overflow:hidden}
+.carte svg{position:absolute;inset:0;width:100%;height:100%}
+.trajet{fill:none;stroke:var(--rouge);stroke-width:1.6;stroke-dasharray:4 5;animation:d 2s linear infinite}
+@keyframes d{to{stroke-dashoffset:-18}}
+.pt{fill:var(--blanc)}.pt.g{fill:var(--rouge)}
+.carte text{fill:var(--doux);font:500 10px "DM Mono"}
+.mach{position:absolute;right:-24px;bottom:-10px;width:78%;filter:drop-shadow(0 20px 30px #000a);border-radius:6px;transform:rotate(-2deg)}
+.w{padding:0 16px 24px}
+h1{font:400 clamp(36px,10.5vw,84px)/.95 "Archivo Black";margin:18px 0 12px;letter-spacing:-.01em}
+h1 em{font-style:normal;color:var(--rouge)}
+p{margin:0 0 18px;color:#d4dcea}
+.b{display:flex;gap:10px}.b a{flex:1;text-align:center;padding:14px;border-radius:6px;font-weight:600;text-decoration:none}
+.p{background:var(--rouge);color:#fff}.s{border:1px solid #9fb0cc88;color:var(--blanc)}
+.ch{display:flex;gap:16px;margin-top:16px;font:500 12px "DM Mono";color:var(--doux)}.ch b{display:block;font:400 26px/1 "Archivo Black";color:var(--blanc)}
+</style></head><body>
+<div class="top"><div class="logo">POLY<span>/</span>COMMERCE</div><div class="lg"><i>FR</i><i>DE</i><i>EN</i><i>IT</i></div></div>
+<div class="carte">
+<svg viewBox="0 0 390 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+<g opacity=".18" fill="#9FB0CC">
+<path d="M60 120 L120 80 L190 70 L260 60 L330 90 L360 150 L330 220 L250 250 L170 240 L100 230 L50 190 Z"/></g>
+<path class="trajet" d="M170 150 Q 200 90 255 75"/><path class="trajet" d="M170 150 Q 230 140 300 120"/><path class="trajet" d="M170 150 Q 120 200 90 225"/><path class="trajet" d="M170 150 Q 210 200 250 235"/><path class="trajet" d="M170 150 Q 130 110 95 95"/>
+<circle class="pt g" cx="170" cy="150" r="6"/><circle class="pt" cx="255" cy="75" r="3"/><circle class="pt" cx="300" cy="120" r="3"/><circle class="pt" cx="90" cy="225" r="3"/><circle class="pt" cx="250" cy="235" r="3"/><circle class="pt" cx="95" cy="95" r="3"/>
+<text x="178" y="146">GIVRY-EN-ARGONNE</text><text x="232" y="68">DE</text><text x="306" y="116">AT</text><text x="72" y="240">ES</text><text x="256" y="250">IT</text><text x="70" y="90">BE</text>
+</svg>
+<img class="mach" src="../photos/44541498_1709285537_87.jpg" alt="">
+</div>
+<div class="w">
+<h1>Votre machine,<br>livrée <em>de l'Argonne<br>à toute l'Europe.</em></h1>
+<p>Environ 60 machines forestières, TP et agricoles. Achat à distance sur photos détaillées, acompte, solde à la livraison. On vous répond dans votre langue.</p>
+<div class="b"><a class="p" href="#">Voir le parc</a><a class="s" href="#">Appeler</a></div>
+<div class="ch"><div><b>61</b>annonces</div><div><b>4</b>langues</div><div><b>&lt;10 j</b>livraison UE</div></div>
+</div></body></html>
