@@ -3472,7 +3472,7 @@ racine.LDRInstaller={ouvrir:ouvrir,fermer:fermer,plateforme:plateforme,installee
 (function(W){
 "use strict";
 var H=W.CARTE_HOTE,app=document.getElementById('app');if(!H||!app)return;
-var LIEN_AGENCE=W.LDR_LIEN_AGENCE||'https://agence-lelderetour.systeme.io/';   // [à confirmer] puis agence-ldr.fr
+var LIEN_AGENCE=W.LDR_LIEN_AGENCE||'https://www.agence-ldr.fr/';   // [à confirmer] puis agence-ldr.fr
 function esc(t){return String(t==null?'':t).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
 function plats(st){var m={};(st.categories||[]).forEach(function(c){(c.plats||[]).forEach(function(p){m[p.id]={p:p,c:c};});});return m;}
 function amb(st){var a=st.ambassadeur;if(!a)return null;if(typeof a==='string')return {badge:'Bar ambassadeur Paix Dieu',ligne:a};return {badge:a.accroche||a.badge||'Bar ambassadeur Paix Dieu',ligne:a.ligne||a.texte||'',plat:a.plat||a.id||'',histoire:a.histoire||'',lunes:a.lunes||[]};}

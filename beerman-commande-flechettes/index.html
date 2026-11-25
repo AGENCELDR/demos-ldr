@@ -3476,7 +3476,7 @@ racine.LDRInstaller={ouvrir:ouvrir,fermer:fermer,plateforme:plateforme,installee
 (function(W){
 "use strict";
 var H=W.CARTE_HOTE,app=document.getElementById('app');if(!H||!app)return;
-var LIEN_AGENCE=W.LDR_LIEN_AGENCE||'https://agence-lelderetour.systeme.io/';   // [à confirmer] puis agence-ldr.fr
+var LIEN_AGENCE=W.LDR_LIEN_AGENCE||'https://www.agence-ldr.fr/';   // [à confirmer] puis agence-ldr.fr
 function esc(t){return String(t==null?'':t).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
 function plats(st){var m={};(st.categories||[]).forEach(function(c){(c.plats||[]).forEach(function(p){m[p.id]={p:p,c:c};});});return m;}
 function amb(st){var a=st.ambassadeur;if(!a)return null;if(typeof a==='string')return {badge:'Bar ambassadeur Paix Dieu',ligne:a};return {badge:a.accroche||a.badge||'Bar ambassadeur Paix Dieu',ligne:a.ligne||a.texte||'',plat:a.plat||a.id||'',histoire:a.histoire||'',lunes:a.lunes||[]};}
@@ -6248,7 +6248,7 @@ if(W.LDR_PATRON||/[?&]patron/.test(location.search))setTimeout(entrer,0);
       /* sans 3D sur ce téléphone : pas de lumière ni de jeu, la carte reste la carte ; le client reconnu marche quand même */
       var troisD = d.classList.contains('v7') && !!V7.gl;
       if (troisD && V7.lumiere) V7.lumiere.init({ theme: C.theme, base: 'img/' }); else { d.classList.remove('v7-nuit'); d.classList.add('v7-jour'); }
-      if (troisD && V7.jeu) bouton();
+      if (troisD && V7.jeu && C.theme !== 'f') bouton();
       /* fléchettes : toucher une cible de l'en-tête lance aussi le jeu */
       document.addEventListener('click', function (e) {
         if (C.theme !== 'f' || !e.target.closest || !e.target.closest('#app>.k-tete') || e.target.closest('button,a,input')) return;
