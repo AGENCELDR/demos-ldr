@@ -246,10 +246,15 @@
   /* ---------- barre du bas ---------- */
   var bar=null,suivi=lire(KS);
   /* ---------- service à table ouvert ou coupé par le bar (interrupteur de la tablette) ---------- */
-  var COUPE=false,tE=null;
+  /* mode dégradé (25/11) : si le serveur du bar ne répond pas, la carte reste lisible et la commande à table se met en pause (« commandez au bar ») ; elle revient seule */
+  var COUPE=false,tE=null,HS=false,hsDit=false;
   function lireEtat(){clearTimeout(tE);if(!TABLE||D.hidden)return;
-    fetch(API+'/etat').then(function(r){return r.json();}).then(function(d){var c=!!(d&&d.ok&&d.pause);
-      if(c!==COUPE){COUPE=c;barre();var a=q('.ldr-cmd-add');if(a&&COUPE)a.remove();}}).catch(function(){}).then(function(){tE=setTimeout(lireEtat,90000);});}
+    var ctl=window.AbortController?new AbortController():null,tm=setTimeout(function(){if(ctl)ctl.abort();},8000);
+    fetch(API+'/etat',ctl?{signal:ctl.signal}:{}).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(d){HS=false;hsDit=false;var c=!!(d&&d.ok&&d.pause);
+      if(c!==COUPE){COUPE=c;barre();var a=q('.ldr-cmd-add');if(a&&COUPE)a.remove();}})
+    .catch(function(){if(!navigator.onLine)return;HS=true;if(!COUPE){COUPE=true;barre();var a=q('.ldr-cmd-add');if(a)a.remove();}
+      if(!hsDit){hsDit=true;toast('Commandez au bar','La commande à table revient dans un instant. La carte reste ouverte.');}})
+    .then(function(){clearTimeout(tm);tE=setTimeout(lireEtat,HS?30000:90000);});}
   D.addEventListener('visibilitychange',function(){if(!D.hidden)lireEtat();});
   function barre(){
     if(!TABLE||!enCarte()||(COUPE&&!suivi&&!nb())){if(bar){bar.remove();bar=null;D.body.classList.remove('ldr-cmd-on');}return;}
