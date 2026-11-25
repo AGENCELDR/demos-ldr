@@ -194,7 +194,7 @@
       +'<div class="ldr-cmd-fil">Le détail</div>'
       +'<details class="ldr-cmd-pli"><summary><span class="vg">'+IC.note+'</span><span class="ldr-n">Votre commande</span><i></i><span class="pv">'+IC2.chev+'</span></summary><div class="ldr-tx"><p>Envoyer une commande est un engagement : chaque article est servi à votre table, <b>facturé et à régler au bar</b>, au prix affiché. Prix nets, TVA et service compris. Le règlement se fait au bar, pas sur ce site.</p><p>Une erreur ? Prévenez le bar tout de suite, il peut l\'annuler tant qu\'elle n\'est pas préparée. Le bar peut aussi refuser ou annuler une commande (table inconnue, doublon, produit épuisé) et vous en indique la raison.</p></div></details>'
       +'<details class="ldr-cmd-pli"><summary><span class="vg">'+IC2.epi+'</span><span class="ldr-n">Alcool et allergènes</span><i></i><span class="pv">'+IC2.chev+'</span></summary><div class="ldr-tx"><p>'+esc(ML.alcool)+'</p><p>Une allergie ? Demandez au comptoir avant de commander : la composition des plats et boissons vous y sera précisée.</p></div></details>'
-      +'<details class="ldr-cmd-pli"><summary><span class="vg">'+IC2.bouclier+'</span><span class="ldr-n">Vos données</span><i></i><span class="pv">'+IC2.chev+'</span></summary><div class="ldr-tx"><p>Aucun nom, aucun numéro de téléphone, aucun cookie : seul le numéro de votre table est enregistré avec la commande, uniquement pour vous servir. Les commandes sont effacées au bout de '+ML.conservation+' jours ; il ne reste qu\'un total anonyme par soirée. Votre panier reste dans votre téléphone le temps de la visite. Les statistiques de la carte sont de simples compteurs anonymes (articles consultés, commandés), jamais reliés à une personne. Votre adresse internet (IP) n\'est pas enregistrée : pour bloquer les abus, le serveur n\'en garde qu\'une empreinte chiffrée, effacée en quelques heures.</p><p>Une question ? Adressez-vous au comptoir. Vous pouvez aussi saisir la CNIL (cnil.fr).</p></div></details>'
+      +'<details class="ldr-cmd-pli"><summary><span class="vg">'+IC2.bouclier+'</span><span class="ldr-n">Vos données</span><i></i><span class="pv">'+IC2.chev+'</span></summary><div class="ldr-tx"><p>Aucun nom, aucun numéro de téléphone, aucun cookie : seul le numéro de votre table est enregistré avec la commande, uniquement pour vous servir. Les commandes sont effacées au bout de '+ML.conservation+' jours ; il ne reste qu\'un total anonyme par soirée. Votre panier reste dans votre téléphone le temps de la visite. Si vous inscrivez un score au tournoi de fléchettes du bar, le prénom ou surnom que vous choisissez s\'affiche au classement du soir et il est effacé au bout de 7 jours. Les statistiques de la carte sont de simples compteurs anonymes (articles consultés, commandés), jamais reliés à une personne. Votre adresse internet (IP) n\'est pas enregistrée : pour bloquer les abus, le serveur n\'en garde qu\'une empreinte chiffrée, effacée en quelques heures.</p><p>Une question ? Adressez-vous au comptoir. Vous pouvez aussi saisir la CNIL (cnil.fr).</p></div></details>'
       +(ML.hebergeur?'<details class="ldr-cmd-pli"><summary><span class="vg">'+IC2.globe+'</span><span class="ldr-n">Hébergement</span><i></i><span class="pv">'+IC2.chev+'</span></summary><div class="ldr-tx"><p>'+esc(ML.hebergeur)+'</p></div></details>':'')
       +'<div class="ldr-cmd-fil">Éditeur</div>'+editeur()
       +'<p class="ldr-cmd-sig">Carte et commande à table réalisées par <a href="https://www.agence-ldr.fr" target="_blank" rel="noopener">Agence LDR</a></p>'
@@ -244,8 +244,14 @@
 
   /* ---------- barre du bas ---------- */
   var bar=null,suivi=lire(KS);
+  /* ---------- service à table ouvert ou coupé par le bar (interrupteur de la tablette) ---------- */
+  var COUPE=false,tE=null;
+  function lireEtat(){clearTimeout(tE);if(!TABLE||D.hidden)return;
+    fetch(API+'/etat').then(function(r){return r.json();}).then(function(d){var c=!!(d&&d.ok&&d.pause);
+      if(c!==COUPE){COUPE=c;barre();var a=q('.ldr-cmd-add');if(a&&COUPE)a.remove();}}).catch(function(){}).then(function(){tE=setTimeout(lireEtat,90000);});}
+  D.addEventListener('visibilitychange',function(){if(!D.hidden)lireEtat();});
   function barre(){
-    if(!TABLE||!enCarte()){if(bar){bar.remove();bar=null;D.body.classList.remove('ldr-cmd-on');}return;}
+    if(!TABLE||!enCarte()||(COUPE&&!suivi&&!nb())){if(bar){bar.remove();bar=null;D.body.classList.remove('ldr-cmd-on');}return;}
     if(!bar){bar=D.createElement('div');bar.className='ldr-cmd ldr-cmd-barre';D.body.appendChild(bar);D.body.classList.add('ldr-cmd-on');}
     var n=nb(),h='<button type="button" class="ldr-cmd-cloche" data-x="appel" aria-label="Appeler la serveuse, table '+TABLE+'">'+IC.cloche+'</button>';
     if(suivi&&!n)h+='<button type="button" class="ldr-cmd-pan" data-x="suivi"><span class="nb"><span class="pt"></span></span><span class="tx"><b>'+(suivi.genre==='appel'?'Votre appel':'Votre commande')+'</b><span>'+esc(etapeTxt(suivi.st,suivi.genre))+'</span></span></button>';
@@ -263,7 +269,7 @@
   });barre();}).observe(D.body,{childList:true});
   var appEl=q('#app');if(appEl)new MutationObserver(function(){barre();}).observe(appEl,{childList:true});
   function greffe(t){
-    if(!TABLE||!fiche||!enCarte()||q('.ldr-cmd-add',t))return;var a=fiche.a;if(a.ep)return;
+    if(!TABLE||COUPE||!fiche||!enCarte()||q('.ldr-cmd-add',t))return;var a=fiche.a;if(a.ep)return;
     var ch=[];if(a.col2&&(a.prix!=null||a.prix2!=null)){if(a.prix!=null)ch.push([a.col1||'Petit',a.prix]);if(a.prix2!=null)ch.push([a.col2,a.prix2]);}
     var sel=0,qte=1,d=D.createElement('div');d.className='ldr-cmd ldr-cmd-add';
     function px(){return ch.length?ch[sel][1]:a.prix;}
@@ -330,5 +336,48 @@
       tS=setTimeout(suivre,d.st===2?60000:5000);
     }).catch(function(){tS=setTimeout(suivre,10000);});}
   if(suivi)suivre();
-  barre();
+  barre();lireEtat();
+
+  /* ---------- tournoi du soir autour du jeu de fléchettes caché (si le bar l'a ouvert) ---------- */
+  (function(){
+    if(!TABLE)return;
+    var st=D.createElement('style');st.textContent='.ldr-trn{margin:12px 0 0;padding:12px 0 0;border-top:1px solid rgba(214,176,100,.3);text-align:center}'
+      +'.ldr-trn .k{margin:0;font:700 12px/1.2 "Cinzel",Georgia,serif;letter-spacing:.14em;text-transform:uppercase;color:#D8B36C}'
+      +'.ldr-trn .lot{margin:3px 0 8px;font:italic 600 15px/1.2 "Alegreya",Georgia,serif;color:#F4EAD5}'
+      +'.ldr-trn ol{list-style:none;margin:0 auto 10px;padding:0;max-width:300px}.ldr-trn li{display:grid;grid-template-columns:26px 1fr auto;gap:8px;align-items:center;padding:4px 6px;border-bottom:1px dashed rgba(214,176,100,.2);font:600 15px "Alegreya",Georgia,serif;color:#F4EAD5;text-align:left}'
+      +'.ldr-trn li i{font:700 13px "Cinzel",Georgia,serif;font-style:normal;color:#D8B36C;text-align:center}.ldr-trn li b{font:700 16px "Cinzel",Georgia,serif;color:#F1D795}.ldr-trn li.moi{background:rgba(214,176,100,.14);border-radius:8px}'
+      +'.ldr-trn .f{display:flex;gap:8px;max-width:340px;margin:0 auto}.ldr-trn input{flex:1;min-width:0;min-height:46px;border-radius:10px;border:1px solid rgba(214,176,100,.5);background:rgba(0,0,0,.35);color:#F4EAD5;padding:0 12px;font:600 16px "Alegreya",Georgia,serif}'
+      +'.ldr-trn .v7j-b{flex:0 0 auto;min-width:0}.ldr-trn .m{margin:8px 0 0;font:italic 500 12px/1.3 "Alegreya",Georgia,serif;color:#9B8F78}.ldr-trn .ok{margin:0 0 8px;font:700 15px "Alegreya",Georgia,serif;color:#86D3A3}';
+    D.head.appendChild(st);
+    var info=null,quand=0,fin=null,vu=null;
+    function charge(){if(info&&Date.now()-quand<30000)return Promise.resolve(info);
+      return fetch(API+'/tournoi').then(function(r){return r.json();}).then(function(d){info=d&&d.ok?d:null;quand=Date.now();return info;}).catch(function(){return null;});}
+    function liste(cl,moi){return '<ol>'+cl.slice(0,5).map(function(r){return '<li'+(moi&&r.rang===moi?' class="moi"':'')+'><i>'+r.rang+'</i><span>'+esc(r.nom)+' · table '+r.table+'</span><b>'+r.total+'</b></li>';}).join('')+'</ol>';}
+    function ajuste(){try{var J=window.LDRV7.jeu.etat();J.piedC=fin.offsetHeight+(J.W>=700?44:16);}catch(e){}}
+    function greffeFin(){
+      var V=window.LDRV7,P=V&&V.jeu&&V.jeu.partie();if(!P||P.j.length!==1||P.j[0].coups.length<3||q('.ldr-trn',fin))return;
+      if(vu===P.j[0])return;var j=P.j[0];
+      charge().then(function(d){if(!d||!d.actif||!fin.classList.contains('on')||q('.ldr-trn',fin))return;vu=j;
+        var m=q('.v7j-f-m',fin),b=D.createElement('div');b.className='ldr-trn';
+        var pr=(V.habitue&&V.habitue.prenom&&V.habitue.prenom())||lire_p();
+        b.innerHTML='<p class="k">Tournoi du soir</p><p class="lot">'+(d.lot?esc(d.lot)+' pour le meilleur score':'Le meilleur score de la soirée gagne')+'</p>'+(d.classement.length?liste(d.classement):'')
+          +'<div class="f"><input type="text" maxlength="14" autocomplete="off" autocapitalize="words" enterkeyhint="send" placeholder="Prénom ou surnom" aria-label="Prénom ou surnom pour le classement" value="'+esc(pr||'')+'"><button type="button" class="v7j-b p">Inscrire '+j.total+' pts</button></div>'
+          +'<p class="m">Gratuit, sans achat. Une partie = 3 fléchettes, votre meilleur score compte. Lot remis au bar, alcool aux majeurs.</p>';
+        if(m)m.replaceWith(b);else fin.appendChild(b);ajuste();
+        var bt=q('button',b),inp=q('input',b);
+        function envoyer2(){var nom=inp.value.trim();if(nom.length<2){inp.focus();return;}ecrire('ldr-trn-nom',nom);bt.disabled=true;bt.textContent='…';
+          fetch(API+'/tournoi',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({table:TABLE,k:CLE,nom:nom,coups:j.coups.map(function(c){return c.pts;})})})
+            .then(function(r){return r.json();}).catch(function(){return {message:'Pas de réseau. Réessayez.'};}).then(function(r){
+              if(!r.ok){bt.disabled=false;bt.textContent='Réessayer';var e=q('.m',b);e.textContent=r.message||'Le bar ne répond pas.';ajuste();return;}
+              info=r;quand=Date.now();
+              b.innerHTML='<p class="k">Tournoi du soir</p><p class="ok">'+(r.rang===1?'Vous êtes en tête !':r.rang?'Vous êtes '+r.rang+'ᵉ ce soir':'Score inscrit')+(r.mieux?'':' · votre record reste '+r.record)+'</p>'+liste(r.classement,r.rang)
+                +'<p class="m">'+(r.lot?esc(r.lot)+' pour le meilleur score à la fermeture. ':'')+'Le bar annonce le gagnant.</p>';ajuste();});}
+        bt.onclick=envoyer2;inp.addEventListener('keydown',function(e){if(e.key==='Enter')envoyer2();});
+      });}
+    function lire_p(){return lire('ldr-trn-nom');}
+    function brancheFin(){if(fin)return;fin=q('.v7j-fin:not(.v7j-defi)');if(!fin)return;
+      new MutationObserver(function(){if(fin.classList.contains('on'))greffeFin();}).observe(fin,{childList:true,attributes:true,attributeFilter:['class']});}
+    new MutationObserver(function(){if(!fin)brancheFin();}).observe(D.body,{childList:true});brancheFin();
+    charge();
+  })();
 })();
