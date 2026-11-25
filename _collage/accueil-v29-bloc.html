@@ -589,4 +589,37 @@ html body .ldr-bloc .s4 .pro div{border-top:0!important;border-left:1px solid rg
 html body .ldr-bloc .s4 .pro div:first-child{border-left:0!important;padding-left:0!important}
 html body .ldr-bloc .s4 .pro b{font-size:34px!important}
 }
+</style><style id="ldr-sites-ecrans-3d-2026-11-25">
+/* 25/11 12h44 (Lilian, choix A) : les sites en écrans flottants en 3D, sans cadre, avec reflet. */
+html body #ldr-ex .tel-ex{padding:0!important;background:none!important;box-shadow:none!important;border-radius:0!important;overflow:visible!important;transition:transform .9s cubic-bezier(.2,.7,.2,1)!important}
+html body #ldr-ex .tel-ex::before,html body #ldr-ex .tel-ex::after{content:none!important}
+html body #ldr-ex .tel-ex img{height:auto!important;aspect-ratio:780/1400!important;object-fit:cover;object-position:top;border-radius:26px!important;border:0!important;box-shadow:0 0 0 1px rgba(255,255,255,.16),0 46px 70px -24px rgba(0,0,0,.9),-24px 26px 50px -30px rgba(0,0,0,.7)!important;-webkit-box-reflect:below 8px linear-gradient(transparent 78%,rgba(255,255,255,.16))}
+html body #ldr-ex .ex b,html body #ldr-ex .ex span{transition:opacity .6s}
+html body #ldr-ex .grille-ex{perspective:1600px}
+@media(max-width:899px){
+html body #ldr-ex .grille-ex{gap:22px!important;padding-top:10px!important;padding-bottom:70px!important}
+html body #ldr-ex .grille-ex .ex{flex:0 0 62%!important;max-width:260px}
+html body #ldr-ex .tel-ex{transform:rotateY(-12deg)}
+html body #ldr-ex .ex:active .tel-ex{transform:rotateY(0)}
+}
+@media(min-width:900px){
+html body #ldr-ex .grille-ex{display:flex!important;justify-content:center;gap:0!important;padding:20px 0 90px!important}
+html body #ldr-ex .grille-ex .ex{width:270px;flex:0 0 270px;margin:0 10px;position:relative;z-index:1}
+html body #ldr-ex .tel-ex{transform:rotateY(-24deg) rotateX(4deg)}
+html body #ldr-ex .grille-ex .ex:nth-child(even) .tel-ex{transform:rotateY(-24deg) rotateX(4deg) translateY(34px)}
+html body #ldr-ex .grille-ex .ex:hover{z-index:3}
+html body #ldr-ex .grille-ex .ex:hover .tel-ex{transform:rotateY(0) translateY(-12px) scale(1.04)!important}
+html body #ldr-ex .grille-ex .ex b{display:block;margin-top:18px}
+}
+/* Vue Ordinateur : écrans larges, inclinés de part et d'autre */
+html body #ldr-ex.vue-pc .tel-ex img{aspect-ratio:16/10!important;border-radius:12px!important;-webkit-box-reflect:below 6px linear-gradient(transparent 82%,rgba(255,255,255,.12))}
+@media(min-width:900px){
+html body #ldr-ex.vue-pc .grille-ex{display:grid!important;grid-template-columns:repeat(2,1fr)!important;gap:60px 70px!important;padding:20px 30px 60px!important}
+html body #ldr-ex.vue-pc .grille-ex .ex{width:auto;margin:0}
+html body #ldr-ex.vue-pc .tel-ex,html body #ldr-ex.vue-pc .grille-ex .ex:nth-child(even) .tel-ex{transform:rotateY(14deg) rotateX(3deg)}
+html body #ldr-ex.vue-pc .grille-ex .ex:nth-child(even) .tel-ex{transform:rotateY(-14deg) rotateX(3deg)}
+}
+@media(max-width:899px){html body #ldr-ex.vue-pc .grille-ex .ex{flex:0 0 84%!important;max-width:340px}html body #ldr-ex.vue-pc .tel-ex{transform:rotateY(-8deg)}}
 </style>
+<script>/* 25/11 12h45 (Lilian) : sur ordinateur, les sites s'ouvrent directement en vue Ordinateur ; le bouton Téléphone reste là. */
+(function(){function go(){if(!window.matchMedia('(min-width:900px)').matches)return;var b=document.querySelector('#ldr-ex .ldr-vue button[data-v=pc]');if(b&&!b.classList.contains('on'))b.click()}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',function(){setTimeout(go,300)});else setTimeout(go,300)})();</script>
