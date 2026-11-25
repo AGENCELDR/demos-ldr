@@ -108,8 +108,15 @@
 
 <script>
 (function(){
+  // Systeme.io peut executer ce script deux fois, ou avant que le bloc existe :
+  // on ne pose les ecouteurs qu'une seule fois, et on attend que le bloc soit la.
+  if(window.__ldrDevis) return;
+  var racine=document.getElementById('ldr-devis');
+  if(!racine){ var t0=0; (function guetter(){ if(window.__ldrDevis) return; if(document.getElementById('ldr-devis')){ lancer(); } else if(++t0<200){ setTimeout(guetter,100); } })(); return; }
+  lancer();
+  function lancer(){
   if(window.__ldrDevis) return; window.__ldrDevis=1;
-  var racine=document.getElementById('ldr-devis'); if(!racine) return;
+  racine=document.getElementById('ldr-devis');
   var OFFRES=['Site web','Fiche Google','Réseaux sociaux','Radars'];
   function leForm(){return document.querySelector('form[id^="optinform-"]');}
   function caseDe(nom){
@@ -120,8 +127,10 @@
   }
   function blocDe(el){ var f=leForm(); while(el && el.parentElement!==f) el=el.parentElement; return el; }
   function habiller(){
-    var f=leForm(); if(!f || f.classList.contains('ldr-form')) return !!f;
+    var f=leForm(); if(!f) return false;
+    if(f.classList.contains('ldr-form') && f.querySelector('.ldr-titre')) return true;
     f.classList.add('ldr-form');
+    [].slice.call(f.querySelectorAll('.ldr-titre,.ldr-note')).forEach(function(x){x.remove();});
     var sec=f.closest('section'); if(sec) sec.classList.add('ldr-form-section');
     var haut=(document.getElementById('ldr-devis')||racine).closest('section'); if(haut) haut.classList.add('ldr-haut');
     var t=document.createElement('p'); t.className='ldr-titre'; t.textContent='2. Vos coordonnées'; f.insertBefore(t,f.firstChild);
@@ -174,6 +183,9 @@
     document.addEventListener(t,function(ev){ if(ev.target.closest && ev.target.closest('form[id^="optinform-"] [data-test-id="submit-form-button"]')) inscrireChoix(); },true);
   });
   document.addEventListener('keydown',function(ev){ if(ev.key==='Enter' && ev.target.closest && ev.target.closest('form[id^="optinform-"]')) inscrireChoix(); },true);
-  var essais=0; (function attendre(){ if(habiller() || ++essais>60) return; setTimeout(attendre,150); })();
+  // Habillage : tout de suite, puis surveille (si la page se redessine, on rhabille).
+  habiller(); setInterval(function(){ habiller(); majTexteSiBesoin(); },400);
+  function majTexteSiBesoin(){ var c=document.getElementById('ldr-choix'); if(c && !c.dataset.ok){ c.dataset.ok=1; majTexte(); } }
+  }
 })();
 </script>
