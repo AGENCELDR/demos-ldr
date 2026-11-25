@@ -8,5 +8,8 @@ self.addEventListener('fetch',e=>{const r=e.request;if(r.method!='GET')return;
   const u=new URL(r.url);
   if(u.origin==location.origin&&/\.(jpg|png|svg)$/.test(u.pathname)){
     e.respondWith(caches.open(V).then(c=>c.match(r).then(m=>m||fetch(r).then(res=>{if(res.ok)c.put(r,res.clone());return res}))));return}
-  if(u.origin==location.origin)e.respondWith(fetch(r).then(res=>{const cl=res.clone();caches.open(V).then(c=>c.put(r,cl));return res}).catch(()=>caches.match(r)));
+  // Le reste : d'abord le réseau. On ne garde que les bonnes réponses : si l'hébergeur répond par une erreur, on sert notre copie.
+  if(u.origin==location.origin)e.respondWith(fetch(r).then(res=>{
+    if(res.ok){const cl=res.clone();caches.open(V).then(c=>c.put(r,cl));return res}
+    return caches.match(r).then(m=>m||res)}).catch(()=>caches.match(r)));
 });
