@@ -37,7 +37,7 @@ svg.ic{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;strok
 .app{height:100dvh;display:grid;grid-template-columns:minmax(0,1fr)}
 .vue{min-width:0;min-height:0;overflow-y:auto;overflow-x:hidden;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:#3a3d43 transparent}
 .vue.d,body:not([data-vue=tableau]) #tableau{display:none}
-body[data-vue=poste] #poste,body[data-vue=banc] #banc,body[data-vue=crochet] #crochet,body[data-vue=bureau] #bureau{display:block}
+body[data-vue=poste] #poste,body[data-vue=banc] #banc,body[data-vue=crochet] #crochet,body[data-vue=bureau] #bureau,body[data-vue=recherche] #recherche{display:block}
 /* tant que le contact n'est pas mis, l'appli derrière n'est ni visible ni touchable */
 body:not(.pret) .app{visibility:hidden;transition:visibility 0s .6s}
 
@@ -334,7 +334,7 @@ dialog::backdrop{background:#000e}
 .serrure:before{content:"";position:absolute;inset:6px;border-radius:50%;background:radial-gradient(circle at 50% 30%,#2e3035,#0f1012 72%);box-shadow:inset 0 2px 4px #000}
 .serrure:after{content:"";position:absolute;left:50%;top:50%;width:5px;height:13px;margin:-6.5px 0 0 -2.5px;border-radius:2.5px;background:var(--jaune);box-shadow:0 0 5px #f2b70580}
 .porte b{display:block;font:900 15.5px/1 var(--x);font-stretch:120%;letter-spacing:.02em;text-transform:uppercase;text-shadow:0 1px 0 #ffffffb0}
-.porte small{display:block;font:700 11.5px/1.15 var(--m);letter-spacing:.08em;text-transform:uppercase;margin-top:5px;color:#33363b;text-shadow:0 1px 0 #ffffff80}
+.porte small{display:block;font:700 11.5px/1.15 var(--m);letter-spacing:.08em;text-transform:uppercase;margin-top:5px;color:#1d1f23;text-shadow:0 1px 0 #ffffff80}
 .porte .chev{margin-left:auto;font:500 24px/1 var(--x);font-style:normal;color:#33363b}
 .choix{position:sticky;bottom:calc(10px + env(safe-area-inset-bottom));z-index:7;display:flex;align-items:center;gap:10px;margin:0 10px;padding:9px 9px 9px 14px;border-radius:12px;color:#141000;--cm:10px;--cb:calc(10px + env(safe-area-inset-bottom,0px))}
 .choix::before{content:"";position:absolute;inset:0;z-index:-1;border-radius:inherit;pointer-events:none;
@@ -502,6 +502,87 @@ body.choisit .case:not(.m1) .bal{animation:balance-d 2.4s ease-in-out infinite;a
 .etiq small.el{margin:0 0 4px;font:700 11.5px/1 var(--m);letter-spacing:.04em;text-transform:uppercase;color:#5d5540}
 .etiq b{font-size:16.5px}
 
+/* ---------- la recherche sur demande : un bon de recherche, pincé au tableau (25/11) ---------- */
+/* sur le tableau : le bon pincé, à côté du texte */
+.bon-mini{position:relative;display:block;width:112px;height:96px;margin-left:12px;align-self:start;grid-row:1 / span 2}
+.aimant{position:absolute;left:50%;top:0;z-index:3;width:26px;height:26px;margin-left:-13px;border-radius:50%;background:radial-gradient(circle at 36% 30%,#fff6c8 0,#FFD84F 22%,var(--jaune) 52%,#B88600 100%);box-shadow:0 0 0 1px #00000099,inset 0 -2px 3px #8a6100,0 4px 6px #000b}
+.aimant:after{content:"";position:absolute;inset:7px;border-radius:50%;box-shadow:inset 0 1px 2px #8a610099,0 1px 0 #fff6c880}
+.bon-mini .aimant{top:7px;width:20px;height:20px;margin-left:-10px}.bon-mini .aimant:after{inset:5px}
+.bm-p{position:absolute;left:0;right:0;top:15px;bottom:0;display:block;padding:15px 9px 8px 17px;border-radius:3px;transform:rotate(-3deg);color:#1c1a14;
+ background:radial-gradient(circle at 6px 50%,#141518 2.2px,transparent 2.7px) 0 0/12px 11px repeat-y,linear-gradient(180deg,#fffdf4,#efe9d7);box-shadow:0 0 0 1px #00000059,0 8px 14px #000b}
+.bm-p:before{content:"";position:absolute;left:12px;top:6px;bottom:6px;border-left:1.5px dashed #b9b09a}
+.bm-p b{display:block;font:700 11.5px/1 var(--m);letter-spacing:.06em;text-transform:uppercase;padding-bottom:5px;border-bottom:1.5px solid #1c1a14;white-space:nowrap;overflow:hidden}
+.bm-p i{display:block;height:1px;background:#cfc5ab;margin-top:12px}
+.bm-p .loupe{position:absolute;right:7px;bottom:7px;width:30px;height:30px;fill:none;stroke:#1c1a14;stroke-width:2.6;stroke-linecap:round}
+.bm-p .tampon{position:absolute;left:50%;top:56%;transform:translate(-50%,-50%) rotate(-9deg);font-size:11.5px;letter-spacing:.03em;border-width:2px;border-radius:4px;padding:4px 5px 3px;white-space:nowrap;font-style:normal;background:#fffdf4d9}
+.tampon.ok{color:#8a6100;border-color:#8a6100}
+.cmd.res .l-txt b{font-size:14.5px}
+.vide-rc{display:flex;margin:-14px auto 22px}
+
+/* l'écran de la recherche */
+.atouts{list-style:none;display:grid;gap:10px;margin:16px 0 0;padding:13px 14px;border-radius:10px;background:linear-gradient(180deg,#1d1f23,#141518);box-shadow:inset 0 1px 0 #ffffff1f,inset 0 -1px 0 #000,0 0 0 1px #000,0 8px 16px #0008}
+.atouts li{display:flex;align-items:center;gap:10px;font:600 13px/1.3 var(--x);color:#d6d8dc}
+.atouts i{width:9px;height:9px;border-radius:50%;flex:none;background:var(--jaune);box-shadow:0 0 7px #f2b705aa,inset 0 1px 1px #ffffff90,0 0 0 1px #000}
+.bon{position:relative;max-width:440px;margin:22px auto 0;padding-top:20px}
+.bon .aimant{top:9px;width:30px;height:30px;margin-left:-15px}.bon .aimant:after{inset:8px}
+.g-papier.bon-p{border-radius:4px;padding:30px 14px 16px 30px;transform:rotate(-.5deg);
+ background:radial-gradient(circle at 9px 50%,#131417 2.6px,transparent 3.2px) 0 0/18px 17px repeat-y,linear-gradient(180deg,#fffdf4,#f1ecdc);box-shadow:0 0 0 1px #00000059,inset 0 1px 0 #fff,0 16px 30px #000c}
+.g-papier.bon-p:before{content:"";position:absolute;left:19px;top:10px;bottom:10px;border-left:1.5px dashed #b9b09a;pointer-events:none}
+.bon-t{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:4px 10px;padding-bottom:8px;margin-bottom:14px;border-bottom:2px solid #1c1a14}
+.bon-t b{font:900 15px/1.1 var(--x);font-stretch:116%;letter-spacing:.02em;text-transform:uppercase}
+.bon-t span{font:700 11.5px/1.2 var(--m);letter-spacing:.04em;color:#5d5747;white-space:nowrap}
+.bon-p .deux{align-items:end}
+.quand{border:0;padding:0;margin:14px 0 0;min-width:0}
+.quand legend{padding:0;font:700 11.5px/1.1 var(--m);letter-spacing:.08em;text-transform:uppercase;color:#5d5747}
+.chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:7px}
+.g-papier .chips label{position:relative;display:inline-flex;align-items:center;margin:0;min-height:42px;padding:6px 13px;border-radius:999px;cursor:pointer;color:#1c1a14;background:#fffdf4;box-shadow:inset 0 0 0 2px #1c1a14}
+.chips input{position:absolute;opacity:0;pointer-events:none}
+.chips b{font:800 13.5px/1.15 var(--x)}
+.g-papier .chips label:has(input:checked){background:linear-gradient(180deg,#FFD84F,var(--jaune) 50%,#E0A300);box-shadow:inset 0 0 0 2px #1c1a14,inset 0 -2px 0 #9a7000}
+.g-papier .chips label:has(input:focus-visible){outline:3px solid #B88600;outline-offset:2px}
+.bon-s{margin-top:18px;padding-top:12px;border-top:1.5px dashed #b9b09a;font:700 11.5px/1.1 var(--m);letter-spacing:.08em;text-transform:uppercase;color:#1c1a14}
+.g-papier .bon-s+.deux{margin-top:10px}
+.code{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:end;margin-top:16px;padding:10px 12px 12px;border-radius:6px;background:#fff3c4;box-shadow:inset 0 0 0 1.5px #B88600}
+.g-papier .code label{margin-top:0}
+.g-papier .code input{font:800 24px var(--m);letter-spacing:.35em}
+.code .petit{height:44px;padding:0 16px;font-size:14px}
+.g-papier p.bon-demo{margin-top:10px;font:700 12.5px/1.4 var(--x);color:#6b4f00}
+.g-go.jaune{color:#141000;background:linear-gradient(180deg,#FFE27A 0%,#FFD23F 16%,var(--jaune) 52%,#D99E00 100%);box-shadow:inset 0 1px 0 #ffffffb0,inset 0 -2px 0 #9a7000,0 0 0 1px #000,0 8px 16px #0009}
+.bon .g-go{margin-top:16px}
+#rc-neuf{margin-top:16px}
+.rc-lab{display:block;margin:22px 2px 0}
+.bon-p.res{margin-top:12px;transform:none;padding-top:20px}
+.bon-p.res .tampon{display:inline-block;margin:0 0 10px 2px;font-size:15px;transform:rotate(-4deg)}
+.bon-p.res .g-res{margin-top:4px;padding-right:2px}
+.bon-p.res .g-res b{font-size:19px}
+.bon-p.res .g-res .cr{font:700 14px/1.35 var(--x);color:#1c1a14}
+.bon-p.res .g-res .det{font:600 15px/1.3 var(--x);color:#3b3627;overflow-wrap:anywhere}
+.g-papier.bon-p p{font:500 13px/1.45 var(--x);color:#4a4537;margin-top:12px}
+.bon-x{display:inline-flex;align-items:center;min-height:40px;margin-top:6px;padding:0;font:700 12.5px/1.2 var(--x);color:#6b5a3a;text-decoration:underline;text-underline-offset:3px}
+.res.pose{animation:pose .5s cubic-bezier(.2,.8,.3,1) both}
+.res.pose .tampon{animation:tampon .55s .25s cubic-bezier(.2,.9,.3,1.25) both}
+@keyframes pose{0%{transform:translateY(-14px);opacity:0}100%{transform:none;opacity:1}}
+@keyframes tampon{0%{transform:scale(2.3) rotate(-12deg);opacity:0}60%{opacity:1}100%{transform:scale(1) rotate(-4deg);opacity:.92}}
+@media(prefers-reduced-motion:reduce){.res.pose,.res.pose .tampon{animation:none}}
+
+/* le bureau : les recherches demandées */
+.rqs{display:grid;gap:8px;margin-top:9px}
+.rq{position:relative;display:grid;gap:4px;padding:11px 12px 9px;border-radius:10px;background:linear-gradient(180deg,#26282d,#17181b);box-shadow:inset 0 1px 0 #ffffff24,inset 0 -1px 0 #000,0 0 0 1px #000,0 6px 12px #0009}
+.rq-h{display:flex;align-items:baseline;gap:10px;font:700 11.5px/1.2 var(--m);letter-spacing:.04em;color:#9a9ea5}
+.rq-h b{color:var(--jaune-c)}
+.rq-h .tampon{position:absolute;right:10px;top:9px;font-size:11.5px;letter-spacing:.04em;border-width:2px;border-radius:4px;padding:4px 6px 3px;transform:rotate(-6deg);color:var(--jaune-c);border-color:var(--jaune-c);opacity:1;font-style:normal}
+.rq-t{font:800 15px/1.2 var(--x);font-stretch:108%;margin-top:2px}
+.rq-d{font:600 13px/1.35 var(--x);color:#d6d8dc;overflow-wrap:anywhere}
+.rq-c{font:600 12.5px/1.35 var(--x);color:#b3b7be}
+.rq-q{display:flex;align-items:center;gap:7px;font:700 12.5px/1.3 var(--m);color:#e8e6df;margin-top:3px}
+.rq-q svg.ic{width:15px;height:15px;color:var(--jaune)}
+.rq-a{display:flex;flex-wrap:wrap;gap:7px;margin-top:6px}
+.rq-a .petit{height:40px}
+.petit.txt.conf{color:#ff9a7a;box-shadow:inset 0 1px 0 #ffffff26,inset 0 -1px 0 #000,0 0 0 1.5px var(--rouge)}
+.rq.trouvee .rq-t{color:var(--jaune-c)}
+.rq-vide{margin-top:9px;padding:13px 14px;border-radius:10px;font:500 12.5px/1.5 var(--m);color:var(--doux);box-shadow:inset 0 0 0 1.5px #2f3238}
+.rq-note{margin-top:10px}
+
 /* ---------- retouches du contrôle final : très petits téléphones, mots longs ---------- */
 .t-haut .logo{flex:0 1 168px;min-width:0;width:168px;object-fit:contain;object-position:left center}
 .t-haut:has(#installer:not([hidden])) .logo{flex-basis:133px;width:133px}
@@ -519,6 +600,8 @@ body.choisit .case:not(.m1) .bal{animation:balance-d 2.4s ease-in-out infinite;a
  .l-txt b{font-size:14px;font-stretch:104%}
  .l-go{grid-column:1 / -1;justify-self:stretch;justify-content:center;margin:12px 0 0 10px;min-height:40px}
  .fi{column-gap:5px}.fl{letter-spacing:.04em}.fv.an{padding:0 6px}.mh{padding:0 3px}
+ .bon-mini{width:98px;margin-left:10px}.bm-p{padding-left:15px}
+ .g-papier.bon-p{padding-left:26px;padding-right:12px}
  .etiq small.el{letter-spacing:.02em}
 }
 /* grand écran de bureau : le tableau de bord d'ouverture prend sa place */
@@ -746,6 +829,43 @@ body.choisit .case:not(.m1) .bal{animation:balance-d 2.4s ease-in-out infinite;a
     </div>
   </main>
 
+  <!-- la recherche sur demande : Dominique cherche la machine qui n'est pas au tableau -->
+  <main class="vue d" id="recherche">
+    <header class="p-haut">
+      <button type="button" class="petit ret" data-ret><span aria-hidden="true">‹</span><span data-t="cles">Les clés</span></button>
+      <span class="sp"></span>
+      <button type="button" class="petit x-pc" data-ret aria-label="Fermer">✕</button>
+    </header>
+    <div class="v-corps etroit">
+      <div class="enseigne"><i class="vis"></i><i class="vis"></i><h1 data-t="rc0">Recherche sur demande</h1><p data-t="rc1">Dominique la cherche pour vous</p></div>
+      <p class="v-intro" data-t="rc2">Une machine qui n'est pas au tableau ? Décrivez-la sur ce bon. Dominique la cherche, puis vous rappelle pour en parler.</p>
+      <ul class="atouts">
+        <li><i></i><span data-t="rc3">Il vous répond en français, allemand, anglais ou italien</span></li>
+        <li><i></i><span data-t="rc4">Livraison en France et en Europe</span></li>
+        <li><i></i><span data-t="rc5">Du débusqueur à l'hélicoptère</span></li>
+      </ul>
+      <div id="rc-liste"></div>
+      <button type="button" class="g-go jaune" id="rc-neuf" hidden><svg class="ic"><use href="#s-plus"/></svg><span data-t="rc23">Nouvelle recherche</span></button>
+      <div class="bon" id="rc-bon">
+        <i class="aimant" aria-hidden="true"></i>
+        <form class="g-papier bon-p" id="f-rc" novalidate>
+          <div class="bon-t"><b data-t="rc6">Bon de recherche</b><span id="rc-no"></span></div>
+          <label><span data-t="rc7">Type de machine</span><select id="rc-type"></select></label>
+          <label><span data-t="rc8">Marque, modèle, équipements</span><input type="text" id="rc-det" autocomplete="off" maxlength="80"></label>
+          <div class="deux"><label><span data-t="rc9">Budget max (€ HT)</span><input type="text" inputmode="numeric" id="rc-budget" autocomplete="off"></label><label><span data-t="al4">Heures max</span><input type="text" inputmode="numeric" id="rc-h" autocomplete="off"></label></div>
+          <fieldset class="quand"><legend data-t="rc11">Pour quand ?</legend><div class="chips" id="rc-quand"></div></fieldset>
+          <p class="bon-s" data-t="rc13">Vos coordonnées</p>
+          <div class="deux"><label><span data-t="rc14">Prénom</span><input type="text" id="rc-pre" autocomplete="given-name" maxlength="30"></label><label><span data-t="al5">Votre portable</span><input type="tel" inputmode="tel" autocomplete="tel" id="rc-tel" maxlength="20"></label></div>
+          <div class="code" id="rc-code" hidden><label><span data-t="rc16">Code reçu par SMS</span><input type="text" inputmode="numeric" maxlength="4" id="rc-c" autocomplete="one-time-code"></label><button type="button" class="petit jaune txt" id="rc-val" data-t="rc17">Valider</button></div>
+          <p class="bon-demo" id="rc-demo" hidden data-t="rc18">Démonstration : le code est 1234. Sur la vraie appli, il part par SMS.</p>
+        </form>
+        <button type="submit" form="f-rc" class="g-go jaune" id="rc-go"><svg class="ic"><use href="#s-sms"/></svg><span id="rc-go-t" data-t="rc15">Recevoir mon code par SMS</span></button>
+      </div>
+      <p class="note" data-t="al7">Aperçu : l'envoi de SMS sera branché à la mise en service.</p>
+      <span class="signe" data-t="signe">Appli réalisée par Agence LDR</span>
+    </div>
+  </main>
+
   <!-- le bureau : espace Dominique -->
   <main class="vue d" id="bureau">
     <header class="p-haut">
@@ -889,10 +1009,10 @@ function planche(){etat();ajuste();
   const brady=(t,n)=>'<span class="brady">'+t+'<i>'+n+'</i></span>';
   const tete=n=>'<div class="b-tete">'+brady(U().trousseau,n)+(n>1?'<button type="button" class="petit jaune txt" id="cmp-sel"><svg class="ic"><use href="#s-cmp"/></svg>'+U().cp9+'</button>':'')+'</div>';
   let h='';
-  if(!l.length)h=(FIL=='sel'?brady(U().trousseau,0):'')+'<p class="vide">'+(FIL=='sel'?U().selv:U().vide)+'</p>';
+  if(!l.length)h=(FIL=='sel'?brady(U().trousseau,0):'')+'<p class="vide">'+(FIL=='sel'?U().selv:U().vide)+'</p>'+(FIL=='sel'?'':'<button type="button" class="l-go vide-rc" id="vide-rc">'+U().rs3+'<span aria-hidden="true">›</span></button>');
   else if(plat)h=(FIL=='sel'?tete(l.length):'')+'<div class="rayon">'+l.map(caseHTML).join('')+'</div>';
   else{let n=0;h=FAMS.map(([f,k])=>{const s=l.filter(m=>m.f==f);if(!s.length)return'';const r=brady(U()[k],s.length)+'<div class="rayon">'+s.map((m,i)=>caseHTML(m,n+i)).join('')+'</div>';n+=s.length;return r}).join('')}
-  const p=$('#planche');p.innerHTML=h+(FIL=='sel'?'':arrivagesHTML()+porteHTML())+'<span class="signe">'+U().signe+'</span>';
+  const p=$('#planche');p.innerHTML=h+(FIL=='sel'?'':rechercheHTML()+arrivagesHTML()+porteHTML())+'<span class="signe">'+U().signe+'</span>';
   if(BAL){BAL=false;p.classList.remove('go');void p.offsetWidth;p.classList.add('go');setTimeout(()=>p.classList.remove('go'),3400)}
   majChoix();marque()}
 function marque(){const v=document.body.dataset.vue,g=large();$$('#planche .case').forEach(c=>{c.setAttribute('aria-current',g&&ALLUME&&!!CUR&&!VUES.includes(v)&&c.dataset.id==CUR.id);c.classList.toggle('cmp',g&&v=='banc'&&CMP.includes(c.dataset.id))});
@@ -957,7 +1077,7 @@ addEventListener('popstate',()=>{if(large())return;const s=history.state;
 /* un lien « #m=… » collé pendant que l'appli est ouverte */
 addEventListener('hashchange',()=>{const hs=location.hash,vv=document.body.dataset.vue;
   if(hs=='#tableau'){finOuverture();if(!large()){if(vv=='poste')versTableau();else if(vv!='tableau')auTableau()}return}
-  if(hs=='#crochet'||hs=='#bureau'){if(vv!=hs.slice(1)){finOuverture();montrer(hs.slice(1),true)}return}
+  if(hs=='#crochet'||hs=='#bureau'||hs=='#recherche'){if(vv!=hs.slice(1)){finOuverture();montrer(hs.slice(1),true)}return}
   const cc=(hs.match(/c=([\w-]+),([\w-]+)/)||[]).slice(1).filter(existe);
   if(cc.length==2&&cc[0]!=cc[1]){if(vv=='banc'&&CMP.join()==cc.join())return;CMP=cc;document.body.classList.add('cmp2');finOuverture();montrer('banc',true);return}
   const id=(location.hash.match(/m=([\w-]+)/)||[])[1],m=id&&PARC.find(x=>x.id==id);if(!m||(m==CUR&&document.body.dataset.vue=='poste'&&ALLUME))return;finOuverture();contact(m,'direct')});
@@ -965,6 +1085,8 @@ function pas(d){if(!VUE.length)return;const i=(Math.max(0,VUE.indexOf(CUR))+d+VU
 
 $('#planche').addEventListener('click',e=>{const t=e.target;
   if(t.closest('#libre')){montrer('crochet');return}
+  if(t.closest('#cmd')){montrer('recherche');return}
+  if(t.closest('#vide-rc')){RCPRE=$('#cherche').value.trim();montrer('recherche');return}
   if(t.closest('#porte')){montrer('bureau');return}
   if(t.closest('#cmp-sel')){const ids=SEL.filter(existe);if(ids.length==2){CMP=ids;document.body.classList.add('cmp2');montrer('banc')}else debutChoix([],true);return}
   const c=t.closest('.case');if(!c)return;const m=PARC.find(x=>x.id==c.dataset.id);if(!m)return;
@@ -1037,36 +1159,36 @@ function rejouer(){const o=$('#ouverture'),N=$('#neiman0');o.classList.remove('f
 $('#demarrer').onclick=demarrer;$('#passer').onclick=finOuverture;$('#logo').onclick=rejouer;
 
 /* ================= la suite de l'appli : comparaison, arrivages, bureau ================= */
-Object.assign(T.fr,{pht:"Prix HT",cp0:"Comparer",cp1:"Deux clés en main",cp1b:"Comparaison",cp6:"Témoin allumé : le plus avantageux",cp2:"% en main",cp2d:"Prenez la 2e clé",cp2b:"Prenez deux clés",cp2c:"EN MAIN",annuler:"Annuler",
+Object.assign(T.fr,{rs0:"Sur demande",rs1:"Pas au tableau ? Dominique la cherche pour vous.",rs2:"Remplissez un bon de recherche : il cherche la machine et vous rappelle.",rs3:"Lancer une recherche",rs4:"Recherche en cours",rs4b:"recherches en cours",rs5:"Voir mes recherches",rs6:"Recherche",rc0:"Recherche sur demande",rc1:"Dominique la cherche pour vous",rc2:"Une machine qui n'est pas au tableau ? Décrivez-la sur ce bon. Dominique la cherche, puis vous rappelle pour en parler.",rc3:"Il vous répond en français, allemand, anglais ou italien",rc4:"Livraison en France et en Europe",rc5:"Du débusqueur à l'hélicoptère",rc6:"Bon de recherche",rc7:"Type de machine",rc8:"Marque, modèle, équipements",rc8p:"Ex. John Deere 648, avec grue",rc9:"Budget max (€ HT)",rc11:"Pour quand ?",rc12:["Dès que possible", "Sous 3 mois", "Je me renseigne"],rc13:"Vos coordonnées",rc14:"Prénom",rc15:"Recevoir mon code par SMS",rc15b:"Renvoyer le code",rc16:"Code reçu par SMS",rc17:"Valider",rc18:"Démonstration : le code est 1234. Sur la vraie appli, il part par SMS.",rc19:"Code incorrect.",rc21:"EN RECHERCHE",rc22:"C'est noté. Dominique vous rappelle sur votre portable, en %l.",lg:{"fr": "français", "de": "allemand", "en": "anglais", "it": "italien"},rc23:"Nouvelle recherche",rc24:"Annuler cette recherche",rc25:"Recherche annulée.",rc26:"Vos recherches",rc27:"Bon de recherche envoyé (démonstration).",rc29:"N°",rq0:"Recherches demandées",rq1:"Aucune recherche pour l'instant. Elles arrivent ici, avec le prénom du client et ce qu'il cherche.",rq3:"Trouvée",rq4:"TROUVÉE",rq5:"Retirer",rq6:"Recherche marquée trouvée.",rq7:"Remettre en cours",rq8:"Recherche retirée.",rq9:"Dominique a trouvé une machine qui correspond : il vous rappelle.",rq10:"Aperçu : le numéro n'est pas gardé en entier sur cet appareil. À la mise en service, Dominique reçoit la demande complète, avec le numéro pour rappeler.",rq11:"Touchez encore pour retirer",vide:"Aucune clé ne correspond. Dominique peut la chercher pour vous.",pht:"Prix HT",cp0:"Comparer",cp1:"Deux clés en main",cp1b:"Comparaison",cp6:"Témoin allumé : le plus avantageux",cp2:"% en main",cp2d:"Prenez la 2e clé",cp2b:"Prenez deux clés",cp2c:"EN MAIN",annuler:"Annuler",
  cp3:"d'écart",cp4:"Identique",cp5:"Compteur remis à zéro : heures non comparables.",an1:"an",ans:"ans",cp7:"Voir",cp8:"Changer",cp9:"Comparer deux clés",cp10:"Comparez ces deux machines chez Poly Commerce : ",cp11:" et ",cp12:"Prenez deux clés sur le tableau pour les comparer.",cp13:"le plus avantageux",
- ar0:"Arrivages",ar1:"Votre machine n'est pas au tableau ?",ar2:"Réservez un crochet : vous êtes prévenu dès qu'elle arrive sur le parc.",ar3:"Réserver un crochet",ar4:"à votre nom",ar5:"Crochet réservé",ar6:"Voir ma demande",ar7:"RÉSERVÉ",
+ ar0:"Arrivages",ar1:"Prévenu avant tout le monde",ar2:"Réservez un crochet : un SMS dès que votre machine arrive sur le parc.",ar3:"Réserver un crochet",ar4:"à votre nom",ar5:"Crochet réservé",ar6:"Voir ma demande",ar7:"RÉSERVÉ",
  cr0:"Un crochet à votre nom",cr1:"Prévenu avant tout le monde",al2:"Dites quelle machine vous cherchez. Dès qu'elle entre sur le parc, vous recevez un SMS, avant la mise en annonce.",cr3:"Je cherche",al3:"Budget max (€)",al4:"Heures max",al5:"Votre portable",al6:"Me prévenir par SMS",al7:"Aperçu : l'envoi de SMS sera branché à la mise en service.",
  alok:"C'est noté. Vous serez prévenu par SMS (démonstration).",cr5:"Dès qu'une machine correspond, Dominique vous prévient par SMS (démonstration).",cr6:"Rendre le crochet",cr7:"Crochet rendu.",cr8:"max",cr10:"Indiquez votre numéro de portable.",
  bu0:"Bureau",bu1:"Réservé à Dominique",pt:"Espace Dominique",pcode:"Code à 4 chiffres",pdemo:"Démonstration : le code est 1234.",pfaux:"Code incorrect.",peff:"Effacer",pajout:"Accrocher une nouvelle clé",pmes:"Mes clés",pvendue:"Vendue",premettre:"Remettre",pv:"VENDUE",
  pe1:"1. Les photos",pe1t:"Prenez la machine en photo, ou choisissez dans le téléphone. La première sera la photo principale.",pph:"Photos",pe2:"2. Les infos",pmodele:"Marque et modèle",pp:"Prix HT (€)",phs:"D'où vient le chiffre des heures ?",pnote:"Un mot pour les acheteurs (facultatif)",
  pe3:"3. Vérifier et accrocher",ppub:"Accrocher au tableau",psuiv:"Suivant",pret:"Retour",pok:"Accrochée. La clé est en tête du tableau.",pmanque:"Il manque : ",psortir:"Sortir",ploc:"Aperçu : ce que vous faites ici reste sur cet appareil. À la mise en service, ce sera en ligne pour tous les clients.",
  penl:"clés au tableau",penl1:"clé au tableau",pprix:"Changer le prix",pprixok:"Prix changé.",pvok:"Vendue : la clé quitte le tableau.",prok:"La clé est remise au tableau.",praz:"Remettre la démonstration à zéro",praz2:"Touchez encore pour confirmer",prazok:"Démonstration remise à zéro."});
-Object.assign(T.de,{pht:"Nettopreis",cp0:"Vergleichen",cp1:"Zwei Schlüssel in der Hand",cp1b:"Vergleich",cp6:"Lampe an: der bessere Wert",cp2:"% in der Hand",cp2d:"2. Schlüssel nehmen",cp2b:"Zwei Schlüssel nehmen",cp2c:"IN DER HAND",annuler:"Abbrechen",
+Object.assign(T.de,{rs0:"Auf Anfrage",rs1:"Nicht am Brett? Dominique sucht sie für Sie.",rs2:"Füllen Sie einen Suchauftrag aus: Er sucht die Maschine und ruft Sie zurück.",rs3:"Suche starten",rs4:"Suche läuft",rs4b:"Suchen laufen",rs5:"Meine Suchen ansehen",rs6:"Suche",rc0:"Suche auf Anfrage",rc1:"Dominique sucht sie für Sie",rc2:"Eine Maschine, die nicht am Brett hängt? Beschreiben Sie sie auf diesem Auftrag. Dominique sucht sie und ruft Sie dann zurück.",rc3:"Er antwortet auf Deutsch, Französisch, Englisch oder Italienisch",rc4:"Lieferung in Frankreich und Europa",rc5:"Vom Skidder bis zum Hubschrauber",rc6:"Suchauftrag",rc7:"Maschinentyp",rc8:"Marke, Modell, Ausstattung",rc8p:"Z. B. John Deere 648 mit Kran",rc9:"Budget max. (€ netto)",rc11:"Bis wann?",rc12:["So bald wie möglich", "Innerhalb von 3 Monaten", "Ich informiere mich"],rc13:"Ihre Kontaktdaten",rc14:"Vorname",rc15:"Code per SMS erhalten",rc15b:"Code erneut senden",rc16:"Code aus der SMS",rc17:"Bestätigen",rc18:"Demo: Der Code ist 1234. In der echten App kommt er per SMS.",rc19:"Falscher Code.",rc21:"IN SUCHE",rc22:"Notiert. Dominique ruft Sie auf Ihrem Handy zurück, auf %l.",lg:{"fr": "Französisch", "de": "Deutsch", "en": "Englisch", "it": "Italienisch"},rc23:"Neue Suche",rc24:"Diese Suche abbrechen",rc25:"Suche abgebrochen.",rc26:"Ihre Suchen",rc27:"Suchauftrag gesendet (Demo).",rc29:"Nr.",rq0:"Angefragte Suchen",rq1:"Noch keine Suche. Sie erscheinen hier, mit dem Vornamen des Kunden und seiner Suche.",rq3:"Gefunden",rq4:"GEFUNDEN",rq5:"Entfernen",rq6:"Als gefunden markiert.",rq7:"Wieder öffnen",rq8:"Suche entfernt.",rq9:"Dominique hat eine passende Maschine gefunden: Er ruft Sie zurück.",rq10:"Vorschau: Die Nummer wird auf diesem Gerät nicht vollständig gespeichert. Nach dem Start erhält Dominique die ganze Anfrage, mit der Nummer zum Zurückrufen.",rq11:"Zum Entfernen noch einmal tippen",vide:"Kein passender Schlüssel. Dominique kann sie für Sie suchen.",pht:"Nettopreis",cp0:"Vergleichen",cp1:"Zwei Schlüssel in der Hand",cp1b:"Vergleich",cp6:"Lampe an: der bessere Wert",cp2:"% in der Hand",cp2d:"2. Schlüssel nehmen",cp2b:"Zwei Schlüssel nehmen",cp2c:"IN DER HAND",annuler:"Abbrechen",
  cp3:"Unterschied",cp4:"Gleich",cp5:"Zähler auf null: Stunden nicht vergleichbar.",an1:"Jahr",ans:"Jahre",cp7:"Ansehen",cp8:"Wechseln",cp9:"Zwei Schlüssel vergleichen",cp10:"Vergleich dieser zwei Maschinen bei Poly Commerce: ",cp11:" und ",cp12:"Nehmen Sie zwei Schlüssel vom Brett, um sie zu vergleichen.",cp13:"der bessere Wert",
- ar0:"Neuzugänge",ar1:"Ihre Maschine hängt nicht am Brett?",ar2:"Reservieren Sie einen Haken: Sie erfahren es, sobald sie auf den Platz kommt.",ar3:"Haken reservieren",ar4:"auf Ihren Namen",ar5:"Haken reserviert",ar6:"Meine Anfrage ansehen",ar7:"RESERVIERT",
+ ar0:"Neuzugänge",ar1:"Als Erster informiert",ar2:"Reservieren Sie einen Haken: eine SMS, sobald Ihre Maschine auf den Platz kommt.",ar3:"Haken reservieren",ar4:"auf Ihren Namen",ar5:"Haken reserviert",ar6:"Meine Anfrage ansehen",ar7:"RESERVIERT",
  cr0:"Ein Haken auf Ihren Namen",cr1:"Als Erster informiert",al2:"Sagen Sie uns, welche Maschine Sie suchen. Sobald sie auf den Platz kommt, erhalten Sie eine SMS, noch vor dem Inserat.",cr3:"Ich suche",al3:"Max. Budget (€)",al4:"Max. Stunden",al5:"Ihre Handynummer",al6:"Per SMS benachrichtigen",al7:"Vorschau: Der SMS-Versand wird bei Inbetriebnahme angeschlossen.",
  alok:"Notiert. Sie werden per SMS benachrichtigt (Demo).",cr5:"Sobald eine Maschine passt, benachrichtigt Dominique Sie per SMS (Demo).",cr6:"Haken zurückgeben",cr7:"Haken zurückgegeben.",cr8:"max.",cr10:"Bitte Ihre Handynummer angeben.",
  bu0:"Büro",bu1:"Nur für Dominique",pt:"Bereich Dominique",pcode:"4-stelliger Code",pdemo:"Demo: Der Code ist 1234.",pfaux:"Falscher Code.",peff:"Löschen",pajout:"Neuen Schlüssel aufhängen",pmes:"Meine Schlüssel",pvendue:"Verkauft",premettre:"Aufhängen",pv:"VERKAUFT",
  pe1:"1. Fotos",pe1t:"Maschine fotografieren oder aus dem Telefon wählen. Das erste Foto ist das Hauptfoto.",pph:"Fotos",pe2:"2. Angaben",pmodele:"Marke und Modell",pp:"Preis netto (€)",phs:"Woher kommt die Stundenzahl?",pnote:"Ein Wort für Käufer (optional)",
  pe3:"3. Prüfen und aufhängen",ppub:"Ans Brett hängen",psuiv:"Weiter",pret:"Zurück",pok:"Aufgehängt. Der Schlüssel hängt ganz oben am Brett.",pmanque:"Es fehlt: ",psortir:"Abmelden",ploc:"Vorschau: Was Sie hier tun, bleibt auf diesem Gerät. Nach dem Start ist es für alle Kunden online.",
  penl:"Schlüssel am Brett",penl1:"Schlüssel am Brett",pprix:"Preis ändern",pprixok:"Preis geändert.",pvok:"Verkauft: Der Schlüssel verlässt das Brett.",prok:"Der Schlüssel hängt wieder am Brett.",praz:"Demo zurücksetzen",praz2:"Zum Bestätigen noch einmal tippen",prazok:"Demo zurückgesetzt."});
-Object.assign(T.en,{pht:"Excl. VAT",cp0:"Compare",cp1:"Two keys in hand",cp1b:"Comparison",cp6:"Lamp on: the better figure",cp2:"% in hand",cp2d:"Take the 2nd key",cp2b:"Take two keys",cp2c:"IN HAND",annuler:"Cancel",
+Object.assign(T.en,{rs0:"On request",rs1:"Not on the board? Dominique will search for it.",rs2:"Fill in a search slip: he looks for the machine and calls you back.",rs3:"Start a search",rs4:"Search in progress",rs4b:"searches in progress",rs5:"See my searches",rs6:"Search",rc0:"Search on request",rc1:"Dominique searches for you",rc2:"A machine that is not on the board? Describe it on this slip. Dominique searches for it, then calls you back to talk it over.",rc3:"He answers in English, French, German or Italian",rc4:"Delivery in France and across Europe",rc5:"From skidders to helicopters",rc6:"Search slip",rc7:"Machine type",rc8:"Make, model, equipment",rc8p:"E.g. John Deere 648 with crane",rc9:"Max budget (€ ex VAT)",rc11:"When?",rc12:["As soon as possible", "Within 3 months", "Just looking"],rc13:"Your details",rc14:"First name",rc15:"Get my code by text",rc15b:"Send the code again",rc16:"Code from the text",rc17:"Confirm",rc18:"Demo: the code is 1234. In the real app it is sent by text.",rc19:"Wrong code.",rc21:"SEARCHING",rc22:"Noted. Dominique will call you back on your mobile, in %l.",lg:{"fr": "French", "de": "German", "en": "English", "it": "Italian"},rc23:"New search",rc24:"Cancel this search",rc25:"Search cancelled.",rc26:"Your searches",rc27:"Search slip sent (demo).",rc29:"No.",rq0:"Search requests",rq1:"No search yet. They arrive here, with the customer's first name and what they are after.",rq3:"Found",rq4:"FOUND",rq5:"Remove",rq6:"Marked as found.",rq7:"Reopen",rq8:"Search removed.",rq9:"Dominique has found a matching machine: he will call you back.",rq10:"Preview: the number is not kept in full on this device. At launch, Dominique gets the whole request, with the number to call back.",rq11:"Tap again to remove",vide:"No key matches. Dominique can search for it.",pht:"Excl. VAT",cp0:"Compare",cp1:"Two keys in hand",cp1b:"Comparison",cp6:"Lamp on: the better figure",cp2:"% in hand",cp2d:"Take the 2nd key",cp2b:"Take two keys",cp2c:"IN HAND",annuler:"Cancel",
  cp3:"difference",cp4:"Same",cp5:"Meter reset: hours cannot be compared.",an1:"year",ans:"years",cp7:"View",cp8:"Change",cp9:"Compare two keys",cp10:"Compare these two machines at Poly Commerce: ",cp11:" and ",cp12:"Take two keys from the board to compare them.",cp13:"the better figure",
- ar0:"Arrivals",ar1:"Your machine is not on the board?",ar2:"Reserve a hook: you are told as soon as it arrives in the yard.",ar3:"Reserve a hook",ar4:"in your name",ar5:"Hook reserved",ar6:"See my request",ar7:"RESERVED",
+ ar0:"Arrivals",ar1:"Told before anyone else",ar2:"Reserve a hook: a text as soon as your machine arrives in the yard.",ar3:"Reserve a hook",ar4:"in your name",ar5:"Hook reserved",ar6:"See my request",ar7:"RESERVED",
  cr0:"A hook in your name",cr1:"Told before anyone else",al2:"Tell us which machine you are after. As soon as it arrives in the yard, you get a text, before it is listed.",cr3:"I am looking for",al3:"Max budget (€)",al4:"Max hours",al5:"Your mobile",al6:"Text me",al7:"Preview: text messages will be connected at launch.",
  alok:"Noted. You will get a text (demo).",cr5:"As soon as a machine matches, Dominique texts you (demo).",cr6:"Give the hook back",cr7:"Hook given back.",cr8:"max",cr10:"Please enter your mobile number.",
  bu0:"Office",bu1:"Dominique only",pt:"Dominique's space",pcode:"4-digit code",pdemo:"Demo: the code is 1234.",pfaux:"Wrong code.",peff:"Delete",pajout:"Hang a new key",pmes:"My keys",pvendue:"Sold",premettre:"Relist",pv:"SOLD",
  pe1:"1. Photos",pe1t:"Take photos of the machine, or pick them from the phone. The first one becomes the main photo.",pph:"Photos",pe2:"2. Details",pmodele:"Make and model",pp:"Price ex VAT (€)",phs:"Where does the hours figure come from?",pnote:"A word for buyers (optional)",
  pe3:"3. Check and hang",ppub:"Hang on the board",psuiv:"Next",pret:"Back",pok:"Hung. The key is at the top of the board.",pmanque:"Missing: ",psortir:"Log out",ploc:"Preview: what you do here stays on this device. At launch it will be online for every customer.",
  penl:"keys on the board",penl1:"key on the board",pprix:"Change the price",pprixok:"Price changed.",pvok:"Sold: the key leaves the board.",prok:"The key is back on the board.",praz:"Reset the demo",praz2:"Tap again to confirm",prazok:"Demo reset."});
-Object.assign(T.it,{pht:"IVA esclusa",cp0:"Confronta",cp1:"Due chiavi in mano",cp1b:"Confronto",cp6:"Spia accesa: il valore migliore",cp2:"% in mano",cp2d:"Prendi la 2ª chiave",cp2b:"Prendi due chiavi",cp2c:"IN MANO",annuler:"Annulla",
+Object.assign(T.it,{rs0:"Su richiesta",rs1:"Non è sul quadro? Dominique la cerca per te.",rs2:"Compila un buono di ricerca: cerca la macchina e ti richiama.",rs3:"Avvia una ricerca",rs4:"Ricerca in corso",rs4b:"ricerche in corso",rs5:"Vedi le mie ricerche",rs6:"Ricerca",rc0:"Ricerca su richiesta",rc1:"Dominique la cerca per te",rc2:"Una macchina che non è sul quadro? Descrivila su questo buono. Dominique la cerca, poi ti richiama per parlarne.",rc3:"Ti risponde in italiano, francese, tedesco o inglese",rc4:"Consegna in Francia e in Europa",rc5:"Dallo skidder all'elicottero",rc6:"Buono di ricerca",rc7:"Tipo di macchina",rc8:"Marca, modello, dotazioni",rc8p:"Es. John Deere 648 con gru",rc9:"Budget max (€ IVA esclusa)",rc11:"Per quando?",rc12:["Appena possibile", "Entro 3 mesi", "Mi informo"],rc13:"I tuoi recapiti",rc14:"Nome",rc15:"Ricevi il codice via SMS",rc15b:"Invia di nuovo il codice",rc16:"Codice ricevuto via SMS",rc17:"Conferma",rc18:"Demo: il codice è 1234. Nell'app vera arriva via SMS.",rc19:"Codice errato.",rc21:"IN RICERCA",rc22:"Fatto. Dominique ti richiama sul cellulare, in %l.",lg:{"fr": "francese", "de": "tedesco", "en": "inglese", "it": "italiano"},rc23:"Nuova ricerca",rc24:"Annulla questa ricerca",rc25:"Ricerca annullata.",rc26:"Le tue ricerche",rc27:"Buono di ricerca inviato (demo).",rc29:"N.",rq0:"Ricerche richieste",rq1:"Ancora nessuna ricerca. Arrivano qui, con il nome del cliente e ciò che cerca.",rq3:"Trovata",rq4:"TROVATA",rq5:"Rimuovi",rq6:"Segnata come trovata.",rq7:"Riapri",rq8:"Ricerca rimossa.",rq9:"Dominique ha trovato una macchina adatta: ti richiama.",rq10:"Anteprima: il numero non resta intero su questo dispositivo. Al lancio Dominique riceve la richiesta completa, con il numero da richiamare.",rq11:"Tocca ancora per rimuovere",vide:"Nessuna chiave corrisponde. Dominique può cercarla per te.",pht:"IVA esclusa",cp0:"Confronta",cp1:"Due chiavi in mano",cp1b:"Confronto",cp6:"Spia accesa: il valore migliore",cp2:"% in mano",cp2d:"Prendi la 2ª chiave",cp2b:"Prendi due chiavi",cp2c:"IN MANO",annuler:"Annulla",
  cp3:"di differenza",cp4:"Uguale",cp5:"Contaore azzerato: ore non confrontabili.",an1:"anno",ans:"anni",cp7:"Vedi",cp8:"Cambia",cp9:"Confronta due chiavi",cp10:"Confronta queste due macchine da Poly Commerce: ",cp11:" e ",cp12:"Prendi due chiavi dal quadro per confrontarle.",cp13:"il valore migliore",
- ar0:"Arrivi",ar1:"La tua macchina non è sul quadro?",ar2:"Prenota un gancio: ti avvisiamo appena arriva sul piazzale.",ar3:"Prenota un gancio",ar4:"a tuo nome",ar5:"Gancio prenotato",ar6:"Vedi la mia richiesta",ar7:"PRENOTATO",
+ ar0:"Arrivi",ar1:"Avvisato prima di tutti",ar2:"Prenota un gancio: un SMS appena la tua macchina arriva sul piazzale.",ar3:"Prenota un gancio",ar4:"a tuo nome",ar5:"Gancio prenotato",ar6:"Vedi la mia richiesta",ar7:"PRENOTATO",
  cr0:"Un gancio a tuo nome",cr1:"Avvisato prima di tutti",al2:"Dicci quale macchina cerchi. Appena arriva sul piazzale ricevi un SMS, prima dell'annuncio.",cr3:"Cerco",al3:"Budget max (€)",al4:"Ore max",al5:"Il tuo cellulare",al6:"Avvisami via SMS",al7:"Anteprima: l'invio di SMS sarà attivato al lancio.",
  alok:"Fatto. Riceverai un SMS (demo).",cr5:"Appena una macchina corrisponde, Dominique ti avvisa via SMS (demo).",cr6:"Restituisci il gancio",cr7:"Gancio restituito.",cr8:"max",cr10:"Inserisci il tuo numero di cellulare.",
  bu0:"Ufficio",bu1:"Riservato a Dominique",pt:"Spazio Dominique",pcode:"Codice a 4 cifre",pdemo:"Demo: il codice è 1234.",pfaux:"Codice errato.",peff:"Cancella",pajout:"Appendi una nuova chiave",pmes:"Le mie chiavi",pvendue:"Venduta",premettre:"Rimetti",pv:"VENDUTA",
@@ -1079,7 +1201,7 @@ const FAM=t=>/Débusqueur|Porteur|Broyeur/.test(t)?'foret':/Pelle|Tombereau/.tes
 const ss=k=>{try{return sessionStorage.getItem(k)}catch(e){return null}};
 const chiffres=s=>String(s==null?'':s).replace(/\D/g,'');
 const existe=id=>PARC.some(m=>m.id==id);
-const VUES=['banc','crochet','bureau'],VIS4='<i class="vis"></i><i class="vis"></i><i class="vis"></i><i class="vis"></i>';
+const VUES=['banc','crochet','recherche','bureau'],VIS4='<i class="vis"></i><i class="vis"></i><i class="vis"></i><i class="vis"></i>';
 let CMP=[],CHOIX=null,CROCHET=mem.get('pk-crochet'),APRES=null;
 if(!CROCHET||!CROCHET.t)CROCHET=null;
 
@@ -1120,7 +1242,7 @@ function serres(){$$('.l-croc .etiq b,.l-croc .etiq small,.r-ligne .tampon').for
 function auTableau(){document.body.dataset.vue='tableau';ajuste();marque();const f=APRES;APRES=null;if(f)f()}
 function montrer(v,sans){++SEQ;if(CHOIX)finChoix();
   if(!large()){$('#poste').classList.remove('allume','test');ALLUME=false}
-  if(v=='banc')banc();else if(v=='crochet')crochet();else bureau();
+  if(v=='banc')banc();else if(v=='crochet')crochet();else if(v=='recherche')recherche();else bureau();
   document.body.dataset.vue=v;$('#'+v).scrollTop=0;ajuste();
   if(!sans){const h=v=='banc'?'#c='+CMP.join(','):'#'+v;try{const s=history.state;if(large())history.replaceState(null,'',h);else if(s&&(s.m||s.v))history.replaceState({v},'',h);else history.pushState({v},'',h)}catch(e){}}
   marque()}
@@ -1189,6 +1311,61 @@ $('#f-alerte').onsubmit=e=>{e.preventDefault();
 $('#al-rendre').onclick=()=>{CROCHET=null;mem.set('pk-crochet',null);crochet();planche();toast(U().cr7);balanceEtiq()};
 ['#al-budget','#al-h'].forEach(s=>$(s).addEventListener('input',e=>{e.target.value=chiffres(e.target.value).slice(0,7).replace(/\B(?=(\d{3})+$)/g,' ')}));
 
+/* ---------- la recherche sur demande : Dominique cherche la machine qui n'est pas au tableau ---------- */
+TYP.de.push(['Hélicoptère','Hubschrauber']);TYP.en.push(['Hélicoptère','Helicopter']);TYP.it.push(['Hélicoptère','Elicottero']);
+const TYPES_RC=[...TYPES,'Hélicoptère','Autre machine'];
+let RQ=(mem.get('pk-recherches')||[]).filter(r=>r&&r.n&&r.t),RQN=Math.max(+mem.get('pk-rqn')||0,...RQ.map(r=>r.n),0),RCCODE=false,RCOUV=false,RCPRE='',RCNEUF=0,RCRM=null,RCRMT=0;
+const rqNo=n=>U().rc29+' '+String(n).padStart(3,'0');
+const rqDate=r=>{try{return new Date(r.at).toLocaleDateString(loc(),{day:'2-digit',month:'2-digit',year:'numeric'})}catch(e){return ''}};
+const rqRes=r=>{const u=U();return [r.b?eur(r.b)+' '+u.cr8:'',r.h?nb(r.h)+' h '+u.cr8:'',r.q>=0?u.rc12[r.q]:''].filter(Boolean)};
+const rappel=r=>U().rc22.replace('%l',U().lg[r.l]||U().lg[L]);
+function rechercheHTML(){const u=U(),k=RQ.length,f=RQ.find(r=>r.s=='t'),r=f||RQ[0];
+  return '<span class="brady">'+u.rs0+'</span><div class="libre cmd'+(k?' res':'')+'" id="cmd">'+
+   '<span class="bon-mini" aria-hidden="true"><i class="aimant"></i><span class="bm-p"><b>'+(k?rqNo(r.n):u.rs6)+'</b><i></i><i></i><i></i>'+
+   (k?'<em class="tampon'+(f?' ok':'')+'">'+(f?u.rq4:u.rc21)+'</em>':'<svg class="loupe"><use href="#s-loupe"/></svg>')+'</span></span>'+
+   '<p class="l-txt"><b>'+(f?u.rq9:k>1?k+' '+u.rs4b:k?u.rs4:u.rs1)+'</b><small>'+(k?[esc(typ(r.t))].concat(r.d?[esc(r.d)]:[],rqRes(r).map(x=>esc(x).replace(/ /g,' '))).join(' · '):u.rs2)+'</small></p>'+
+   '<button type="button" class="l-go">'+(k?u.rs5:u.rs3)+'<span aria-hidden="true">›</span></button></div>'}
+function slipHTML(r){const u=U(),t=r.s=='t';
+  return '<div class="g-papier bon-p res'+(r.n==RCNEUF?' pose':'')+'" data-rq="'+r.n+'"><div class="bon-t"><b>'+u.rc6+'</b><span>'+rqNo(r.n)+' · '+rqDate(r)+'</span></div>'+
+   '<span class="tampon'+(t?' ok':'')+'">'+(t?u.rq4:u.rc21)+'</span>'+
+   '<div class="g-res"><b>'+esc(typ(r.t))+'</b>'+(r.d?'<span class="det">'+esc(r.d)+'</span>':'')+(rqRes(r).length?'<span class="cr">'+rqRes(r).map(x=>esc(x).replace(/ /g,'\u00a0')).join(' · ')+'</span>':'')+'</div>'+
+   '<p>'+(t?u.rq9:rappel(r))+'</p><button type="button" class="bon-x" data-annule="'+r.n+'">'+u.rc24+'</button></div>'}
+function recherche(){const u=U(),sel=$('#rc-type'),v=sel.value,ch=$('#rc-quand'),q=(ch.querySelector('input:checked')||{}).value;
+  sel.innerHTML=TYPES_RC.map(t=>'<option value="'+t+'">'+esc(typ(t))+'</option>').join('');if(v)sel.value=v;
+  ch.innerHTML=u.rc12.map((t,i)=>'<label><input type="radio" name="rc-q" value="'+i+'"'+(q==String(i)?' checked':'')+'><b>'+t+'</b></label>').join('');
+  $('#rc-det').placeholder=u.rc8p;$('#rc-budget').placeholder='120 000';$('#rc-h').placeholder='8 000';$('#rc-tel').placeholder='06 12 34 56 78';
+  $('#rc-no').textContent=rqNo(RQN+1)+' · '+rqDate({at:new Date().toISOString()});
+  if(RCPRE){$('#rc-det').value=RCPRE.slice(0,80);RCPRE='';RCOUV=true}
+  $('#rc-liste').innerHTML=RQ.length?'<span class="i-lab rc-lab">'+u.rc26+'</span>'+RQ.map(slipHTML).join(''):'';
+  const form=!RQ.length||RCOUV;$('#rc-bon').hidden=!form;$('#rc-neuf').hidden=form;
+  $('#rc-code').hidden=$('#rc-demo').hidden=!RCCODE;$('#rc-go-t').textContent=RCCODE?u.rc15b:u.rc15}
+['#rc-budget','#rc-h'].forEach(s=>$(s).addEventListener('input',e=>{e.target.value=chiffres(e.target.value).slice(0,7).replace(/\B(?=(\d{3})+$)/g,' ')}));
+$('#f-rc').onsubmit=e=>{e.preventDefault();const u=U(),man=[];
+  if(!$('#rc-pre').value.trim())man.push(u.rc14);if(chiffres($('#rc-tel').value).length<8)man.push(u.al5);
+  if(man.length){toast(u.pmanque+man.join(', '));($('#rc-pre').value.trim()?$('#rc-tel'):$('#rc-pre')).focus();return}
+  RCCODE=true;recherche();vib(10);const c=$('#rc-c');c.value='';c.focus()};
+function rcValider(){const u=U(),c=$('#rc-c');if(c.value.length<4){c.focus();return}
+  if(c.value!=='1234'){c.value='';toast(u.rc19);vib([0,60,40,60]);c.focus();return}
+  const d=chiffres($('#rc-tel').value),qq=document.querySelector('#rc-quand input:checked');
+  /* le numéro n'est pas gardé en entier sur l'appareil : seulement les 2 premiers et les 2 derniers chiffres */
+  const r={n:++RQN,t:$('#rc-type').value,d:$('#rc-det').value.trim().slice(0,80),b:+chiffres($('#rc-budget').value)||0,h:+chiffres($('#rc-h').value)||0,
+    q:qq?+qq.value:-1,p:$('#rc-pre').value.trim().slice(0,30),tm:d.slice(0,2)+' •• •• •• '+d.slice(-2),l:L,at:new Date().toISOString(),s:'c'};
+  RQ.unshift(r);mem.set('pk-recherches',RQ);mem.set('pk-rqn',RQN);
+  $('#f-rc').reset();RCCODE=false;RCOUV=false;RCNEUF=r.n;recherche();planche();vib([0,18,40,18]);toast(u.rc27);$('#recherche').scrollTop=0;setTimeout(()=>{RCNEUF=0},1500)}
+$('#rc-val').onclick=rcValider;
+$('#rc-c').addEventListener('input',e=>{e.target.value=chiffres(e.target.value).slice(0,4);if(e.target.value.length==4)rcValider()});
+$('#rc-c').addEventListener('keydown',e=>{if(e.key=='Enter'){e.preventDefault();rcValider()}});
+$('#rc-neuf').onclick=()=>{RCOUV=true;recherche();$('#rc-bon').scrollIntoView({block:'start',behavior:calme()?'auto':'smooth'});setTimeout(()=>$('#rc-type').focus({preventScroll:true}),calme()?0:450)};
+$('#rc-liste').addEventListener('click',e=>{const a=e.target.closest('[data-annule]');if(!a)return;RQ=RQ.filter(r=>r.n!=a.dataset.annule);mem.set('pk-recherches',RQ);recherche();planche();toast(U().rc25)});
+function rqBureauHTML(){const u=U();
+  return '<div class="reg-t"><span class="i-lab">'+u.rq0+' · '+RQ.length+'</span></div>'+
+   (RQ.length?'<div class="rqs">'+RQ.map(r=>{const t=r.s=='t',c=rqRes(r);return '<div class="rq'+(t?' trouvee':'')+'" data-n="'+r.n+'">'+
+     '<div class="rq-h"><b>'+rqNo(r.n)+'</b><span>'+rqDate(r)+' · '+String(r.l||'fr').toUpperCase()+'</span>'+(t?'<i class="tampon ok">'+u.rq4+'</i>':'')+'</div>'+
+     '<b class="rq-t">'+esc(typ(r.t))+'</b>'+(r.d?'<span class="rq-d">'+esc(r.d)+'</span>':'')+(c.length?'<span class="rq-c">'+esc(c.join(' · '))+'</span>':'')+
+     '<span class="rq-q"><svg class="ic"><use href="#s-tel"/></svg>'+esc(r.p)+' · '+esc(r.tm)+'</span>'+
+     '<div class="rq-a"><button type="button" class="petit txt" data-tr="'+r.n+'">'+(t?u.rq7:u.rq3)+'</button><button type="button" class="petit txt'+(RCRM==r.n?' conf':'')+'" data-rm="'+r.n+'">'+(RCRM==r.n?u.rq11:u.rq5)+'</button></div></div>'}).join('')+'</div><p class="note rq-note">'+u.rq10+'</p>'
+    :'<p class="rq-vide">'+u.rq1+'</p>')}
+
 /* ---------- le bureau : espace Dominique ---------- */
 let OKB=ss('pk-pro')=='1',ETAPE=0,BR=null,EDIT=null,CODE='',RAZ=0;
 const neufBR=()=>({img:[],t:TYPES[0],n:'',a:'',h:'',p:'',hs:'a',dit:''});
@@ -1200,7 +1377,7 @@ function bureau0(){const u=U(),el=$('#bureau-c');$('#sortir').hidden=!OKB;
     '<p class="note">'+u.pdemo+'</p><span class="signe">'+u.signe+'</span>';return}
   if(ETAPE==0){const tous=[...AJ,...M],n=PARC.length;
     el.innerHTML='<div class="plaque titre">'+VIS4+'<span class="grave">'+u.pt+'</span><h2>'+n+' '+(n>1?u.penl:u.penl1)+'</h2></div>'+
-     '<button type="button" class="appel" id="ajout"><svg><use href="#s-plus"/></svg><span>'+u.pajout+'</span></button>'+
+     '<button type="button" class="appel" id="ajout"><svg><use href="#s-plus"/></svg><span>'+u.pajout+'</span></button>'+rqBureauHTML()+
      '<div class="reg-t"><span class="i-lab">'+u.pmes+'</span></div><div class="reg">'+tous.map(m=>{const v=VEN.has(m.id);
        return '<div class="r-ligne'+(v?' vendue':'')+'" data-id="'+m.id+'"><img src="'+src(m,0)+'" alt="" loading="lazy" width="64" height="48">'+(v?'<i class="tampon">'+u.pv+'</i>':'')+
        '<span class="r-n"><b>'+esc(m.n).replace(/ (\S{1,2})( · |$)/,'\u00a0$1$2')+'</b><small>'+(EDIT==m.id?'<span class="r-edit"><input type="text" inputmode="numeric" maxlength="8" id="e-prix" value="'+m.p+'" aria-label="'+u.pp+'"><button type="button" class="petit jaune" data-ok="'+m.id+'">OK</button></span>'
@@ -1239,12 +1416,16 @@ function reduire(f){return new Promise(r=>{const i=new Image();i.onload=()=>{con
 $('#bureau-c').addEventListener('click',e=>{const u=U(),t=e.target,haut=()=>{$('#bureau').scrollTop=0};
   const k=t.closest('[data-k]');if(k){touche(k.dataset.k);return}
   if(t.closest('#ajout')){ETAPE=1;BR=neufBR();bureau();haut();return}
+  const tr=t.closest('[data-tr]');if(tr){const r=RQ.find(x=>x.n==tr.dataset.tr);if(r){r.s=r.s=='t'?'c':'t';mem.set('pk-recherches',RQ);planche();bureau();toast(r.s=='t'?u.rq6:u.rs4)}return}
+  const rm=t.closest('[data-rm]');if(rm){const n=+rm.dataset.rm;clearTimeout(RCRMT);
+    if(RCRM!==n){RCRM=n;bureau();RCRMT=setTimeout(()=>{RCRM=null;if(document.body.dataset.vue=='bureau'&&OKB&&ETAPE==0)bureau()},3500);return}
+    RCRM=null;RQ=RQ.filter(x=>x.n!=n);mem.set('pk-recherches',RQ);planche();bureau();toast(u.rq8);return}
   const v=t.closest('[data-v]');if(v){const id=v.dataset.v,on=!VEN.has(id);on?VEN.add(id):VEN.delete(id);mem.set('pk-vendues',[...VEN]);EDIT=null;parc();planche();majSel();bureau();toast(on?u.pvok:u.prok);return}
   const p=t.closest('[data-prix]');if(p){EDIT=p.dataset.prix;bureau();return}
   const o=t.closest('[data-ok]');if(o){validerPrix(o.dataset.ok);return}
   if(t.closest('#raz')){const b=$('#raz');
     if(!b.classList.contains('conf')){b.classList.add('conf');b.textContent=u.praz2;clearTimeout(RAZ);RAZ=setTimeout(()=>{const x=$('#raz');if(x){x.classList.remove('conf');x.textContent=U().praz}},3500);return}
-    clearTimeout(RAZ);AJ.length=0;VEN.clear();PRIX={};CROCHET=null;SEL=[];CMP=[];EDIT=null;['pk-ajouts','pk-vendues','pk-prix','pk-crochet','pk-sel'].forEach(x=>{try{localStorage.removeItem(x)}catch(e){}});
+    clearTimeout(RAZ);AJ.length=0;VEN.clear();PRIX={};CROCHET=null;SEL=[];CMP=[];EDIT=null;RQ=[];RQN=0;['pk-ajouts','pk-vendues','pk-prix','pk-crochet','pk-sel','pk-recherches','pk-rqn'].forEach(x=>{try{localStorage.removeItem(x)}catch(e){}});
     parc();planche();majSel();bureau();haut();toast(u.prazok);return}
   if(t.closest('#ret2')){garde();ETAPE--;bureau();haut();return}
   if(t.closest('#suiv2')){garde();const man=manque();if(man){toast(u.pmanque+man);return}
@@ -1259,7 +1440,7 @@ $('#sortir').onclick=()=>{OKB=false;ETAPE=0;EDIT=null;BR=null;try{sessionStorage
 
 /* quand la langue change, les écrans ouverts se retraduisent */
 function majPlus(){majChoix();majRetour();$$('.x-pc').forEach(b=>b.setAttribute('aria-label',U().fermer));$('#choix-x').textContent=U().annuler;$('#al-budget').placeholder='80 000';$('#al-h').placeholder='6 000';$('#al-tel').placeholder='06 12 34 56 78';
-  const v=document.body.dataset.vue;if(v=='banc')banc();else if(v=='bureau'){garde();bureau()}else crochet()}
+  const v=document.body.dataset.vue;if(v=='banc')banc();else if(v=='bureau'){garde();bureau()}else if(v=='recherche')recherche();else crochet()}
 
 /* ---------- démarrage ---------- */
 (()=>{const hs=location.hash,id=(hs.match(/m=([\w-]+)/)||[])[1],m=id&&PARC.find(x=>x.id==id),cc=(hs.match(/c=([\w-]+),([\w-]+)/)||[]).slice(1).filter(existe);
@@ -1267,7 +1448,7 @@ function majPlus(){majChoix();majRetour();$$('.x-pc').forEach(b=>b.setAttribute(
   const pret=()=>{$('#ouverture').classList.add('fin');document.body.classList.add('pret');BAL=true;planche();try{history.replaceState(null,'',location.pathname+location.search)}catch(e){}};
   if(m){CUR=m;pret();contact(m)}
   else if(cc.length==2&&cc[0]!=cc[1]){CMP=cc;document.body.classList.add('cmp2');pret();montrer('banc')}
-  else if(hs=='#crochet'||hs=='#bureau'){pret();montrer(hs.slice(1))}
+  else if(hs=='#crochet'||hs=='#bureau'||hs=='#recherche'){pret();montrer(hs.slice(1))}
   else if(hs=='#tableau')finOuverture();
 })();
 
