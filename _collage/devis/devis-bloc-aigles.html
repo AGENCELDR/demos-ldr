@@ -157,6 +157,23 @@
     b.setAttribute('aria-pressed',on?'true':'false');
     majTexte();
   });
+  // Les choix d'offres sont ecrits dans le champ « metier » juste avant l'envoi,
+  // pour qu'ils apparaissent sur la fiche du contact dans Systeme.io.
+  var SEP=' · Intéressé par : ';
+  function inscrireChoix(){
+    var f=leForm(); var m=f&&f.querySelector('input[name=company_name]'); if(!m) return;
+    racine=document.getElementById('ldr-devis');
+    var ch=[].slice.call(racine.querySelectorAll('.ld-aigle[aria-pressed="true"]')).map(function(b){return b.dataset.offre||'je ne sais pas encore';});
+    var base=m.value.split(SEP)[0].trim();
+    var v=ch.length ? (base?base:'?')+SEP+ch.join(', ') : base;
+    if(v===m.value) return;
+    Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(m,v);
+    m.dispatchEvent(new Event('input',{bubbles:true})); m.dispatchEvent(new Event('change',{bubbles:true}));
+  }
+  ['pointerdown','touchstart','mousedown'].forEach(function(t){
+    document.addEventListener(t,function(ev){ if(ev.target.closest && ev.target.closest('form[id^="optinform-"] [data-test-id="submit-form-button"]')) inscrireChoix(); },true);
+  });
+  document.addEventListener('keydown',function(ev){ if(ev.key==='Enter' && ev.target.closest && ev.target.closest('form[id^="optinform-"]')) inscrireChoix(); },true);
   var essais=0; (function attendre(){ if(habiller() || ++essais>60) return; setTimeout(attendre,150); })();
 })();
 </script>
