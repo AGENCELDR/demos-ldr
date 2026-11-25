@@ -117,7 +117,8 @@
   +'.ldr-cmd-pan.vide .nb{background:none;border:1px dashed color-mix(in srgb,var(--pl-or) 70%,transparent);color:var(--pl-or)}.ldr-cmd-pan.vide .tx b{font-size:13px}'
   +'.ldr-cmd-pan .pt{width:10px;height:10px;border-radius:50%;background:#6FD39A;box-shadow:0 0 0 4px rgba(111,211,154,.2);animation:ldrcp 1.4s infinite}@keyframes ldrcp{50%{opacity:.35}}'
   +'body.ldr-cmd-on{padding-bottom:96px!important}'
-  +'body:has(.tiroir) .ldr-cmd-barre,body:has(.ldr-cmd-feuille) .ldr-cmd-barre{opacity:0;transform:translateY(20px);pointer-events:none}'
+  +'body:has(.tiroir) .ldr-cmd-barre,body:has(.ldr-cmd-feuille) .ldr-cmd-barre,body:has(.v7j.on) .ldr-cmd-barre,body:has(.v7h.on) .ldr-cmd-barre{opacity:0;transform:translateY(20px);pointer-events:none}'
+  +'body:has(.tiroir) .ldr-cmd-barre>*,body:has(.ldr-cmd-feuille) .ldr-cmd-barre>*,body:has(.v7j.on) .ldr-cmd-barre>*,body:has(.v7h.on) .ldr-cmd-barre>*{pointer-events:none}'
   /* bloc « commander » dans la fiche de l article (fiche sombre de la carte) */
   +'.ldr-cmd-add{margin:18px 18px 4px;padding:16px 16px 14px;border-radius:12px;'+PL+'}'
   +'.ldr-cmd-add .t{display:flex;align-items:center;gap:10px;font:700 12.5px var(--f-c);letter-spacing:.16em;text-transform:uppercase;color:var(--pl-or2);margin-bottom:12px}.ldr-cmd-add .t i{flex:1;height:1px;background:linear-gradient(90deg,color-mix(in srgb,var(--pl-or) 60%,transparent),transparent)}'
@@ -402,8 +403,8 @@
       +'.ldr-trn .lot{margin:3px 0 8px;font:italic 600 15px/1.2 "Alegreya",Georgia,serif;color:#F4EAD5}'
       +'.ldr-trn ol{list-style:none;margin:0 auto 10px;padding:0;max-width:300px}.ldr-trn li{display:grid;grid-template-columns:26px 1fr auto;gap:8px;align-items:center;padding:4px 6px;border-bottom:1px dashed rgba(214,176,100,.2);font:600 15px "Alegreya",Georgia,serif;color:#F4EAD5;text-align:left}'
       +'.ldr-trn li i{font:700 13px "Cinzel",Georgia,serif;font-style:normal;color:#D8B36C;text-align:center}.ldr-trn li b{font:700 16px "Cinzel",Georgia,serif;color:#F1D795}.ldr-trn li.moi{background:rgba(214,176,100,.14);border-radius:8px}'
-      +'.ldr-trn .f{display:flex;gap:8px;max-width:340px;margin:0 auto}.ldr-trn input{flex:1;min-width:0;min-height:46px;border-radius:10px;border:1px solid rgba(214,176,100,.5);background:rgba(0,0,0,.35);color:#F4EAD5;padding:0 12px;font:600 16px "Alegreya",Georgia,serif}'
-      +'.ldr-trn .v7j-b{flex:0 0 auto;min-width:0}.ldr-trn .m{margin:8px 0 0;font:italic 500 12px/1.3 "Alegreya",Georgia,serif;color:#9B8F78}.ldr-trn .ok{margin:0 0 8px;font:700 15px "Alegreya",Georgia,serif;color:#86D3A3}';
+      +'.ldr-trn .f{display:flex;flex-direction:column;gap:8px;max-width:340px;margin:0 auto}.ldr-trn input{display:block;width:100%;box-sizing:border-box;min-height:48px;text-align:center;direction:ltr;border-radius:10px;border:1px solid rgba(214,176,100,.5);background:rgba(0,0,0,.35);color:#F4EAD5;padding:0 12px;font:600 16px "Alegreya",Georgia,serif}'
+      +'.ldr-trn .v7j-b{flex:0 0 auto;width:100%;min-width:0}.ldr-trn .m{margin:8px 0 0;font:italic 500 12px/1.3 "Alegreya",Georgia,serif;color:#9B8F78}.ldr-trn .ok{margin:0 0 8px;font:700 15px "Alegreya",Georgia,serif;color:#86D3A3}';
     D.head.appendChild(st);
     var info=null,quand=0,fin=null,vu=null;
     function charge(){if(info&&Date.now()-quand<30000)return Promise.resolve(info);
@@ -417,7 +418,7 @@
         var m=q('.v7j-f-m',fin),b=D.createElement('div');b.className='ldr-trn';
         var pr=(V.habitue&&V.habitue.prenom&&V.habitue.prenom())||lire_p();
         b.innerHTML='<p class="k">Tournoi du soir</p><p class="lot">'+(d.lot?esc(d.lot)+' pour le meilleur score':'Le meilleur score de la soirée gagne')+'</p>'+(d.classement.length?liste(d.classement):'')
-          +'<div class="f"><input type="text" maxlength="14" autocomplete="off" autocapitalize="words" enterkeyhint="send" placeholder="Prénom ou surnom" aria-label="Prénom ou surnom pour le classement" value="'+esc(pr||'')+'"><button type="button" class="v7j-b p">Inscrire '+j.total+' pts</button></div>'
+          +'<div class="f"><input type="text" maxlength="14" autocomplete="off" autocorrect="off" spellcheck="false" autocapitalize="words" enterkeyhint="send" dir="ltr" placeholder="Prénom ou surnom" aria-label="Prénom ou surnom pour le classement" value="'+esc(pr||'')+'"><button type="button" class="v7j-b p">Inscrire '+j.total+' pts</button></div>'
           +'<p class="m">Gratuit, sans achat. Une partie = 3 fléchettes, votre meilleur score compte. Lot remis au bar, alcool aux majeurs.</p>';
         if(m)m.replaceWith(b);else fin.appendChild(b);ajuste();
         var bt=q('button',b),inp=q('input',b);
@@ -428,7 +429,9 @@
               info=r;quand=Date.now();
               b.innerHTML='<p class="k">Tournoi du soir</p><p class="ok">'+(r.rang===1?'Vous êtes en tête !':r.rang?'Vous êtes '+r.rang+'ᵉ ce soir':'Score inscrit')+(r.mieux?'':' · votre record reste '+r.record)+'</p>'+liste(r.classement,r.rang)
                 +'<p class="m">'+(r.lot?esc(r.lot)+' pour le meilleur score à la fermeture. ':'')+'Le bar annonce le gagnant.</p>';ajuste();});}
-        bt.onclick=envoyer2;inp.addEventListener('keydown',function(e){if(e.key==='Enter')envoyer2();});
+        bt.onclick=envoyer2;inp.addEventListener('keydown',function(e){e.stopPropagation();if(e.key==='Enter')envoyer2();});
+        ['input','keyup','keypress','beforeinput','compositionstart','compositionupdate','compositionend','pointerdown','touchstart','touchmove'].forEach(function(n){inp.addEventListener(n,function(e){e.stopPropagation();},{passive:true});});
+        inp.addEventListener('focus',function(){setTimeout(function(){try{inp.scrollIntoView({block:'center'});}catch(e){}},300);});
       });}
     function lire_p(){return lire('ldr-trn-nom');}
     function brancheFin(){if(fin)return;fin=q('.v7j-fin:not(.v7j-defi)');if(!fin)return;
