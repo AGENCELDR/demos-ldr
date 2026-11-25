@@ -521,3 +521,12 @@ html body #ldr-ex.vue-pc .tel-ex img{height:auto!important;aspect-ratio:16/10;bo
 function go(b){if(b.classList.contains('on'))return;bs.forEach(function(x){x.classList.toggle('on',x===b)});place(b);var pc=b.dataset.v==='pc';r.classList.add('change');setTimeout(function(){r.classList.toggle('vue-pc',pc);r.querySelectorAll('.tel-ex img').forEach(function(i){if(i.dataset.pc)i.src=pc?i.dataset.pc:i.dataset.tel});var gr=r.querySelector('.grille-ex');if(gr)gr.scrollLeft=0;setTimeout(function(){r.classList.remove('change')},60)},250)}
 bs.forEach(function(b){b.addEventListener('click',function(){go(b)})});requestAnimationFrame(function(){place(v.querySelector('button.on'))});window.addEventListener('resize',function(){place(v.querySelector('button.on'))});
 setTimeout(function(){r.querySelectorAll('.tel-ex img').forEach(function(i){if(i.dataset.pc)(new Image()).src=i.dataset.pc})},2500)})();</script>
+<style id="ldr-fond-rue-page-2026-11-25">
+/* 25/11 12h02 (Lilian, choix A) : une seule image, la rue de nuit, derrière toute la page, PC et téléphone ; elle reste en place pendant le défilement. */
+html{background:#030712!important}
+html body{background:transparent!important;position:relative!important}
+html body .ldr-bloc,html body .ldr-bloc .ldr,html body .ldr-bloc section{background-color:transparent!important}
+html body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(180deg,rgba(3,7,18,.45),rgba(3,7,18,.2) 35%,rgba(3,7,18,.35) 70%),url(https://cdn.jsdelivr.net/gh/AGENCELDR/demos-ldr@1f64fad0415b3cf1913ff19f141c592cdfe77d84/_collage/fonds/rue-choisie.webp) center 40%/cover no-repeat;opacity:.55}
+html body .ldr-bloc .s4 .fond{display:none!important}
+html body .ldr-bloc .s4 .pro div{box-shadow:inset 0 0 0 1px rgba(255,255,255,.12)!important}
+</style>
