@@ -876,6 +876,9 @@ html body #ldr-rs{text-align:left}
  -webkit-mask-image:radial-gradient(closest-side at 50% 46%,#000 35%,transparent 100%);mask-image:radial-gradient(closest-side at 50% 46%,#000 35%,transparent 100%);
  transition:opacity .9s,transform .9s}
 #ldr-rs .rs-hero:hover .nb-hai{opacity:.82;transform:scale(1.03)}
+/* le fond reste derrière l'écran pendant toute la page (fixe, plus d'épinglage) */
+#ldr-rs .rs-bg,#ldr-rs.rs-pin .rs-bg{position:fixed!important;top:0!important;left:0;right:0;height:100vh;height:100lvh;margin:0!important;z-index:0}
+#ldr-rs.rs-off .rs-bg{visibility:hidden}
 /* séparateurs plus discrets */
 #ldr-rs .rs-sep{background:linear-gradient(90deg,transparent,rgba(255,255,255,.10) 50%,transparent)}
 /* ===== formules : panneaux pleine largeur ===== */
@@ -1274,12 +1277,9 @@ html body #ldr-rs{text-align:left}
     tick = false;
     var r = root.getBoundingClientRect(), vh = window.innerHeight;
     root.classList.toggle("rs-off", r.bottom < 0 || r.top > vh);
-    if (!pin) {
-      if (r.top < -40 && r.bottom > vh + 40 && Math.abs(bg.getBoundingClientRect().top) > 2) { pin = true; root.classList.add("rs-pin"); }
-      else return;
-    }
-    var y = Math.min(Math.max(-r.top, 0), Math.max(r.height - vh, 0));
-    bg.style.transform = "translate3d(0," + y + "px,0)";
+    bg.style.transform = "";
+    var t = bg.getBoundingClientRect().top;
+    if (Math.abs(t) > 2) bg.style.transform = "translate3d(0," + (-t) + "px,0)";
   }
   window.addEventListener("scroll", function () { if (!tick) { tick = true; requestAnimationFrame(place); } }, { passive: true });
   /* filet de sécurité : rien ne reste caché */
