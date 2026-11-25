@@ -395,6 +395,27 @@
     D.head.appendChild(st);
   })();
 
+  /* ---------- « Chaque semaine » : chaque ligne s'ouvre (l'affiche liée si elle existe, sinon une fiche) ---------- */
+  (function(){
+    var st=D.createElement('style');st.textContent='html:not(.ldr-patron) #app .k-sem li{cursor:pointer;position:relative;padding-right:22px!important;-webkit-tap-highlight-color:transparent}'
+      +'html:not(.ldr-patron) #app .k-sem li::after{content:"";position:absolute;right:4px;top:50%;width:7px;height:7px;border-right:1.6px solid var(--ldr-or,#D8B36C);border-top:1.6px solid var(--ldr-or,#D8B36C);transform:translateY(-50%) rotate(45deg);opacity:.75}'
+      +'html:not(.ldr-patron) #app .k-sem li:active{opacity:.7}'
+      +'.ldr-cmd-sem{display:flex;gap:14px;align-items:center;margin:6px 0 14px}.ldr-cmd-sem i{flex:none;display:grid;place-items:center;width:64px;height:64px;border-radius:50%;border:1.5px solid var(--ldr-or,#D8B36C);color:var(--ldr-or,#D8B36C)}.ldr-cmd-sem i svg{width:30px;height:30px}'
+      +'.ldr-cmd-sem h3{margin:0;font:700 24px/1.1 var(--f-d,Georgia),serif}.ldr-cmd-sem p{margin:4px 0 0;opacity:.85}';
+    D.head.appendChild(st);
+    function norm(t){return String(t||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^a-z0-9]+/g,' ').trim();}
+    D.addEventListener('click',function(e){
+      if(D.documentElement.classList.contains('ldr-patron'))return;
+      var li=e.target.closest&&e.target.closest('#app .k-sem li');if(!li)return;
+      var i=[].indexOf.call(li.parentNode.children,li),S=etat(),x=S&&(S.semaine||[])[i];if(!x)return;
+      var cle=norm(x.t),av=(S.avant||[]).filter(function(a){return a.on!==false&&cle&&(' '+norm(a.titre)+' ').indexOf(' '+cle)>=0;})[0];
+      var el=av&&q('[data-av="'+av.id+'"]');if(el){el.click();return;}
+      var ic=q('svg',li);
+      feuille('<div class="ldr-cmd-corps"><p class="ldr-cmd-fil"><span>Chaque semaine au Beerman</span></p><div class="ldr-cmd-sem"><i>'+(ic?ic.outerHTML:'')+'</i><div><h3>'+esc(x.t)+'</h3><p>'+esc(x.d||'')+'</p></div></div>'
+        +'<button type="button" class="ldr-cmd-sec" data-ok>Revenir à la carte</button></div>',function(f){q('[data-ok]',f).onclick=function(){fermer();};});
+    });
+  })();
+
   /* ---------- tournoi du soir autour du jeu de fléchettes caché (si le bar l'a ouvert) ---------- */
   (function(){
     if(!TABLE)return;

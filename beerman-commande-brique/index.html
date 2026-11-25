@@ -1,4 +1,4 @@
-<!doctype html><html lang="fr"><head><script id="vers-patron">if(/[?&]patron=1/.test(location.search))location.replace("patron.html?patron=1");</script><meta name="robots" content="noindex,nofollow"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#1E0E07"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="Beerman"><link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="apple-touch-icon.png"><link rel="icon" type="image/png" sizes="192x192" href="icon-192.png"><title>Carte du Beerman</title><script>window.CARTE_MODE="pwa";</script><link rel="preload" as="image" href="img/b-enseigne.webp" type="image/webp" fetchpriority="high">
+<!doctype html><html lang="fr"><head><script id="vers-patron">if(/[?&]patron=1/.test(location.search))location.replace("patron.html?patron=1");</script><meta name="robots" content="noindex,nofollow"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#1E0E07"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="Beerman"><link rel="icon" type="image/png" sizes="192x192" href="icon-192.png"><title>Carte du Beerman</title><script>window.CARTE_MODE="pwa";</script><link rel="preload" as="image" href="img/b-enseigne.webp" type="image/webp" fetchpriority="high">
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Source+Serif+4:ital,opsz,wght@0,8..60,500;0,8..60,600;0,8..60,700;0,8..60,800;0,8..60,900;1,8..60,400;1,8..60,500;1,8..60,600;1,8..60,700&family=Source+Sans+3:wght@500;600;700;800&display=swap">
@@ -1998,7 +1998,7 @@ function pAccueil(){
   h+=t('fond','fond','Le fond de la carte','Ambiance ou votre photo',0,false);
   h+=t('haut','texte','Le haut de la carte','Titre, phrase, horaires',0,false);
   h+=t('qr','qr','Le QR des tables','Il ne change jamais',0,false);
-  h+=t('icone','tel','L\'icône sur mon iPhone','Ouvrir ici en un geste',0,false);
+  if(window.LDR_OPTION_APPLI)h+=t('icone','tel','L\'icône sur mon iPhone','Ouvrir ici en un geste',0,false);
   h+='</div>'+(local?'<div class="pbloc"><button type="button" class="lien" id="reset">Remettre la carte d\'exemple d\'origine</button></div>':'')+'</div>';
   return h;
 }
@@ -3922,7 +3922,7 @@ function session(){var s=Sync.lire('session');return s&&s.jusqua>Date.now()&&s.r
 function entrer(){
   var s=session();
   if(s){codeSaisi=s.c||'';ouvrirPatron(s.role);return;}
-  if(Inst&&!Inst.installee()&&!Sync.lire('inst-vu')&&Inst.plateforme().os!=='autre'){
+  if(W.LDR_OPTION_APPLI&&Inst&&!Inst.installee()&&!Sync.lire('inst-vu')&&Inst.plateforme().os!=='autre'){
     Sync.ecrire('inst-vu',1);Inst.ouvrir({icone:iconeUrl(),nom:'Beerman · Patron',lien:lienPatron(),fin:ecranCode});return;}
   ecranCode();
 }
@@ -4386,7 +4386,7 @@ function suggestion(g){
 }
 /* ---------- menu ⋯ ---------- */
 function feuilleMenu(){
-  var L=[['apercu','Voir ma carte comme un client'],['equipe','Équipe : code et lien de l\'appli'],['infos','Horaires et adresse'],['installer','Installer l\'appli sur ce téléphone']];
+  var L=[['apercu','Voir ma carte comme un client'],['equipe','Équipe : code et lien de l\'appli'],['infos','Horaires et adresse']].concat(W.LDR_OPTION_APPLI?[['installer','Installer l\'appli sur ce téléphone']]:[]);
   var ac=[];(B.categories||[]).forEach(function(c){(c.plats||[]).forEach(function(p){if(p.a_completer&&p.nom)ac.push(p.id);});});
   if(ac.length&&role==='createur')L.splice(1,0,['completer','Articles à compléter par l\'agence ('+ac.length+')']);
   if(role==='createur')L.push(['couleurs','Couleurs (agence)'],['agence','Réglages agence'],['exemple','Remettre la carte d\'exemple']);
