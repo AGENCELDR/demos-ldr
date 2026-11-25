@@ -6,11 +6,12 @@
   #ldr-devis{--nuit:#060a14;--blanc:#fff;--gris:#a7b1c6;--trait:rgba(255,255,255,.16);
     --maps:#38BDF8;--web:#F59E0B;--res:#22C55E;--rad:#EC4899;
     font-family:"Plus Jakarta Sans",system-ui,sans-serif;color:#fff;position:relative;
-    max-width:760px;margin:0 auto;padding:110px 18px 8px;box-sizing:border-box}
+    max-width:760px;margin:0 auto;padding:40px 18px 0;box-sizing:border-box;text-align:left}
   #ldr-devis *{box-sizing:border-box}
-  #ldr-devis .ld-fond{position:fixed;inset:0;z-index:-1;pointer-events:none;
+  #ldr-devis .ld-fond{position:fixed;inset:0;z-index:0;pointer-events:none;
     background:linear-gradient(180deg,rgba(6,10,20,.45),rgba(6,10,20,.88) 45%,#060a14 80%),
     url(https://agenceldr.github.io/demos-ldr/images-ldr/accueil/a19-5b47bc83.webp) center top/cover}
+  #ldr-devis>*:not(.ld-fond){position:relative;z-index:1}
   #ldr-devis .ld-sur{font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--gris);font-weight:700;display:flex;align-items:center;gap:8px}
   #ldr-devis .ld-sur:before{content:"";width:7px;height:7px;border-radius:50%;background:#fff;box-shadow:0 0 10px #fff}
   #ldr-devis h1{font-family:"Bebas Neue",Impact,sans-serif;font-weight:400;font-size:clamp(46px,9vw,84px);line-height:.92;letter-spacing:.01em;margin:.18em 0 .2em;color:#fff}
@@ -20,7 +21,7 @@
   #ldr-devis .ld-grille{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
   #ldr-devis .ld-aigle{appearance:none;border:0;background:#000;color:#fff;padding:0;cursor:pointer;text-align:left;font:inherit;
     border-radius:20px;position:relative;overflow:hidden;transition:transform .2s ease,box-shadow .25s ease;-webkit-tap-highlight-color:transparent}
-  #ldr-devis .ld-aigle img{display:block;width:100%;aspect-ratio:1;object-fit:cover;filter:saturate(.6) brightness(.55);transition:filter .3s ease,transform .4s ease}
+  #ldr-devis .ld-aigle img{display:block;width:100%;aspect-ratio:1;object-fit:cover;filter:saturate(.75) brightness(.72);transition:filter .3s ease,transform .4s ease}
   #ldr-devis .ld-aigle b{position:absolute;left:12px;right:12px;bottom:10px;font-size:14px;font-weight:800;text-shadow:0 2px 10px #000;line-height:1.2}
   #ldr-devis .ld-aigle small{display:block;font-weight:500;font-size:11.5px;color:#d9dfeb;margin-top:2px}
   #ldr-devis .ld-aigle:hover img{filter:saturate(.85) brightness(.75)}
@@ -35,17 +36,18 @@
   #ldr-devis .ld-passur b{position:static;text-shadow:none;font-size:14.5px}
   #ldr-devis .ld-passur i{position:static;margin-left:auto;flex:none}
   #ldr-devis .ld-passur[aria-pressed="true"]{border-color:#fff;box-shadow:0 0 22px rgba(255,255,255,.28);transform:none}
-  #ldr-devis .ld-choix{min-height:1.5em;margin:14px 0 30px;color:#cfd6e4;font-size:14px}
+  #ldr-devis .ld-choix{min-height:1.5em;margin:14px 0 0;color:#cfd6e4;font-size:14px}
   #ldr-devis .ld-choix b{color:#fff}
   @media (max-width:640px){
-    #ldr-devis{padding-top:92px}
+    #ldr-devis{padding-top:24px}
     #ldr-devis .ld-grille{grid-template-columns:1fr 1fr;gap:10px}
     #ldr-devis .ld-intro{font-size:15px}
   }
   @media (prefers-reduced-motion:reduce){#ldr-devis *{transition:none!important}}
 
   /* ---- Le formulaire Systeme.io, habillé Nuit & blanc ---- */
-  .ldr-form-section{background:transparent!important}
+  .ldr-form-section{background:transparent!important;position:relative;z-index:1;padding-top:8px!important}
+  .ldr-haut{background:transparent!important;padding-bottom:16px!important}
   .ldr-form-section>div,.ldr-form-section [id^="row-"]{background:transparent!important}
   .ldr-form{max-width:760px!important;margin:0 auto 70px!important;padding:24px 22px 26px!important;
     background:rgba(10,15,28,.78)!important;border:1px solid rgba(255,255,255,.14)!important;border-radius:24px!important;
@@ -97,6 +99,7 @@
 
 <script>
 (function(){
+  if(window.__ldrDevis) return; window.__ldrDevis=1;
   var racine=document.getElementById('ldr-devis'); if(!racine) return;
   var OFFRES=['Site web','Fiche Google','Réseaux sociaux','Radars'];
   function leForm(){return document.querySelector('form[id^="optinform-"]');}
@@ -111,6 +114,7 @@
     var f=leForm(); if(!f || f.classList.contains('ldr-form')) return !!f;
     f.classList.add('ldr-form');
     var sec=f.closest('section'); if(sec) sec.classList.add('ldr-form-section');
+    var haut=(document.getElementById('ldr-devis')||racine).closest('section'); if(haut) haut.classList.add('ldr-haut');
     var t=document.createElement('p'); t.className='ldr-titre'; t.textContent='2. Vos coordonnées'; f.insertBefore(t,f.firstChild);
     var plan=[['input[name=first_name]','ldr-o1','Votre prénom'],['input[type=tel]','ldr-o2','Votre téléphone'],
       ['input[name=email]','ldr-o3','Votre e-mail'],['input[name=company_name]','ldr-o4','Votre métier (ex. boulanger, plombier)'],
@@ -125,23 +129,24 @@
     return true;
   }
   function majTexte(){
+    racine=document.getElementById('ldr-devis');
     var ch=[].slice.call(racine.querySelectorAll('.ld-aigle[aria-pressed="true"]')).map(function(b){return b.dataset.offre||'Je ne sais pas encore';});
     document.getElementById('ldr-choix').innerHTML = ch.length ? 'Votre choix : <b>'+ch.join(', ')+'</b>' : "Rien de choisi pour l'instant.";
   }
   function regler(nom,etat){ var c=caseDe(nom); if(c && c.checked!==etat) c.click(); }
-  racine.querySelectorAll('.ld-aigle').forEach(function(b){
-    b.addEventListener('click',function(){
-      var on=b.getAttribute('aria-pressed')!=='true';
-      if(!b.dataset.offre){ // « Je ne sais pas encore » : on retire les autres choix
-        racine.querySelectorAll('.ld-aigle[data-offre]:not([data-offre=""])').forEach(function(x){x.setAttribute('aria-pressed','false');});
-        OFFRES.forEach(function(n){regler(n,false);});
-      } else {
-        var ps=racine.querySelector('.ld-passur'); if(ps) ps.setAttribute('aria-pressed','false');
-        regler(b.dataset.offre,on);
-      }
-      b.setAttribute('aria-pressed',on?'true':'false');
-      majTexte();
-    });
+  document.addEventListener('click',function(ev){
+    var b=ev.target.closest && ev.target.closest('#ldr-devis .ld-aigle'); if(!b) return;
+    racine=document.getElementById('ldr-devis');
+    var on=b.getAttribute('aria-pressed')!=='true';
+    if(!b.dataset.offre){ // « Je ne sais pas encore » : on retire les autres choix
+      racine.querySelectorAll('.ld-aigle').forEach(function(x){ if(x.dataset.offre) x.setAttribute('aria-pressed','false'); });
+      OFFRES.forEach(function(n){regler(n,false);});
+    } else {
+      var ps=racine.querySelector('.ld-passur'); if(ps) ps.setAttribute('aria-pressed','false');
+      regler(b.dataset.offre,on);
+    }
+    b.setAttribute('aria-pressed',on?'true':'false');
+    majTexte();
   });
   var essais=0; (function attendre(){ if(habiller() || ++essais>60) return; setTimeout(attendre,150); })();
 })();
