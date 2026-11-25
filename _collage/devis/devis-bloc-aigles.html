@@ -179,10 +179,22 @@
     Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(m,v);
     m.dispatchEvent(new Event('input',{bubbles:true})); m.dispatchEvent(new Event('change',{bubbles:true}));
   }
-  ['pointerdown','touchstart','mousedown'].forEach(function(t){
-    document.addEventListener(t,function(ev){ if(ev.target.closest && ev.target.closest('form[id^="optinform-"] [data-test-id="submit-form-button"]')) inscrireChoix(); },true);
-  });
-  document.addEventListener('keydown',function(ev){ if(ev.key==='Enter' && ev.target.closest && ev.target.closest('form[id^="optinform-"]')) inscrireChoix(); },true);
+  // Au clic sur « Envoyer » : on bloque ce premier clic, on ecrit les choix,
+  // puis on relance l'envoi un instant apres (le temps que le formulaire les prenne en compte).
+  var relance=false;
+  document.addEventListener('click',function(ev){
+    var b=ev.target.closest && ev.target.closest('form[id^="optinform-"] [data-test-id="submit-form-button"]'); if(!b) return;
+    if(relance){ relance=false; return; }
+    var f=leForm(); var m=f&&f.querySelector('input[name=company_name]'); var avant=m&&m.value;
+    inscrireChoix();
+    if(m && m.value!==avant){ ev.preventDefault(); ev.stopPropagation(); ev.stopImmediatePropagation();
+      setTimeout(function(){ relance=true; b.click(); },120); }
+  },true);
+  document.addEventListener('keydown',function(ev){
+    if(ev.key!=='Enter' || !(ev.target.closest && ev.target.closest('form[id^="optinform-"]'))) return;
+    var f=leForm(); var b=f&&f.querySelector('[data-test-id="submit-form-button"]'); if(!b) return;
+    ev.preventDefault(); ev.stopPropagation(); b.click();
+  },true);
   // Habillage : tout de suite, puis surveille (si la page se redessine, on rhabille).
   habiller(); setInterval(function(){ habiller(); majTexteSiBesoin(); },400);
   function majTexteSiBesoin(){ var c=document.getElementById('ldr-choix'); if(c && !c.dataset.ok){ c.dataset.ok=1; majTexte(); } }
