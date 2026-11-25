@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Appli du salon · Studio Ambrine</title><meta name="robots" content="noindex"><meta name="theme-color" content="#1E1310">
+<link rel="stylesheet" href="polices/polices.css"><link rel="stylesheet" href="commun.css">
+<style>
+body{background:var(--grain),radial-gradient(900px 500px at 100% 0%,rgba(214,140,96,.12),transparent 60%),#1A100D}
+.app-t{position:sticky;top:0;z-index:20;background:#120B09;border-bottom:1px solid var(--trait);padding:10px 16px}
+.app-t .l1{display:flex;justify-content:space-between;align-items:center;gap:10px}.app-t b{font:400 21px Newsreader,serif}.app-t small{color:var(--doux);font-size:12.5px}
+.onglets{display:flex;gap:6px;margin-top:10px;overflow-x:auto}.onglets button{flex:none;min-height:46px;padding:0 16px;border-radius:12px;border:1px solid var(--trait2);background:transparent;font-weight:700;display:flex;gap:8px;align-items:center}
+.onglets button[aria-pressed=true]{background:#160D0B;border-color:var(--rose);color:var(--rose);box-shadow:inset 0 3px 10px rgba(0,0,0,.6)}
+.onglets .n{min-width:22px;height:22px;border-radius:11px;background:#E8833A;color:#1A100D;font-size:12.5px;display:grid;place-items:center;padding:0 6px}
+.zone{max-width:1100px;margin:0 auto;padding:16px 16px 60px}
+.alerte{display:flex;gap:10px;align-items:center;justify-content:space-between;padding:12px 14px;border-radius:14px;background:#3B2A1C;border:1px solid #6B4A2E;margin-bottom:10px}
+.cartes{display:grid;gap:12px}@media(min-width:800px){.cartes{grid-template-columns:1fr 1fr}}
+.dem{background:var(--carte);border:1px solid var(--trait);border-radius:18px;padding:16px;border-left:5px solid #F1C77A}
+.dem.vu{border-left-color:#9CC8E6}.dem h3{font-size:24px;margin:6px 0 2px}.dem .t{display:flex;justify-content:space-between;font-size:13px;color:var(--doux)}
+.dem ul{list-style:none;margin:10px 0 0;padding:0;font-size:14.5px;color:var(--doux2)}.dem li{padding:5px 0;border-top:1px solid var(--trait)}
+.dem .ph{width:80px;height:80px;border-radius:10px;object-fit:cover;margin-top:8px}
+.btns{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:14px}
+.ok{min-height:52px;border-radius:14px;border:0;background:#4E8B3F;color:#fff;font-weight:800}
+.mid{min-height:52px;border-radius:14px;border:1.5px solid #E8A15A;background:transparent;color:#F3C08F;font-weight:700}
+.non{min-height:52px;border-radius:14px;border:1.5px solid #B4574C;background:transparent;color:#F09A8E;font-weight:700}
+.sous-p{margin-top:12px;padding:12px;border-radius:14px;background:#22150F}.sous-p p{margin:0 0 8px;font-size:14px;color:var(--doux2)}
+.hs{display:flex;flex-wrap:wrap;gap:6px}.hs .ch{min-height:48px;padding:6px 12px;flex:0 0 auto}.hs .ch b{font:700 15px Figtree}
+textarea{width:100%;min-height:80px;border-radius:12px;border:1px solid var(--trait2);background:#FCF8F2;color:#1d1d1d;font:16px Figtree;padding:10px}
+.vide{padding:28px;text-align:center;color:var(--doux);background:var(--carte);border-radius:18px}
+.jours{display:flex;gap:6px;overflow-x:auto;padding-bottom:8px}.jours .ch{flex:0 0 70px;min-height:62px}.jours .ch b{font-size:22px}
+.grille{display:grid;grid-template-columns:54px repeat(3,1fr);gap:4px;margin-top:10px}
+.grille .tt{font-weight:700;text-align:center;padding:8px 0;position:sticky;top:118px;background:#1A100D;z-index:2}
+.grille .h{font-size:12.5px;color:var(--doux);padding-top:4px}
+.case{min-height:44px;border-radius:8px;border:1px dashed #3E2C26;background:transparent;font-size:12px;color:#7d6a63;text-align:left;padding:4px 6px}
+.case.f{border:0;background:transparent;opacity:.25;cursor:default}
+.case.r{border:0;background:#2F4A2A;color:#E3F2DA;border-left:4px solid #9FD58C}.case.r.att{background:#4A3A1E;border-left-color:#F1C77A;color:#F8E5BD}
+.case.r.ex{background:#3A2E2A;border-left-color:#8E7A72;color:#D9CCC6}
+.case.b{border:0;background:repeating-linear-gradient(45deg,#3A2125,#3A2125 6px,#2C181B 6px,#2C181B 12px);color:var(--rose);font-weight:700}
+.case b{display:block;font-size:12.5px}
+.aide{color:var(--doux);font-size:13.5px;margin:6px 0 0}
+.leg{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:12.5px;color:var(--doux);margin-top:8px}.leg i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+</style></head>
+<body data-appli>
+<header class="app-t"><div class="l1"><div><b>Studio Ambrine</b><br><small>Appli du salon · exemple, en vrai protégée par un code</small></div><a class="lien" href="index.html">Voir le site</a></div>
+<div class="onglets" id="og"><button type="button" data-o="dem" aria-pressed="true">Demandes <span class="n" id="nd"></span></button><button type="button" data-o="plan" aria-pressed="false">Planning</button><button type="button" data-o="aut" aria-pressed="false">Attente, cadeaux, mariées <span class="n" id="na"></span></button></div></header>
+<main class="zone" id="z"></main>
+<script src="donnees.js"></script><script src="api.js"></script><script src="commun.js"></script>
+<script>
+(function () {
+  var A = AMBRINE, h = LDR.h, Z = document.getElementById("z"), onglet = "dem", ouvert = "", jourP = API.jours(1)[0].iso;
+  function demandes() { return API.tous().filter(function (r) { return !r.fictif && r.type === "rdv" && (r.etat === "envoye" || r.etat === "vu") }) }
+  function autres() { return API.tous().filter(function (r) { return r.type !== "rdv" && (r.etat === "envoye" || r.etat === "vu") }) }
+  function compte() { var a = demandes().length, b = autres().length; document.getElementById("nd").textContent = a || ""; document.getElementById("nd").hidden = !a; document.getElementById("na").textContent = b || ""; document.getElementById("na").hidden = !b }
+  function carteRdv(r) {
+    var s = LDR.resume(r), pl = A.places.filter(function (p) { return p.n === r.place })[0], g = A.options.gamme.choix.filter(function (c) { return c.id === r.gamme })[0];
+    var x = '<div class="dem' + (r.etat === "vu" ? " vu" : "") + '"><div class="t"><span>n° ' + h(r.id) + '</span><span>' + (r.etat === "vu" ? "Vue" : "Nouvelle") + '</span></div><h3>' + h(r.prenom) + ' · ' + h(s.quand) + '</h3>' +
+      '<ul><li>' + h(s.quoi) + ' · ' + API.dur(r.D) + '</li><li>Avec ' + h(s.qui) + (pl ? ' · ' + h(pl.nom) : "") + '</li>' +
+      (g ? '<li>Gamme ' + h(g.n) + (r.rythme ? " · " + A.rythmes[r.rythme].n : "") + '</li>' : "") + (r.creux ? '<li>🌿 Heures creuses : soin offert</li>' : "") +
+      (r.plusieurs && r.plusieurs.length ? '<li>+ ' + r.plusieurs.map(function (k) { return A.plusieurs[k].n.toLowerCase() }).join(", ") + '</li>' : "") + '<li>📱 ' + h(r.tel) + ' · vérifié par SMS</li></ul>' +
+      (r.photo ? '<img class="ph" src="' + r.photo + '" alt="Photo de la coupe voulue">' : "") +
+      '<div class="btns"><button type="button" class="ok" data-acc="' + r.id + '">Accepter</button><button type="button" class="mid" data-pro="' + r.id + '">Autre heure</button><button type="button" class="non" data-ref="' + r.id + '">Refuser</button></div>';
+    if (ouvert === "pro" + r.id) { x += '<div class="sous-p"><p>Proposer une heure libre :</p>' + API.jours(6).map(function (j) { var L = API.libres(r.c, j.iso, r.D, r.id); if (!L.length) L = API.libres("", j.iso, r.D, r.id, r.p); L = L.slice(0, 6); return L.length ? '<p style="margin:10px 0 6px"><b>' + h(LDR.jour(j.iso)) + '</b></p><div class="hs">' + L.map(function (l) { return '<button type="button" class="ch" data-prop="' + r.id + '|' + j.iso + '|' + l.t + '|' + l.c + '"><b>' + API.hm(l.t) + '</b>' + (l.c !== r.c ? '<small>' + A.coiffeuses[l.c].n + '</small>' : "") + '</button>' }).join("") + '</div>' : "" }).join("") + '</div>' }
+    if (ouvert === "ref" + r.id) x += '<div class="sous-p"><p>Pourquoi ? (la cliente le lit)</p><div class="hs">' + ["Complet à cette heure-là", "La coiffeuse est absente", "Cette prestation demande un rendez-vous au téléphone"].map(function (m) { return '<button type="button" class="ch" data-mot="' + r.id + '|' + m + '"><b>' + m + '</b></button>' }).join("") + '</div></div>';
+    return x + '</div>';
+  }
+  function carteAutre(r) {
+    var T = { attente: "Liste d’attente", cadeau: "Carte cadeau", mariee: "Forfait mariée", message: "Message" }, d = "";
+    if (r.type === "attente") d = '<li>' + h(A.prestations[r.p] ? A.prestations[r.p].n : "") + (r.c ? " avec " + A.coiffeuses[r.c].n : "") + '</li><li>' + (r.jours && r.jours.length ? r.jours.map(function (j) { return LDR.jour(j, 1) }).join(", ") : "Tous les jours") + ' · ' + ({ matin: "matin", aprem: "après-midi" }[r.moment] || "à toute heure") + '</li>';
+    if (r.type === "cadeau") d = '<li>' + h(A.prestations[r.p].n) + ' pour ' + h(r.pour) + '</li>' + (r.mot ? '<li>« ' + h(r.mot) + ' »</li>' : "");
+    if (r.type === "mariee") d = '<li>Mariage ' + h(LDR.jour(r.jourJ)) + ' · ' + r.temoins + ' témoin(s)</li><li>Essai : ' + h(r.essai) + '</li>';
+    if (r.type === "message") d = '<li>« ' + h(r.texte) + ' »</li>';
+    var x = '<div class="dem' + (r.etat === "vu" ? " vu" : "") + '"><div class="t"><span>' + T[r.type] + ' · n° ' + h(r.id) + '</span></div><h3>' + h(r.prenom) + '</h3><ul>' + d + '<li>📱 ' + h(r.tel) + '</li></ul>';
+    if (r.type === "attente" || r.type === "cadeau") x += '<div class="btns" style="grid-template-columns:1fr 1fr"><button type="button" class="ok" data-acc="' + r.id + '">' + (r.type === "cadeau" ? "Valider et envoyer" : "Inscrire") + '</button><button type="button" class="non" data-ref="' + r.id + '">Refuser</button></div>';
+    else x += '<div class="sous-p"><textarea id="rep-' + r.id + '" placeholder="Votre réponse"></textarea><div class="btns" style="grid-template-columns:1fr"><button type="button" class="ok" data-rep="' + r.id + '">Répondre</button></div></div>';
+    return x + '</div>';
+  }
+  function retards() { return API.tous().filter(function (r) { return r.retard && !r.vuRetard }).map(function (r) { return '<div class="alerte"><span>⏱ <b>' + h(r.prenom) + '</b> arrive avec ' + r.retard + ' min de retard (' + h(LDR.resume(r).quand) + ')</span><button type="button" class="b2" data-vr="' + r.id + '">Vu</button></div>' }).join("") }
+  function planning() {
+    var J = API.jours(7), C = Object.keys(A.coiffeuses), T = API.tous(), B = API.blocs();
+    var x = '<div class="jours">' + J.map(function (j) { return '<button type="button" class="ch" data-jp="' + j.iso + '" aria-pressed="' + (j.iso === jourP) + '"><small>' + A.jours[j.k][0] + '</small><b>' + j.d.getDate() + '</b></button>' }).join("") + '</div>' +
+      '<p class="aide">Touchez une case libre pour la bloquer (pause, absence). Touchez encore pour la rouvrir.</p><div class="leg"><span><i style="background:#2F4A2A"></i>Confirmé</span><span><i style="background:#4A3A1E"></i>En attente</span><span><i style="background:#3A2E2A"></i>Exemple</span><span><i style="background:#3A2125"></i>Bloqué</span></div>' +
+      '<div class="grille"><div></div>' + C.map(function (c) { return '<div class="tt">' + A.coiffeuses[c].n + (API.plages(c, API.cle(jourP)).length ? "" : '<br><small style="color:var(--doux);font-weight:500">repos</small>') + '</div>' }).join("");
+    for (var t = 540; t < 1140; t += 30) {
+      x += '<div class="h">' + API.hm(t) + '</div>';
+      C.forEach(function (c) {
+        var ouv = API.plages(c, API.cle(jourP)).some(function (p) { return t >= p[0] && t <= p[1] + 30 });
+        var r = T.filter(function (r) { var o = r.etat === "propose" && r.prop ? r.prop : r; return r.type === "rdv" && r.etat !== "annule" && r.etat !== "refuse" && o.c === c && o.date === jourP && t >= o.t && t < o.t + r.D })[0];
+        var b = B.some(function (b) { return b.c === c && b.date === jourP && b.t === t });
+        if (r) { var deb = (r.etat === "propose" && r.prop ? r.prop.t : r.t) === t; x += '<div class="case r' + (r.etat !== "confirme" ? " att" : "") + (r.fictif ? " ex" : "") + '">' + (deb ? '<b>' + h(r.prenom) + '</b>' + h(A.prestations[r.p] ? A.prestations[r.p].n : "") : "") + '</div>' }
+        else if (b) x += '<button type="button" class="case b" data-bl="' + c + '|' + t + '">Bloqué</button>';
+        else if (ouv) x += '<button type="button" class="case" data-bl="' + c + '|' + t + '" aria-label="Bloquer ' + API.hm(t) + '">libre</button>';
+        else x += '<div class="case f"></div>';
+      });
+    }
+    return x + '</div>';
+  }
+  function rendu() {
+    compte();
+    if (onglet === "dem") { var L = demandes(); Z.innerHTML = retards() + (L.length ? '<div class="cartes">' + L.map(carteRdv).join("") + '</div>' : '<p class="vide">Aucune nouvelle demande.<br>Faites une réservation sur le site : elle arrive ici.</p>');
+      L.filter(function (r) { return r.etat === "envoye" }).forEach(function (r) { setTimeout(function () { var q = API.un(r.id); if (q && q.etat === "envoye" && onglet === "dem") API.maj(r.id, { etat: "vu" }) }, 1500) }) }
+    if (onglet === "aut") { var M = autres(); Z.innerHTML = M.length ? '<div class="cartes">' + M.map(carteAutre).join("") + '</div>' : '<p class="vide">Rien en attente.</p>' }
+    if (onglet === "plan") Z.innerHTML = planning();
+  }
+  document.getElementById("og").addEventListener("click", function (e) { var b = e.target.closest("button"); if (!b) return; onglet = b.dataset.o; ouvert = ""; document.querySelectorAll("#og button").forEach(function (x) { x.setAttribute("aria-pressed", x === b) }); rendu() });
+  Z.addEventListener("click", function (e) {
+    var b = e.target.closest("button"); if (!b) return; var d = b.dataset, p;
+    if (d.acc) API.maj(d.acc, { etat: "confirme" });
+    if (d.pro) ouvert = ouvert === "pro" + d.pro ? "" : "pro" + d.pro;
+    if (d.ref) { var r = API.un(d.ref); if (r.type === "rdv") ouvert = ouvert === "ref" + d.ref ? "" : "ref" + d.ref; else API.maj(d.ref, { etat: "refuse" }) }
+    if (d.prop) { p = d.prop.split("|"); API.maj(p[0], { etat: "propose", prop: { date: p[1], t: +p[2], c: p[3] } }); ouvert = "" }
+    if (d.mot) { p = d.mot.split("|"); API.maj(p[0], { etat: "refuse", motif: p[1] }); ouvert = "" }
+    if (d.rep) { var v = document.getElementById("rep-" + d.rep).value.trim(); if (!v) return document.getElementById("rep-" + d.rep).focus(); API.maj(d.rep, { etat: "confirme", reponse: v }) }
+    if (d.vr) API.maj(d.vr, { vuRetard: true });
+    if (d.jp) jourP = d.jp;
+    if (d.bl) { p = d.bl.split("|"); API.bloquer(p[0], jourP, +p[1]) }
+    rendu();
+  });
+  API.ecouter(function () { if (!document.activeElement || document.activeElement.tagName !== "TEXTAREA") rendu() }); rendu();
+})();
+</script></body></html>

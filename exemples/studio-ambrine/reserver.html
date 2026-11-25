@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Réserver · Studio Ambrine</title><meta name="robots" content="noindex">
+<link rel="stylesheet" href="polices/polices.css"><link rel="stylesheet" href="commun.css">
+<style>
+.mag{max-width:640px;margin:0 auto;padding:18px 16px 140px}
+.pas{display:flex;align-items:center;justify-content:space-between;font-size:13.5px;color:var(--doux);font-weight:600}
+.barre{height:6px;border-radius:9px;background:var(--trait);margin:8px 0 22px;overflow:hidden}.barre i{display:block;height:100%;background:var(--rose);border-radius:9px;transition:width .3s}
+.q{font-size:clamp(28px,7.4vw,38px)}.aide{color:var(--doux2);margin:8px 0 18px}
+.groupe{margin:22px 0 10px;font-size:12.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--doux)}
+.jours{display:flex;gap:8px;overflow-x:auto;padding:2px 2px 10px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch}
+.jours .ch{flex:0 0 76px;min-height:84px;scroll-snap-align:start}.jours .ch b{font-size:26px}.jours .ch i{font-style:normal;font-size:12px;color:var(--doux)}
+.jours .ch .plus{position:absolute;top:-1px;left:50%;transform:translate(-50%,-50%);white-space:nowrap;font-size:10.5px;padding:0 6px;border-radius:9px;background:#5E7A4E;color:#fff;font-weight:700}
+.heures{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.heures .ch{min-height:56px}.heures .ch b{font:700 17px Figtree,sans-serif}.heures .ch small{color:#A9C79A;font-weight:600;font-size:11.5px}
+.creux{display:flex;gap:10px;align-items:center;padding:12px 14px;border-radius:14px;background:#2B3324;border:1px solid #4E5E41;color:#DCEBD0;font-size:14.5px;margin-top:14px}
+.vide{padding:18px;border-radius:14px;background:var(--carte);color:var(--doux2);text-align:center}
+.bas{position:fixed;left:0;right:0;bottom:0;z-index:20;background:rgba(30,19,16,.96);backdrop-filter:blur(10px);border-top:1px solid var(--trait);padding:12px 16px calc(12px + env(safe-area-inset-bottom))}
+.bas .in{max-width:640px;margin:0 auto;display:flex;gap:10px;align-items:center}.bas .go{flex:1}.bas .retour{width:54px;height:54px;border-radius:50%;border:1.5px solid var(--trait2);background:none;font-size:20px;flex:none}
+.bas .info{font-size:13px;color:var(--doux);text-align:center;margin:0 0 8px}
+.plan{position:relative;border-radius:16px;overflow:hidden;box-shadow:0 0 0 1px var(--trait)}.plan img{width:100%}
+.pt{position:absolute;transform:translate(-50%,-50%);width:13%;aspect-ratio:1;border-radius:50%;border:2.5px solid #fff;background:rgba(243,185,178,.28);box-shadow:0 0 0 3px rgba(0,0,0,.25);padding:0;display:grid;place-items:center;font:800 15px Figtree;color:#fff;text-shadow:0 1px 3px #000}
+.pt.petit{width:10%}.pt[aria-pressed=true]{background:#7A2A36;border-color:var(--rose);box-shadow:0 0 0 4px var(--rose),inset 0 3px 8px rgba(0,0,0,.6)}
+.pt:disabled{background:rgba(60,50,48,.7);border-color:#9b8e89;color:#ddd;cursor:default}.pt:disabled::after{content:"Prise";position:absolute;top:100%;font-size:11px;margin-top:2px}
+.legende{display:flex;gap:16px;font-size:13px;color:var(--doux);margin:10px 0}.legende i{display:inline-block;width:12px;height:12px;border-radius:50%;margin-right:6px;vertical-align:-1px;border:2px solid #fff;background:rgba(243,185,178,.3)}.legende .p i{background:#3C3230;border-color:#9b8e89}
+.choisi{padding:12px 14px;border-radius:14px;background:var(--carte);margin-top:10px;min-height:50px}
+.ligne{display:flex;gap:12px;align-items:center;padding:14px 0;border-bottom:1px solid var(--trait)}.ligne span{flex:1}.ligne small{display:block;color:var(--doux);font-size:13px}.ligne b{font-weight:600}
+.photo-c{display:flex;gap:12px;align-items:center;margin-top:8px}.photo-c img{width:72px;height:72px;border-radius:12px;object-fit:cover}
+.cpt{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--trait)}.cpt div{display:flex;align-items:center;gap:12px}.cpt button{width:44px;height:44px;border-radius:50%;border:1.5px solid var(--trait2);background:var(--carte);font-size:20px}.cpt output{min-width:20px;text-align:center;font-weight:700;font-size:18px}
+.recap{background:var(--carte);border-radius:18px;padding:4px 16px;border:1px solid var(--trait)}
+.dure{display:inline-block;margin-top:10px;font-size:14px;color:var(--doux2)}
+@media(min-width:900px){.heures{grid-template-columns:repeat(5,1fr)}}
+</style></head>
+<body data-page="reserver.html" data-sans-pied>
+<main class="mag"><div class="pas"><span id="pas"></span><span id="duree"></span></div><div class="barre"><i id="bar"></i></div><div id="ecran"></div></main>
+<div class="bas"><p class="info" id="info" hidden></p><div class="in"><button class="retour" id="retour" type="button" aria-label="Retour">←</button><button class="go" id="suite" type="button">Continuer</button></div></div>
+<script src="donnees.js"></script><script src="api.js"></script><script src="verif-tel.js"></script><script src="commun.js"></script>
+<script>
+(function () {
+  var A = AMBRINE, h = LDR.h, E = document.getElementById("ecran"), S = { p: "", gamme: A.options.gamme.defaut, x: [], rythme: "", c: "", date: "", t: null, cAuto: "", place: 0, prive: false, photo: "", plusieurs: [] };
+  var ETAPES = ["presta", "gamme", "plus", "qui", "quand", "details", "vous"], i = 0, modif = LDR.param("modif"), attente = false;
+  /* préremplissage : réalisation, coiffeuse, thème, reprendre ou modifier un rendez-vous */
+  var g = A.galerie[LDR.param("g")] || A.themes[LDR.param("theme")], base = LDR.param("depuis") || modif;
+  if (g) { S.p = g.p; S.c = g.c; S.x = (g.x || []).slice(); if (g.g) S.gamme = g.g; i = 4 }
+  if (LDR.param("c") && A.coiffeuses[LDR.param("c")]) S.c = LDR.param("c");
+  if (LDR.param("gamme") && A.packs[LDR.param("gamme")]) S.gamme = LDR.param("gamme");
+  if (LDR.param("p") && A.prestations[LDR.param("p")]) { S.p = LDR.param("p"); i = 1 }
+  if (base) { var r0 = API.un(base); if (r0) { ["p", "gamme", "rythme", "c", "place", "prive"].forEach(function (k) { if (r0[k] != null) S[k] = r0[k] }); S.x = (r0.x || []).slice(); S.plusieurs = (r0.plusieurs || []).slice(); i = 4 } }
+  function presses(sel, on) { return ' aria-pressed="' + (on ? "true" : "false") + '"' }
+  function D() { return API.duree(S) }
+  function quiPeut() { return Object.keys(A.coiffeuses).filter(function (c) { return A.coiffeuses[c].fait.indexOf(S.p) >= 0 }) }
+  function rendu() {
+    attente = false; var et = ETAPES[i]; document.getElementById("pas").textContent = "Étape " + (i + 1) + " sur " + ETAPES.length;
+    document.getElementById("bar").style.width = ((i + 1) / ETAPES.length * 100) + "%";
+    document.getElementById("duree").textContent = S.p ? "≈ " + API.dur(D()) : "";
+    document.getElementById("retour").style.visibility = i ? "visible" : "hidden";
+    var html = "", info = "", suite = "Continuer", ok = true;
+    if (et === "presta") {
+      html = '<h1 class="q">Qu’est-ce qu’on <em>vous fait</em> ?</h1><p class="aide">Touchez une photo.</p><div class="choix c2">' +
+        Object.keys(A.prestations).map(function (k) { var p = A.prestations[k]; return '<button type="button" class="ch ph" data-p="' + k + '"' + presses(0, S.p === k) + '><img src="photos/' + A.photos[k] + '" alt=""><b>' + p.n + '</b><small>environ ' + API.dur(p.min) + '</small></button>' }).join("") +
+        '<a class="ch ph" href="prestations.html#mariee"><img src="photos/sa-accueil.jpg" alt=""><b>Mariée</b><small>essai et jour J, sur demande →</small></a></div>' +
+        '<p class="groupe">Vous venez à plusieurs ?</p>' +
+        Object.keys(A.plusieurs).map(function (k) { var n = S.plusieurs.filter(function (x) { return x === k }).length; return '<div class="cpt"><span>' + A.plusieurs[k].n + ' en plus <small style="color:var(--doux)">· ' + A.plusieurs[k].d + '</small></span><div><button type="button" data-m="' + k + '" aria-label="Retirer">−</button><output>' + n + '</output><button type="button" data-a="' + k + '" aria-label="Ajouter">+</button></div></div>' }).join("") +
+        '<p class="aide" style="font-size:14px">Les rendez-vous se suivent, avec la même coiffeuse.</p>';
+      ok = !!S.p; info = ok ? "" : "Choisissez une prestation";
+    }
+    if (et === "gamme") {
+      var G = A.options.gamme;
+      html = '<h1 class="q">Votre <em>gamme</em> de produits</h1><p class="aide">' + G.aide + '. Vous repartez avec les conseils par SMS.</p><div class="choix">' +
+        G.choix.map(function (c) { return '<button type="button" class="ch" style="align-items:flex-start;text-align:left;padding:14px 16px" data-g="' + c.id + '"' + presses(0, S.gamme === c.id) + '><b>' + c.n + '</b><small>' + c.d + (c.min ? " · " + c.min + " min de plus" : "") + '</small></button>' }).join("") + '</div>' +
+        '<p class="aide" style="margin-top:14px;font-size:14px">' + h(A.packs[S.gamme].n) + ' : ' + h(A.packs[S.gamme].d) + ' <a class="lien" href="prestations.html#packs">Voir les packs</a></p>';
+    }
+    if (et === "plus") {
+      var ex = S.rythme === "express";
+      html = '<h1 class="q">À votre <em>rythme</em></h1><p class="aide">Facultatif. Touchez pour choisir.</p><div class="choix c3">' +
+        [["", "Normal", "Comme d’habitude"], ["express", "Express", "Sans attente"], ["detente", "Détente", "Massage au bac"]].map(function (r) { return '<button type="button" class="ch" data-r="' + r[0] + '"' + presses(0, S.rythme === r[0]) + '><b>' + r[1] + '</b><small>' + r[2] + '</small></button>' }).join("") + '</div>' +
+        (S.rythme ? '<p class="aide" style="font-size:14px">' + A.rythmes[S.rythme].d + '.</p>' : "") +
+        '<p class="groupe">Des petits plus</p><div class="choix c3">' +
+        Object.keys(A.extras).map(function (k) { return '<button type="button" class="ch" data-x="' + k + '"' + presses(0, S.x.indexOf(k) >= 0) + (ex ? " disabled" : "") + '><b>' + A.extras[k].n + '</b><small>+ ' + A.extras[k].min + ' min</small></button>' }).join("") + '</div>' +
+        (ex ? '<p class="aide" style="font-size:14px">En Express, on fait seulement la prestation.</p>' : "");
+    }
+    if (et === "qui") {
+      var L = quiPeut();
+      html = '<h1 class="q">Avec <em>qui</em> ?</h1><p class="aide">Chacune sa spécialité.</p><div class="choix c2">' +
+        L.map(function (c) { var o = A.coiffeuses[c]; return '<button type="button" class="ch rond" data-c="' + c + '"' + presses(0, S.c === c) + '><img src="photos/' + A.photos[c] + '" alt=""><b>' + o.n + '</b><small>' + o.s + '</small></button>' }).join("") +
+        '<button type="button" class="ch" data-c=""' + presses(0, S.c === "") + '><b>Peu importe</b><small>la première libre</small></button></div>';
+      if (S.c && L.indexOf(S.c) < 0) S.c = "";
+    }
+    if (et === "quand") {
+      var J = API.jours(10), d = D(), nb = {};
+      J.forEach(function (j) { nb[j.iso] = API.libres(S.c, j.iso, d, modif, S.p).length });
+      if (!S.date || !nb[S.date]) S.date = (J.filter(function (j) { return nb[j.iso] })[0] || {}).iso || "";
+      var H = S.date ? API.libres(S.c, S.date, d, modif, S.p) : [];
+      if (S.t != null && !H.some(function (x) { return x.t === S.t })) S.t = null;
+      html = '<h1 class="q"><em>Quand</em> ?</h1><p class="aide">' + (S.c ? "Les heures libres de " + A.coiffeuses[S.c].n : "Les heures libres du salon") + ' pour ' + API.dur(d) + '.</p><div class="jours">' +
+        J.map(function (j) { var c = A.creuses.jours.indexOf(j.k) >= 0 && API.libres(S.c, j.iso, d, modif, S.p).some(function (x) { return x.t < A.creuses.avant }); return '<button type="button" class="ch" data-j="' + j.iso + '"' + presses(0, S.date === j.iso) + (nb[j.iso] ? "" : " disabled") + '>' + (c ? '<span class="plus">soin offert</span>' : "") + '<small>' + A.jours[j.k][0] + '</small><b>' + j.d.getDate() + '</b><i>' + (nb[j.iso] ? nb[j.iso] + " libre" + (nb[j.iso] > 1 ? "s" : "") : (S.c && !API.plages(S.c, j.k).length ? "repos" : "complet")) + '</i></button>' }).join("") + '</div>';
+      if (!S.date) html += '<p class="vide">Tout est pris ces jours-ci.</p>';
+      [["Matin", 0, 720], ["Après-midi", 720, 1440]].forEach(function (m) {
+        var hh = H.filter(function (x) { return x.t >= m[1] && x.t < m[2] }); if (!hh.length) return;
+        html += '<p class="groupe">' + m[0] + '</p><div class="heures">' + hh.map(function (x) { var cr = API.creux(S.date, x.t); return '<button type="button" class="ch" data-t="' + x.t + '" data-cc="' + x.c + '"' + presses(0, S.t === x.t) + ' aria-label="' + API.hm(x.t) + (cr ? ", soin offert" : "") + '"><b>' + API.hm(x.t) + '</b>' + (cr ? "<small>soin offert</small>" : "") + '</button>' }).join("") + '</div>';
+      });
+      if (S.date && S.t != null && API.creux(S.date, S.t)) html += '<p class="creux">🌿 ' + A.creuses.texte + '</p>';
+      html += '<p style="margin-top:22px;text-align:center"><button type="button" class="lien" id="ouvrir-attente">Aucune heure ne va ? Prévenez-moi si une place se libère</button></p>';
+      ok = S.t != null; info = ok ? "" : "Choisissez une heure";
+    }
+    if (et === "details") {
+      var pr = S.date ? API.placesPrises(S.date, S.t, D(), modif) : [];
+      if (pr.indexOf(S.place) >= 0) S.place = 0;
+      html = '<h1 class="q">Votre <em>place</em></h1><p class="aide">Facultatif. Touchez un fauteuil sur la photo du salon.</p>' +
+        '<div class="plan"><img src="photos/plan-salon.jpg" alt="Le salon vu de dessus">' +
+        A.places.map(function (p) { return '<button type="button" class="pt' + (p.petit ? " petit" : "") + '" data-pl="' + p.n + '" style="left:' + (p.x / 8 * 100).toFixed(2) + '%;top:' + (p.y / 11.995 * 100).toFixed(2) + '%"' + presses(0, S.place === p.n) + (pr.indexOf(p.n) >= 0 ? " disabled" : "") + ' aria-label="' + p.nom + '">' + (p.prive ? "P" : p.n) + '</button>' }).join("") + '</div>' +
+        '<div class="legende"><span><i></i>Libre</span><span class="p"><i></i>Prise à cette heure</span></div>' +
+        '<div class="choisi">' + (S.place ? (function (p) { return "<b>" + p.nom + "</b><br><small style=\"color:var(--doux)\">" + p.d + "</small>" })(A.places.filter(function (p) { return p.n === S.place })[0]) : '<span style="color:var(--doux)">Pas de préférence : on vous installe au mieux.</span>') + '</div>' +
+        '<p class="groupe">Photo de la coupe voulue</p><p class="aide" style="margin-top:0;font-size:14px">Facultatif. Votre coiffeuse la voit avant.</p>' +
+        (S.photo ? '<div class="photo-c"><img src="' + S.photo + '" alt="Votre photo"><button type="button" class="lien" id="sans-photo">Retirer</button></div>' : '<label class="b2" style="cursor:pointer">📷 Ajouter une photo<input type="file" accept="image/*" id="photo" hidden></label>');
+      suite = S.place || S.photo ? "Continuer" : "Passer";
+    }
+    if (et === "vous") {
+      var R = { p: S.p, x: S.x, c: S.c || S.cAuto, date: S.date, t: S.t }, rs = LDR.resume(R), pl = A.places.filter(function (p) { return p.n === S.place })[0];
+      html = '<h1 class="q">On <em>vérifie</em> ensemble</h1><div class="recap" style="margin-top:16px">' +
+        ligne("Prestation", rs.quoi + (S.plusieurs.length ? " · + " + S.plusieurs.length + " personne" + (S.plusieurs.length > 1 ? "s" : "") : ""), 0) +
+        ligne("Gamme · rythme", A.options.gamme.choix.filter(function (c) { return c.id === S.gamme })[0].n + (S.rythme ? " · " + A.rythmes[S.rythme].n : ""), 1) +
+        ligne("Avec", rs.qui, 3) + ligne("Quand", rs.quand.charAt(0).toUpperCase() + rs.quand.slice(1) + (API.creux(S.date, S.t) ? " · soin offert" : ""), 4) +
+        ligne("Place", pl ? pl.nom : "Pas de préférence", 5) + '</div><span class="dure">Durée prévue : ' + API.dur(D()) + '</span><div id="vt"></div>';
+      document.querySelector(".bas").hidden = true;
+    } else document.querySelector(".bas").hidden = false;
+    E.innerHTML = html; document.getElementById("suite").textContent = suite; document.getElementById("suite").disabled = !ok;
+    var I = document.getElementById("info"); I.hidden = !info; I.textContent = info;
+    if (et === "vous") VerifTel.demander(document.getElementById("vt"), { titre: "Votre portable, pour confirmer", bouton: modif ? "Valider le changement" : "Envoyer ma demande", commerce: A.commerce }, envoyer);
+  }
+  function ligne(t, v, k) { return '<div class="ligne"><span><small>' + t + '</small><b>' + h(v) + '</b></span><button type="button" class="lien" data-va="' + k + '">Modifier</button></div>' }
+  function envoyer(u) {
+    var r = { p: S.p, gamme: S.gamme, x: S.x, rythme: S.rythme, c: S.c || S.cAuto, date: S.date, t: S.t, D: D(), place: S.place, prive: S.place === 10, photo: S.photo, plusieurs: S.plusieurs, creux: API.creux(S.date, S.t), prenom: u.prenom, tel: u.tel, email: u.email, offres: u.offres };
+    var id = API.envoyer(r); if (modif) API.maj(modif, { etat: "annule", remplace: id });
+    location.href = "rdv.html?n=" + encodeURIComponent(id);
+  }
+  function attenteEcran() {
+    attente = true; var J = API.jours(10), choix = { j: [], m: "" };
+    document.querySelector(".bas").hidden = true;
+    E.innerHTML = '<h1 class="q">On vous <em>prévient</em></h1><p class="aide">Un SMS dès qu’une place se libère. Vous gardez la main.</p><p class="groupe">Quels jours</p><div class="jours">' +
+      J.map(function (j) { return '<button type="button" class="ch" data-aj="' + j.iso + '" aria-pressed="false"><small>' + A.jours[j.k][0] + '</small><b>' + j.d.getDate() + '</b></button>' }).join("") + '</div><p class="groupe">Quel moment</p><div class="choix c3">' +
+      [["matin", "Matin"], ["aprem", "Après-midi"], ["", "Peu importe"]].map(function (m) { return '<button type="button" class="ch" data-am="' + m[0] + '" aria-pressed="' + (m[0] === "" ? "true" : "false") + '"><b>' + m[1] + '</b></button>' }).join("") +
+      '</div><div id="vt"></div><p style="text-align:center"><button type="button" class="lien" id="fin-attente">← Revenir aux heures</button></p>';
+    E.querySelectorAll("[data-aj]").forEach(function (b) { b.addEventListener("click", function () { var k = choix.j.indexOf(b.dataset.aj); if (k >= 0) choix.j.splice(k, 1); else choix.j.push(b.dataset.aj); b.setAttribute("aria-pressed", k < 0) }) });
+    E.querySelectorAll("[data-am]").forEach(function (b) { b.addEventListener("click", function () { choix.m = b.dataset.am; E.querySelectorAll("[data-am]").forEach(function (x) { x.setAttribute("aria-pressed", x === b) }) }) });
+    document.getElementById("fin-attente").addEventListener("click", function () { rendu(); scrollTo(0, 0) });
+    VerifTel.demander(document.getElementById("vt"), { titre: "Votre portable, pour le SMS", bouton: "M’inscrire sur la liste", commerce: A.commerce }, function (u) {
+      var id = API.demande("attente", { p: S.p, c: S.c, D: D(), jours: choix.j, moment: choix.m, prenom: u.prenom, tel: u.tel, email: u.email });
+      location.href = "rdv.html?n=" + encodeURIComponent(id);
+    });
+  }
+  E.addEventListener("click", function (e) {
+    var b = e.target.closest("button"); if (!b || b.disabled || attente) return; var d = b.dataset;
+    if (d.p) { S.p = d.p; rendu(); return setTimeout(aller.bind(null, 1), 180) }
+    if (d.a) S.plusieurs.push(d.a);
+    if (d.m) { var k = S.plusieurs.indexOf(d.m); if (k >= 0) S.plusieurs.splice(k, 1) }
+    if (d.g) S.gamme = d.g;
+    if (d.r !== undefined) { S.rythme = d.r; if (d.r === "express") S.x = [] }
+    if (d.x) { var j = S.x.indexOf(d.x); if (j >= 0) S.x.splice(j, 1); else S.x.push(d.x) }
+    if (d.c !== undefined) { S.c = d.c; rendu(); return setTimeout(aller.bind(null, 1), 180) }
+    if (d.j) { S.date = d.j; S.t = null }
+    if (d.t) { S.t = +d.t; S.cAuto = d.cc }
+    if (d.pl) S.place = S.place === +d.pl ? 0 : +d.pl;
+    if (d.va) { i = +d.va; return rendu() }
+    if (b.id === "sans-photo") S.photo = "";
+    if (b.id === "ouvrir-attente") return attenteEcran();
+    if (!b.closest(".vt")) rendu();
+  });
+  E.addEventListener("change", function (e) {
+    if (e.target.id !== "photo" || !e.target.files[0]) return;
+    var im = new Image(); im.onload = function () { var c = document.createElement("canvas"), k = 360 / Math.max(im.width, im.height); c.width = im.width * k; c.height = im.height * k; c.getContext("2d").drawImage(im, 0, 0, c.width, c.height); S.photo = c.toDataURL("image/jpeg", .78); rendu() };
+    im.src = URL.createObjectURL(e.target.files[0]);
+  });
+  function aller(n) { i = Math.max(0, Math.min(ETAPES.length - 1, i + n)); rendu(); scrollTo(0, 0) }
+  document.getElementById("suite").addEventListener("click", function () { aller(1) });
+  document.getElementById("retour").addEventListener("click", function () { aller(-1) });
+  rendu();
+})();
+</script></body></html>

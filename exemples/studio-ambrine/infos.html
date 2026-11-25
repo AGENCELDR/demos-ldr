@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Infos · Studio Ambrine</title><meta name="robots" content="noindex">
+<link rel="stylesheet" href="polices/polices.css"><link rel="stylesheet" href="commun.css">
+<style>
+.t1{font-size:clamp(32px,8.5vw,48px)}h2{font-size:clamp(26px,6.5vw,36px)}
+.grid{display:grid;gap:14px;margin-top:18px}
+.carte{padding:18px;border-radius:20px;background:var(--carte);border:1px solid var(--trait)}
+.adr{font:400 24px/1.2 Newsreader,serif;margin:6px 0 14px}
+.horaires{width:100%;border-collapse:collapse;font-size:16px}.horaires th{text-align:left;font-weight:500;padding:10px 0;border-bottom:1px solid var(--trait)}.horaires td{text-align:right;padding:10px 0;border-bottom:1px solid var(--trait);color:var(--doux2)}
+.horaires .auj th,.horaires .auj td{color:var(--rose);font-weight:700}.horaires .f td{color:#8E7A72}
+details{border-bottom:1px solid var(--trait)}summary{min-height:56px;display:flex;align-items:center;justify-content:space-between;gap:10px;cursor:pointer;font-weight:600;list-style:none}summary::after{content:"+";font-size:22px;color:var(--rose)}details[open] summary::after{content:"−"}details p{margin:0 0 14px;color:var(--doux2)}
+textarea{width:100%;height:110px;padding:10px 14px;border-radius:12px;border:1.5px solid var(--trait2);background:#FCF8F2;color:#1d1d1d;font:16px Figtree;margin-top:10px}
+.err{color:#F09A8E;font-weight:700;margin:8px 0 0}
+@media(min-width:900px){.grid{grid-template-columns:1fr 1fr}}
+</style></head>
+<body data-page="infos.html">
+<section class="sec fond-photo" style="--img:url(photos/sa-hero-salon.jpg)"><div class="w"><p class="sur">Infos pratiques</p><h1 class="t1">Venir <em>au salon</em></h1>
+<div class="grid"><div class="carte"><p class="sur">Adresse</p><p class="adr">6 rue de la Mèche<br>51100 Reims</p><a class="b2" id="iti" target="_blank" rel="noopener">Ouvrir l’itinéraire</a><p style="color:var(--doux);font-size:13px;margin:12px 0 0">Adresse inventée pour l’exemple.</p></div>
+<div class="carte"><p class="sur">Horaires</p><table class="horaires" id="hz"></table></div></div></div></section>
+<section class="sec fonce"><div class="w"><p class="sur">Vos questions</p><h2>En <em>bref</em></h2><div id="faq" style="margin-top:10px;max-width:720px"></div></div></section>
+<section class="sec alt"><div class="w" style="max-width:640px;margin:0 auto"><p class="sur">Une question ?</p><h2>Écrire <em>au salon</em></h2><p class="lead">Réponse ici même, dans « Mon rendez-vous ».</p>
+<textarea id="msg" placeholder="Votre message"></textarea><p class="err" id="err" role="alert"></p><button type="button" class="go" id="go" style="width:100%;margin-top:8px">Continuer</button><div id="vt"></div></div></section>
+<script src="donnees.js"></script><script src="api.js"></script><script src="verif-tel.js"></script><script src="commun.js"></script>
+<script>
+(function () {
+  var A = AMBRINE, h = LDR.h, auj = (new Date().getDay() + 6) % 7;
+  document.getElementById("iti").href = A.adresse.carte;
+  document.getElementById("hz").innerHTML = A.horaires.map(function (x, i) { var v = x[1] ? x[1].replace(/:00/g, " h").replace(/:(\d\d)/g, " h $1").replace("-", " – ") : "Fermé"; return '<tr class="' + (i === auj ? "auj" : "") + (x[1] ? "" : " f") + '"><th>' + x[0] + (i === auj ? " · aujourd’hui" : "") + '</th><td>' + v + '</td></tr>' }).join("");
+  document.getElementById("faq").innerHTML = A.faq.map(function (q) { return '<details><summary>' + h(q[0]) + '</summary><p>' + h(q[1]) + '</p></details>' }).join("");
+  document.getElementById("go").addEventListener("click", function () {
+    var t = document.getElementById("msg").value.trim(); if (!t) { document.getElementById("err").textContent = "Écrivez votre message."; return } document.getElementById("err").textContent = ""; this.hidden = true;
+    VerifTel.demander(document.getElementById("vt"), { titre: "Votre portable, pour la réponse", bouton: "Envoyer le message", commerce: A.commerce }, function (u) { location.href = "rdv.html?n=" + API.demande("message", { texte: t, prenom: u.prenom, tel: u.tel, email: u.email }) });
+  });
+})();
+</script></body></html>

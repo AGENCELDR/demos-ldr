@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Appli du fleuriste · Fleurs Arnelle</title><meta name="robots" content="noindex"><meta name="theme-color" content="#101C15">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Karla:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="commun.css">
+<style>
+.app-t{position:sticky;top:0;z-index:20;background:#0B130E;border-bottom:1px solid var(--trait);padding:10px 16px}.app-t .l1{display:flex;justify-content:space-between;align-items:center;gap:10px}.app-t b{font:500 22px "Cormorant Garamond",serif}.app-t small{color:var(--doux);font-size:12.5px}
+.onglets{display:flex;gap:6px;margin-top:10px;overflow-x:auto}.onglets button{flex:none;min-height:46px;padding:0 16px;border-radius:12px;border:1px solid var(--trait2);background:transparent;font-weight:700;display:flex;gap:8px;align-items:center}
+.onglets button[aria-pressed=true]{background:#0C1610;border-color:var(--rose);color:var(--rose);box-shadow:inset 0 3px 10px rgba(0,0,0,.6)}.onglets .n{min-width:22px;height:22px;border-radius:11px;background:#E8833A;color:#101C15;font-size:12.5px;display:grid;place-items:center;padding:0 6px}
+.zone{max-width:1100px;margin:0 auto;padding:16px 16px 60px}.cartes{display:grid;gap:12px}@media(min-width:800px){.cartes{grid-template-columns:1fr 1fr}}
+.dem{text-align:left;background:var(--carte);border:1px solid var(--trait);border-radius:18px;padding:16px;border-left:5px solid #F1C77A}.dem.ex{border-left-color:#7A8C7E;opacity:.92}.dem h3{font-size:26px;margin:6px 0 2px}.dem .t{display:flex;justify-content:space-between;font-size:13px;color:var(--doux)}
+.dem ul{list-style:none;margin:10px 0 0;padding:0;font-size:14.5px;color:var(--doux2)}.dem li{padding:5px 0;border-top:1px solid var(--trait)}
+.btns{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px}.ok{min-height:52px;border-radius:14px;border:0;background:#4E8B3F;color:#fff;font-weight:800}.non{min-height:52px;border-radius:14px;border:1.5px solid #B4574C;background:transparent;color:#F09A8E;font-weight:700}
+.suiv{grid-column:span 2}textarea{width:100%;min-height:80px;border-radius:12px;border:1px solid var(--trait2);background:#F8F3E8;color:#1d1d1d;font:16px Karla;padding:10px;margin-top:10px}
+.vide{padding:28px;text-align:center;color:var(--doux);background:var(--carte);border-radius:18px}.grp{margin:22px 0 10px;font-size:12.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--doux)}
+.stat{display:inline-block;padding:2px 10px;border-radius:999px;font-size:12.5px;font-weight:700;background:#3D3020;color:#F1C77A}
+</style></head>
+<body data-appli>
+<header class="app-t"><div class="l1"><div><b>Fleurs Arnelle</b><br><small>Appli du fleuriste · exemple, en vrai protégée par un code</small></div><a class="lien" href="index.html">Voir le site</a></div>
+<div class="onglets" id="og"><button type="button" data-o="cmd" aria-pressed="true">Commandes <span class="n" id="n1"></span></button><button type="button" data-o="ate" aria-pressed="false">Ateliers <span class="n" id="n2"></span></button><button type="button" data-o="abo" aria-pressed="false">Abonnements <span class="n" id="n3"></span></button><button type="button" data-o="dev" aria-pressed="false">Devis et messages <span class="n" id="n4"></span></button></div></header>
+<main class="zone" id="z"></main>
+<script src="donnees.js"></script><script src="api.js"></script><script src="commun.js"></script>
+<script>
+(function () {
+  var A = ARNELLE, h = LDR.h, Z = document.getElementById("z"), o = "cmd", ouvert = "";
+  var PH = { champetre: "fa-bq-champetre.jpg", blanc: "fa-bq-blanc.jpg", rose: "fa-bq-rose.jpg", arnelle: "fa-bouquet-main.jpg" };
+  function par(t, f) { return API.tous().filter(function (r) { return r.type === t && (!f || f(r)) }) }
+  var NEXT = { envoye: ["Accepter", "prepa"], vu: ["Accepter", "prepa"], prepa: ["Envoyer la photo au client", "photo"], photo: ["Partir en tournée", "tournee"], tournee: ["Marquer livrée", "livree"] };
+  function cmd(r) {
+    var n = NEXT[r.etat], sm = r.fictif ? LDR.cap(r.resume) : LDR.cap(LDR.resumeBq(r));
+    var x = '<div class="dem' + (r.fictif ? " ex" : "") + '"><div class="t"><span>n° ' + h(r.id) + (r.fictif ? " · exemple" : "") + '</span><span class="stat">' + API.ETATS[r.etat] + '</span></div><h3>' + h(r.prenom) + (r.pour ? " → " + h(r.pour) : "") + '</h3><ul><li>' + h(sm) + '</li><li>' + (r.retrait ? "À retirer à la boutique" : h(r.commune) + " · " + h(LDR.nom(A.moments, r.moment).toLowerCase())) + ' · ' + h(LDR.jour(r.jour)) + '</li>' + (r.mot ? '<li>Carte : « ' + h(r.mot) + ' »</li>' : "") + (r.tel ? '<li>📱 ' + h(r.tel) + ' · vérifié par SMS</li>' : "") + '</ul>';
+    if (r.etat === "photo" || r.etat === "tournee") x += '<ul><li>Photo envoyée : <img src="photos/' + (PH[r.style] || "fa-bouquet-main.jpg") + '" alt="" style="width:56px;height:56px;border-radius:10px;object-fit:cover;vertical-align:middle"></li></ul>';
+    if (n) x += '<div class="btns"><button type="button" class="ok suiv" data-n="' + r.id + '|' + n[1] + '">' + n[0] + '</button>' + (r.etat === "envoye" || r.etat === "vu" ? '<button type="button" class="non suiv" data-ref="' + r.id + '">Refuser</button>' : "") + '</div>';
+    return x + '</div>';
+  }
+  function ate(r) {
+    var a = A.ateliers.filter(function (q) { return q.id === r.at })[0];
+    return '<div class="dem"><div class="t"><span>' + h(r.id) + '</span><span class="stat">' + API.ETATS[r.etat] + '</span></div><h3>' + h(r.prenom) + '</h3><ul><li>' + h(a.t) + '</li><li>' + h(LDR.jour(r.date)) + ' · ' + r.n + ' place' + (r.n > 1 ? "s" : "") + ' · ' + API.places(a, r.date) + ' restantes</li><li>📱 ' + h(r.tel) + '</li></ul>' +
+      (r.etat === "envoye" || r.etat === "vu" ? '<div class="btns"><button type="button" class="ok" data-n="' + r.id + '|confirme">Confirmer</button><button type="button" class="non" data-ref="' + r.id + '">Refuser</button></div>' : "") + '</div>';
+  }
+  function abo(r) { return '<div class="dem"><div class="t"><span>' + h(r.id) + '</span><span class="stat">' + API.ETATS[r.etat] + '</span></div><h3>' + h(r.prenom) + '</h3><ul><li>' + h(LDR.nom(A.abo.pour, r.pour)) + ' · ' + h(LDR.nom(A.abo.rythme, r.rythme).toLowerCase()) + ' · ' + h(LDR.nom(A.tailles, r.taille).toLowerCase()) + '</li><li>📱 ' + h(r.tel) + '</li></ul>' + (r.etat === "envoye" || r.etat === "vu" ? '<div class="btns"><button type="button" class="ok" data-n="' + r.id + '|confirme">Démarrer</button><button type="button" class="non" data-ref="' + r.id + '">Refuser</button></div>' : "") + '</div>' }
+  function dev(r) {
+    var x = '<div class="dem"><div class="t"><span>' + (r.type === "devis" ? "Devis " + (r.ev === "deuil" ? "deuil" : "mariage") : "Message") + ' · ' + h(r.id) + '</span><span class="stat">' + API.ETATS[r.etat] + '</span></div><h3>' + h(r.prenom) + '</h3><ul>' + (r.type === "devis" ? '<li>' + h(LDR.jour(r.date)) + ' · ' + h(r.lieu) + '</li><li>« ' + h(r.besoin) + ' »</li>' : '<li>« ' + h(r.texte) + ' »</li>') + '<li>📱 ' + h(r.tel) + '</li></ul>';
+    if (r.etat === "envoye" || r.etat === "vu") x += '<textarea id="rep-' + r.id + '" placeholder="Votre réponse"></textarea><div class="btns" style="grid-template-columns:1fr"><button type="button" class="ok" data-rep="' + r.id + '">Répondre</button></div>';
+    return x + '</div>';
+  }
+  function ouv(r) { return r.etat === "envoye" || r.etat === "vu" }
+  function cpt() { var c = [par("commande", ouv).length, par("atelier", ouv).length, par("abo", ouv).length, par("devis", ouv).length + par("message", ouv).length]; c.forEach(function (v, i) { var e = document.getElementById("n" + (i + 1)); e.textContent = v || ""; e.hidden = !v }) }
+  function rendu() {
+    cpt(); var L, x = "";
+    if (o === "cmd") { L = par("commande").filter(function (r) { return r.etat !== "annule" && r.etat !== "refuse" && r.etat !== "livree" }); L.sort(function (a, b) { return (b.cree || 0) - (a.cree || 0) });
+      x = L.length ? '<div class="cartes">' + L.map(cmd).join("") + '</div>' : '<p class="vide">Aucune commande en cours.</p>';
+      var F = par("commande", function (r) { return r.etat === "livree" }); if (F.length) x += '<p class="grp">Livrées</p><div class="cartes">' + F.map(cmd).join("") + '</div>' }
+    if (o === "ate") { L = par("atelier").filter(function (r) { return r.etat !== "annule" }); x = L.length ? '<div class="cartes">' + L.map(ate).join("") + '</div>' : '<p class="vide">Aucune inscription.<br>Réservez un atelier sur le site : elle arrive ici.</p>' }
+    if (o === "abo") { L = par("abo").filter(function (r) { return r.etat !== "annule" }); x = L.length ? '<div class="cartes">' + L.map(abo).join("") + '</div>' : '<p class="vide">Aucun abonnement.</p>' }
+    if (o === "dev") { L = par("devis").concat(par("message")); x = L.length ? '<div class="cartes">' + L.map(dev).join("") + '</div>' : '<p class="vide">Aucune demande.</p>' }
+    Z.innerHTML = x;
+    if (o === "cmd") par("commande", function (r) { return r.etat === "envoye" }).forEach(function (r) { setTimeout(function () { var q = API.un(r.id); if (q && q.etat === "envoye") API.maj(r.id, { etat: "vu" }) }, 1500) });
+  }
+  document.getElementById("og").addEventListener("click", function (e) { var b = e.target.closest("button"); if (!b) return; o = b.dataset.o; document.querySelectorAll("#og button").forEach(function (q) { q.setAttribute("aria-pressed", q === b) }); rendu() });
+  Z.addEventListener("click", function (e) { var b = e.target.closest("button"); if (!b) return; var d = b.dataset, p;
+    if (d.n) { p = d.n.split("|"); API.maj(p[0], { etat: p[1] }) }
+    if (d.ref) API.maj(d.ref, { etat: "refuse" });
+    if (d.rep) { var t = document.getElementById("rep-" + d.rep); if (!t.value.trim()) return t.focus(); API.maj(d.rep, { etat: "repondu", reponse: t.value.trim() }) }
+    rendu() });
+  API.ecouter(function () { if (!document.activeElement || document.activeElement.tagName !== "TEXTAREA") rendu() });
+  /* première visite : les commandes d'exemple passent en « vue » */
+  rendu();
+})();
+</script></body></html>

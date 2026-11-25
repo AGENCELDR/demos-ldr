@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Abonnement · Fleurs Arnelle</title><meta name="robots" content="noindex">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Karla:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="commun.css"><style>
+h2{font-size:clamp(30px,7.5vw,44px)}.mag{max-width:640px;margin:0 auto;padding:18px 16px 120px}.hero-a{border-radius:22px;overflow:hidden;position:relative;margin:16px 0}.hero-a img{width:100%;height:210px;object-fit:cover}.hero-a::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(8,16,11,.85))}
+.groupe{margin:22px 0 10px;font-size:12.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--doux)}
+.tl .ch{min-height:150px;justify-content:flex-end}.tl .ch svg{width:60px;height:60px;fill:var(--rose);stroke:none;margin-bottom:4px}
+.rec{margin-top:18px;padding:16px;border-radius:18px;background:var(--carte);border:1px solid var(--trait)}.rec b{font:500 24px "Cormorant Garamond",serif}
+</style></head>
+<body data-page="abonnement.html">
+<main class="mag"><p class="sur">Abonnement</p><h1 style="font-size:clamp(34px,9vw,52px)">Des fleurs fraîches, <em>sans y penser</em></h1><p class="lead">Chez vous, au restaurant, au bureau, en boutique. Arrêt possible à tout moment.</p>
+<div class="hero-a"><img src="photos/fa-bq-blanc.jpg" alt=""></div>
+<p class="groupe">Pour où ?</p><div class="choix c2" id="po"></div><p class="groupe">À quel rythme ?</p><div class="choix" id="ry"></div><p class="groupe">Quelle taille ?</p><div class="choix c3 tl" id="ta"></div>
+<div class="rec" id="rec" hidden></div><div id="vt"></div></main><script src="donnees.js"></script><script src="icones.js"></script><script src="api.js"></script><script src="verif-tel.js"></script><script src="commun.js"></script>
+<script>
+(function () {
+  var A = ARNELLE, S = { pour: "", rythme: "", taille: "" }, pr = function (o) { return ' aria-pressed="' + o + '"' };
+  var el = function (i) { return document.getElementById(i) }, vt = false;
+  function rendu() {
+    el("po").innerHTML = A.abo.pour.map(function (o) { return '<button type="button" class="ch" data-k="pour" data-v="' + o[0] + '"' + pr(S.pour === o[0]) + '><b>' + o[1] + '</b></button>' }).join("");
+    el("ry").innerHTML = A.abo.rythme.map(function (o) { return '<button type="button" class="ch" data-k="rythme" data-v="' + o[0] + '"' + pr(S.rythme === o[0]) + '><b>' + o[1] + '</b></button>' }).join("");
+    el("ta").innerHTML = A.tailles.map(function (o, i) { return '<button type="button" class="ch" data-k="taille" data-v="' + o[0] + '"' + pr(S.taille === o[0]) + '>' + ICO.taille(i) + '<b>' + o[1] + '</b><small>' + o[2] + '</small></button>' }).join("");
+    var ok = S.pour && S.rythme && S.taille, r = el("rec"); r.hidden = !ok;
+    if (ok) { r.innerHTML = "<b>" + LDR.nom(A.abo.rythme, S.rythme) + ", " + LDR.nom(A.tailles, S.taille).toLowerCase() + "</b><br>" + LDR.nom(A.abo.pour, S.pour) + ". Prix confirmé par SMS. Vous arrêtez quand vous voulez."; if (!vt) { vt = true; VerifTel.demander(el("vt"), { titre: "Votre portable, pour démarrer", bouton: "M’abonner", commerce: A.commerce }, function (u) { location.href = "suivi.html?n=" + API.creer("abo", { pour: S.pour, rythme: S.rythme, taille: S.taille, prenom: u.prenom, tel: u.tel, email: u.email }) }) } }
+  }
+  document.querySelector(".mag").addEventListener("click", function (e) { var b = e.target.closest("button[data-k]"); if (!b) return; S[b.dataset.k] = b.dataset.v; rendu() });
+  rendu();
+})();
+</script></body></html>

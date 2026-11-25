@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Deuil et mariage · Fleurs Arnelle</title><meta name="robots" content="noindex">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Karla:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="commun.css"><style>
+h2{font-size:clamp(30px,7.5vw,44px)}.mag{max-width:700px;margin:0 auto;padding:18px 16px 60px}
+.ev{display:grid;gap:12px;margin:18px 0}.ev .ch.ph{min-height:200px}.ev .ch.ph small{white-space:normal}
+.form{margin-top:16px}.groupe{margin:20px 0 8px;font-size:12.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--doux)}
+input[type=text],input[type=date],textarea{width:100%;height:50px;padding:0 14px;border-radius:12px;border:1.5px solid var(--trait2);background:#F8F3E8;color:#1d1d1d;font:600 17px Karla}textarea{height:100px;padding:10px 14px;font-weight:400}
+.err{color:#F09A8E;font-weight:700;margin:10px 0 0}
+@media(min-width:900px){.ev{grid-template-columns:1fr 1fr}}
+</style></head>
+<body data-page="evenements.html">
+<main class="mag"><p class="sur">Sur devis</p><h1 style="font-size:clamp(34px,9vw,52px)">Les grands moments, <em>préparés ensemble</em></h1><p class="lead">Vous décrivez votre besoin. Arnelle répond par écrit, et la demande est suivie jusqu’au jour J.</p>
+<div class="choix ev" id="ev"></div>
+<div class="form" id="f" hidden><p class="groupe">Date</p><input type="date" id="date"><p class="groupe">Lieu</p><input type="text" id="lieu" placeholder="Église, salle, ville…" autocomplete="off"><p class="groupe">Votre besoin, en quelques mots</p><textarea id="besoin" placeholder="Une gerbe blanche, 40 invités…"></textarea><p class="err" id="err" role="alert"></p><button type="button" class="go" id="go" style="width:100%">Continuer</button><div id="vt"></div></div></main><script src="donnees.js"></script><script src="api.js"></script><script src="verif-tel.js"></script><script src="commun.js"></script>
+<script>
+(function () {
+  var A = ARNELLE, ev = LDR.param("ev") || "", el = function (i) { return document.getElementById(i) };
+  function rendu() {
+    el("ev").innerHTML = Object.keys(A.evenements).map(function (k) { var e = A.evenements[k]; return '<button type="button" class="ch ph" data-e="' + k + '" aria-pressed="' + (ev === k) + '"><img src="photos/' + e.img + '" alt=""><b>' + e.t + '</b><small>' + e.d + ' ' + e.l.join(" · ") + '</small></button>' }).join("");
+    el("f").hidden = !ev;
+  }
+  el("ev").addEventListener("click", function (e) { var b = e.target.closest("button"); if (!b) return; ev = b.dataset.e; rendu(); el("f").scrollIntoView({ behavior: "smooth", block: "start" }) });
+  el("go").addEventListener("click", function () {
+    var d = el("date").value, l = el("lieu").value.trim(), b = el("besoin").value.trim(); if (!d || !l || !b) { el("err").textContent = "Date, lieu et besoin : les trois, en quelques mots."; return } el("err").textContent = ""; this.hidden = true;
+    VerifTel.demander(el("vt"), { titre: "Votre portable, pour la réponse", bouton: "Envoyer ma demande de devis", commerce: A.commerce }, function (u) { location.href = "suivi.html?n=" + API.creer("devis", { ev: ev, date: d, lieu: l, besoin: b, prenom: u.prenom, tel: u.tel, email: u.email }) });
+  });
+  rendu();
+})();
+</script></body></html>

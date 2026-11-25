@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Ma commande · Fleurs Arnelle</title><meta name="robots" content="noindex">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Karla:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="commun.css">
+<style>
+.mag{max-width:640px;margin:0 auto;padding:22px 16px 40px}
+.fiche{background:linear-gradient(160deg,rgba(46,74,58,.95),rgba(24,42,32,.95));border:1px solid rgba(216,191,153,.25);border-radius:22px;padding:18px;margin-top:16px;box-shadow:0 14px 30px rgba(0,0,0,.3)}
+.etat{display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border-radius:999px;font-weight:700;font-size:14.5px}.etat i{width:10px;height:10px;border-radius:50%;background:currentColor}
+.e-envoye{background:#3D3020;color:#F1C77A}.e-vu{background:#22303A;color:#9CC8E6}.e-prepa{background:#3B2A1C;color:#F3A86B}.e-photo{background:#3A2335;color:#EDB4DC}.e-tournee{background:#1F3A2B;color:#9FE0B0}.e-livree,.e-confirme{background:#22331F;color:#9FD58C}.e-repondu{background:#22303A;color:#9CC8E6}.e-refuse,.e-annule{background:#3A1E1E;color:#F09A8E}
+.num{float:right;font-size:13px;color:var(--doux);margin-top:8px}.grand{font:500 clamp(28px,7vw,36px)/1.1 "Cormorant Garamond",serif;margin:14px 0 4px}.sous{color:var(--doux2)}
+.fil{display:grid;grid-template-columns:repeat(5,1fr);margin:20px 0 6px;gap:4px}.fil div{text-align:center;font-size:11.5px;color:var(--doux)}.fil div::before{content:"";display:block;height:5px;border-radius:5px;background:var(--trait);margin-bottom:6px}.fil .ok{color:var(--texte)}.fil .ok::before{background:#9FD58C}
+.sms{margin-top:14px;border-radius:18px;overflow:hidden;background:#F8F3E8;color:#1d1d1d}.sms img{width:100%;max-height:300px;object-fit:cover}.sms p{margin:0;padding:12px 14px;font-size:14.5px}.sms small{display:block;color:#666;padding:0 14px 12px}
+.det{margin:12px 0 0;padding:0;list-style:none;font-size:14.5px;color:var(--doux2)}.det li{padding:6px 0;border-top:1px solid var(--trait)}
+.act{display:grid;gap:10px;margin-top:16px}.act .go,.act .b2{width:100%}
+.confirm{margin-top:10px;padding:14px;border-radius:14px;background:#3A1E1E}.confirm p{margin:0 0 10px}.retard{display:flex;gap:8px}.retard .ch{flex:1;min-height:48px}
+.liste a{display:flex;justify-content:space-between;align-items:center;gap:10px;text-decoration:none;padding:14px 0;border-bottom:1px solid var(--trait)}
+.salon-l{display:block;text-align:center;margin-top:26px;font-size:14px;color:var(--doux)}
+.rep{margin-top:14px;padding:14px;border-radius:14px;background:#22303A;border:1px solid #35556B}
+</style></head>
+<body data-page="suivi.html">
+<main class="mag"><h1 style="font-size:clamp(32px,8vw,44px)">Ma <em>commande</em></h1><div id="z"></div>
+<a class="salon-l" href="fleuriste-appli.html" target="_blank" rel="noopener">Exemple : voir ce que le fleuriste reçoit →</a></main>
+<script src="donnees.js"></script><script src="api.js"></script><script src="verif-tel.js"></script><script src="commun.js"></script>
+<script>
+(function () {
+  var A = ARNELLE, h = LDR.h, Z = document.getElementById("z"), id = LDR.param("n"), annuler = false;
+  var T = { commande: "Bouquet", atelier: "Atelier", abo: "Abonnement", devis: "Demande de devis", message: "Message à Arnelle", date: "Date à retenir" };
+  function etat(r) { return '<span class="etat e-' + r.etat + '"><i></i>' + (API.ETATS[r.etat] || r.etat) + '</span>' }
+  var PH = { champetre: "fa-bq-champetre.jpg", blanc: "fa-bq-blanc.jpg", rose: "fa-bq-rose.jpg", arnelle: "fa-bouquet-main.jpg" };
+  function fil(r) { var O = ["envoye", "vu", "prepa", "photo", "tournee", "livree"], n = Math.max(1, O.indexOf(r.etat)); if (r.etat === "livree") n = 5; var E = ["Envoyée", "Vue", "Préparée", "Photo", "Livrée"], k = { envoye: 1, vu: 2, prepa: 3, photo: 4, tournee: 4, livree: 5 }[r.etat] || 1;
+    return '<div class="fil">' + E.map(function (t, j) { return '<div class="' + (j < k ? "ok" : "") + '">' + t + '</div>' }).join("") + '</div>' }
+  function fiche(r) {
+    var x = '<div class="fiche"><span class="num">n° ' + h(r.id) + '</span>' + etat(r);
+    if (r.type === "commande") {
+      x += '<p class="grand">' + (r.retrait ? "À la boutique " : "Livré ") + h(LDR.jour(r.jour)) + '</p><p class="sous">' + h(LDR.cap(LDR.resumeBq(r))) + (r.retrait ? "" : " · " + h(r.commune)) + '</p>';
+      if (["envoye", "vu", "prepa", "photo", "tournee", "livree"].indexOf(r.etat) >= 0) x += fil(r);
+      if (r.etat === "photo" || r.etat === "tournee" || r.etat === "livree") x += '<div class="sms"><img src="photos/' + PH[r.style] + '" alt="Photo de votre bouquet"><p>Fleurs Arnelle : votre bouquet est prêt, il part chez ' + h(r.pour) + '. Le voici !</p><small>Photo reçue par SMS avant la livraison</small></div>';
+      x += '<ul class="det"><li>Pour : ' + h(r.pour) + (r.mot ? ' · « ' + h(r.mot) + ' »' : "") + '</li>' + (r.retrait ? "" : '<li>Moment : ' + h(LDR.nom(A.moments, r.moment).toLowerCase()) + '</li>') + '<li>Confirmation envoyée par SMS au ' + h(r.tel) + '</li></ul>';
+      if (r.etat === "envoye" || r.etat === "vu") x += '<div class="act"><button type="button" class="lien" data-an="' + r.id + '">Annuler la commande</button></div>';
+      if (r.etat === "livree") x += '<div class="act"><a class="go" href="commander.html?style=' + r.style + '">Commander le même</a></div>';
+    } else if (r.type === "atelier") {
+      var a = A.ateliers.filter(function (q) { return q.id === r.at })[0];
+      x += '<p class="grand">' + h(a.t) + '</p><p class="sous">' + h(LDR.jour(r.date)) + ' · ' + h(a.q.replace(/^\S+ /, "")) + ' · ' + r.n + ' place' + (r.n > 1 ? "s" : "") + '</p><ul class="det"><li>Vous repartez avec ' + h(a.c) + '.</li><li>Prix confirmé par SMS.</li></ul>';
+      if (r.etat !== "annule") x += '<div class="act"><button type="button" class="lien" data-an="' + r.id + '">Annuler ma place</button></div>';
+    } else if (r.type === "abo") {
+      x += '<p class="grand">Abonnement ' + h(LDR.nom(A.abo.rythme, r.rythme).toLowerCase()) + '</p><p class="sous">' + h(LDR.nom(A.abo.pour, r.pour)) + ' · ' + h(LDR.nom(A.tailles, r.taille).toLowerCase()) + '</p><ul class="det"><li>Prix confirmé par SMS.</li></ul>';
+      if (r.etat !== "annule") x += '<div class="act"><button type="button" class="lien" data-an="' + r.id + '">Arrêter l’abonnement</button></div>';
+    } else if (r.type === "devis") {
+      x += '<p class="grand">' + h(r.ev === "deuil" ? "Deuil" : "Mariage") + ' · ' + h(LDR.jour(r.date)) + '</p><p class="sous">' + h(r.lieu) + '</p><ul class="det"><li>« ' + h(r.besoin) + ' »</li></ul>';
+    } else if (r.type === "message") x += '<p class="grand">Votre message</p><p class="sous">« ' + h(r.texte) + ' »</p>';
+    else if (r.type === "date") x += '<p class="grand">' + h(r.qui) + '</p><p class="sous">' + h(r.occ) + ' · le ' + r.j + ' ' + LDR.MOIS[r.m - 1] + ' · rappel ' + r.delai + ' jours avant</p>';
+    if (r.reponse) x += '<div class="rep"><b>Réponse d’Arnelle :</b> ' + h(r.reponse) + '</div>';
+    if (annuler === r.id) x += '<div class="confirm"><p>Annuler ?</p><div class="retard"><button type="button" class="ch" data-oui="' + r.id + '"><b>Oui</b></button><button type="button" class="ch" data-non="1"><b>Non</b></button></div></div>';
+    return x + '</div>';
+  }
+  function rendu() {
+    if (id) { var r = API.un(id); if (r) API.garder(id); Z.innerHTML = r ? fiche(r) + (API.mes().length > 1 ? '<p style="text-align:center;margin-top:18px"><a class="lien" href="suivi.html">Toutes mes demandes</a></p>' : "") : '<p class="sous">Cette demande n’existe pas sur ce téléphone.</p>'; return }
+    var L = API.mes().map(API.un).filter(Boolean);
+    if (!L.length) { Z.innerHTML = '<p class="sous" style="margin-top:10px">Retrouvez vos commandes avec votre portable.</p><div id="vt"></div><p style="margin-top:20px"><a class="go" style="width:100%" href="commander.html">Commander un bouquet</a></p>';
+      return VerifTel.demander(document.getElementById("vt"), { titre: "Votre portable", bouton: "Voir mes commandes", commerce: A.commerce }, function (u) { var P = API.parTel(u.tel); P.forEach(function (r) { API.garder(r.id) }); if (!P.length) Z.innerHTML = '<p class="sous">Aucune commande avec ce numéro.</p><a class="go" style="width:100%" href="commander.html">Commander un bouquet</a>'; else rendu() }) }
+    var vi = L.filter(function (r) { return r.etat !== "annule" }), an = L.filter(function (r) { return r.etat === "annule" });
+    Z.innerHTML = vi.map(fiche).join("") + (an.length ? '<p class="sur" style="margin-top:26px">Annulées</p><div class="liste">' + an.map(function (r) { return '<a href="suivi.html?n=' + r.id + '"><span>' + T[r.type] + ' n° ' + r.id + '</span><span class="lien">Voir</span></a>' }).join("") + '</div>' : "");
+  }
+  Z.addEventListener("click", function (e) { var b = e.target.closest("button"); if (!b) return; var d = b.dataset;
+    if (d.an) annuler = d.an; if (d.oui) { API.maj(d.oui, { etat: "annule" }); annuler = false } if (d.non) annuler = false; rendu() });
+  API.ecouter(rendu); rendu();
+})();
+</script></body></html>

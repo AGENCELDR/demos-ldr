@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Prestations · Studio Ambrine</title><meta name="robots" content="noindex">
+<link rel="stylesheet" href="polices/polices.css"><link rel="stylesheet" href="commun.css">
+<style>
+.t1{font-size:clamp(32px,8.5vw,48px)}
+.saut{display:flex;gap:8px;overflow-x:auto;padding:14px 0 4px}.saut a{flex:none;min-height:44px;display:inline-flex;align-items:center;padding:0 14px;border-radius:999px;border:1px solid var(--trait2);text-decoration:none;font-weight:600;font-size:14.5px}
+h2{font-size:clamp(28px,7vw,40px)}
+.prest{display:grid;gap:12px;margin-top:16px}
+.pr{display:grid;grid-template-columns:110px 1fr;gap:14px;align-items:center;padding:10px;border-radius:18px;background:var(--carte);border:1px solid var(--trait)}
+.pr img{width:110px;height:110px;border-radius:12px;object-fit:cover}.pr b{display:block;font:400 24px Newsreader,serif}.pr small{color:var(--doux);display:block;margin:2px 0 8px}.pr .b2{min-height:44px}
+.duo{display:grid;gap:10px;margin-top:16px}.bloc{padding:16px;border-radius:18px;border:1px solid #5A3A40;background:rgba(0,0,0,.2)}.bloc b{display:block;font:400 22px Newsreader,serif}.bloc p{margin:4px 0 0;color:var(--doux2);font-size:15px}.bloc .m{color:var(--rose);font-weight:700;font-size:13.5px}
+.vert{background:var(--grain),radial-gradient(70% 90% at 0% 50%,rgba(150,190,120,.25),transparent 70%),linear-gradient(120deg,#2E3A24,#1E2617)!important}.vert .bloc{border-color:#4E5E41}.vert .sur{color:#B9D9A5}
+.cadeau{background:var(--grain),radial-gradient(70% 60% at 100% 0%,rgba(243,185,178,.28),transparent 65%),linear-gradient(160deg,#5A2C38,#2A1419 75%)!important}
+.fid-c{max-width:360px;padding:18px;border-radius:20px;background:linear-gradient(135deg,#F3B9B2,#C98F88);color:#2A1915;margin-top:16px;box-shadow:0 14px 30px rgba(0,0,0,.35)}
+.fid-c b{font:400 24px Newsreader,serif}.tp{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin:12px 0 4px}.tp span{aspect-ratio:1;border-radius:50%;border:1.5px dashed rgba(42,25,21,.45);display:grid;place-items:center;font-size:13px}.tp .ok{background:#2A1915;color:var(--rose);border:0}
+.mar{background:var(--grain),radial-gradient(70% 60% at 50% 0%,rgba(236,214,180,.22),transparent 70%),linear-gradient(180deg,#3A3028,#1F1915)!important}
+.form{max-width:560px;margin-top:16px}.form .groupe{margin:18px 0 8px;font-size:12.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--doux)}
+.form input[type=text],.form input[type=date],.form textarea{width:100%;height:50px;padding:0 14px;border-radius:12px;border:1.5px solid var(--trait2);background:#FCF8F2;color:#1d1d1d;font:600 17px Figtree}.form textarea{height:90px;padding:10px 14px;font-weight:400}
+.cpt{display:flex;align-items:center;gap:14px}.cpt button{width:48px;height:48px;border-radius:50%;border:1.5px solid var(--trait2);background:var(--carte);font-size:22px}.cpt output{font-weight:800;font-size:20px;min-width:22px;text-align:center}
+.err{color:#F09A8E;font-weight:700;min-height:1px;margin:10px 0 0}
+.aide-tel{margin-top:12px;padding:14px;border-radius:14px;background:var(--carte);font-size:15px}.aide-tel ol{margin:6px 0 0;padding-left:20px}
+@media(min-width:900px){.prest,.duo{grid-template-columns:repeat(3,1fr)}.pr{grid-template-columns:1fr}.pr img{width:100%;height:200px}}
+</style></head>
+<body data-page="prestations.html">
+<section class="sec fond-photo" style="padding:70px 0 26px;--img:url(photos/sa-coupe.jpg)"><div class="w"><p class="sur">Prestations</p><h1 class="t1">Ce qu’on fait <em>pour vous</em></h1>
+<nav class="saut" aria-label="Aller à"><a href="#coupes">Coupe et couleur</a><a href="#rythme">Votre rythme</a><a href="#packs">Gammes et packs</a><a href="#cadeau">Carte cadeau</a><a href="#fidelite">Fidélité</a><a href="#mariee">Mariée</a></nav></div></section>
+<section class="sec" id="coupes" style="padding-top:10px"><div class="w"><div class="prest" id="prest"></div>
+<p class="lead" style="font-size:14.5px">Hommes et enfants : avec Maëlle. Durées indicatives, prix affichés au salon.</p></div></section>
+<section class="sec alt fond-photo" id="rythme" style="--img:url(photos/sa-bac.jpg)"><div class="w"><p class="sur">Votre rythme</p><h2>Pressée, ou on <em>prend le temps</em></h2><div class="duo" id="ry"></div>
+<p class="sur" style="margin-top:26px">Les petits plus</p><div class="duo" id="ex"></div></div></section>
+<section class="sec vert"><div class="w"><p class="sur">Heures creuses</p><h2>Le soin est <em style="color:#B9D9A5">offert</em></h2><p class="lead" style="color:#DCEBD0">Du mardi au jeudi, avant 10 h. Repérez « soin offert » sur les heures.</p><p style="margin-top:16px"><a class="b2" style="border-color:#B9D9A5" href="reserver.html">Voir les heures creuses</a></p></div></section>
+<section class="sec fonce fond-photo" id="packs" style="--img:url(photos/sa-couleur.jpg)"><div class="w"><p class="sur">Gammes et packs</p><h2>Vos produits, <em>chez vous</em> aussi</h2><p class="lead">On utilise votre gamme pendant le rendez-vous, puis on vous envoie les conseils par SMS.</p><div class="duo" id="pk"></div></div></section>
+<section class="sec cadeau" id="cadeau"><div class="w"><p class="sur">Carte cadeau</p><h2>Offrez une <em>coupe</em> ou un <em>soin</em></h2><p class="lead">La personne la reçoit par SMS, avec votre mot.</p>
+<div class="form" id="f-cad"><p class="groupe">Quoi</p><div class="choix c3" id="cad-p"></div><p class="groupe">Pour qui</p><input type="text" id="cad-pour" placeholder="Son prénom" autocomplete="off"><p class="groupe">Votre mot (facultatif)</p><textarea id="cad-mot" placeholder="Joyeux anniversaire !"></textarea><p class="err" id="cad-err" role="alert"></p><button type="button" class="go" id="cad-go" style="width:100%;margin-top:6px">Continuer</button><div id="cad-vt"></div></div></div></section>
+<section class="sec" id="fidelite"><div class="w"><p class="sur">Fidélité</p><h2>Votre carte, <em>dans le téléphone</em></h2><p class="lead">Elle se remplit seule à chaque rendez-vous. Rien à imprimer.</p>
+<div class="fid-c"><b>Studio Ambrine</b><div class="tp" id="tp"></div><small>La 10e coupe est offerte. Exemple.</small></div>
+<p style="margin-top:16px;display:flex;flex-wrap:wrap;gap:10px"><a class="b2" href="rdv.html">Voir ma carte</a><button type="button" class="lien" id="aj-tel" aria-expanded="false">Ajouter le salon à mon téléphone</button></p>
+<div class="aide-tel" id="aide-tel" hidden><b>Comme une appli, en 2 gestes :</b><ol><li>Touchez <b>Partager</b> (iPhone) ou <b>⋮</b> (Android).</li><li>Choisissez <b>Sur l’écran d’accueil</b>.</li></ol></div></div></section>
+<section class="sec mar" id="mariee"><div class="w"><p class="sur">Forfait mariée</p><h2>Le grand <em>jour</em></h2><p class="lead">Essai, jour J, témoins : on vous répond par écrit.</p>
+<div class="form"><p class="groupe">Date du mariage</p><input type="date" id="ma-date"><p class="groupe">L’essai</p><div class="choix c3" id="ma-essai"></div><p class="groupe">Témoins à coiffer</p><div class="cpt"><button type="button" id="ma-m" aria-label="Moins">−</button><output id="ma-n">0</output><button type="button" id="ma-p" aria-label="Plus">+</button></div>
+<p class="err" id="ma-err" role="alert"></p><button type="button" class="go" id="ma-go" style="width:100%;margin-top:6px">Continuer</button><div id="ma-vt"></div></div></div></section>
+<script src="donnees.js"></script><script src="api.js"></script><script src="verif-tel.js"></script><script src="commun.js"></script>
+<script>
+(function () {
+  var A = AMBRINE, $ = function (i) { return document.getElementById(i) }, dur = API.dur;
+  $("prest").innerHTML = Object.keys(A.prestations).map(function (k) { var p = A.prestations[k]; return '<div class="pr"><img src="photos/' + A.photos[k] + '" alt=""><div><b>' + p.n + '</b><small>environ ' + dur(p.min) + ' · ' + Object.keys(A.coiffeuses).filter(function (c) { return A.coiffeuses[c].fait.indexOf(k) >= 0 }).map(function (c) { return A.coiffeuses[c].n }).join(", ") + '</small><a class="b2" href="reserver.html?p=' + k + '">Réserver</a></div></div>' }).join("");
+  $("ry").innerHTML = Object.keys(A.rythmes).map(function (k) { var r = A.rythmes[k]; return '<div class="bloc"><span class="m">' + (r.min < 0 ? r.min + " min" : "+ " + r.min + " min") + '</span><b>' + r.n + '</b><p>' + r.d + '.</p></div>' }).join("");
+  $("ex").innerHTML = Object.keys(A.extras).map(function (k) { return '<div class="bloc"><span class="m">+ ' + A.extras[k].min + ' min</span><b>' + A.extras[k].n + '</b></div>' }).join("");
+  $("pk").innerHTML = A.options.gamme.choix.map(function (g) { return '<div class="bloc" style="border-color:var(--trait)"><span class="m">' + g.d + '</span><b>' + A.packs[g.id].n + '</b><p>' + A.packs[g.id].d + '</p></div>' }).join("");
+  $("tp").innerHTML = Array.from({ length: 10 }, function (_, i) { return '<span class="' + (i < 6 ? "ok" : "") + '">' + (i < 6 ? "✓" : i === 9 ? "🎁" : i + 1) + '</span>' }).join("");
+  $("aj-tel").addEventListener("click", function () { var o = $("aide-tel").hidden; $("aide-tel").hidden = !o; this.setAttribute("aria-expanded", o) });
+  /* carte cadeau */
+  var cad = { p: "" };
+  $("cad-p").innerHTML = [["coupe", "Coupe"], ["couleur", "Couleur"], ["balayage", "Balayage"]].map(function (x) { return '<button type="button" class="ch" data-cp="' + x[0] + '" aria-pressed="false"><b>' + x[1] + '</b></button>' }).join("");
+  $("cad-p").addEventListener("click", function (e) { var b = e.target.closest("button"); if (!b) return; cad.p = b.dataset.cp; this.querySelectorAll("button").forEach(function (x) { x.setAttribute("aria-pressed", x === b) }) });
+  $("cad-go").addEventListener("click", function () {
+    var pour = $("cad-pour").value.trim(); if (!cad.p) return $("cad-err").textContent = "Choisissez quoi offrir."; if (!pour) return $("cad-err").textContent = "Le prénom de la personne."; $("cad-err").textContent = ""; this.hidden = true;
+    VerifTel.demander($("cad-vt"), { titre: "Votre portable, pour valider", bouton: "Commander la carte", commerce: A.commerce }, function (u) { location.href = "rdv.html?n=" + API.demande("cadeau", { p: cad.p, pour: pour, mot: $("cad-mot").value.trim(), prenom: u.prenom, tel: u.tel, email: u.email }) });
+  });
+  /* mariée */
+  var ma = { essai: "", n: 0 }, d0 = new Date(); d0.setDate(d0.getDate() + 14); $("ma-date").min = API.iso(d0);
+  $("ma-essai").innerHTML = ["Un mois avant", "Quinze jours avant", "À voir ensemble"].map(function (x) { return '<button type="button" class="ch" data-e="' + x + '" aria-pressed="false"><b style="font-size:16px">' + x + '</b></button>' }).join("");
+  $("ma-essai").addEventListener("click", function (e) { var b = e.target.closest("button"); if (!b) return; ma.essai = b.dataset.e; this.querySelectorAll("button").forEach(function (x) { x.setAttribute("aria-pressed", x === b) }) });
+  $("ma-m").addEventListener("click", function () { ma.n = Math.max(0, ma.n - 1); $("ma-n").textContent = ma.n });
+  $("ma-p").addEventListener("click", function () { ma.n = Math.min(8, ma.n + 1); $("ma-n").textContent = ma.n });
+  $("ma-go").addEventListener("click", function () {
+    var d = $("ma-date").value; if (!d) return $("ma-err").textContent = "La date du mariage."; if (!ma.essai) return $("ma-err").textContent = "Quand faire l’essai ?"; $("ma-err").textContent = ""; this.hidden = true;
+    VerifTel.demander($("ma-vt"), { titre: "Votre portable, pour la réponse", bouton: "Envoyer ma demande", commerce: A.commerce }, function (u) { location.href = "rdv.html?n=" + API.demande("mariee", { jourJ: d, essai: ma.essai, temoins: ma.n, prenom: u.prenom, tel: u.tel, email: u.email }) });
+  });
+})();
+</script></body></html>

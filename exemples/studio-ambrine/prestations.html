@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Prestations · Studio Ambrine</title><meta name="robots" content="noindex">
+<link rel="stylesheet" href="polices/polices.css"><link rel="stylesheet" href="commun.css">
+<style>
+.t1{font-size:clamp(32px,8.5vw,48px)}
+.saut{display:flex;gap:8px;overflow-x:auto;padding:14px 0 4px}.saut a{flex:none;min-height:44px;display:inline-flex;align-items:center;padding:0 14px;border-radius:999px;border:1px solid var(--trait2);text-decoration:none;font-weight:600;font-size:14.5px}
+h2{font-size:clamp(28px,7vw,40px)}
+.prest{display:grid;gap:12px;margin-top:16px}
+.pr{display:grid;grid-template-columns:110px 1fr;gap:14px;align-items:center;padding:10px;border-radius:18px;background:var(--carte);border:1px solid var(--trait)}
+.pr img{width:110px;height:110px;border-radius:12px;object-fit:cover}.pr b{display:block;font:400 24px Newsreader,serif}.pr small{color:var(--doux);display:block;margin:2px 0 8px}.pr .b2{min-height:44px}
+.duo{display:grid;gap:10px;margin-top:16px}.bloc{padding:16px;border-radius:18px;border:1px solid #5A3A40;background:rgba(0,0,0,.2)}.bloc b{display:block;font:400 22px Newsreader,serif}.bloc p{margin:4px 0 0;color:var(--doux2);font-size:15px}.bloc .m{color:var(--rose);font-weight:700;font-size:13.5px}
+.vert{background:var(--grain),radial-gradient(70% 90% at 0% 50%,rgba(150,190,120,.25),transparent 70%),linear-gradient(120deg,#2E3A24,#1E2617)!important}.vert .bloc{border-color:#4E5E41}.vert .sur{color:#B9D9A5}
+.cadeau{background:var(--grain),radial-gradient(70% 60% at 100% 0%,rgba(243,185,178,.28),transparent 65%),linear-gradient(160deg,#5A2C38,#2A1419 75%)!important}
+.fid-c{max-width:360px;padding:18px;border-radius:20px;background:linear-gradient(135deg,#F3B9B2,#C98F88);color:#2A1915;margin-top:16px;box-shadow:0 14px 30px rgba(0,0,0,.35)}
+.fid-c b{font:400 24px Newsreader,serif}.tp{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin:12px 0 4px}.tp span{aspect-ratio:1;border-radius:50%;border:1.5px dashed rgba(42,25,21,.45);display:grid;place-items:center;font-size:13px}.tp .ok{background:#2A1915;color:var(--rose);border:0}
+.mar{background:var(--grain),radial-gradient(70% 60% at 50% 0%,rgba(236,214,180,.22),transparent 70%),linear-gradient(180deg,#3A3028,#1F1915)!important}
+.form{max-width:560px;margin-top:16px}.form .groupe{margin:18px 0 8px;font-size:12.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--doux)}
+.form input[type=text],.form input[type=date],.form textarea{width:100%;height:50px;padding:0 14px;border-radius:12px;border:1.5px solid var(--trait2);background:#FCF8F2;color:#1d1d1d;font:600 17px Figtree}.form textarea{height:90px;padding:10px 14px;font-weight:400}
+.cpt{display:flex;align-items:center;gap:14px}.cpt button{width:48px;height:48px;border-radius:50%;border:1.5px solid var(--trait2);background:var(--carte);font-size:22px}.cpt output{font-weight:800;font-size:20px;min-width:22px;text-align:center}
+.err{color:#F09A8E;font-weight:700;min-height:1px;margin:10px 0 0}
+.aide-tel{margin-top:12px;padding:14px;border-radius:14px;background:var(--carte);font-size:15px}.aide-tel ol{margin:6px 0 0;padding-left:20px}
+@media(min-width:900px){.prest,.duo{grid-template-columns:repeat(3,1fr)}.pr{grid-template-columns:1fr}.pr img{width:100%;height:200px}}
+
+/* packs produits (flacons dessinés en attendant les photos) */
+.packs{display:grid;gap:14px;margin-top:20px}.pack{border-radius:22px;overflow:hidden;border:1px solid rgba(222,184,140,.25);background:linear-gradient(160deg,rgba(68,42,34,.95),rgba(34,20,16,.95));box-shadow:0 14px 34px rgba(0,0,0,.35)}
+.pack .vit{height:190px;display:grid;place-items:center;position:relative;overflow:hidden}.pack .vit img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}.pack .vit svg{position:relative;width:78%;height:auto}
+.pack .txt{padding:16px}.pack h3{font-size:26px}.pack .d{color:var(--doux2);margin:4px 0 10px;font-size:15px}.pack ul{list-style:none;margin:0 0 14px;padding:0;font-size:14.5px;color:var(--doux2)}.pack li{padding:6px 0;border-top:1px solid rgba(222,184,140,.15)}.pack li::before{content:"✓ ";color:var(--rose)}
+.pack .tag{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--rose);margin-bottom:4px}.pack .b2{width:100%}
+/* carte cadeau */
+.cad-g{display:grid;gap:22px;margin-top:20px}.cad-apercu{position:sticky;top:76px;z-index:3;padding:6px 0;background:transparent}
+.gc{position:relative;aspect-ratio:1.6;max-width:420px;margin:0 auto;border-radius:20px;padding:18px;color:#3A1D22;background:radial-gradient(120% 90% at 90% 0%,#FFE6DF,transparent 60%),linear-gradient(135deg,#F7C6BF,#E39A9A 60%,#C77C7C);box-shadow:0 22px 40px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.6);overflow:hidden;display:flex;flex-direction:column;justify-content:space-between}
+.gc::after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 40%,rgba(255,255,255,.35) 50%,transparent 60%);transform:translateX(-120%);animation:brille 5s infinite}@keyframes brille{60%,100%{transform:translateX(120%)}}
+.gc-r{position:absolute;left:0;right:0;top:36%;width:100%;opacity:.8}.gc-h small,.gc-b small{display:block;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;opacity:.75}.gc-h b{font:400 30px/1.05 Newsreader,serif}
+.gc-b{position:relative;z-index:1;background:rgba(255,246,240,.72);border-radius:12px;padding:8px 12px;align-self:flex-start;max-width:78%}.gc-b b{font:400 22px Newsreader,serif}.gc-b i{display:block;font-size:13px;margin-top:2px}.gc-n{font-size:11.5px;letter-spacing:.06em;opacity:.8}
+/* fidélité : carte dans un téléphone */
+.fid-g{display:grid;gap:26px;align-items:center}.etapes{list-style:none;margin:18px 0 0;padding:0;display:grid;gap:10px}.etapes li{display:flex;gap:12px;align-items:center;color:var(--doux2)}.etapes b{flex:none;width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:var(--rose);color:#2A1915;font-weight:800}
+.tel{max-width:300px;margin:0 auto;padding:10px;border-radius:40px;background:#0D0706;box-shadow:0 0 0 2px #3A2A25,0 30px 60px rgba(0,0,0,.55)}.tel-e{border-radius:30px;padding:14px 14px 18px;background:linear-gradient(180deg,#2A1A16,#1A100D);min-height:380px}
+.tel-h{display:block;text-align:center;font-weight:700;font-size:13px;margin-bottom:14px}.tel-n{font-size:12px;text-align:center;color:var(--doux);margin:14px 0 0}
+.wallet{border-radius:20px;padding:16px;background:radial-gradient(100% 80% at 100% 0%,#FFE0D8,transparent 55%),linear-gradient(140deg,#F3B9B2,#C98F88);color:#34191D;box-shadow:0 16px 30px rgba(0,0,0,.45)}.w-t b{font:400 24px Newsreader,serif;display:block}.w-t small{font-size:11px;letter-spacing:.14em;text-transform:uppercase;opacity:.75}
+.w-g{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin:14px 0}.w-g span{aspect-ratio:1;border-radius:50%;display:grid;place-items:center;font-size:12px;border:1.5px dashed rgba(52,25,29,.4)}.w-g .ok{border:0;background:#34191D;color:#F3B9B2;box-shadow:inset 0 2px 4px rgba(0,0,0,.5)}
+.w-b{display:flex;justify-content:space-between;gap:8px;font-size:11.5px;font-weight:700}
+/* mariée */
+.chemin{list-style:none;margin:22px 0;padding:0;display:grid;gap:12px}.chemin li{position:relative;display:grid;grid-template-columns:96px 1fr;column-gap:14px;align-items:center;padding:10px;border-radius:18px;background:rgba(0,0,0,.28);border:1px solid rgba(236,214,180,.2)}.chemin img{grid-row:span 2;width:96px;height:96px;border-radius:14px;object-fit:cover}.chemin b{font:400 24px Newsreader,serif;align-self:end}.chemin small{color:var(--doux2);align-self:start}
+@media(min-width:900px){.packs{grid-template-columns:repeat(3,1fr)}.cad-g{grid-template-columns:1fr 1fr;align-items:start}.fid-g{grid-template-columns:1fr 1fr}.chemin{grid-template-columns:repeat(3,1fr)}.chemin li{grid-template-columns:1fr}.chemin img{grid-row:auto;width:100%;height:150px}}
+</style></head>
+<body data-page="prestations.html">
+<section class="sec fond-photo" style="padding:70px 0 26px;--img:url(photos/sa-coupe.jpg)"><div class="w"><p class="sur">Prestations</p><h1 class="t1">Ce qu’on fait <em>pour vous</em></h1>
+<nav class="saut" aria-label="Aller à"><a href="#coupes">Coupe et couleur</a><a href="#rythme">Votre rythme</a><a href="#packs">Gammes et packs</a><a href="#cadeau">Carte cadeau</a><a href="#fidelite">Fidélité</a><a href="#mariee">Mariée</a></nav></div></section>
+<section class="sec" id="coupes" style="padding-top:10px"><div class="w"><div class="prest" id="prest"></div>
+<p class="lead" style="font-size:14.5px">Hommes et enfants : avec Maëlle. Durées indicatives, prix affichés au salon.</p></div></section>
+<section class="sec alt fond-photo" id="rythme" style="--img:url(photos/sa-bac.jpg)"><div class="w"><p class="sur">Votre rythme</p><h2>Pressée, ou on <em>prend le temps</em></h2><div class="duo" id="ry"></div>
+<p class="sur" style="margin-top:26px">Les petits plus</p><div class="duo" id="ex"></div></div></section>
+<section class="sec vert"><div class="w"><p class="sur">Heures creuses</p><h2>Le soin est <em style="color:#B9D9A5">offert</em></h2><p class="lead" style="color:#DCEBD0">Du mardi au jeudi, avant 10 h. Repérez « soin offert » sur les heures.</p><p style="margin-top:16px"><a class="b2" style="border-color:#B9D9A5" href="reserver.html">Voir les heures creuses</a></p></div></section>
+<section class="sec fonce fond-photo" id="packs" style="--img:url(photos/sa-couleur.jpg)"><div class="w"><p class="sur">Gammes et packs</p><h2>Vos produits, <em>chez vous</em> aussi</h2><p class="lead">On utilise votre gamme pendant le rendez-vous. Vous repartez avec le pack, et les conseils par SMS.</p><div class="packs" id="pk"></div></div></section>
+<section class="sec cadeau" id="cadeau"><div class="w"><p class="sur">Carte cadeau</p><h2>Offrez une <em>coupe</em> ou un <em>soin</em></h2><p class="lead">La personne la reçoit par SMS, avec votre mot. La carte se compose sous vos yeux.</p>
+<div class="cad-g"><div class="cad-apercu"><div class="gc" id="gc"><svg class="gc-r" viewBox="0 0 200 60" aria-hidden="true"><path d="M0 30h200M100 0v60" stroke="rgba(255,255,255,.35)" stroke-width="14"/><path d="M100 30c-26-30-52-14-30 0s30 0 30 0 0 14 30 0 0-30-30 0z" fill="rgba(255,255,255,.55)"/></svg><div class="gc-h"><small>Studio Ambrine</small><b id="gc-q">Une coupe</b></div><div class="gc-b"><small>Pour</small><b id="gc-pour">Prénom</b><i id="gc-mot"></i></div><span class="gc-n">Carte cadeau · valable 1 an</span></div></div>
+<div class="form" id="f-cad"><p class="groupe">Quoi</p><div class="choix c3" id="cad-p"></div><p class="groupe">Pour qui</p><input type="text" id="cad-pour" placeholder="Son prénom" autocomplete="off"><p class="groupe">Votre mot (facultatif)</p><textarea id="cad-mot" maxlength="90" placeholder="Joyeux anniversaire !"></textarea><p class="err" id="cad-err" role="alert"></p><button type="button" class="go" id="cad-go" style="width:100%;margin-top:6px">Continuer</button><div id="cad-vt"></div></div></div></div></section>
+<section class="sec" id="fidelite"><div class="w fid-g"><div><p class="sur">Fidélité</p><h2>Votre carte, <em>dans le téléphone</em></h2><p class="lead">Un tampon à chaque rendez-vous, ajouté tout seul. Rien à imprimer, rien à oublier.</p>
+<ol class="etapes"><li><b>1</b>Vous réservez comme d’habitude.</li><li><b>2</b>Le salon valide le rendez-vous.</li><li><b>3</b>Le tampon arrive sur votre carte.</li></ol>
+<p style="margin-top:16px;display:flex;flex-wrap:wrap;gap:10px"><a class="b2" href="rdv.html">Voir ma carte</a><button type="button" class="lien" id="aj-tel" aria-expanded="false">Ajouter le salon à mon téléphone</button></p>
+<div class="aide-tel" id="aide-tel" hidden><b>Comme une appli, en 2 gestes :</b><ol><li>Touchez <b>Partager</b> (iPhone) ou <b>⋮</b> (Android).</li><li>Choisissez <b>Sur l’écran d’accueil</b>.</li></ol></div></div>
+<div class="tel"><div class="tel-e"><span class="tel-h">9:41</span><div class="wallet"><div class="w-t"><b>Studio Ambrine</b><small>Carte de fidélité</small></div><div class="w-g" id="tp"></div><div class="w-b"><span>6 / 10</span><span>La 10e coupe est offerte</span></div></div><p class="tel-n">Exemple · 6 tampons déjà posés</p></div></div></div></section>
+<section class="sec mar" id="mariee"><div class="w"><p class="sur">Forfait mariée</p><h2>Le grand <em>jour</em>, sans stress</h2><p class="lead">Essai, jour J, témoins : on s’organise ensemble, et on vous répond par écrit.</p>
+<ol class="chemin"><li><img src="photos/sa-real-longues.jpg" alt=""><b>L’essai</b><small>On choisit la coiffure, calmement.</small></li><li><img src="photos/sa-accueil.jpg" alt=""><b>Le jour J</b><small>Le salon se libère pour vous.</small></li><li><img src="photos/sa-real-boucles.jpg" alt=""><b>Les témoins</b><small>Mêmes mains, même style.</small></li></ol>
+<div class="form"><p class="groupe">Date du mariage</p><input type="date" id="ma-date"><p class="groupe">L’essai</p><div class="choix c3" id="ma-essai"></div><p class="groupe">Témoins à coiffer</p><div class="cpt"><button type="button" id="ma-m" aria-label="Moins">−</button><output id="ma-n">0</output><button type="button" id="ma-p" aria-label="Plus">+</button></div>
+<p class="err" id="ma-err" role="alert"></p><button type="button" class="go" id="ma-go" style="width:100%;margin-top:6px">Continuer</button><div id="ma-vt"></div></div></div></section>
+<script src="donnees.js"></script><script src="api.js"></script><script src="verif-tel.js"></script><script src="commun.js"></script>
+<script>
+(function () {
+  var A = AMBRINE, $ = function (i) { return document.getElementById(i) }, dur = API.dur;
+  $("prest").innerHTML = Object.keys(A.prestations).map(function (k) { var p = A.prestations[k]; return '<div class="pr"><img src="photos/' + A.photos[k] + '" alt=""><div><b>' + p.n + '</b><small>environ ' + dur(p.min) + ' · ' + Object.keys(A.coiffeuses).filter(function (c) { return A.coiffeuses[c].fait.indexOf(k) >= 0 }).map(function (c) { return A.coiffeuses[c].n }).join(", ") + '</small><a class="b2" href="reserver.html?p=' + k + '">Réserver</a></div></div>' }).join("");
+  $("ry").innerHTML = Object.keys(A.rythmes).map(function (k) { var r = A.rythmes[k]; return '<div class="bloc"><span class="m">' + (r.min < 0 ? r.min + " min" : "+ " + r.min + " min") + '</span><b>' + r.n + '</b><p>' + r.d + '.</p></div>' }).join("");
+  $("ex").innerHTML = Object.keys(A.extras).map(function (k) { return '<div class="bloc"><span class="m">+ ' + A.extras[k].min + ' min</span><b>' + A.extras[k].n + '</b></div>' }).join("");
+  var COUL = { douce: ["#EFE8D8", "#8FA58A", "#C9D6BF"], classique: ["#F8E3E0", "#E2A5A2", "#FFF6F3"], haute: ["#3A2420", "#C9A064", "#6B4A38"] };
+  function bout(x, c, h, o) { return '<g transform="translate(' + x + ' ' + (150 - h) + ')"><rect x="8" y="0" width="16" height="12" rx="3" fill="' + c[1] + '"/><rect x="0" y="10" width="32" height="' + (h - 10) + '" rx="9" fill="' + c[0] + '" stroke="rgba(0,0,0,.18)"/><rect x="5" y="' + (h * .35) + '" width="22" height="' + (h * .35) + '" rx="3" fill="' + c[2] + '"/><rect x="9" y="' + (h * .45) + '" width="14" height="3" rx="1.5" fill="' + c[1] + '"/><rect x="11" y="' + (h * .45 + 8) + '" width="10" height="2" rx="1" fill="' + c[1] + '" opacity=".6"/><ellipse cx="9" cy="' + (h * .5) + '" rx="3" ry="' + (h * .3) + '" fill="rgba(255,255,255,.35)"/></g>' }
+  function pot(x, c) { return '<g transform="translate(' + x + ' 100)"><rect x="0" y="12" width="52" height="38" rx="8" fill="' + c[0] + '" stroke="rgba(0,0,0,.18)"/><rect x="-2" y="0" width="56" height="16" rx="6" fill="' + c[1] + '"/><rect x="10" y="26" width="32" height="14" rx="3" fill="' + c[2] + '"/><ellipse cx="8" cy="31" rx="3" ry="14" fill="rgba(255,255,255,.3)"/></g>' }
+  var FOND = { douce: "linear-gradient(160deg,#D6DEC8,#B7C2A6)", classique: "linear-gradient(160deg,#F7D5D0,#E8B0AC)", haute: "linear-gradient(160deg,#5A3A2B,#2E1A14)" };
+  var CONT = { douce: ["Shampoing sans parfum", "Soin apaisant", "Pour cuir chevelu sensible"], classique: ["Shampoing du quotidien", "Démêlant léger", "Pour tous les cheveux"], haute: ["Shampoing nourrissant", "Masque réparateur", "Pour cheveux abîmés"] };
+  $("pk").innerHTML = A.options.gamme.choix.map(function (g) { var c = COUL[g.id];
+    return '<article class="pack"><div class="vit" style="background:' + FOND[g.id] + '"><svg viewBox="0 0 200 160" aria-hidden="true"><ellipse cx="100" cy="152" rx="86" ry="8" fill="rgba(0,0,0,.25)"/>' + bout(34, c, 120) + bout(78, c, 100) + pot(122, c) + '</svg></div><div class="txt"><span class="tag">' + g.d + '</span><h3>' + A.packs[g.id].n + '</h3><p class="d">' + A.packs[g.id].d + '</p><ul>' + CONT[g.id].map(function (x) { return "<li>" + x + "</li>" }).join("") + '</ul><a class="b2" href="reserver.html?p=coupe&gamme=' + g.id + '">Réserver avec cette gamme</a></div></article>' }).join("");
+  $("tp").innerHTML = Array.from({ length: 10 }, function (_, i) { return '<span class="' + (i < 6 ? "ok" : "") + '">' + (i < 6 ? "✂" : i === 9 ? "🎁" : i + 1) + '</span>' }).join("");
+  $("aj-tel").addEventListener("click", function () { var o = $("aide-tel").hidden; $("aide-tel").hidden = !o; this.setAttribute("aria-expanded", o) });
+  /* carte cadeau */
+  var cad = { p: "" };
+  $("cad-p").innerHTML = [["coupe", "Coupe"], ["couleur", "Couleur"], ["balayage", "Balayage"]].map(function (x) { return '<button type="button" class="ch" data-cp="' + x[0] + '" aria-pressed="false"><b>' + x[1] + '</b></button>' }).join("");
+  $("cad-p").addEventListener("click", function (e) { var b = e.target.closest("button"); if (!b) return; cad.p = b.dataset.cp; this.querySelectorAll("button").forEach(function (x) { x.setAttribute("aria-pressed", x === b) }) });
+  var QN = { coupe: "Une coupe", couleur: "Une couleur", balayage: "Un balayage" };
+  function gcm() { $("gc-q").textContent = QN[cad.p] || "Une coupe"; $("gc-pour").textContent = $("cad-pour").value.trim() || "Prénom"; var m = $("cad-mot").value.trim(); $("gc-mot").textContent = m ? "« " + m + " »" : "" }
+  $("cad-p").addEventListener("click", gcm); $("cad-pour").addEventListener("input", gcm); $("cad-mot").addEventListener("input", gcm);
+  $("cad-go").addEventListener("click", function () {
+    var pour = $("cad-pour").value.trim(); if (!cad.p) return $("cad-err").textContent = "Choisissez quoi offrir."; if (!pour) return $("cad-err").textContent = "Le prénom de la personne."; $("cad-err").textContent = ""; this.hidden = true;
+    VerifTel.demander($("cad-vt"), { titre: "Votre portable, pour valider", bouton: "Commander la carte", commerce: A.commerce }, function (u) { location.href = "rdv.html?n=" + API.demande("cadeau", { p: cad.p, pour: pour, mot: $("cad-mot").value.trim(), prenom: u.prenom, tel: u.tel, email: u.email }) });
+  });
+  /* mariée */
+  var ma = { essai: "", n: 0 }, d0 = new Date(); d0.setDate(d0.getDate() + 14); $("ma-date").min = API.iso(d0);
+  $("ma-essai").innerHTML = ["Un mois avant", "Quinze jours avant", "À voir ensemble"].map(function (x) { return '<button type="button" class="ch" data-e="' + x + '" aria-pressed="false"><b style="font-size:16px">' + x + '</b></button>' }).join("");
+  $("ma-essai").addEventListener("click", function (e) { var b = e.target.closest("button"); if (!b) return; ma.essai = b.dataset.e; this.querySelectorAll("button").forEach(function (x) { x.setAttribute("aria-pressed", x === b) }) });
+  $("ma-m").addEventListener("click", function () { ma.n = Math.max(0, ma.n - 1); $("ma-n").textContent = ma.n });
+  $("ma-p").addEventListener("click", function () { ma.n = Math.min(8, ma.n + 1); $("ma-n").textContent = ma.n });
+  $("ma-go").addEventListener("click", function () {
+    var d = $("ma-date").value; if (!d) return $("ma-err").textContent = "La date du mariage."; if (!ma.essai) return $("ma-err").textContent = "Quand faire l’essai ?"; $("ma-err").textContent = ""; this.hidden = true;
+    VerifTel.demander($("ma-vt"), { titre: "Votre portable, pour la réponse", bouton: "Envoyer ma demande", commerce: A.commerce }, function (u) { location.href = "rdv.html?n=" + API.demande("mariee", { jourJ: d, essai: ma.essai, temoins: ma.n, prenom: u.prenom, tel: u.tel, email: u.email }) });
+  });
+})();
+</script></body></html>
