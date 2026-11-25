@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Commander un bouquet · Fleurs Arnelle</title><meta name="robots" content="noindex">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Karla:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="commun.css"><link rel="stylesheet" href="carte.css">
+<style>
+.mag{max-width:640px;margin:0 auto;padding:18px 16px 140px}
+.pas{display:flex;align-items:center;justify-content:space-between;font-size:13.5px;color:var(--doux);font-weight:600}
+.barre{height:6px;border-radius:9px;background:var(--trait);margin:8px 0 22px;overflow:hidden}.barre i{display:block;height:100%;background:var(--rose);border-radius:9px;transition:width .3s}
+.q{font-size:clamp(30px,8vw,42px)}.aide{color:var(--doux2);margin:8px 0 18px}
+.groupe{margin:22px 0 10px;font-size:12.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--doux)}
+.bas{position:fixed;left:0;right:0;bottom:0;z-index:20;background:rgba(16,28,21,.96);backdrop-filter:blur(10px);border-top:1px solid var(--trait);padding:12px 16px calc(12px + env(safe-area-inset-bottom))}
+.bas .in{max-width:640px;margin:0 auto;display:flex;gap:10px;align-items:center}.bas .go{flex:1}.bas .retour{width:54px;height:54px;border-radius:50%;border:1.5px solid var(--trait2);background:none;font-size:20px;flex:none}
+.bas .info{font-size:13px;color:var(--doux);text-align:center;margin:0 0 8px}
+.occ .ch{min-height:76px;flex-direction:row;justify-content:flex-start;gap:14px;text-align:left;padding:12px 16px}.occ .ch svg{flex:none;width:34px;height:34px;fill:none;stroke:var(--rose);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}.occ .ch span b{display:block}
+.occ .ch[aria-pressed=true] svg{stroke:var(--rose)}
+.tl .ch{min-height:170px;justify-content:flex-end}.tl .ch svg{width:70px;height:70px;fill:var(--rose);stroke:none;opacity:.9;margin-bottom:4px}.tl .ch svg .x{}
+.carte-w{border-radius:18px;overflow:hidden;box-shadow:0 0 0 1px rgba(216,191,153,.3),0 14px 30px rgba(0,0,0,.35)}.carte-w svg{display:block;width:100%;height:auto}
+.com-i{margin-top:12px;padding:12px 14px;border-radius:14px;background:var(--carte);min-height:50px}
+.jours{display:flex;gap:8px;overflow-x:auto;padding:2px 2px 10px}.jours .ch{flex:0 0 112px;min-height:84px;white-space:normal}.jours .ch b{font-size:21px}
+.mom{display:grid;gap:10px}.mom .ch{align-items:flex-start;text-align:left;padding:14px 16px;flex-direction:column}
+textarea,input[type=text]{width:100%;padding:12px 14px;border-radius:12px;border:1.5px solid var(--trait2);background:#F8F3E8;color:#1d1d1d;font:600 17px Karla,sans-serif}textarea{min-height:100px;font-weight:400}
+.ligne{display:flex;gap:12px;align-items:center;padding:14px 0;border-bottom:1px solid var(--trait)}.ligne span{flex:1}.ligne small{display:block;color:var(--doux);font-size:13px}.ligne b{font-weight:600}
+.recap{background:var(--carte);border-radius:18px;padding:4px 16px;border:1px solid var(--trait)}
+.retrait{display:flex;gap:12px;align-items:center;margin-top:14px;padding:14px;border-radius:14px;border:1px solid var(--trait2);cursor:pointer}.retrait input{width:22px;height:22px;accent-color:#EFC3BB}
+.stop{padding:14px;border-radius:14px;background:#3B2A1C;border:1px solid #6B4A2E;color:#F3C08F;margin-top:12px}
+</style></head>
+<body data-page="commander.html" data-sans-pied>
+<main class="mag"><div class="pas"><span id="pas"></span><span>Prix confirmé par SMS</span></div><div class="barre"><i id="bar"></i></div><div id="ecran"></div></main>
+<div class="bas"><p class="info" id="info" hidden></p><div class="in"><button class="retour" id="retour" type="button" aria-label="Retour">←</button><button class="go" id="suite" type="button">Continuer</button></div></div>
+<script src="donnees.js"></script><script src="api.js"></script><script src="icones.js"></script><script src="carte.js"></script><script src="verif-tel.js"></script><script src="commun.js"></script>
+<script>
+(function () {
+  var A = ARNELLE, h = LDR.h, E = document.getElementById("ecran"), J = API.jours();
+  var S = { occasion: "", style: "", taille: "", commune: "Verdun", jour: "", moment: "peu", pour: "", mot: "", retrait: false };
+  var ETAPES = ["occasion", "style", "taille", "commune", "quand", "carte", "vous"], i = 0, carteMontee = false;
+  if (LDR.param("style")) { S.style = LDR.param("style"); i = 0 }
+  var pr = function (on) { return ' aria-pressed="' + (on ? "true" : "false") + '"' };
+  var premier = (J.filter(function (j) { return !j.tard })[0] || {}).iso || "";
+  function rendu() {
+    var et = ETAPES[i], html = "", ok = true, info = "", suite = "Continuer";
+    document.getElementById("pas").textContent = "Étape " + (i + 1) + " sur " + ETAPES.length; document.getElementById("bar").style.width = ((i + 1) / ETAPES.length * 100) + "%";
+    document.getElementById("retour").style.visibility = i ? "visible" : "hidden";
+    document.querySelector(".bas").hidden = et === "vous";
+    if (et === "occasion") {
+      html = '<h1 class="q">C’est pour <em>quelle occasion</em> ?</h1><p class="aide">Touchez votre choix.</p><div class="choix occ">' +
+        A.occasions.map(function (o) { return '<button type="button" class="ch" data-o="' + o[0] + '"' + pr(S.occasion === o[0]) + '>' + ICO.occ[o[0]] + '<span><b>' + o[1] + '</b><small>' + o[2] + '</small></span></button>' }).join("") + '</div>';
+      ok = !!S.occasion; info = ok ? "" : "Choisissez une occasion";
+    }
+    if (et === "style") {
+      html = '<h1 class="q">Quel <em>style</em> ?</h1><p class="aide">Arnelle compose avec les fleurs du jour.</p><div class="choix c2">' +
+        A.styles.map(function (o) { return '<button type="button" class="ch ph" data-s="' + o[0] + '"' + pr(S.style === o[0]) + '><img src="photos/' + o[3] + '" alt=""><b>' + o[1] + '</b><small>' + o[2] + '</small></button>' }).join("") + '</div>';
+      ok = !!S.style; info = ok ? "" : "Choisissez un style";
+    }
+    if (et === "taille") {
+      html = '<h1 class="q">Quelle <em>taille</em> ?</h1><p class="aide">Pour vous guider, pas de chiffre à retenir.</p><div class="choix c3 tl">' +
+        A.tailles.map(function (o, k) { return '<button type="button" class="ch" data-t="' + o[0] + '"' + pr(S.taille === o[0]) + '>' + ICO.taille(k) + '<b>' + o[1] + '</b><small>' + o[2] + '</small></button>' }).join("") + '</div>';
+      ok = !!S.taille; info = ok ? "" : "Choisissez une taille";
+    }
+    if (et === "commune") {
+      html = '<h1 class="q">On livre <em>où</em> ?</h1><p class="aide">Touchez votre commune sur la carte. La tournée part de la boutique.</p><div class="carte-w" id="carte"></div><div class="com-i" id="com-i"></div>';
+    }
+    if (et === "quand") {
+      if (!S.jour || (J.filter(function (j) { return j.iso === S.jour })[0] || {}).tard) S.jour = premier;
+      html = '<h1 class="q">Quel <em>jour</em> ?</h1><p class="aide">Commandé avant 11 h, livré aujourd’hui. Après, c’est demain.</p><div class="jours">' +
+        J.map(function (j) { return '<button type="button" class="ch" data-j="' + j.iso + '"' + pr(S.jour === j.iso) + (j.tard ? " disabled" : "") + '><b>' + (j.auj ? "Aujourd’hui" : LDR.cap(LDR.jour(j.iso).split(" ")[0])) + '</b><small>' + (j.tard ? "trop tard (après 11 h)" : j.d.getDate() + " " + LDR.MC[j.d.getMonth()]) + '</small></button>' }).join("") + '</div>' +
+        '<p class="groupe">Quel moment</p><div class="mom">' + A.moments.map(function (m) { return '<button type="button" class="ch" data-m="' + m[0] + '"' + pr(S.moment === m[0]) + '><b>' + m[1] + '</b><small>' + m[2] + '</small></button>' }).join("") + '</div>';
+      ok = !!S.jour;
+    }
+    if (et === "carte") {
+      html = '<h1 class="q">Un <em>mot</em> sur la carte</h1><p class="aide">Facultatif. Arnelle l’écrit à la main.</p><p class="groupe">Pour qui</p><input type="text" id="pour" placeholder="Son prénom" value="' + h(S.pour) + '" autocomplete="off"><p class="groupe">Votre mot</p><textarea id="mot" maxlength="140" placeholder="Joyeux anniversaire !">' + h(S.mot) + '</textarea>' +
+        '<label class="retrait"><input type="checkbox" id="retrait"' + (S.retrait ? " checked" : "") + '><span><b>Je viens le chercher à la boutique</b><br><small style="color:var(--doux)">9 rue des Glycines, mardi au samedi</small></span></label>';
+      ok = !!S.pour.trim(); info = ok ? "" : "Le prénom de la personne";
+    }
+    if (et === "vous") {
+      var L = function (t, v, k) { return '<div class="ligne"><span><small>' + t + '</small><b>' + h(v) + '</b></span><button type="button" class="lien" data-va="' + k + '">Modifier</button></div>' };
+      html = '<h1 class="q">On <em>vérifie</em> ensemble</h1><div class="recap" style="margin-top:16px">' + L("Bouquet", LDR.cap(LDR.nom(A.styles, S.style).toLowerCase()) + ", " + LDR.nom(A.tailles, S.taille).toLowerCase() + " · " + LDR.nom(A.occasions, S.occasion).toLowerCase(), 0) +
+        L("Pour", S.pour + (S.mot ? " · « " + S.mot + " »" : ""), 5) + L(S.retrait ? "Retrait" : "Livraison", S.retrait ? "À la boutique, " + LDR.jour(S.jour) : S.commune + ", " + LDR.jour(S.jour) + " · " + LDR.nom(A.moments, S.moment).toLowerCase(), 5) + '</div>' +
+        '<p class="aide" style="margin-top:14px;font-size:14px">Avant de partir, vous recevez la photo de votre bouquet par SMS.</p><div id="vt"></div>';
+    }
+    E.innerHTML = html; var b = document.getElementById("suite"); b.textContent = suite; b.disabled = !ok;
+    var I = document.getElementById("info"); I.hidden = !info; I.textContent = info;
+    if (et === "commune") { Carte.monter(document.getElementById("carte")); window.onCommune = function (c) { S.commune = c.n; document.getElementById("com-i").innerHTML = "<b>" + h(c.n) + "</b> : livré l’après-midi" + (c.c ? "." : ", dans la zone du jour.") + " Frais de livraison confirmés par SMS." }; Carte.choisir(S.commune) }
+    if (et === "vous") VerifTel.demander(document.getElementById("vt"), { titre: "Votre portable, pour confirmer", bouton: "Envoyer ma commande", commerce: A.commerce }, envoyer);
+  }
+  function envoyer(u) {
+    var id = API.creer("commande", { occasion: S.occasion, style: S.style, taille: S.taille, commune: S.retrait ? "" : S.commune, jour: S.jour, moment: S.moment, pour: S.pour.trim(), mot: S.mot.trim(), retrait: S.retrait, prenom: u.prenom, tel: u.tel, email: u.email, offres: u.offres });
+    location.href = "suivi.html?n=" + encodeURIComponent(id);
+  }
+  E.addEventListener("click", function (e) {
+    var b = e.target.closest("button"); if (!b || b.disabled) return; var d = b.dataset, auto = 0;
+    if (d.o) { S.occasion = d.o; auto = 1 } if (d.s) { S.style = d.s; auto = 1 } if (d.t) { S.taille = d.t; auto = 1 }
+    if (d.j) S.jour = d.j; if (d.m) S.moment = d.m;
+    if (d.va) { i = +d.va; return rendu() }
+    if (b.closest(".vt") || b.closest(".zc")) return;
+    rendu(); if (auto) setTimeout(function () { aller(1) }, 200);
+  });
+  E.addEventListener("input", function (e) { if (e.target.id === "pour") { S.pour = e.target.value; var ok = !!S.pour.trim(); document.getElementById("suite").disabled = !ok; document.getElementById("info").hidden = ok } if (e.target.id === "mot") S.mot = e.target.value });
+  E.addEventListener("change", function (e) { if (e.target.id === "retrait") { S.retrait = e.target.checked } });
+  function aller(n) { i = Math.max(0, Math.min(ETAPES.length - 1, i + n)); rendu(); scrollTo(0, 0) }
+  document.getElementById("suite").addEventListener("click", function () { aller(1) });
+  document.getElementById("retour").addEventListener("click", function () { aller(-1) });
+  rendu();
+})();
+</script></body></html>

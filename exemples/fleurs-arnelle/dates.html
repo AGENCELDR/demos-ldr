@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Mes dates · Fleurs Arnelle</title><meta name="robots" content="noindex">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Karla:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="commun.css"><style>
+.mag{max-width:640px;margin:0 auto;padding:18px 16px 60px}.groupe{margin:20px 0 8px;font-size:12.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--doux)}
+input[type=text]{width:100%;height:50px;padding:0 14px;border-radius:12px;border:1.5px solid var(--trait2);background:#F8F3E8;color:#1d1d1d;font:600 17px Karla}
+.cal{display:grid;grid-template-columns:90px 1fr;gap:10px}.sel{height:50px;border-radius:12px;border:1.5px solid var(--trait2);background:#F8F3E8;color:#1d1d1d;font:600 17px Karla;padding:0 10px;width:100%}
+.dt{display:flex;gap:14px;align-items:center;padding:14px;border-radius:18px;background:var(--carte);border:1px solid var(--trait);margin-top:10px}.dt .j{flex:none;width:58px;height:62px;border-radius:12px;background:#F8F3E8;color:#1d1d1d;text-align:center;overflow:hidden}.dt .j small{display:block;background:var(--rose);color:#14221A;font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:2px 0}.dt .j b{display:block;font:600 26px/1.3 "Cormorant Garamond",serif}
+.dt span{flex:1}.dt span small{display:block;color:var(--doux)}.dt .go{min-height:44px;padding:0 14px;font-size:14.5px}
+.err{color:#F09A8E;font-weight:700;margin:10px 0 0}.mx{display:flex;gap:8px}.mx .ch{flex:1}
+</style></head>
+<body data-page="dates.html">
+<main class="mag"><p class="sur">Mes dates</p><h1 style="font-size:clamp(34px,9vw,52px)">On y pense <em>pour vous</em></h1><p class="lead">Notez un anniversaire. On vous prévient avant, et vous commandez en un geste.</p>
+<div id="liste"></div><div id="form"><p class="groupe">Pour qui ?</p><input type="text" id="qui" placeholder="Maman, Julie…" autocomplete="off"><p class="groupe">Le jour</p><div class="cal"><select class="sel" id="jj"></select><select class="sel" id="mm"></select></div>
+<p class="groupe">C’est pour…</p><div class="choix c2" id="oc"></div><p class="groupe">Rappel avant</p><div class="choix mx" id="dl"></div><p class="err" id="err" role="alert"></p><button type="button" class="go" id="go" style="width:100%;margin-top:6px">Continuer</button><div id="vt"></div></div></main><script src="donnees.js"></script><script src="api.js"></script><script src="verif-tel.js"></script><script src="commun.js"></script>
+<script>
+(function () {
+  var A = ARNELLE, h = LDR.h, el = function (i) { return document.getElementById(i) }, S = { occ: "un anniversaire", delai: "7" };
+  var OC = ["un anniversaire", "la fête des mères", "notre rencontre", "autre chose"], DL = ["3", "7", "15"];
+  el("jj").innerHTML = Array.from({ length: 31 }, function (_, i) { return "<option>" + (i + 1) + "</option>" }).join(""); el("mm").innerHTML = LDR.MOIS.map(function (m, i) { return '<option value="' + (i + 1) + '">' + m + "</option>" }).join("");
+  function mise() { el("oc").innerHTML = OC.map(function (o) { return '<button type="button" class="ch" data-o="' + o + '" aria-pressed="' + (S.occ === o) + '"><b style="font-size:17px">' + o + '</b></button>' }).join(""); el("dl").innerHTML = DL.map(function (o) { return '<button type="button" class="ch" data-d="' + o + '" aria-pressed="' + (S.delai === o) + '"><b>' + o + ' jours</b></button>' }).join("") }
+  function liste() { var L = API.mes().map(API.un).filter(function (r) { return r && r.type === "date" && r.etat !== "annule" });
+    el("liste").innerHTML = '<div class="dt"><div class="j"><small>févr.</small><b>14</b></div><span><b>Maman</b><small>un anniversaire · rappel 7 jours avant · exemple</small></span><a class="go" href="commander.html">Offrir</a></div>' +
+      L.map(function (r) { return '<div class="dt"><div class="j"><small>' + LDR.MC[r.m - 1] + '.</small><b>' + r.j + '</b></div><span><b>' + h(r.qui) + '</b><small>' + h(r.occ) + ' · rappel ' + r.delai + ' jours avant</small></span><a class="go" href="commander.html">Offrir</a></div>' }).join("") }
+  document.querySelector(".mag").addEventListener("click", function (e) { var b = e.target.closest("button"); if (!b || b.closest(".vt")) return; if (b.dataset.o) S.occ = b.dataset.o; if (b.dataset.d) S.delai = b.dataset.d; if (b.dataset.o || b.dataset.d) mise() });
+  el("go").addEventListener("click", function () { var q = el("qui").value.trim(); if (!q) { el("err").textContent = "Pour qui ? Un prénom suffit."; return } el("err").textContent = ""; this.hidden = true;
+    VerifTel.demander(el("vt"), { titre: "Votre portable, pour le rappel", bouton: "Ajouter cette date", commerce: A.commerce }, function (u) { API.creer("date", { qui: q, j: +el("jj").value, m: +el("mm").value, occ: S.occ, delai: S.delai, prenom: u.prenom, tel: u.tel, email: u.email }); location.href = "dates.html" }) });
+  mise(); liste();
+})();
+</script></body></html>

@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Ateliers · Fleurs Arnelle</title><meta name="robots" content="noindex">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Karla:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="commun.css"><style>
+h2{font-size:clamp(30px,7.5vw,44px)}.at{display:grid;gap:14px;margin-top:20px}
+.a{border-radius:22px;overflow:hidden;border:1px solid rgba(216,191,153,.25);background:linear-gradient(160deg,rgba(46,74,58,.95),rgba(24,42,32,.95));box-shadow:0 14px 30px rgba(0,0,0,.3)}.a img{width:100%;height:170px;object-fit:cover}.a .tx{padding:16px}.a h3{font-size:28px}.a p{color:var(--doux2);margin:6px 0 10px}.a .car{display:inline-block;padding:4px 10px;border-radius:999px;background:rgba(239,195,187,.15);color:var(--rose);font-size:13px;font-weight:700}
+.sess{display:grid;gap:8px;margin:12px 0}.sess .ch{flex-direction:row;justify-content:space-between;padding:12px 14px;min-height:56px}.sess .ch small{color:var(--doux)}.sess .ch[disabled] small{color:#F09A8E}
+.cpt{display:flex;align-items:center;gap:12px;margin:10px 0}.cpt button{width:44px;height:44px;border-radius:50%;border:1.5px solid var(--trait2);background:var(--carte);font-size:20px}.cpt output{min-width:20px;text-align:center;font-weight:800;font-size:18px}
+.plein{padding:12px;border-radius:12px;background:var(--carte);color:var(--doux2)}
+@media(min-width:900px){.at{grid-template-columns:repeat(2,1fr)}}
+</style></head>
+<body data-page="ateliers.html">
+<section class="sec"><div class="w"><p class="sur">Ateliers et cours</p><h1 style="font-size:clamp(34px,9vw,52px)">Apprenez <em>en faisant</em></h1><p class="lead">En boutique. Places limitées. Vous repartez avec un cadeau.</p><div class="at" id="at"></div></div></section><script src="donnees.js"></script><script src="api.js"></script><script src="verif-tel.js"></script><script src="commun.js"></script>
+<script>
+(function () {
+  var A = ARNELLE, h = LDR.h, ouvert = "", sel = {}, Z = document.getElementById("at");
+  function rendu() {
+    Z.innerHTML = A.ateliers.map(function (a) { var s = sel[a.id], reste = s ? API.places(a, s) : 0;
+      var x = '<article class="a"><img src="photos/' + a.img + '" alt="" loading="lazy"><div class="tx"><span class="car">Vous repartez avec ' + h(a.c) + '</span><h3>' + h(a.t) + '</h3><p>' + h(a.d) + '</p>';
+      if (ouvert === a.id) { x += '<div class="sess">' + a.sess.map(function (d) { var p = API.places(a, d); return '<button type="button" class="ch" data-s="' + a.id + '|' + d + '" aria-pressed="' + (s === d) + '"' + (p ? "" : " disabled") + '><b>' + h(LDR.cap(LDR.jour(d))) + ' · ' + h(a.q.replace(/^\S+ /, "")) + '</b><small>' + (p ? p + " place" + (p > 1 ? "s" : "") : "complet") + '</small></button>' }).join("") + '</div>';
+        if (s) { var n = sel[a.id + "n"] || 1; x += '<div class="cpt"><span>Places</span><button type="button" data-m="' + a.id + '" aria-label="Moins">−</button><output>' + n + '</output><button type="button" data-p="' + a.id + '" aria-label="Plus">+</button></div><div id="vt-' + a.id + '"></div>' } }
+      else x += '<button type="button" class="b2" data-o="' + a.id + '" style="width:100%">Choisir une date</button>';
+      return x + '</div></article>' }).join("");
+    if (ouvert && sel[ouvert]) { var a = A.ateliers.filter(function (q) { return q.id === ouvert })[0]; VerifTel.demander(document.getElementById("vt-" + ouvert), { titre: "Votre portable, pour réserver", bouton: "Réserver ma place", commerce: A.commerce }, function (u) { location.href = "suivi.html?n=" + API.creer("atelier", { at: a.id, date: sel[a.id], n: sel[a.id + "n"] || 1, prenom: u.prenom, tel: u.tel, email: u.email }) }) }
+  }
+  Z.addEventListener("click", function (e) { var b = e.target.closest("button"); if (!b || b.disabled || b.closest(".vt")) return; var d = b.dataset;
+    if (d.o) ouvert = d.o; if (d.s) { var p = d.s.split("|"); sel[p[0]] = p[1] } if (d.p) { var a = A.ateliers.filter(function (q) { return q.id === d.p })[0]; sel[d.p + "n"] = Math.min(API.places(a, sel[d.p]), (sel[d.p + "n"] || 1) + 1) } if (d.m) sel[d.m + "n"] = Math.max(1, (sel[d.m + "n"] || 1) - 1); rendu() });
+  rendu();
+})();
+</script></body></html>

@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Mon rendez-vous · Studio Ambrine</title><meta name="robots" content="noindex">
+<link rel="stylesheet" href="polices/polices.css"><link rel="stylesheet" href="commun.css">
+<style>
+.mag{max-width:640px;margin:0 auto;padding:22px 16px 40px}
+.fiche{background:var(--carte);border:1px solid var(--trait);border-radius:20px;padding:18px;margin-top:16px}
+.etat{display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border-radius:999px;font-weight:700;font-size:14.5px}
+.etat i{width:10px;height:10px;border-radius:50%;background:currentColor}
+.e-envoye{background:#3D3020;color:#F1C77A}.e-vu{background:#22303A;color:#9CC8E6}.e-confirme{background:#22331F;color:#9FD58C}.e-propose{background:#3B2A1C;color:#F3A86B}.e-refuse{background:#3A1E1E;color:#F09A8E}.e-annule{background:#2D2624;color:#B5A59F}
+.num{float:right;font-size:13px;color:var(--doux);margin-top:8px}
+.grand{font:400 clamp(26px,7vw,34px)/1.15 Newsreader,serif;margin:14px 0 4px}
+.sous{color:var(--doux2)}
+.fil{display:flex;margin:18px 0 6px;gap:6px}.fil div{flex:1;text-align:center;font-size:12px;color:var(--doux)}.fil div::before{content:"";display:block;height:5px;border-radius:5px;background:var(--trait);margin-bottom:6px}.fil .ok{color:var(--texte)}.fil .ok::before{background:#9FD58C}
+.prop{margin-top:14px;padding:14px;border-radius:16px;background:#3B2A1C;border:1px solid #6B4A2E}.prop p{margin:0 0 10px}
+.act{display:grid;gap:10px;margin-top:16px}.act .go,.act .b2{width:100%}
+.mini{display:flex;flex-wrap:wrap;gap:4px 18px;margin-top:8px}
+.det{margin:12px 0 0;padding:0;list-style:none;font-size:14.5px;color:var(--doux2)}.det li{padding:6px 0;border-top:1px solid var(--trait)}
+.confirm{margin-top:10px;padding:14px;border-radius:14px;background:#3A1E1E}.confirm p{margin:0 0 10px}
+.fid{margin-top:22px;padding:18px;border-radius:20px;background:linear-gradient(135deg,#4A2A2E,#2A1916);border:1px solid #6A4048}
+.tampons{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin:12px 0 6px}.tampons span{aspect-ratio:1;border-radius:50%;border:1.5px dashed #8E6A6E;display:grid;place-items:center;font-size:13px;color:var(--doux)}.tampons .ok{border:0;background:var(--rose);color:#2A1915;font-weight:800}
+.retard{display:flex;gap:8px;margin-top:8px}.retard .ch{flex:1;min-height:48px}
+.liste a{display:flex;justify-content:space-between;align-items:center;gap:10px;text-decoration:none;padding:14px 0;border-bottom:1px solid var(--trait)}
+.salon-l{display:block;text-align:center;margin-top:26px;font-size:14px;color:var(--doux)}
+</style></head>
+<body data-page="rdv.html">
+<main class="mag" style="background:radial-gradient(80% 40% at 50% 0%,rgba(243,185,178,.14),transparent 70%)"><h1 style="font-size:clamp(30px,8vw,40px)">Mon <em>rendez-vous</em></h1><div id="z"></div>
+<a class="salon-l" href="salon-appli.html" target="_blank" rel="noopener">Exemple : voir ce que le salon reçoit →</a></main>
+<script src="donnees.js"></script><script src="api.js"></script><script src="verif-tel.js"></script><script src="commun.js"></script>
+<script>
+(function () {
+  var A = AMBRINE, h = LDR.h, Z = document.getElementById("z"), id = LDR.param("n"), annuler = false, ouvert = "";
+  var TYPES = { attente: "Liste d’attente", cadeau: "Carte cadeau", mariee: "Forfait mariée", message: "Message au salon" };
+  function etat(r) { var t = r.type === "rdv" ? API.ETATS[r.etat] : { envoye: "Envoyée", vu: "Lue par le salon", confirme: r.type === "attente" ? "Inscrite" : "Validée", refuse: "Refusée", annule: "Annulée" }[r.etat] || r.etat; return '<span class="etat e-' + r.etat + '"><i></i>' + t + '</span>' }
+  function fil(r) { var n = { envoye: 1, vu: 2, confirme: 3 }[r.etat] || (r.etat === "propose" ? 2 : 0); return '<div class="fil">' + ["Envoyée", "Vue par le salon", "Confirmée"].map(function (t, k) { return '<div class="' + (k < n ? "ok" : "") + '">' + t + '</div>' }).join("") + '</div>' }
+  function fiche(r) {
+    var x = '<div class="fiche"><span class="num">n° ' + h(r.id) + '</span>' + etat(r);
+    if (r.type !== "rdv") {
+      x += '<p class="grand">' + TYPES[r.type] + '</p>';
+      if (r.type === "attente") x += '<p class="sous">' + (r.jours && r.jours.length ? r.jours.map(function (j) { return LDR.jour(j, 1) }).join(", ") : "Tous les jours") + ' · ' + ({ matin: "le matin", aprem: "l’après-midi" }[r.moment] || "à toute heure") + '. Un SMS dès qu’une place se libère.</p>';
+      if (r.type === "cadeau") x += '<p class="sous">' + h(A.prestations[r.p] ? A.prestations[r.p].n : "") + ' pour ' + h(r.pour) + '. ' + (r.etat === "confirme" ? "La carte est envoyée par SMS à " + h(r.pour) + "." : "Le salon prépare la carte.") + '</p>';
+      if (r.type === "mariee") x += '<p class="sous">Mariage le ' + h(LDR.jour(r.jourJ)) + '. ' + (r.etat === "confirme" ? "Le salon vous rappelle pour fixer l’essai." : "Le salon vous répond par écrit.") + '</p>';
+      if (r.type === "message") x += '<p class="sous">« ' + h(r.texte) + ' »</p>';
+      if (r.reponse) x += '<div class="prop" style="background:#22303A;border-color:#35556B"><p><b>Réponse du salon :</b> ' + h(r.reponse) + '</p></div>';
+      if (r.type === "attente" && r.etat !== "annule") x += '<div class="act"><button type="button" class="b2" data-an="' + r.id + '">Me retirer de la liste</button></div>';
+      return x + '</div>';
+    }
+    var s = LDR.resume(r), past = API.dt(s.date) < new Date(new Date().toDateString());
+    x += '<p class="grand">' + h(s.quand.charAt(0).toUpperCase() + s.quand.slice(1)) + '</p><p class="sous">' + h(s.quoi) + ' · avec ' + h(s.qui) + '</p>';
+    if (r.etat !== "annule" && r.etat !== "refuse") x += fil(r);
+    if (r.etat === "propose" && r.prop) x += '<div class="prop"><p>Le salon vous propose <b>' + h(LDR.jour(r.prop.date) + " à " + API.hm(r.prop.t)) + '</b>' + (r.prop.c !== r.c ? " avec " + h(A.coiffeuses[r.prop.c].n) : "") + '.</p><div class="act" style="margin:0"><button type="button" class="go" data-ok="' + r.id + '">J’accepte cette heure</button><a class="b2" href="reserver.html?modif=' + r.id + '">Choisir une autre heure</a></div></div>';
+    if (r.etat === "refuse") x += '<div class="prop" style="background:#3A1E1E;border-color:#6B3434"><p>' + h(r.motif || "Le salon ne peut pas à cette heure.") + '</p><a class="go" style="width:100%" href="reserver.html?depuis=' + r.id + '">Choisir une autre heure</a></div>';
+    x += '<ul class="det">' + (r.place ? '<li>Place : ' + h(A.places.filter(function (p) { return p.n === r.place })[0].nom) + '</li>' : "") + (r.creux ? '<li>🌿 Heures creuses : soin offert</li>' : "") + (r.plusieurs && r.plusieurs.length ? '<li>+ ' + r.plusieurs.map(function (k) { return A.plusieurs[k].n.toLowerCase() }).join(", ") + '</li>' : "") + '<li>Confirmation envoyée par SMS au ' + h(r.tel) + '</li></ul>';
+    if (r.etat === "envoye" || r.etat === "vu" || r.etat === "confirme") {
+      x += '<div class="act">' + (r.etat === "confirme" && !past ? '<button type="button" class="go" data-cal="' + r.id + '">Ajouter à mon agenda</button>' : "") +
+        '<a class="b2" href="reserver.html?modif=' + r.id + '">Changer l’heure</a>' +
+        (r.etat === "confirme" ? '<button type="button" class="b2" data-ret="' + r.id + '">Prévenir d’un retard</button>' : "") +
+        '<button type="button" class="lien" data-an="' + r.id + '">Annuler le rendez-vous</button></div>';
+      if (ouvert === "ret" + r.id) x += '<div class="retard">' + [5, 10, 15].map(function (m) { return '<button type="button" class="ch" data-rm="' + m + '" data-rid="' + r.id + '"><b>' + m + ' min</b></button>' }).join("") + '</div>';
+    } else if (r.etat !== "propose") x += '<div class="act"><a class="go" href="reserver.html?depuis=' + r.id + '">Reprendre le même rendez-vous</a></div>';
+    if (r.retard) x += '<p class="sous" style="margin-top:10px">Retard signalé : ' + r.retard + ' min. Le salon est prévenu.</p>';
+    if (annuler === r.id) x += '<div class="confirm"><p>Annuler ce rendez-vous ?</p><div class="retard"><button type="button" class="ch" data-oui="' + r.id + '"><b>Oui, annuler</b></button><button type="button" class="ch" data-non="1"><b>Non</b></button></div></div>';
+    return x + '</div>';
+  }
+  function fidelite() {
+    var n = API.mes().map(API.un).filter(function (r) { return r && r.type === "rdv" && r.etat === "confirme" }).length + 5, k = Math.min(n, A.fidelite.sur - 1);
+    return '<div class="fid"><p class="sur" style="margin:0">Carte de fidélité</p><b style="font:400 22px Newsreader,serif">' + k + ' coupes sur ' + A.fidelite.sur + '</b><div class="tampons">' +
+      Array.from({ length: A.fidelite.sur }, function (_, i) { return '<span class="' + (i < k ? "ok" : "") + '">' + (i < k ? "✓" : i === A.fidelite.sur - 1 ? "🎁" : i + 1) + '</span>' }).join("") + '</div><small style="color:var(--doux2)">' + A.fidelite.texte + ' Exemple : 5 coupes déjà comptées.</small></div>';
+  }
+  function rendu() {
+    if (id) { var r = API.un(id); if (r && API.mes().indexOf(id) < 0) API.garder(id);
+      if (!r) { Z.innerHTML = '<p class="sous">Ce rendez-vous n’existe pas sur ce téléphone.</p>'; return }
+      Z.innerHTML = fiche(r) + (r.type === "rdv" ? fidelite() : "") + (API.mes().length > 1 ? '<p style="text-align:center;margin-top:18px"><a class="lien" href="rdv.html">Toutes mes demandes</a></p>' : ""); return }
+    var L = API.mes().map(API.un).filter(Boolean);
+    if (!L.length) { Z.innerHTML = '<p class="sous" style="margin-top:10px">Retrouvez vos rendez-vous avec votre portable.</p><div id="vt"></div><p style="margin-top:20px"><a class="go" style="width:100%" href="reserver.html">Prendre rendez-vous</a></p>';
+      return VerifTel.demander(document.getElementById("vt"), { titre: "Votre portable", bouton: "Voir mes rendez-vous", commerce: A.commerce }, function (u) { var T = API.parTel(u.tel); T.forEach(function (r) { API.garder(r.id) }); if (!T.length) Z.innerHTML = '<p class="sous">Aucun rendez-vous avec ce numéro.</p><a class="go" style="width:100%" href="reserver.html">Prendre rendez-vous</a>'; else rendu() }) }
+    var actifs = L.filter(function (r) { return r.etat !== "annule" }), autres = L.filter(function (r) { return r.etat === "annule" });
+    Z.innerHTML = actifs.map(fiche).join("") + fidelite() + (autres.length ? '<p class="groupe sur" style="margin-top:26px">Annulés</p><div class="liste">' + autres.map(function (r) { return '<a href="rdv.html?n=' + r.id + '"><span>' + (r.type === "rdv" ? h(LDR.resume(r).quand) : TYPES[r.type]) + '</span><span class="lien">Voir</span></a>' }).join("") + '</div>' : "");
+  }
+  function ics(r) {
+    var o = r.etat === "propose" && r.prop ? r.prop : r, d = o.date.replace(/-/g, ""), f = function (t) { return ("0" + Math.floor(t / 60)).slice(-2) + ("0" + t % 60).slice(-2) + "00" };
+    var txt = ["BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//Studio Ambrine//FR", "BEGIN:VEVENT", "UID:" + r.id + "@ambrine", "DTSTART:" + d + "T" + f(o.t), "DTEND:" + d + "T" + f(o.t + r.D), "SUMMARY:Studio Ambrine · " + LDR.resume(r).quoi, "LOCATION:" + A.adresse.rue + " " + A.adresse.ville, "END:VEVENT", "END:VCALENDAR"].join("\r\n");
+    var a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([txt], { type: "text/calendar" })); a.download = "rendez-vous-ambrine.ics"; a.click();
+  }
+  Z.addEventListener("click", function (e) {
+    var b = e.target.closest("button"); if (!b) return; var d = b.dataset;
+    if (d.ok) { var r = API.un(d.ok); API.maj(d.ok, { etat: "confirme", date: r.prop.date, t: r.prop.t, c: r.prop.c, prop: null }) }
+    if (d.an) { var r2 = API.un(d.an); if (r2.type === "attente") API.maj(d.an, { etat: "annule" }); else annuler = d.an }
+    if (d.oui) { API.maj(d.oui, { etat: "annule" }); annuler = false }
+    if (d.non) annuler = false;
+    if (d.cal) ics(API.un(d.cal));
+    if (d.ret) ouvert = ouvert === "ret" + d.ret ? "" : "ret" + d.ret;
+    if (d.rm) { API.maj(d.rid, { retard: +d.rm, vuRetard: false }); ouvert = "" }
+    rendu();
+  });
+  API.ecouter(rendu); rendu();
+})();
+</script></body></html>

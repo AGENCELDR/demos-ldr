@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Le salon · Studio Ambrine</title><meta name="robots" content="noindex">
+<link rel="stylesheet" href="polices/polices.css"><link rel="stylesheet" href="commun.css">
+<style>
+.t1{font-size:clamp(32px,8.5vw,48px)}h2{font-size:clamp(28px,7vw,40px)}
+.mosa{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:18px}.mosa img{width:100%;height:100%;aspect-ratio:1;object-fit:cover;border-radius:14px}.mosa img:first-child{grid-column:span 2;aspect-ratio:16/10}
+.plan-w{display:grid;gap:16px;margin-top:16px}
+.plan{position:relative;border-radius:16px;overflow:hidden;box-shadow:0 0 0 1px var(--trait)}.plan img{width:100%}
+.pt{position:absolute;transform:translate(-50%,-50%);width:12%;aspect-ratio:1;border-radius:50%;border:2.5px solid #fff;background:rgba(243,185,178,.3);padding:0;font:800 14px Figtree;color:#fff;text-shadow:0 1px 3px #000}
+.pt.petit{width:9%}.pt[aria-pressed=true]{background:#7A2A36;border-color:var(--rose);box-shadow:0 0 0 4px var(--rose)}
+.places{list-style:none;margin:0;padding:0}.places li button{width:100%;display:flex;gap:12px;align-items:center;text-align:left;padding:12px 4px;border:0;border-bottom:1px solid var(--trait);background:none}
+.places i{flex:none;width:32px;height:32px;border-radius:50%;display:grid;place-items:center;font-style:normal;font-weight:800;border:2px solid var(--rose-f)}.places button[aria-pressed=true] i{background:var(--rose);color:#2A1915}
+.places b{display:block;font-weight:600}.places small{color:var(--doux)}
+.prive{display:grid;gap:14px;align-items:center}.prive img{border-radius:18px;aspect-ratio:4/3;object-fit:cover;width:100%}
+.eq{display:grid;gap:12px;margin-top:16px}.p{display:flex;gap:14px;align-items:center;padding:12px;border-radius:18px;background:var(--carte);border:1px solid var(--trait)}.p img{width:84px;height:84px;border-radius:50%;object-fit:cover;flex:none}.p b{font:400 24px Newsreader,serif;display:block}.p small{color:var(--doux);display:block;margin-bottom:6px}.p .b2{min-height:42px}
+@media(min-width:900px){.mosa{grid-template-columns:2fr 1fr 1fr}.mosa img:first-child{grid-column:span 1;grid-row:span 2;aspect-ratio:auto}.plan-w{grid-template-columns:1.1fr 1fr;align-items:start}.prive{grid-template-columns:1fr 1fr}.eq{grid-template-columns:repeat(3,1fr)}}
+</style></head>
+<body data-page="salon.html">
+<section class="sec"><div class="w"><p class="sur">Le salon</p><h1 class="t1">Bois, velours <em>et lumière</em></h1><p class="lead">Neuf places, deux bacs, un espace privé. Au calme, rue de la Mèche.</p>
+<div class="mosa"><img src="photos/sa-hero-salon.jpg" alt="Le salon"><img src="photos/sa-accueil.jpg" alt="L’accueil"><img src="photos/sa-bac.jpg" alt="Les bacs"><img src="photos/sa-coupe.jpg" alt="Une coupe"><img src="photos/sa-couleur.jpg" alt="Une couleur"></div></div></section>
+<section class="sec fonce fond-photo" style="--img:url(photos/sa-hero-salon.jpg)"><div class="w"><p class="sur">Vu de dessus</p><h2>Choisissez <em>votre place</em></h2><p class="lead">Touchez un fauteuil. Vous pourrez le réserver avec votre rendez-vous.</p>
+<div class="plan-w"><div class="plan" id="plan"><img src="photos/plan-salon.jpg" alt="Plan du salon vu de dessus"></div><ul class="places" id="pl"></ul></div></div></section>
+<section class="sec alt"><div class="w prive"><img src="photos/sa-real-longues.jpg" alt=""><div><p class="sur">L’espace privé</p><h2>À l’abri <em>des regards</em></h2><p class="lead">Un fauteuil séparé, sans rien à expliquer. Pour une perte de cheveux, un traitement, ou simplement l’envie d’être tranquille.</p><p style="margin-top:16px"><a class="b2" href="reserver.html">Le choisir à l’étape « Votre place »</a></p></div></div></section>
+<section class="sec fond-photo" style="--img:url(photos/sa-accueil.jpg)"><div class="w"><p class="sur">L’équipe</p><h2>Trois coiffeuses, <em>trois spécialités</em></h2><div class="eq" id="eq"></div></div></section>
+<script src="donnees.js"></script><script src="api.js"></script><script src="commun.js"></script>
+<script>
+(function () {
+  var A = AMBRINE, sel = 0;
+  function rendu() {
+    document.querySelectorAll("#plan .pt").forEach(function (b) { b.remove() });
+    document.getElementById("plan").insertAdjacentHTML("beforeend", A.places.map(function (p) { return '<button type="button" class="pt' + (p.petit ? " petit" : "") + '" data-n="' + p.n + '" aria-pressed="' + (sel === p.n) + '" aria-label="' + p.nom + '" style="left:' + (p.x / 8 * 100).toFixed(2) + '%;top:' + (p.y / 11.995 * 100).toFixed(2) + '%">' + (p.prive ? "P" : p.n) + '</button>' }).join(""));
+    document.getElementById("pl").innerHTML = A.places.map(function (p) { return '<li><button type="button" data-n="' + p.n + '" aria-pressed="' + (sel === p.n) + '"><i>' + (p.prive ? "P" : p.n) + '</i><span><b>' + p.nom + '</b><small>' + p.d + '</small></span></button></li>' }).join("");
+  }
+  document.querySelector(".plan-w").addEventListener("click", function (e) { var b = e.target.closest("button[data-n]"); if (!b) return; sel = sel === +b.dataset.n ? 0 : +b.dataset.n; rendu() });
+  document.getElementById("eq").innerHTML = Object.keys(A.coiffeuses).map(function (c) { var o = A.coiffeuses[c]; return '<div class="p"><img src="photos/' + A.photos[c] + '" alt=""><span><b>' + o.n + '</b><small>' + o.s + '</small><a class="b2" href="reserver.html?c=' + c + '">Réserver avec ' + o.n + '</a></span></div>' }).join("");
+  rendu();
+})();
+</script></body></html>
