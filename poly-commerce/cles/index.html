@@ -481,6 +481,27 @@ body.choisit .case:not(.m1) .bal{animation:balance-d 2.4s ease-in-out infinite;a
 #raz{width:100%;margin-top:16px;min-height:44px;font-size:12.5px;color:#c9ccd1}
 #raz.conf{color:#ff9a7a;box-shadow:inset 0 1px 0 #ffffff26,inset 0 -1px 0 #000,0 0 0 1.5px var(--rouge),0 4px 8px #0008}
 
+/* ---------- la carte de chaque machine : l'année sur sa plaque, le compteur d'heures, d'où vient ce chiffre (25/11) ---------- */
+.pan{display:flex;flex-direction:column;padding:5px 5px 7px}
+.cn{margin-bottom:10px}
+.fi{display:grid;grid-template-columns:auto minmax(0,1fr);gap:7px 7px;margin:auto 1px 0;padding-top:9px;border-top:1px solid #ffffff14;box-shadow:0 -1px 0 #000}
+.fc{display:block;min-width:0}
+.fl{display:block;font:700 11.5px/1 var(--m);font-style:normal;letter-spacing:.08em;text-transform:uppercase;color:#9a9ea5;margin:0 0 5px 1px;white-space:nowrap}
+.fv{display:flex;align-items:center;height:25px;margin:3px;border-radius:4px}
+.fv.an{position:relative;justify-content:center;margin:2px 3px 2px 1px;height:27px;padding:0 8px;border-radius:3px;font:700 13.5px/1 var(--m);letter-spacing:.04em;color:#141517;background:linear-gradient(180deg,#eef0f2,#c5c9ce 46%,#a0a5ac);box-shadow:0 0 0 1px #000,0 3px 6px #000a,inset 0 1px 0 #fff,inset 0 -1px 0 #5c6067;text-shadow:0 1px 0 #ffffff99}
+.fv.an:before{content:"";position:absolute;inset:0;border-radius:inherit;background:var(--brosse) 0 0/100% 96px;mix-blend-mode:multiply;opacity:.4;pointer-events:none}
+.mh{gap:1.5px;padding:0 4px;background:#020202;box-shadow:inset 0 2px 5px #000,0 0 0 1px #000,0 0 0 2px #33363b,0 0 0 3px #000,0 1px 0 3px #ffffff1c}
+.mh i{flex:1;min-width:0;height:19px;border-radius:2px;background:linear-gradient(#2c2d2f,#0c0c0d 38%,#0c0c0d 62%,#2c2d2f);font:700 13px/19px var(--m);font-style:normal;text-align:center;color:#f4f1e6}
+.mh em{flex:none;font:700 11.5px/1 var(--m);font-style:normal;color:#d9dadd;margin:0 1px 0 3px}
+.ft{grid-column:1/-1;display:flex;align-items:center;gap:6px;min-width:0;font:600 11.5px/1.15 var(--x);color:#c9ccd1;padding:0 2px 1px}
+.ft i{width:8px;height:8px;border-radius:50%;flex:none;background:var(--jaune);box-shadow:0 0 6px #f2b705aa,inset 0 1px 1px #ffffff90,0 0 0 1px #000}
+.ft.a i{background:var(--ambre);box-shadow:0 0 6px #e0a93baa,inset 0 1px 1px #ffffff90,0 0 0 1px #000}
+.ft.r i{background:var(--rouge);box-shadow:0 0 6px #e0603baa,inset 0 1px 1px #ffffff90,0 0 0 1px #000}
+/* l'étiquette de la clé : le prix, avec sa mention (HT, netto, excl. VAT, IVA esclusa) */
+.etiq u{padding:5px 2px 5px}
+.etiq small.el{margin:0 0 4px;font:700 11.5px/1 var(--m);letter-spacing:.04em;text-transform:uppercase;color:#5d5540}
+.etiq b{font-size:16.5px}
+
 /* ---------- retouches du contrôle final : très petits téléphones, mots longs ---------- */
 .t-haut .logo{flex:0 1 168px;min-width:0;width:168px;object-fit:contain;object-position:left center}
 .t-haut:has(#installer:not([hidden])) .logo{flex-basis:133px;width:133px}
@@ -497,6 +518,8 @@ body.choisit .case:not(.m1) .bal{animation:balance-d 2.4s ease-in-out infinite;a
  .l-txt{align-self:center}
  .l-txt b{font-size:14px;font-stretch:104%}
  .l-go{grid-column:1 / -1;justify-self:stretch;justify-content:center;margin:12px 0 0 10px;min-height:40px}
+ .fi{column-gap:5px}.fl{letter-spacing:.04em}.fv.an{padding:0 6px}.mh{padding:0 3px}
+ .etiq small.el{letter-spacing:.02em}
 }
 /* grand écran de bureau : le tableau de bord d'ouverture prend sa place */
 @media(min-width:1500px) and (min-height:840px){.o-in{zoom:1.2}}
@@ -847,11 +870,11 @@ function majTri(){$('#tri').textContent=U()[TRI==''?'tri0':TRI=='+'?'tri1':'tri2
 /* ---------- le tableau des clés ---------- */
 const ROT=[3.5,5,3,4.5,2.5,4,3,5,4,2.5,4.5,3,5,3.5,2.5,4.5,3,4],CLE=[1,-3,3,0,-2,4,-4,2,-1,3,-3,0,2,-2,4,1,-4,3];
 function caseHTML(m,i){const k=Math.max(0,PARC.indexOf(m));
-  return '<button type="button" class="case'+(SEL.includes(m.id)?' g':'')+'" data-id="'+m.id+'" style="--i:'+i+';--r:'+ROT[k%ROT.length]+'deg;--k:'+CLE[k%CLE.length]+'deg" aria-label="'+esc(nom(m))+', '+m.a+', '+nb(m.h)+' h, '+eur(m.p)+'">'+
+  return '<button type="button" class="case'+(SEL.includes(m.id)?' g':'')+'" data-id="'+m.id+'" style="--i:'+i+';--r:'+ROT[k%ROT.length]+'deg;--k:'+CLE[k%CLE.length]+'deg" aria-label="'+esc(nom(m))+', '+m.a+', '+nb(m.h)+' h, '+U().hs[Math.max(0,'oar'.indexOf(m.hs))]+', '+U().pht+' '+eur(m.p)+'">'+
    '<span class="pan"><span class="cadre"><i class="no">'+no(m)+'</i>'+(m.nouv?'<i class="neuf">'+U().neuf+'</i>':'')+'<img src="'+src(m,0)+'" alt="" loading="'+(i<4?'eager':'lazy')+'" width="536" height="402"></span>'+
-   '<span class="cn">'+nomc(m)+'<small>'+esc(typ(m.t)).replace(/ (· .+)$/,' <i>$1</i>')+'</small></span></span>'+
+   '<span class="cn">'+nomc(m)+'<small>'+esc(typ(m.t)).replace(/ (· .+)$/,' <i>$1</i>')+'</small></span>'+fiche(m)+'</span>'+
    '<span class="pend"><svg class="croc"><use href="#s-croc"/></svg><span class="bal"><svg class="clef"><use href="#s-clef"/></svg><svg class="ann"><use href="#s-ann"/></svg>'+
-   '<span class="etiq"><u><b>'+eur(m.p)+'</b><small>'+m.a+' · '+nb(m.h)+' h</small></u></span></span></span></button>'}
+   '<span class="etiq"><u><small class="el">'+U().pht+'</small><b>'+eur(m.p)+'</b></u></span></span></span></button>'}
 let BAL=false;
 /* l'enseigne tient toujours sur une ligne, quelle que soit la langue ou la largeur */
 function ajuste(){$$('.enseigne').forEach(en=>[['h1',large()?23:19,13.5],['p',11.5,11.5]].forEach(([s,max,min])=>{const e=en.querySelector(s);if(!e||!e.offsetParent)return;e.classList.remove('sre','pli');let f=max;e.style.fontSize=f+'px';const trop=()=>e.scrollWidth>e.clientWidth+.5;while(trop()&&f>min){f-=.5;e.style.fontSize=f+'px'}if(trop())e.classList.add('sre');if(trop())e.classList.add('pli')}));serres()}
@@ -1014,7 +1037,7 @@ function rejouer(){const o=$('#ouverture'),N=$('#neiman0');o.classList.remove('f
 $('#demarrer').onclick=demarrer;$('#passer').onclick=finOuverture;$('#logo').onclick=rejouer;
 
 /* ================= la suite de l'appli : comparaison, arrivages, bureau ================= */
-Object.assign(T.fr,{cp0:"Comparer",cp1:"Deux clés en main",cp1b:"Comparaison",cp6:"Témoin allumé : le plus avantageux",cp2:"% en main",cp2d:"Prenez la 2e clé",cp2b:"Prenez deux clés",cp2c:"EN MAIN",annuler:"Annuler",
+Object.assign(T.fr,{pht:"Prix HT",cp0:"Comparer",cp1:"Deux clés en main",cp1b:"Comparaison",cp6:"Témoin allumé : le plus avantageux",cp2:"% en main",cp2d:"Prenez la 2e clé",cp2b:"Prenez deux clés",cp2c:"EN MAIN",annuler:"Annuler",
  cp3:"d'écart",cp4:"Identique",cp5:"Compteur remis à zéro : heures non comparables.",an1:"an",ans:"ans",cp7:"Voir",cp8:"Changer",cp9:"Comparer deux clés",cp10:"Comparez ces deux machines chez Poly Commerce : ",cp11:" et ",cp12:"Prenez deux clés sur le tableau pour les comparer.",cp13:"le plus avantageux",
  ar0:"Arrivages",ar1:"Votre machine n'est pas au tableau ?",ar2:"Réservez un crochet : vous êtes prévenu dès qu'elle arrive sur le parc.",ar3:"Réserver un crochet",ar4:"à votre nom",ar5:"Crochet réservé",ar6:"Voir ma demande",ar7:"RÉSERVÉ",
  cr0:"Un crochet à votre nom",cr1:"Prévenu avant tout le monde",al2:"Dites quelle machine vous cherchez. Dès qu'elle entre sur le parc, vous recevez un SMS, avant la mise en annonce.",cr3:"Je cherche",al3:"Budget max (€)",al4:"Heures max",al5:"Votre portable",al6:"Me prévenir par SMS",al7:"Aperçu : l'envoi de SMS sera branché à la mise en service.",
@@ -1023,7 +1046,7 @@ Object.assign(T.fr,{cp0:"Comparer",cp1:"Deux clés en main",cp1b:"Comparaison",c
  pe1:"1. Les photos",pe1t:"Prenez la machine en photo, ou choisissez dans le téléphone. La première sera la photo principale.",pph:"Photos",pe2:"2. Les infos",pmodele:"Marque et modèle",pp:"Prix HT (€)",phs:"D'où vient le chiffre des heures ?",pnote:"Un mot pour les acheteurs (facultatif)",
  pe3:"3. Vérifier et accrocher",ppub:"Accrocher au tableau",psuiv:"Suivant",pret:"Retour",pok:"Accrochée. La clé est en tête du tableau.",pmanque:"Il manque : ",psortir:"Sortir",ploc:"Aperçu : ce que vous faites ici reste sur cet appareil. À la mise en service, ce sera en ligne pour tous les clients.",
  penl:"clés au tableau",penl1:"clé au tableau",pprix:"Changer le prix",pprixok:"Prix changé.",pvok:"Vendue : la clé quitte le tableau.",prok:"La clé est remise au tableau.",praz:"Remettre la démonstration à zéro",praz2:"Touchez encore pour confirmer",prazok:"Démonstration remise à zéro."});
-Object.assign(T.de,{cp0:"Vergleichen",cp1:"Zwei Schlüssel in der Hand",cp1b:"Vergleich",cp6:"Lampe an: der bessere Wert",cp2:"% in der Hand",cp2d:"2. Schlüssel nehmen",cp2b:"Zwei Schlüssel nehmen",cp2c:"IN DER HAND",annuler:"Abbrechen",
+Object.assign(T.de,{pht:"Nettopreis",cp0:"Vergleichen",cp1:"Zwei Schlüssel in der Hand",cp1b:"Vergleich",cp6:"Lampe an: der bessere Wert",cp2:"% in der Hand",cp2d:"2. Schlüssel nehmen",cp2b:"Zwei Schlüssel nehmen",cp2c:"IN DER HAND",annuler:"Abbrechen",
  cp3:"Unterschied",cp4:"Gleich",cp5:"Zähler auf null: Stunden nicht vergleichbar.",an1:"Jahr",ans:"Jahre",cp7:"Ansehen",cp8:"Wechseln",cp9:"Zwei Schlüssel vergleichen",cp10:"Vergleich dieser zwei Maschinen bei Poly Commerce: ",cp11:" und ",cp12:"Nehmen Sie zwei Schlüssel vom Brett, um sie zu vergleichen.",cp13:"der bessere Wert",
  ar0:"Neuzugänge",ar1:"Ihre Maschine hängt nicht am Brett?",ar2:"Reservieren Sie einen Haken: Sie erfahren es, sobald sie auf den Platz kommt.",ar3:"Haken reservieren",ar4:"auf Ihren Namen",ar5:"Haken reserviert",ar6:"Meine Anfrage ansehen",ar7:"RESERVIERT",
  cr0:"Ein Haken auf Ihren Namen",cr1:"Als Erster informiert",al2:"Sagen Sie uns, welche Maschine Sie suchen. Sobald sie auf den Platz kommt, erhalten Sie eine SMS, noch vor dem Inserat.",cr3:"Ich suche",al3:"Max. Budget (€)",al4:"Max. Stunden",al5:"Ihre Handynummer",al6:"Per SMS benachrichtigen",al7:"Vorschau: Der SMS-Versand wird bei Inbetriebnahme angeschlossen.",
@@ -1032,7 +1055,7 @@ Object.assign(T.de,{cp0:"Vergleichen",cp1:"Zwei Schlüssel in der Hand",cp1b:"Ve
  pe1:"1. Fotos",pe1t:"Maschine fotografieren oder aus dem Telefon wählen. Das erste Foto ist das Hauptfoto.",pph:"Fotos",pe2:"2. Angaben",pmodele:"Marke und Modell",pp:"Preis netto (€)",phs:"Woher kommt die Stundenzahl?",pnote:"Ein Wort für Käufer (optional)",
  pe3:"3. Prüfen und aufhängen",ppub:"Ans Brett hängen",psuiv:"Weiter",pret:"Zurück",pok:"Aufgehängt. Der Schlüssel hängt ganz oben am Brett.",pmanque:"Es fehlt: ",psortir:"Abmelden",ploc:"Vorschau: Was Sie hier tun, bleibt auf diesem Gerät. Nach dem Start ist es für alle Kunden online.",
  penl:"Schlüssel am Brett",penl1:"Schlüssel am Brett",pprix:"Preis ändern",pprixok:"Preis geändert.",pvok:"Verkauft: Der Schlüssel verlässt das Brett.",prok:"Der Schlüssel hängt wieder am Brett.",praz:"Demo zurücksetzen",praz2:"Zum Bestätigen noch einmal tippen",prazok:"Demo zurückgesetzt."});
-Object.assign(T.en,{cp0:"Compare",cp1:"Two keys in hand",cp1b:"Comparison",cp6:"Lamp on: the better figure",cp2:"% in hand",cp2d:"Take the 2nd key",cp2b:"Take two keys",cp2c:"IN HAND",annuler:"Cancel",
+Object.assign(T.en,{pht:"Excl. VAT",cp0:"Compare",cp1:"Two keys in hand",cp1b:"Comparison",cp6:"Lamp on: the better figure",cp2:"% in hand",cp2d:"Take the 2nd key",cp2b:"Take two keys",cp2c:"IN HAND",annuler:"Cancel",
  cp3:"difference",cp4:"Same",cp5:"Meter reset: hours cannot be compared.",an1:"year",ans:"years",cp7:"View",cp8:"Change",cp9:"Compare two keys",cp10:"Compare these two machines at Poly Commerce: ",cp11:" and ",cp12:"Take two keys from the board to compare them.",cp13:"the better figure",
  ar0:"Arrivals",ar1:"Your machine is not on the board?",ar2:"Reserve a hook: you are told as soon as it arrives in the yard.",ar3:"Reserve a hook",ar4:"in your name",ar5:"Hook reserved",ar6:"See my request",ar7:"RESERVED",
  cr0:"A hook in your name",cr1:"Told before anyone else",al2:"Tell us which machine you are after. As soon as it arrives in the yard, you get a text, before it is listed.",cr3:"I am looking for",al3:"Max budget (€)",al4:"Max hours",al5:"Your mobile",al6:"Text me",al7:"Preview: text messages will be connected at launch.",
@@ -1041,7 +1064,7 @@ Object.assign(T.en,{cp0:"Compare",cp1:"Two keys in hand",cp1b:"Comparison",cp6:"
  pe1:"1. Photos",pe1t:"Take photos of the machine, or pick them from the phone. The first one becomes the main photo.",pph:"Photos",pe2:"2. Details",pmodele:"Make and model",pp:"Price ex VAT (€)",phs:"Where does the hours figure come from?",pnote:"A word for buyers (optional)",
  pe3:"3. Check and hang",ppub:"Hang on the board",psuiv:"Next",pret:"Back",pok:"Hung. The key is at the top of the board.",pmanque:"Missing: ",psortir:"Log out",ploc:"Preview: what you do here stays on this device. At launch it will be online for every customer.",
  penl:"keys on the board",penl1:"key on the board",pprix:"Change the price",pprixok:"Price changed.",pvok:"Sold: the key leaves the board.",prok:"The key is back on the board.",praz:"Reset the demo",praz2:"Tap again to confirm",prazok:"Demo reset."});
-Object.assign(T.it,{cp0:"Confronta",cp1:"Due chiavi in mano",cp1b:"Confronto",cp6:"Spia accesa: il valore migliore",cp2:"% in mano",cp2d:"Prendi la 2ª chiave",cp2b:"Prendi due chiavi",cp2c:"IN MANO",annuler:"Annulla",
+Object.assign(T.it,{pht:"IVA esclusa",cp0:"Confronta",cp1:"Due chiavi in mano",cp1b:"Confronto",cp6:"Spia accesa: il valore migliore",cp2:"% in mano",cp2d:"Prendi la 2ª chiave",cp2b:"Prendi due chiavi",cp2c:"IN MANO",annuler:"Annulla",
  cp3:"di differenza",cp4:"Uguale",cp5:"Contaore azzerato: ore non confrontabili.",an1:"anno",ans:"anni",cp7:"Vedi",cp8:"Cambia",cp9:"Confronta due chiavi",cp10:"Confronta queste due macchine da Poly Commerce: ",cp11:" e ",cp12:"Prendi due chiavi dal quadro per confrontarle.",cp13:"il valore migliore",
  ar0:"Arrivi",ar1:"La tua macchina non è sul quadro?",ar2:"Prenota un gancio: ti avvisiamo appena arriva sul piazzale.",ar3:"Prenota un gancio",ar4:"a tuo nome",ar5:"Gancio prenotato",ar6:"Vedi la mia richiesta",ar7:"PRENOTATO",
  cr0:"Un gancio a tuo nome",cr1:"Avvisato prima di tutti",al2:"Dicci quale macchina cerchi. Appena arriva sul piazzale ricevi un SMS, prima dell'annuncio.",cr3:"Cerco",al3:"Budget max (€)",al4:"Ore max",al5:"Il tuo cellulare",al6:"Avvisami via SMS",al7:"Anteprima: l'invio di SMS sarà attivato al lancio.",
@@ -1067,6 +1090,12 @@ function parc(){[...AJ,...M].forEach(m=>{if(m.p0==null)m.p0=m.p;m.p=PRIX[m.id]>0
   CMP=CMP.filter(existe);document.body.classList.toggle('cmp2',CMP.length==2);
   if(CHOIX)CHOIX=CHOIX.filter(existe);
   if(!PARC.includes(CUR)){CUR=PARC[0];ALLUME=false;$('#poste').classList.remove('allume','test');afficher(CUR)}}
+
+/* ---------- sur chaque carte du tableau : l'année sur sa plaque, le compteur d'heures et d'où vient ce chiffre ---------- */
+function fiche(m){const u=U(),k=Math.max(0,'oar'.indexOf(m.hs)),h=String(Math.min(Math.max(0,Math.round(+m.h||0)),99999)).padStart(5,'0');
+  return '<span class="fi"><span class="fc"><i class="fl">'+u.annee+'</i><span class="fv an">'+(+m.a||'–')+'</span></span>'+
+   '<span class="fc"><i class="fl">'+u.heures+'</i><span class="fv mh">'+[...h].map(c=>'<i>'+c+'</i>').join('')+'<em>h</em></span></span>'+
+   '<span class="ft '+['','a','r'][k]+'"><i></i>'+u.hs[k]+'</span></span>'}
 
 /* ---------- sur le tableau : le crochet libre et la porte du bureau ---------- */
 function resume(c){const u=U();return [typ(c.t)].concat(c.b?[eur(c.b)+' '+u.cr8]:[],c.h?[nb(c.h)+' h '+u.cr8]:[])}
