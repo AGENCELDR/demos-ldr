@@ -624,3 +624,10 @@ html body #ldr-ex.vue-pc .grille-ex .ex:nth-child(even) .tel-ex{transform:rotate
 </style>
 <script>/* 25/11 12h45 (Lilian) : sur ordinateur, les sites s'ouvrent directement en vue Ordinateur ; le bouton Téléphone reste là. */
 (function(){function go(){if(!window.matchMedia('(min-width:900px)').matches)return;var b=document.querySelector('#ldr-ex .ldr-vue button[data-v=pc]');if(b&&!b.classList.contains('on'))b.click()}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',function(){setTimeout(go,300)});else setTimeout(go,300)})();</script>
+<style id="ldr-tel-grand-aigle-2026-11-25">
+@media(max-width:899px){
+html body .ldr-bloc .v3 .haut{display:flex!important;flex-direction:column!important;position:relative}
+html body .ldr-bloc .v3 .haut-sc{display:block!important;order:-1;width:min(76vw,310px)!important;height:auto!important;margin:-10px auto -26px!important;mix-blend-mode:screen;filter:none!important;-webkit-mask-image:radial-gradient(closest-side,#000 62%,transparent 100%);mask-image:radial-gradient(closest-side,#000 62%,transparent 100%);animation:ldrTelAigle 1.1s cubic-bezier(.2,.7,.2,1) both}
+@keyframes ldrTelAigle{from{opacity:0;transform:scale(.86) translateY(10px)}to{opacity:1;transform:none}}
+}
+</style>
