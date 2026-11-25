@@ -150,6 +150,22 @@
   +'.ldr-cmd-sec{display:block;width:100%;margin-top:6px;min-height:48px;font:italic 600 16px var(--f-d)!important;color:var(--p-or)!important;text-decoration:underline;text-underline-offset:4px;text-decoration-color:var(--p-ligne)}'
   +'.ldr-cmd-legal{margin:14px 0 0;padding:12px 14px;border-radius:10px;border:1px solid var(--p-ligne);background:color-mix(in srgb,var(--p-ink) 4%,transparent);font:500 14.5px/1.4 var(--f-d);color:var(--p-ink)}.ldr-cmd-legal b{font-weight:700}'
   +'.ldr-cmd-pied{margin:10px 0 0;font:italic 500 12.5px/1.4 var(--f-d);color:var(--p-ink2);text-align:center}.ldr-cmd-pied button{font:inherit!important;color:var(--p-or)!important;text-decoration:underline;text-underline-offset:3px}'
+  +'.ldr-cmd-meds{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:18px 0 4px;text-align:center}'
+  +'.ldr-cmd-meds div{display:flex;flex-direction:column;align-items:center;gap:8px}'
+  +'.ldr-cmd-meds .m{width:66px;height:66px;border-radius:50%;display:grid;place-items:center;color:var(--pl-or2);'+PL+'}.ldr-cmd-meds .m svg{width:30px;height:30px}'
+  +'.ldr-cmd-meds b{font:700 11.5px/1.25 var(--f-c);letter-spacing:.12em;text-transform:uppercase;color:var(--p-ink)}.ldr-cmd-meds span{margin-top:-4px;font:italic 500 13.5px/1.3 var(--f-d);color:var(--p-ink2)}'
+  +'.ldr-cmd-fil{display:flex;align-items:center;gap:10px;margin:16px 0 2px;font:700 11.5px var(--f-c);letter-spacing:.18em;text-transform:uppercase;color:var(--p-or)}.ldr-cmd-fil::before,.ldr-cmd-fil::after{content:"";flex:1;height:1px;background:var(--p-ligne)}'
+  +'.ldr-cmd-pli{border-bottom:1px dashed var(--p-ligne)}.ldr-cmd-pli summary{list-style:none;display:flex;align-items:center;gap:12px;padding:12px 0;cursor:pointer}.ldr-cmd-pli summary::-webkit-details-marker{display:none}'
+  +'.ldr-cmd-pli summary .vg{flex:none;width:42px;height:42px;border-radius:50%;display:grid;place-items:center;color:var(--p-or);border:1px solid var(--p-ligne);background:color-mix(in srgb,var(--p-ink) 5%,transparent);box-shadow:inset 0 0 0 3px var(--p-fond)}.ldr-cmd-pli summary .vg svg{width:22px;height:22px}'
+  +'.ldr-cmd-pli summary .ldr-n{font:600 17px var(--f-d);color:var(--p-ink);white-space:nowrap}.ldr-cmd-pli summary i{flex:1;border-bottom:2px dotted var(--p-ligne);transform:translateY(-4px)}'
+  +'.ldr-cmd-pli summary .pv{flex:none;width:22px;height:22px;color:var(--p-or);transition:transform .25s}.ldr-cmd-pli[open] summary .pv{transform:rotate(180deg)}'
+  +'.ldr-cmd-pli .ldr-tx{padding:0 0 12px 54px}.ldr-cmd-pli .ldr-tx p{margin:0 0 8px;font:500 14.5px/1.45 var(--f-d);color:var(--p-ink)}'
+  +'.ldr-cmd-plaque{position:relative;margin:18px 4px 6px;padding:16px 26px;border-radius:6px;text-align:center;color:#3A2608;background:linear-gradient(160deg,#F6E7B8 0,#D9B76A 30%,#B8914A 52%,#E7CC88 72%,#9C7535 100%);box-shadow:inset 0 1px 0 rgba(255,255,255,.6),inset 0 -2px 3px rgba(60,35,5,.4),0 8px 18px rgba(0,0,0,.35);border:1px solid #7A5A26}'
+  +'.ldr-cmd-plaque::before{content:"";position:absolute;inset:5px;border:1px solid rgba(90,60,20,.45);border-radius:3px;pointer-events:none}'
+  +'.ldr-cmd-plaque .vis{position:absolute;width:11px;height:11px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#FFF4CF,#C9A458 55%,#6E4F1E);box-shadow:0 1px 1px rgba(0,0,0,.4)}.ldr-cmd-plaque .vis::after{content:"";position:absolute;left:2px;right:2px;top:5px;height:1px;background:#5A3E12;transform:rotate(35deg)}'
+  +'.ldr-cmd-plaque .v1{left:9px;top:9px}.ldr-cmd-plaque .v2{right:9px;top:9px}.ldr-cmd-plaque .v3{left:9px;bottom:9px}.ldr-cmd-plaque .v4{right:9px;bottom:9px}'
+  +'.ldr-cmd-plaque h5{margin:0 0 6px;font:700 17px var(--f-c);letter-spacing:.14em;text-transform:uppercase;text-shadow:0 1px 0 rgba(255,245,210,.7)}.ldr-cmd-plaque p{margin:0;font:600 13.5px/1.45 var(--f-d);text-shadow:0 1px 0 rgba(255,245,210,.6)}.ldr-cmd-plaque small{display:block;margin-top:6px;font:700 10.5px var(--f-c);letter-spacing:.14em;text-transform:uppercase;opacity:.85}'
+  +'.ldr-cmd-sig{margin:8px 0 0;text-align:center;font:italic 500 13px var(--f-d);color:var(--p-ink2)}.ldr-cmd-sig a{color:var(--p-or)}'
   +'.ldr-cmd-mentions h4{margin:16px 0 4px;font:700 12.5px var(--f-c);letter-spacing:.14em;text-transform:uppercase;color:var(--p-or)}.ldr-cmd-mentions p{margin:0 0 6px;font:500 15px/1.45 var(--f-d);color:var(--p-ink)}'
   +'.ldr-cmd-err{color:#B3261E;font-weight:700;margin-top:8px;text-align:center;min-height:1px}'
   +'.ldr-cmd-mot{display:grid;gap:10px;padding-top:14px}.ldr-cmd-mot button{display:flex;align-items:center;gap:14px;min-height:66px;border-radius:12px;padding:0 16px;text-align:left;'+PL+'}.ldr-cmd-mot button b{display:block;font:700 15px var(--f-c);letter-spacing:.1em;text-transform:uppercase}.ldr-cmd-mot button span{font:italic 500 14px var(--f-d);color:var(--pl-ink2)}.ldr-cmd-mot svg{width:28px;height:28px;color:var(--pl-or2);flex:none}'
@@ -169,31 +185,41 @@
     conservation:30,
     hebergeur:'Carte : GitHub, Inc., 88 Colin P Kelly Jr Street, San Francisco, CA 94107, États-Unis. Commandes : Cloudflare, Inc., 101 Townsend Street, San Francisco, CA 94107, États-Unis.'
   },CFG.mentions||{});
-  function editeur(){var L=[];if(ML.editeur)L.push(esc(ML.editeur).replace(/\n/g,'<br>'));if(ML.siret)L.push('SIRET\u00a0: '+esc(ML.siret));if(ML.tva)L.push('TVA\u00a0: '+esc(ML.tva));if(ML.responsable)L.push('Responsable de la publication\u00a0: '+esc(ML.responsable));return L.length?'<p>'+L.join('<br>')+'</p>':'';}
+  function editeur(){var L=ML.editeur?String(ML.editeur).split('\n'):[];if(!L.length&&!ML.siret)return '';
+    var t=esc(L.shift()||''),r=L.map(esc).join('<br>'),x=[];if(ML.siret)x.push('SIRET '+esc(ML.siret));if(ML.tva)x.push('TVA '+esc(ML.tva));
+    return '<div class="ldr-cmd-plaque"><i class="vis v1"></i><i class="vis v2"></i><i class="vis v3"></i><i class="vis v4"></i><h5>'+t.replace(/,.*$/,'')+'</h5><p>'+t.replace(/^[^,]*,\s*/,'')+(r?'<br>'+r:'')+'</p>'+(x.length?'<small>'+x.join(' · ')+'</small>':'')+(ML.responsable?'<p style="margin-top:6px">Responsable de la publication : '+esc(ML.responsable)+'</p>':'')+'</div>';}
   function mentions(retour){
-    feuille('<div class="ldr-cmd-tete"><div><h3>Mentions légales</h3><p>Commande à table</p></div></div><div class="ldr-cmd-corps ldr-cmd-mentions">'
-      +'<h4>Votre commande</h4><p>Envoyer une commande est un engagement : chaque article commandé est servi à votre table, <b>facturé et à régler au bar</b>, au prix affiché. Prix nets, TVA et service compris. Le règlement se fait au bar, pas sur ce site.</p>'
-      +'<p>Une commande envoyée par erreur ? Prévenez le bar tout de suite, il peut l\'annuler tant qu\'elle n\'est pas préparée. Le bar peut aussi refuser ou annuler une commande (table inconnue, commande en double, produit épuisé) et vous en indique la raison.</p>'
-      +'<h4>Alcool et allergènes</h4><p>'+esc(ML.alcool)+' Une allergie ? Demandez au comptoir avant de commander : la composition des plats et boissons vous y sera précisée.</p>'
-      +'<h4>Vos données</h4><p>Aucun nom, aucun numéro de téléphone, aucun cookie : seul le numéro de votre table est enregistré avec la commande, uniquement pour vous servir. Les commandes sont effacées au bout de '+ML.conservation+' jours. Votre panier reste dans votre téléphone le temps de la visite. Les statistiques de la carte sont de simples compteurs anonymes (articles consultés, commandés), jamais reliés à une personne. Votre adresse internet (IP) n\'est pas enregistrée : pour bloquer les abus, le serveur n\'en garde qu\'une empreinte chiffrée, effacée en quelques heures.</p>'
-      +'<p>Une question sur vos données ? Adressez-vous au comptoir. Vous pouvez aussi saisir la CNIL (cnil.fr).</p>'
-      +'<h4>Éditeur</h4>'+editeur()+'<p>Carte et commande à table réalisées et gérées par <a href="https://agence-ldr.fr" target="_blank" rel="noopener" style="color:var(--p-or)">Agence LDR</a>.</p>'
-      +(ML.hebergeur?'<h4>Hébergement</h4><p>'+esc(ML.hebergeur)+'</p>':'')
+    feuille('<div class="ldr-cmd-tete"><div><h3>Mentions légales</h3><p>Commande à table, en trois mots</p></div></div><div class="ldr-cmd-corps ldr-cmd-mentions">'
+      +'<div class="ldr-cmd-meds"><div><span class="m">'+IC.note+'</span><b>Commande<br>ferme</b><span>réglée au bar</span></div><div><span class="m">'+IC2.bouclier+'</span><b>Aucune donnée<br>perso</b><span>ni nom, ni cookie</span></div><div><span class="m">'+IC2.agenda+'</span><b>Effacée<br>en '+ML.conservation+' jours</b><span>automatiquement</span></div></div>'
+      +'<div class="ldr-cmd-fil">Le détail</div>'
+      +'<details class="ldr-cmd-pli"><summary><span class="vg">'+IC.note+'</span><span class="ldr-n">Votre commande</span><i></i><span class="pv">'+IC2.chev+'</span></summary><div class="ldr-tx"><p>Envoyer une commande est un engagement : chaque article est servi à votre table, <b>facturé et à régler au bar</b>, au prix affiché. Prix nets, TVA et service compris. Le règlement se fait au bar, pas sur ce site.</p><p>Une erreur ? Prévenez le bar tout de suite, il peut l\'annuler tant qu\'elle n\'est pas préparée. Le bar peut aussi refuser ou annuler une commande (table inconnue, doublon, produit épuisé) et vous en indique la raison.</p></div></details>'
+      +'<details class="ldr-cmd-pli"><summary><span class="vg">'+IC2.epi+'</span><span class="ldr-n">Alcool et allergènes</span><i></i><span class="pv">'+IC2.chev+'</span></summary><div class="ldr-tx"><p>'+esc(ML.alcool)+'</p><p>Une allergie ? Demandez au comptoir avant de commander : la composition des plats et boissons vous y sera précisée.</p></div></details>'
+      +'<details class="ldr-cmd-pli"><summary><span class="vg">'+IC2.bouclier+'</span><span class="ldr-n">Vos données</span><i></i><span class="pv">'+IC2.chev+'</span></summary><div class="ldr-tx"><p>Aucun nom, aucun numéro de téléphone, aucun cookie : seul le numéro de votre table est enregistré avec la commande, uniquement pour vous servir. Les commandes sont effacées au bout de '+ML.conservation+' jours ; il ne reste qu\'un total anonyme par soirée. Votre panier reste dans votre téléphone le temps de la visite. Les statistiques de la carte sont de simples compteurs anonymes (articles consultés, commandés), jamais reliés à une personne. Votre adresse internet (IP) n\'est pas enregistrée : pour bloquer les abus, le serveur n\'en garde qu\'une empreinte chiffrée, effacée en quelques heures.</p><p>Une question ? Adressez-vous au comptoir. Vous pouvez aussi saisir la CNIL (cnil.fr).</p></div></details>'
+      +(ML.hebergeur?'<details class="ldr-cmd-pli"><summary><span class="vg">'+IC2.globe+'</span><span class="ldr-n">Hébergement</span><i></i><span class="pv">'+IC2.chev+'</span></summary><div class="ldr-tx"><p>'+esc(ML.hebergeur)+'</p></div></details>':'')
+      +'<div class="ldr-cmd-fil">Éditeur</div>'+editeur()
+      +'<p class="ldr-cmd-sig">Carte et commande à table réalisées par <a href="https://www.agence-ldr.fr" target="_blank" rel="noopener">Agence LDR</a></p>'
       +'<button type="button" class="ldr-cmd-sec" data-ok>'+(retour||!panier.length?'Revenir':'Revenir à la commande')+'</button></div>',function(f){q('[data-ok]',f).onclick=function(){if(retour)retour();else if(panier.length)voirPanier();else fermer();};});}
 
   /* ---------- avertissement avant toute commande (une fois par visite) ---------- */
   function avertir(suite){
     if(lire(KA)){suite();return;}
     feuille('<div class="ldr-cmd-tete"><div class="tb"><small>TABLE</small><b>'+TABLE+'</b></div><div><h3>Avant de commander</h3><p>À lire, c\'est rapide</p></div></div><div class="ldr-cmd-corps">'
-      +'<p class="ldr-cmd-legal"><b>Toute commande envoyée est ferme :</b> chaque article commandé sera servi à la table '+TABLE+', <b>facturé et à régler au bar</b>. Prix nets, TVA et service compris.</p>'
-      +'<p class="ldr-cmd-legal">Une erreur ? Prévenez le bar tout de suite. Le bar peut refuser ou annuler une commande (table inconnue, doublon, produit épuisé).</p>'
-      +'<p class="ldr-cmd-legal">'+esc(ML.alcool)+'</p>'
+      +'<div class="ldr-cmd-meds"><div><span class="m">'+IC.note+'</span><b>Commande<br>ferme</b><span>servie à la table '+TABLE+', réglée au bar</span></div><div><span class="m">'+IC.cloche+'</span><b>Une<br>erreur ?</b><span>prévenez le bar tout de suite</span></div><div><span class="m">'+IC2.moins18+'</span><b>Interdit<br>aux mineurs</b><span>alcool : moins de 18 ans</span></div></div>'
+      +'<p class="ldr-cmd-pied" style="margin-top:14px">Prix nets, TVA et service compris. Le bar peut refuser une commande (doublon, produit épuisé).</p>'
       +'<button type="button" class="ldr-cmd-big" data-oui>J\'ai compris, je commande'+IC.envoi+'</button>'
-      +'<p class="ldr-cmd-pied"><button type="button" data-ment>Mentions légales</button></p></div>',function(f){
+      +'<p class="ldr-cmd-pied">'+esc(ML.alcool)+' · <button type="button" data-ment>Mentions légales</button></p></div>',function(f){
       q('[data-oui]',f).onclick=function(){ecrire(KA,1);fermer();suite();};
       q('[data-ment]',f).onclick=function(){mentions(function(){avertir(suite);});};});
   }
 
+  var IC2={
+    moins18:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><text x="12" y="15.6" text-anchor="middle" font-size="9.5" font-weight="700" font-family="Georgia,serif" fill="currentColor" stroke="none">-18</text></svg>',
+    bouclier:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6z"/><path d="M9 12l2 2 4-4"/></svg>',
+    agenda:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16v14H4zM4 10h16M8 3v5M16 3v5"/><text x="12" y="18" text-anchor="middle" font-size="6.5" font-weight="700" font-family="Georgia,serif" fill="currentColor" stroke="none">30</text></svg>',
+    globe:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.5 3 14.5 0 18M12 3c-3 3.5-3 14.5 0 18"/></svg>',
+    epi:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21V9M12 13c-3 0-4.5-2-4.5-4.5C10 8.5 12 10 12 13zM12 13c3 0 4.5-2 4.5-4.5C14 8.5 12 10 12 13zM12 9c-2.2 0-3.4-1.6-3.4-3.6C10.6 5.4 12 6.8 12 9zM12 9c2.2 0 3.4-1.6 3.4-3.6C13.4 5.4 12 6.8 12 9zM12 5V3"/></svg>',
+    chev:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>'
+  };
   var IC={
     cloche:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 17h16M5.5 17a6.5 6.5 0 0 1 13 0M12 10.5V9M10 9h4M3 20h18"/></svg>',
     envoi:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h13M12 6l6 6-6 6"/></svg>',
