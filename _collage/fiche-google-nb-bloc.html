@@ -134,9 +134,9 @@
 html{background:#030712!important}
 html body{background:transparent!important;position:relative!important}
 html body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
- background:linear-gradient(180deg,rgba(3,7,18,.10) 0,rgba(3,7,18,.05) 40%,rgba(3,7,18,.55) 100%),url(https://cdn.jsdelivr.net/gh/AGENCELDR/demos-ldr@21d87b4de8c304617c1b1bb63eb18a35fa53d84f/_collage/fonds/fond-maps-tel.webp) center bottom/cover no-repeat,#030712}
-html body.fg-loin::after{background:linear-gradient(180deg,rgba(3,7,18,.78),rgba(3,7,18,.86)),url(https://cdn.jsdelivr.net/gh/AGENCELDR/demos-ldr@21d87b4de8c304617c1b1bb63eb18a35fa53d84f/_collage/fonds/fond-maps-tel.webp) center bottom/cover no-repeat,#030712;transition:background .6s}
-@media(min-width:900px) and (min-aspect-ratio:1/1){html body::after{background:linear-gradient(90deg,rgba(3,7,18,.92) 0,rgba(3,7,18,.6) 38%,rgba(3,7,18,0) 62%),url(https://cdn.jsdelivr.net/gh/AGENCELDR/demos-ldr@21d87b4de8c304617c1b1bb63eb18a35fa53d84f/_collage/fonds/fond-maps-pc.webp) 70% center/cover no-repeat,#030712}html body.fg-loin::after{background:linear-gradient(90deg,rgba(3,7,18,.82),rgba(3,7,18,.7)),url(https://cdn.jsdelivr.net/gh/AGENCELDR/demos-ldr@21d87b4de8c304617c1b1bb63eb18a35fa53d84f/_collage/fonds/fond-maps-pc.webp) center/cover no-repeat,#030712}}
+ background:linear-gradient(180deg,rgba(3,7,18,.10) 0,rgba(3,7,18,.05) 40%,rgba(3,7,18,.55) 100%),url(https://cdn.jsdelivr.net/gh/AGENCELDR/demos-ldr@72c71c8533694b5009ea0e37a2fd38794af606bb/_collage/fonds/fond-maps-plan-tel.webp) center bottom/cover no-repeat,#030712}
+html body.fg-loin::after{background:linear-gradient(180deg,rgba(3,7,18,.78),rgba(3,7,18,.86)),url(https://cdn.jsdelivr.net/gh/AGENCELDR/demos-ldr@72c71c8533694b5009ea0e37a2fd38794af606bb/_collage/fonds/fond-maps-plan-tel.webp) center bottom/cover no-repeat,#030712;transition:background .6s}
+@media(min-width:900px) and (min-aspect-ratio:1/1){html body::after{background:linear-gradient(90deg,rgba(3,7,18,.92) 0,rgba(3,7,18,.6) 38%,rgba(3,7,18,0) 62%),url(https://cdn.jsdelivr.net/gh/AGENCELDR/demos-ldr@72c71c8533694b5009ea0e37a2fd38794af606bb/_collage/fonds/fond-maps-plan-pc.webp) 70% center/cover no-repeat,#030712}html body.fg-loin::after{background:linear-gradient(90deg,rgba(3,7,18,.82),rgba(3,7,18,.7)),url(https://cdn.jsdelivr.net/gh/AGENCELDR/demos-ldr@72c71c8533694b5009ea0e37a2fd38794af606bb/_collage/fonds/fond-maps-plan-pc.webp) center/cover no-repeat,#030712}}
 .fg,.fg *{box-sizing:border-box;margin:0;padding:0}
 .fg{--b:#38BDF8;--bc:#F5F5F4;--g:#A8B3C7;--l:rgba(255,255,255,.08);font-family:"Plus Jakarta Sans",system-ui,sans-serif;color:var(--bc);-webkit-font-smoothing:antialiased;font-feature-settings:"liga" 0;overflow-x:clip;width:100%;background:transparent}
 .fg a{color:inherit;text-decoration:none}
@@ -722,5 +722,4 @@ var hh=b.querySelector('.haut');if(hh){var io3=new IntersectionObserver(function
 var r=document.getElementById('fg-route'),pts=b.querySelectorAll('.trajet .pts i');if(r&&pts.length){r.addEventListener('scroll',function(){var k=Math.round(r.scrollLeft/(r.firstElementChild.offsetWidth+14));[].forEach.call(pts,function(p,i){p.classList.toggle('on',i===k)})},{passive:true});}
 })();
 </script>
-
 <style id="ldr-fg-gauche-2026-11-25">html body .ldr-bloc.fg{text-align:left}</style>
