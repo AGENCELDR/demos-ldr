@@ -164,11 +164,12 @@
 
   /* ---------- mentions légales (réglables par carte : window.LDR_COMMANDE.mentions) ---------- */
   var ML=Object.assign({
-    editeur:'Beerman Pub & Club · 64 rue Chanzy, Sainte-Menehould',
+    editeur:'',
     alcool:'L\'abus d\'alcool est dangereux pour la santé, à consommer avec modération. La vente d\'alcool aux mineurs de moins de 18 ans est interdite.',
     conservation:30,
     hebergeur:'Carte : GitHub, Inc., 88 Colin P Kelly Jr Street, San Francisco, CA 94107, États-Unis. Commandes : Cloudflare, Inc., 101 Townsend Street, San Francisco, CA 94107, États-Unis.'
   },CFG.mentions||{});
+  function editeur(){var L=[];if(ML.editeur)L.push(esc(ML.editeur).replace(/\n/g,'<br>'));if(ML.siret)L.push('SIRET\u00a0: '+esc(ML.siret));if(ML.tva)L.push('TVA\u00a0: '+esc(ML.tva));if(ML.responsable)L.push('Responsable de la publication\u00a0: '+esc(ML.responsable));return L.length?'<p>'+L.join('<br>')+'</p>':'';}
   function mentions(retour){
     feuille('<div class="ldr-cmd-tete"><div><h3>Mentions légales</h3><p>Commande à table</p></div></div><div class="ldr-cmd-corps ldr-cmd-mentions">'
       +'<h4>Votre commande</h4><p>Envoyer une commande est un engagement : chaque article commandé est servi à votre table, <b>facturé et à régler au bar</b>, au prix affiché. Prix nets, TVA et service compris. Le règlement se fait au bar, pas sur ce site.</p>'
@@ -176,7 +177,7 @@
       +'<h4>Alcool et allergènes</h4><p>'+esc(ML.alcool)+' Une allergie ? Demandez au comptoir avant de commander : la composition des plats et boissons vous y sera précisée.</p>'
       +'<h4>Vos données</h4><p>Aucun nom, aucun numéro de téléphone, aucun cookie : seul le numéro de votre table est enregistré avec la commande, uniquement pour vous servir. Les commandes sont effacées au bout de '+ML.conservation+' jours. Votre panier reste dans votre téléphone le temps de la visite. Les statistiques de la carte sont de simples compteurs anonymes (articles consultés, commandés), jamais reliés à une personne. Votre adresse internet (IP) n\'est pas enregistrée : pour bloquer les abus, le serveur n\'en garde qu\'une empreinte chiffrée, effacée en quelques heures.</p>'
       +'<p>Une question sur vos données ? Adressez-vous au comptoir. Vous pouvez aussi saisir la CNIL (cnil.fr).</p>'
-      +'<h4>Éditeur</h4><p>'+esc(ML.editeur)+(ML.siret?' · SIRET '+esc(ML.siret):'')+(ML.responsable?' · Responsable de la publication : '+esc(ML.responsable):'')+'.</p><p>Carte et commande à table réalisées et gérées par <a href="https://agence-ldr.fr" target="_blank" rel="noopener" style="color:var(--p-or)">Agence LDR</a>.</p>'
+      +'<h4>Éditeur</h4>'+editeur()+'<p>Carte et commande à table réalisées et gérées par <a href="https://agence-ldr.fr" target="_blank" rel="noopener" style="color:var(--p-or)">Agence LDR</a>.</p>'
       +(ML.hebergeur?'<h4>Hébergement</h4><p>'+esc(ML.hebergeur)+'</p>':'')
       +'<button type="button" class="ldr-cmd-sec" data-ok>'+(retour||!panier.length?'Revenir':'Revenir à la commande')+'</button></div>',function(f){q('[data-ok]',f).onclick=function(){if(retour)retour();else if(panier.length)voirPanier();else fermer();};});}
 

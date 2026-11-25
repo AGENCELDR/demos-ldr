@@ -1,0 +1,1457 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Poly Commerce · Les clés du parc</title>
+<meta name="description" content="Le parc de Poly Commerce : prenez la clé d'une machine, mettez le contact. Machines forestières, TP et agricoles d'occasion à Givry-en-Argonne.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#0B0C0E">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="../logo/icone.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../logo/icone-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Poly Commerce">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta property="og:title" content="Poly Commerce · Les clés du parc">
+<meta property="og:image" content="https://agenceldr.github.io/demos-ldr/poly-commerce/logo/icone-512.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{--noir:#0B0C0E;--pan:#141518;--pan2:#1B1D21;--pan3:#24272C;--trait:#2A2D33;--txt:#F2F1EC;--doux:#A4A8AF;
+ --jaune:#F2B705;--jaune-c:#FFD54A;--jaune-f:#B88600;--ambre:#E0A93B;--rouge:#E0603B;
+ --x:"Archivo",system-ui,sans-serif;--m:"JetBrains Mono",ui-monospace,monospace;--ease:cubic-bezier(.2,.8,.2,1);
+ --grain:none;--brosse:none;color-scheme:dark}
+*{box-sizing:border-box;margin:0}
+[hidden]{display:none!important}
+html,body{height:100%}
+body{background:#08090A;color:var(--txt);font:400 15px/1.45 var(--x);overflow:hidden;-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent}
+button,input,select{font:inherit;color:inherit}
+button{cursor:pointer;touch-action:manipulation;border:0;background:none;padding:0;text-align:inherit}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--jaune);outline-offset:3px}
+svg.ic{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+
+/* ---------- ossature ---------- */
+.app{height:100dvh;display:grid;grid-template-columns:minmax(0,1fr)}
+.vue{min-width:0;min-height:0;overflow-y:auto;overflow-x:hidden;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:#3a3d43 transparent}
+.vue.d,body:not([data-vue=tableau]) #tableau{display:none}
+body[data-vue=poste] #poste,body[data-vue=banc] #banc,body[data-vue=crochet] #crochet,body[data-vue=bureau] #bureau,body[data-vue=recherche] #recherche{display:block}
+/* tant que le contact n'est pas mis, l'appli derrière n'est ni visible ni touchable */
+body:not(.pret) .app{visibility:hidden;transition:visibility 0s .6s}
+
+/* ---------- pièces communes ---------- */
+.petit{flex:none;height:38px;min-width:40px;padding:0 10px;border-radius:9px;display:inline-flex;align-items:center;justify-content:center;gap:6px;font:700 11.5px var(--m);letter-spacing:.04em;color:var(--txt);
+ background:linear-gradient(180deg,#2a2c31,#17181b);box-shadow:inset 0 1px 0 #ffffff24,inset 0 -1px 0 #000,0 0 0 1px #000,0 2px 4px #0008;position:relative}
+.petit:active{transform:translateY(1px);box-shadow:inset 0 1px 3px #000,0 0 0 1px #000}
+.petit b{font:700 12px var(--m);color:var(--jaune)}
+.petit[aria-pressed=true]{background:linear-gradient(180deg,#FFD23F,var(--jaune) 45%,#D99E00);color:#111}
+.petit[aria-pressed=true] b{color:#111}
+.langue select{position:absolute;inset:0;opacity:0;cursor:pointer;font-size:16px}
+.petit.tel{background:linear-gradient(180deg,#FFD84F,var(--jaune) 45%,#D99E00);color:#141000;text-decoration:none;box-shadow:inset 0 1px 0 #ffffff90,inset 0 -1px 0 #9a7000,0 0 0 1px #000,0 2px 4px #0008}
+.petit.tel svg{stroke-width:2.3}
+.vis{position:absolute;width:10px;height:10px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#f4f5f6,#a9adb3 40%,#5d6168 75%,#2e3035);box-shadow:0 1px 1px #000a,inset 0 0 0 .5px #0006}
+.vis:after{content:"";position:absolute;left:1.5px;right:1.5px;top:50%;height:1.2px;margin-top:-.6px;background:#1c1d20;transform:rotate(var(--v,35deg));box-shadow:0 .6px 0 #ffffff55}
+
+/* ---------- le contact (barillet + clé) ---------- */
+.neiman{position:relative;display:block;width:var(--d);height:var(--d);border-radius:50%;--a:0deg;flex:none;
+ background:conic-gradient(from 215deg,#f6f7f8,#8b8f96 11%,#e8eaec 23%,#6d7178 37%,#dadde0 51%,#7c8087 65%,#f0f1f2 79%,#8b8f96 90%,#f6f7f8);
+ box-shadow:0 0 0 1px #000,0 calc(var(--d)*.07) calc(var(--d)*.16) #000c,inset 0 0 0 1px #ffffff90}
+.n-face{position:absolute;inset:8%;border-radius:50%;background:radial-gradient(circle at 50% 30%,#2e3035,#0f1012 72%);box-shadow:inset 0 2px 5px #000,inset 0 0 0 1px #000}
+.n-face i{position:absolute;left:50%;top:50%;width:0;height:0;font:700 calc(var(--d)*var(--f,.092))/1 var(--m);font-style:normal;color:#e4e5e7;letter-spacing:-.08em}
+.n-face i{--s:0;--c:1;--p:0deg;--q:.352}.n-face i.p1{--s:.8192;--c:.5736;--p:55deg}.n-face i.p2{--s:.9962;--c:-.0872;--p:95deg;--q:.338}
+.n-face i:before{content:attr(data-p);position:absolute;transform:translate(-50%,-50%);left:calc(var(--s)*var(--d)*var(--q));top:calc(var(--c)*var(--d)*var(--q)*-1)}
+.n-face i:after{content:"";position:absolute;width:2px;height:calc(var(--d)*.036);background:#e4e5e7;border-radius:1px;transform:translate(-50%,-50%) rotate(var(--p));left:calc(var(--s)*var(--d)*.283);top:calc(var(--c)*var(--d)*-.283)}
+.n-face i.on:before{color:var(--jaune)}.n-face i.on:after{background:var(--jaune);box-shadow:0 0 6px var(--jaune)}
+.n-cyl{position:absolute;inset:31%;border-radius:50%;background:conic-gradient(from 20deg,#e3e5e8,#8d9198 24%,#eceef0 50%,#7f838a 76%,#e3e5e8);box-shadow:0 0 0 1px #000,0 2px 3px #0009,inset 0 0 0 1px #ffffff80;transform:rotate(var(--a));transition:transform .3s cubic-bezier(.3,1.5,.5,1)}
+.n-cle{position:absolute;left:50%;top:50%;width:calc(var(--d)*.15);height:calc(var(--d)*.5);margin:calc(var(--d)*-.25) 0 0 calc(var(--d)*-.075);border-radius:calc(var(--d)*.05);
+ background:linear-gradient(90deg,#060607,#26282c 22%,#42454b 46%,#1d1e21 72%,#050506);box-shadow:0 calc(var(--d)*.03) calc(var(--d)*.06) #000d,inset 0 1px 0 #ffffff3d,inset 0 -1px 0 #000,0 0 0 1px #000;
+ transform:rotate(var(--a));transition:transform .3s cubic-bezier(.3,1.5,.5,1)}
+.n-cle:before{content:"";position:absolute;left:50%;top:50%;width:50%;aspect-ratio:1;border-radius:50%;transform:translate(-50%,-50%);background:radial-gradient(circle at 40% 35%,#FFE27A,var(--jaune) 55%,#B88600);box-shadow:0 0 0 1px #000}
+.n-cle:after{content:"";position:absolute;left:22%;right:22%;top:9%;height:14%;border-radius:2px;background:repeating-linear-gradient(180deg,#00000090 0 1.5px,#ffffff1f 1.5px 3px)}
+.n-pend{position:absolute;left:50%;bottom:7%;width:0;height:0;transform:rotate(calc(-1*var(--a)));transition:transform .55s cubic-bezier(.3,1.9,.5,1)}
+.n-ann{position:absolute;left:calc(var(--d)*-.07);top:calc(var(--d)*-.02);width:calc(var(--d)*.14);height:calc(var(--d)*.14);border-radius:50%;border:calc(var(--d)*.016) solid #c9ccd1;box-shadow:0 1px 2px #000a,inset 0 0 0 .5px #0006}
+.n-etiq{position:absolute;left:calc(var(--d)*-.23);top:calc(var(--d)*.085);width:calc(var(--d)*.46);padding:calc(var(--d)*.04) calc(var(--d)*.02) calc(var(--d)*.035);border-radius:calc(var(--d)*.045);text-align:center;
+ background:linear-gradient(180deg,#FFD23F,var(--jaune) 40%,#D99E00);color:#111;font:800 calc(var(--d)*.08)/1.05 var(--x);font-stretch:112%;letter-spacing:.01em;box-shadow:0 0 0 1px #000,0 calc(var(--d)*.03) calc(var(--d)*.07) #000b,inset 0 1px 0 #ffffff90;transform:rotate(-4deg);transform-origin:50% 0}
+.n-etiq small{display:block;font:700 calc(var(--d)*.0635)/1 var(--m);letter-spacing:.03em;margin-top:calc(var(--d)*.012);color:#2b2200}
+
+/* ---------- ouverture : on met le contact ---------- */
+.ouverture{position:fixed;inset:0;z-index:50;display:flex;overflow-y:auto;background:radial-gradient(120% 80% at 50% 38%,#1b1d21 0%,#0b0c0e 62%,#050506 100%);transition:opacity .55s ease,visibility .55s}
+.ouverture:before{content:"";position:absolute;inset:0;background:var(--grain);opacity:.6;pointer-events:none}
+.ouverture.fin{opacity:0;visibility:hidden}
+.o-in{position:relative;width:min(88vw,340px);margin:auto;padding:58px 0 26px;text-align:center;display:grid;justify-items:center}
+.o-logo{width:min(60vw,250px);height:auto;display:block}
+.o-pan{position:relative;width:100%;margin-top:22px;padding:22px 18px 18px;border-radius:18px;display:grid;justify-items:center;background:linear-gradient(180deg,#212328,#15161a 52%,#0f1012);box-shadow:inset 0 1px 0 #ffffff29,inset 0 -1px 0 #000,0 0 0 1px #000,0 26px 50px #000d;transition:box-shadow .5s}
+.o-pan:before{content:"";position:absolute;inset:0;border-radius:inherit;background:var(--grain);opacity:.75;pointer-events:none}
+.o-pan>*{position:relative}
+.o-pan>.vis{position:absolute}.o-pan>.vis:nth-of-type(1){left:11px;top:11px}.o-pan>.vis:nth-of-type(2){right:11px;top:11px;--v:-30deg}.o-pan>.vis:nth-of-type(3){left:11px;bottom:11px;--v:70deg}.o-pan>.vis:nth-of-type(4){right:11px;bottom:11px;--v:15deg}
+.ii .o-pan,.fin .o-pan{box-shadow:inset 0 1px 0 #ffffff29,inset 0 -1px 0 #000,0 0 0 1px #000,0 26px 50px #000d,0 0 80px #f2b7053d}
+.o-voy{display:flex;gap:16px;margin:0 0 26px}
+.voy{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle at 50% 35%,#26282c,#0d0e10);box-shadow:inset 0 2px 4px #000,0 0 0 1px #000,0 0 0 3px #2a2c31,0 0 0 4px #000,0 1px 0 4px #ffffff1c;color:#4a4d53;transition:color .12s,background .12s,box-shadow .12s}
+.voy svg{width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.i .voy{color:#2a0b05;background:radial-gradient(circle at 50% 35%,#ff9d80,#e5412d 60%,#a82412);box-shadow:inset 0 1px 2px #ffffff70,0 0 0 1px #000,0 0 0 3px #2a2c31,0 0 0 4px #000,0 0 22px #e5412d99}
+.i .voy.pre{color:#2e1d00;background:radial-gradient(circle at 50% 35%,#ffe08a,#ffae1a 60%,#c27a00);box-shadow:inset 0 1px 2px #ffffff70,0 0 0 1px #000,0 0 0 3px #2a2c31,0 0 0 4px #000,0 0 22px #ffae1a99}
+.ii .voy{color:#4a4d53;background:radial-gradient(circle at 50% 35%,#26282c,#0d0e10);box-shadow:inset 0 2px 4px #000,0 0 0 1px #000,0 0 0 3px #2a2c31,0 0 0 4px #000,0 1px 0 4px #ffffff1c}
+.o-bouton{position:relative;border-radius:50%;padding:14px;margin:-14px}
+.o-bouton .tour{position:absolute;inset:-6px;pointer-events:none;animation:tourne 2.6s ease-in-out infinite}
+.o-bouton .tour svg{width:100%;height:100%;fill:none;stroke:var(--jaune);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+@keyframes tourne{0%,100%{transform:rotate(-8deg);opacity:.35}50%{transform:rotate(26deg);opacity:1}}
+.i .tour,.ii .tour{display:none}
+.o-bouton .n-cle,.o-bouton .n-cyl{animation:invite 2.6s ease-in-out infinite}
+.o-bouton .n-pend{animation:invite-p 2.6s ease-in-out infinite}
+@keyframes invite{0%,100%{transform:rotate(0deg)}50%{transform:rotate(9deg)}}
+@keyframes invite-p{0%,100%{transform:rotate(0deg)}50%{transform:rotate(-9deg)}}
+.i .n-cle,.i .n-cyl,.i .n-pend,.ii .n-cle,.ii .n-cyl,.ii .n-pend,.fin .n-cle,.fin .n-cyl,.fin .n-pend{animation:none}
+.o-t,.o-s{position:relative;z-index:1}
+.o-t{font:800 23px/1.1 var(--x);font-stretch:120%;margin-top:26px;letter-spacing:-.01em}
+.o-s{font:500 11.5px/1.5 var(--m);color:var(--doux);margin-top:8px;letter-spacing:.02em}
+.o-cpt{display:flex;align-items:center;gap:10px;margin-top:62px;font:700 11.5px var(--m);letter-spacing:.1em;text-transform:uppercase;color:#c9ccd1;text-align:left;opacity:.4;transition:opacity .3s}
+.i .o-cpt,.ii .o-cpt,.fin .o-cpt{opacity:1}
+.ii .o-in{animation:moteur .5s linear}
+@keyframes moteur{0%,100%{transform:none}10%{transform:translate(1.5px,-1px)}20%{transform:translate(-1.5px,1px)}30%{transform:translate(1px,1.5px)}40%{transform:translate(-1px,-1px)}50%{transform:translate(1.5px,0)}60%{transform:translate(-1px,1px)}70%{transform:translate(1px,-1px)}80%{transform:translate(-.5px,.5px)}}
+.o-passer{position:absolute;right:14px;top:calc(12px + env(safe-area-inset-top));z-index:2}
+.o-dossier{position:absolute;left:14px;top:calc(12px + env(safe-area-inset-top));z-index:2;text-decoration:none}
+
+/* ---------- le tableau des clés ---------- */
+#tableau{background:#15171A}
+.mur{min-height:100%;background-color:#15171A;background-image:radial-gradient(circle at 50% 44%,#040405 0 2.1px,#ffffff12 2.2px 3px,transparent 3.1px),var(--grain);background-size:20px 20px,128px 128px}
+.t-haut{position:sticky;top:0;z-index:6;display:flex;align-items:center;gap:8px;padding:calc(9px + env(safe-area-inset-top)) 12px 9px;background:linear-gradient(180deg,#101113,#0b0c0e);box-shadow:0 1px 0 #000,0 2px 0 #ffffff10,0 10px 20px #0009}
+.t-haut .logo{height:24px;width:auto;display:block;margin-right:auto;cursor:pointer}
+.t-haut:has(#installer:not([hidden])){gap:6px}.t-haut:has(#installer:not([hidden])) .logo{height:19px}
+#installer span{display:none}
+.enseigne{position:relative;margin:14px 14px 0;padding:13px 27px 12px;border-radius:7px;color:#111;text-align:center;background:linear-gradient(180deg,#FFD84F 0%,var(--jaune) 34%,#E6A900 100%);box-shadow:inset 0 0 0 2.5px #111,inset 0 0 0 5px var(--jaune),inset 0 6px 0 -1px #ffffff55,0 2px 0 #000,0 14px 26px #000b}
+.enseigne:after{content:"";position:absolute;inset:0;border-radius:inherit;background:var(--grain);mix-blend-mode:multiply;opacity:.9;pointer-events:none}
+.enseigne h1{font:900 19px/1.05 var(--x);font-stretch:125%;letter-spacing:.01em;text-transform:uppercase;white-space:nowrap}
+.enseigne p{font:700 11.5px/1.3 var(--m);letter-spacing:.07em;text-transform:uppercase;margin-top:5px;white-space:nowrap}
+.enseigne .vis{top:50%;margin-top:-5px}.enseigne .vis:nth-of-type(1){left:10px}.enseigne .vis:nth-of-type(2){right:10px;--v:-20deg}
+.aide{display:table;margin:12px auto 0;max-width:calc(100% - 28px);padding:6px 11px 5px;border-radius:2px;background:linear-gradient(180deg,#191a1d,#0a0b0c);box-shadow:0 0 0 1px #000,0 3px 7px #000b,inset 0 1px 0 #ffffff21;font:700 11.5px/1.4 var(--m);letter-spacing:.07em;text-transform:uppercase;color:#f1f1ee;text-align:center;text-shadow:0 1px 0 #000}
+.aide b{color:var(--jaune);font-weight:700}
+.t-outils{display:flex;gap:8px;margin:12px 14px 0}
+.cherche{flex:1;min-width:0;display:flex;align-items:center;gap:8px;height:44px;padding:0 12px;border-radius:10px;background:#090a0b;box-shadow:inset 0 2px 5px #000,inset 0 0 0 1px #000,0 1px 0 #ffffff17;color:var(--doux)}
+.cherche input{flex:1;min-width:0;height:100%;border:0;background:none;outline:0;font-size:16px;color:var(--txt)}
+.cherche input::placeholder{color:#7f838a}
+.t-outils .petit{height:44px;padding:0 13px;font:700 12px var(--x);letter-spacing:0}
+.planche{padding:4px 14px calc(34px + env(safe-area-inset-bottom))}
+.brady{position:relative;display:inline-flex;align-items:center;margin-top:20px;padding:7px 12px 6px;color:#141517;font:700 11.5px/1 var(--m);letter-spacing:.13em;text-transform:uppercase;border-radius:3px;background:linear-gradient(180deg,#eef0f2,#c5c9ce 46%,#a0a5ac);box-shadow:0 0 0 1px #000,0 4px 9px #000a,inset 0 1px 0 #fff,inset 0 -1px 0 #5c6067;text-shadow:0 1px 0 #ffffff99}
+.brady:before{content:"";position:absolute;inset:0;border-radius:inherit;background:var(--brosse) 0 0/100% 96px;mix-blend-mode:multiply;opacity:.4;pointer-events:none}
+.brady i{font-style:normal;margin-left:9px;padding-left:9px;border-left:1.5px solid #14151790}
+.rayon{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px 12px;padding:14px 0 6px}
+.case{display:flex;flex-direction:column;width:100%;position:relative;padding-bottom:98px;color:var(--txt);border-radius:10px}
+.pan{flex:1;display:block;padding:5px 5px 10px;border-radius:9px;background:linear-gradient(180deg,#2b2d32,#1b1c20 34%,#141518);box-shadow:inset 0 1px 0 #ffffff2e,inset 0 -1px 0 #000,0 0 0 1px #000,0 12px 20px #000c;transition:transform .2s var(--ease),box-shadow .2s}
+.cadre{display:block;position:relative;aspect-ratio:4/3;border-radius:5px;background:#000;overflow:hidden;box-shadow:0 0 0 1px #000,0 1px 0 1px #ffffff1f}
+.cadre img{width:100%;height:100%;object-fit:cover;display:block}
+.cadre:after{content:"";position:absolute;inset:0;background:linear-gradient(120deg,#ffffff26 0%,#ffffff08 24%,transparent 25%);pointer-events:none}
+.no{position:absolute;left:0;top:0;z-index:1;background:#0b0c0e;color:var(--jaune);font:700 10px/1 var(--m);font-style:normal;padding:5px 6px 4px;border-radius:0 0 6px 0;box-shadow:1px 1px 0 #000}
+.neuf{position:absolute;right:0;top:0;z-index:1;background:var(--jaune);color:#111;font:700 11.5px/1 var(--m);font-style:normal;letter-spacing:.06em;padding:5px 6px 4px;border-radius:0 0 0 6px}
+.cn{display:block;margin-top:9px;padding:0 4px;font:800 13.5px/1.14 var(--x);font-stretch:114%;letter-spacing:-.005em;overflow-wrap:anywhere}
+.case.g .no{background:var(--jaune);color:#111}
+.cn small{display:block;font:500 12px/1.25 var(--x);font-stretch:100%;letter-spacing:0;color:#b3b7be;margin-top:4px}
+.cn small i{font-style:normal;white-space:nowrap}
+.pend{position:absolute;left:50%;bottom:0;width:150px;height:92px;margin-left:-75px;pointer-events:none;--hx:33px}
+.pend .croc{position:absolute;left:calc(var(--hx) - 11px);top:0;width:22px;height:20px;z-index:4;filter:drop-shadow(0 2px 2px #000a)}
+.bal{position:absolute;left:0;right:0;top:11px;bottom:0;transform-origin:var(--hx) 0}
+.bal .ann{position:absolute;left:calc(var(--hx) - 10px);top:0;width:20px;height:20px;z-index:3;filter:drop-shadow(0 1px 1px #000c)}
+.bal .clef{position:absolute;left:calc(var(--hx) - 13.5px);top:10px;width:22px;height:64px;z-index:2;transform-origin:50% 5.5px;transform:rotate(calc(8deg + var(--k,0deg)));filter:drop-shadow(2px 3px 3px #000c)}
+.etiq{position:absolute;left:calc(var(--hx) - 18px);top:11px;width:134px;padding:8px 6px 6px 33px;border-radius:8px;z-index:1;text-align:center;color:#111;transform:rotate(var(--r,5deg));transform-origin:18px 8px;
+ background:linear-gradient(180deg,#FFD84F 0%,var(--jaune) 36%,#DDA000 100%);box-shadow:0 0 0 1px #000,0 6px 10px #000b,inset 0 1px 0 #ffffffa0,inset 0 -1px 0 #9a7000}
+.etiq:before{content:"";position:absolute;left:14px;top:4px;width:8px;height:8px;border-radius:50%;background:#0b0c0e;box-shadow:0 0 0 1.2px #8a6500,inset 0 1px 1px #000}
+.etiq u{display:block;text-decoration:none;background:linear-gradient(180deg,#fffdf4,#f1ecdc);border-radius:4px;padding:5px 2px 4px;box-shadow:inset 0 0 0 1px #00000026,inset 0 1px 2px #0000002e}
+.etiq b{display:block;font:800 15.5px/1 var(--x);font-stretch:108%;letter-spacing:-.01em;white-space:nowrap}
+.etiq small{display:block;font:700 11.5px/1 var(--x);letter-spacing:-.01em;margin-top:4px;color:#3b3526;white-space:nowrap}
+.case:active .pan{transform:scale(.985)}
+.case[aria-current=true] .pan{box-shadow:inset 0 1px 0 #ffffff2e,inset 0 -1px 0 #000,0 0 0 1px #000,0 0 0 3.5px var(--jaune),0 0 0 4.5px #000,0 12px 20px #000c}
+@keyframes balance{0%{transform:rotate(10deg)}18%{transform:rotate(-7deg)}36%{transform:rotate(4deg)}54%{transform:rotate(-2.2deg)}72%{transform:rotate(1deg)}100%{transform:rotate(0deg)}}
+.planche.go .bal{animation:balance 1.9s cubic-bezier(.35,.1,.4,1) both;animation-delay:calc(var(--i,0)*55ms)}
+.case.retour .bal{animation:balance 1.6s cubic-bezier(.35,.1,.4,1) both}
+@media(hover:hover){.case:hover .bal{animation:balance 1.6s cubic-bezier(.35,.1,.4,1) both}}
+.case.prise .bal{animation:prise .34s cubic-bezier(.5,0,.8,.4) both}
+@keyframes prise{0%{transform:none}35%{transform:translateY(-9px)}100%{transform:translateY(46px) rotate(14deg);opacity:0}}
+.vide{padding:30px 6px;color:var(--doux);text-align:center;font:500 13px/1.5 var(--m)}
+.signe{display:block;text-align:center;font:500 11.5px var(--m);color:#8b8f96;padding:26px 0 0}
+
+/* ---------- le poste : la machine se présente ---------- */
+#poste{background-color:#131417;background-image:var(--grain);background-size:128px 128px}
+.p-haut{position:sticky;top:0;z-index:6;display:flex;align-items:center;gap:8px;padding:calc(9px + env(safe-area-inset-top)) 12px 9px;background:linear-gradient(180deg,#101113,#0b0c0e);box-shadow:0 1px 0 #000,0 2px 0 #ffffff10,0 10px 20px #0009}
+.p-haut .sp{margin-right:auto}
+.pas{display:inline-flex;align-items:center;height:38px;border-radius:9px;background:#090a0b;box-shadow:inset 0 2px 4px #000,inset 0 0 0 1px #000,0 1px 0 #ffffff17}
+.pas button{width:40px;height:38px;font-size:20px;line-height:1;color:var(--txt);text-align:center}
+.pas span{font:700 12px var(--m);min-width:58px;text-align:center;color:var(--jaune);letter-spacing:.04em}
+.p-corps{padding:0 10px calc(26px + env(safe-area-inset-bottom));max-width:560px;margin:0 auto}
+.moniteur{margin-top:10px;padding:8px 8px 0;border-radius:16px;background:linear-gradient(180deg,#2c2e33,#191a1d 26%,#0e0f11);box-shadow:inset 0 1px 0 #ffffff2e,inset 0 -1px 0 #000,0 0 0 1px #000,0 16px 30px #000c;position:relative}
+.verre{position:relative;aspect-ratio:4/3;border-radius:8px;overflow:hidden;background:#020203;box-shadow:0 0 0 1px #000,0 1px 0 1px #ffffff22}
+.defile{display:flex;height:100%;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;overscroll-behavior-x:contain;opacity:0;filter:brightness(1.6) contrast(.8)}
+.defile::-webkit-scrollbar{display:none}
+.defile>span{flex:0 0 100%;min-width:0;height:100%;position:relative;scroll-snap-align:start;overflow:hidden;cursor:zoom-in;background:#050506}
+.defile img{position:relative;width:100%;height:100%;object-fit:cover;display:block}
+.defile .debout img{object-fit:contain}
+.defile .debout:before{content:"";position:absolute;inset:-20px;background:var(--f) center/cover;filter:blur(18px) brightness(.55)}
+.allume .defile{opacity:1;filter:none;transition:opacity .45s ease,filter .7s ease}
+.verre:before{content:"";position:absolute;inset:0;z-index:1;background:radial-gradient(60% 50% at 50% 50%,#3a4350,#0a0c0f);opacity:0;pointer-events:none;transition:opacity .2s}
+.test .verre:before{opacity:1}
+.reflet{position:absolute;inset:0;z-index:2;pointer-events:none;background:linear-gradient(118deg,#ffffff21 0%,#ffffff09 21%,transparent 22%,transparent 72%,#ffffff07 100%);box-shadow:inset 0 0 26px #000a}
+.osd{position:absolute;left:8px;top:8px;z-index:3;font:700 11.5px/1 var(--m);letter-spacing:.08em;color:#fff;background:#000000b8;padding:5px 7px 4px;border-radius:3px;opacity:0;transition:opacity .3s .3s}
+.osd.droite{left:auto;right:8px;color:var(--jaune)}
+.allume .osd{opacity:1}
+.m-bas{display:flex;align-items:center;gap:9px;height:32px;padding:0 5px}
+.led{width:7px;height:7px;border-radius:50%;background:#34363b;box-shadow:inset 0 1px 1px #000,0 0 0 1px #000;flex:none;transition:.2s}
+.test .led,.allume .led{background:var(--jaune);box-shadow:0 0 7px var(--jaune),0 0 0 1px #000}
+.m-type{flex:1;min-width:0;font:700 11.5px/1.15 var(--m);letter-spacing:.1em;text-transform:uppercase;color:#c3c6cb}
+.points{display:flex;flex:none;margin-right:-8px}
+.points button{width:32px;height:32px;display:grid;place-items:center}
+.points button:before{content:"";width:8px;height:8px;border-radius:50%;background:#3d4046;box-shadow:inset 0 1px 1px #000}
+.points button[aria-current=true]:before{background:var(--jaune);box-shadow:0 0 6px #f2b70599}
+
+.plaque{position:relative;margin-top:11px;padding:12px 26px 12px;border-radius:5px;color:#17181b;background:linear-gradient(180deg,#eceef0 0%,#cfd2d6 16%,#b6bac0 55%,#9a9fa6 100%);box-shadow:inset 0 1px 0 #fff,inset 0 -1px 0 #555960,0 0 0 1px #000,0 9px 18px #000a}
+.plaque:before{content:"";position:absolute;inset:0;border-radius:inherit;background:var(--brosse) 0 0/100% 96px;mix-blend-mode:multiply;opacity:.42;pointer-events:none}
+.plaque:after{content:"";position:absolute;inset:5px;border:1px solid #1b1c1f73;border-radius:3px;pointer-events:none;box-shadow:0 1px 0 #ffffff70}
+.plaque>*{position:relative}
+.plaque .vis{z-index:1}.plaque .vis:nth-of-type(1){left:9px;top:9px}.plaque .vis:nth-of-type(2){right:9px;top:9px;--v:-25deg}.plaque .vis:nth-of-type(3){left:9px;bottom:9px;--v:80deg}.plaque .vis:nth-of-type(4){right:9px;bottom:9px;--v:10deg}
+.grave{font:700 11.5px/1 var(--m);letter-spacing:.1em;text-transform:uppercase;color:#33363b;text-shadow:0 1px 0 #ffffff80;display:block}
+.plaque h2{font:900 23px/1.04 var(--x);font-stretch:118%;letter-spacing:.005em;text-transform:uppercase;margin-top:5px;color:#131416;text-shadow:0 1px 0 #ffffffb0,0 -1px 0 #00000026;overflow-wrap:anywhere;text-wrap:balance}
+.p-ligne{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;margin-top:9px}
+.p-ligne>span{display:block;min-width:0;padding:5px 8px 5px;border:1px solid #1b1c1f66;border-radius:3px;box-shadow:0 1px 0 #ffffff70,inset 0 1px 2px #0000001f;background:#ffffff14}
+.p-ligne b{display:block;font:800 14px/1.15 var(--x);font-stretch:112%;margin-top:4px;color:#131416;text-shadow:0 1px 0 #ffffff99;overflow-wrap:anywhere}
+
+.instruments{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.12fr);gap:10px;margin-top:11px}
+.inst{position:relative;min-width:0;padding:9px 10px 10px;border-radius:11px;background:linear-gradient(180deg,#090a0b,#131417);box-shadow:inset 0 2px 6px #000,inset 0 0 0 1px #000,0 1px 0 #ffffff17}
+.i-lab{display:block;font:700 11.5px/1 var(--m);letter-spacing:.12em;text-transform:uppercase;color:#9a9ea5}
+.horametre{display:inline-flex;align-items:center;gap:5px;margin-top:7px;padding:4px 6px;border-radius:5px;background:#020202;box-shadow:inset 0 2px 5px #000,0 0 0 1px #000,0 0 0 2.5px #3b3e44,0 0 0 3.5px #000,0 1px 0 3.5px #ffffff26}
+.horametre .roul{display:inline-flex;gap:2px}
+.horametre .c{width:18px;height:30px;overflow:hidden;border-radius:2px;position:relative;background:linear-gradient(#2c2d2f,#0c0c0d 38%,#0c0c0d 62%,#2c2d2f)}
+.horametre .c i{position:absolute;left:0;right:0;top:0;font:700 19px/30px var(--m);text-align:center;color:#f4f1e6;font-style:normal;transition:transform 1s var(--ease)}
+.horametre .c:after{content:"";position:absolute;inset:0;background:linear-gradient(#000000b0,transparent 30%,transparent 70%,#000000b0)}
+.horametre small{font:700 11px var(--m);color:#d9dadd}
+.temoin{display:flex;align-items:center;gap:7px;margin-top:9px;font:700 11.5px/1.2 var(--m);letter-spacing:-.01em;color:#d2d4d8}
+.temoin i{width:9px;height:9px;border-radius:50%;flex:none;background:var(--jaune);box-shadow:0 0 7px #f2b705aa,inset 0 1px 1px #ffffff90,0 0 0 1px #000}
+.temoin.a i{background:var(--ambre);box-shadow:0 0 7px #e0a93baa,inset 0 1px 1px #ffffff90,0 0 0 1px #000}
+.temoin.r i{background:var(--rouge);box-shadow:0 0 7px #e0603baa,inset 0 1px 1px #ffffff90,0 0 0 1px #000}
+.tot{display:block;font:500 11.5px/1.3 var(--m);color:var(--doux);margin-top:4px}
+.lcd{display:flex;align-items:center;justify-content:flex-end;height:48px;margin-top:7px;padding:0 8px 0 5px;border-radius:5px;background:linear-gradient(180deg,#D69B00,#F2B705 34%,#F8CB37);box-shadow:inset 0 2px 7px #4d3600,inset 0 0 0 1px #2e2100,0 0 0 1px #000,0 0 18px #f2b7052e;transition:filter .25s,box-shadow .25s;overflow:hidden;container-type:inline-size;--h:24px}
+@supports (width:1cqw){.lcd{--h:min(30px,calc((100cqw - var(--n,6)*4px - var(--sp,1)*6px - 6px)/(var(--n,6)*.6112 + .5)))}}
+.lcd svg{height:var(--h);width:calc(var(--h)*.6111);display:block;flex:none;overflow:visible;margin-left:4px}
+.lcd .s{fill:#241a00;opacity:.06;transition:opacity .12s}
+.lcd .s.on{opacity:.93}
+.lcd .eur{font:900 calc(var(--h)*.72)/1 var(--x);color:#241a00;margin-left:6px;flex:none;width:calc(var(--h)*.5);text-align:center}
+.lcd .esp{width:6px;flex:none}
+.test .lcd .s{opacity:.93}
+.poste:not(.allume):not(.test) .lcd{filter:brightness(.22) saturate(.6);box-shadow:inset 0 2px 7px #000,inset 0 0 0 1px #000,0 0 0 1px #000}
+.poste:not(.allume):not(.test) .lcd .s{opacity:.05}
+.sous{display:block;font:500 9.5px/1.3 var(--m);color:var(--doux);margin-top:8px}
+
+.commandes{display:grid;grid-template-columns:auto minmax(0,1fr);gap:12px;margin-top:13px;align-items:center}
+.contact{display:grid;justify-items:center;gap:7px;padding:2px 4px 0;border-radius:12px}
+.contact em{font:700 11.5px/1 var(--m);font-style:normal;letter-spacing:.1em;text-transform:uppercase;color:#9a9ea5}
+.appel{display:flex;align-items:center;justify-content:center;gap:10px;min-height:58px;padding:8px 12px;border-radius:12px;text-decoration:none;color:#141000;font:900 15px/1.1 var(--x);font-stretch:108%;text-align:center;text-wrap:balance;
+ background:linear-gradient(180deg,#FFE27A 0%,#FFD23F 16%,var(--jaune) 52%,#D99E00 100%);box-shadow:inset 0 1px 0 #ffffffb0,inset 0 -2px 0 #9a7000,0 0 0 1px #000,0 0 0 4px #25272b,0 0 0 5px #000,0 1px 0 5px #ffffff22,0 10px 22px #000a,0 0 30px #f2b70540;transition:transform .12s}
+.appel:active{transform:translateY(2px)}
+.appel svg{width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:13px}
+.bt{display:flex;align-items:center;justify-content:center;gap:8px;min-height:46px;padding:6px 10px;border-radius:10px;font:800 13px/1.1 var(--x);font-stretch:106%;color:var(--txt);text-align:center;background:linear-gradient(180deg,#2c2e33,#17181b);box-shadow:inset 0 1px 0 #ffffff26,inset 0 -1px 0 #000,0 0 0 1px #000,0 4px 8px #0008}
+.bt:active{transform:translateY(1px);box-shadow:inset 0 2px 4px #000,0 0 0 1px #000}
+.bt .lam{width:8px;height:8px;border-radius:50%;background:#3a3d42;box-shadow:inset 0 1px 1px #000,0 0 0 1px #000;flex:none}
+.bt[aria-pressed=true] .lam{background:var(--jaune);box-shadow:0 0 8px var(--jaune),0 0 0 1px #000}
+.bt[aria-pressed=true]{color:var(--jaune)}
+
+.suite{display:grid;gap:12px;margin-top:16px}
+.plaque.eq{padding:12px 26px 13px}
+.plaque.eq ul{list-style:none;padding:0;margin:8px 0 0;display:grid;gap:6px}
+.plaque.eq li{position:relative;padding-left:17px;font:700 13px/1.25 var(--x);color:#17181b;text-shadow:0 1px 0 #ffffff80}
+.plaque.eq li:before{content:"";position:absolute;left:2px;top:.36em;width:8px;height:4.5px;border-left:2px solid #17181b;border-bottom:2px solid #17181b;transform:rotate(-45deg)}
+.mot{position:relative;padding:14px 16px 15px;border-radius:3px;color:#22201a;background:linear-gradient(180deg,#fbf7ea,#efe9d6);box-shadow:0 0 0 1px #000,0 8px 16px #0009;transform:rotate(-.5deg)}
+.mot:before{content:"";position:absolute;left:50%;top:-8px;width:22px;height:22px;margin-left:-11px;border-radius:50%;background:radial-gradient(circle at 38% 32%,#FFE27A,var(--jaune) 52%,#9a7000);box-shadow:0 0 0 1px #000,0 3px 5px #0009}
+.mot span{display:block;font:700 11.5px/1 var(--m);letter-spacing:.1em;text-transform:uppercase;color:#6b6553}
+.mot q{display:block;quotes:none;margin-top:7px;font:500 14px/1.45 var(--x)}
+
+/* ---------- plein écran photos ---------- */
+dialog{border:0;padding:0;background:transparent;color:var(--txt);max-width:none;max-height:none}
+dialog::backdrop{background:#000e}
+#plein{width:100vw;height:100dvh}
+#plein .pd{display:flex;height:100%;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}
+#plein .pd::-webkit-scrollbar{display:none}
+#plein .pd img{flex:0 0 100%;width:100%;height:100%;object-fit:contain;scroll-snap-align:start;background:#000}
+#plein .fermer{position:fixed;top:calc(12px + env(safe-area-inset-top));right:12px;z-index:3;width:46px;height:46px;border-radius:50%;background:#000a;box-shadow:0 0 0 1px #ffffff40;font-size:22px;text-align:center;color:#fff}
+#plein .cpt{position:fixed;bottom:calc(16px + env(safe-area-inset-bottom));left:0;right:0;text-align:center;font:700 12px var(--m);color:#fffc}
+
+/* ---------- feuille « appeler » (dans un aperçu, les liens d'appel sont bloqués) ---------- */
+.feuille{position:fixed;inset:0;z-index:70;background:#000b;display:none;align-items:flex-end;justify-content:center}
+.feuille.on{display:flex}
+.feuille>div{width:min(480px,100%);padding:22px 18px calc(20px + env(safe-area-inset-bottom));border-radius:18px 18px 0 0;background:linear-gradient(180deg,#1f2125,#131417);box-shadow:0 0 0 1px #000,0 -20px 50px #000c,inset 0 1px 0 #ffffff26;text-align:center}
+.feuille small{display:block;font:700 11.5px var(--m);letter-spacing:.1em;text-transform:uppercase;color:var(--doux)}
+.feuille .num{display:block;margin:10px 0 16px;font:900 31px/1 var(--x);font-stretch:112%;color:var(--jaune);text-decoration:none;user-select:all;-webkit-user-select:all}
+.feuille .f2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.feuille p{font:500 12px/1.45 var(--m);color:var(--doux);margin-top:12px}
+.feuille .appel{min-height:52px;font-size:14.5px}
+
+.toast{position:fixed;left:50%;bottom:calc(22px + env(safe-area-inset-bottom));transform:translate(-50%,20px);opacity:0;z-index:80;background:var(--txt);color:#121311;font:700 13px var(--x);padding:11px 16px;border-radius:10px;transition:.3s var(--ease);pointer-events:none;max-width:90vw;text-align:center;box-shadow:0 8px 20px #000a}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+
+/* ================= la suite de l'appli : comparaison, arrivages, bureau ================= */
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.d{background-color:#131417;background-image:var(--grain);background-size:128px 128px}
+.v-corps{padding:0 12px calc(30px + env(safe-area-inset-bottom));max-width:560px;margin:0 auto}
+.v-corps>.enseigne{margin:14px 2px 0}
+.x-pc{display:none}
+.note{font:500 12px/1.5 var(--m);color:var(--doux);text-align:center;margin-top:14px;text-wrap:balance}
+.petit.jaune{background:linear-gradient(180deg,#FFD84F,var(--jaune) 45%,#D99E00);color:#141000;box-shadow:inset 0 1px 0 #ffffff90,inset 0 -1px 0 #9a7000,0 0 0 1px #000,0 2px 4px #0008}
+.petit.txt{font:800 12.5px var(--x);letter-spacing:0;padding:0 12px}
+
+/* le poste : trois commandes côte à côte */
+.trio{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin-top:13px}
+.trio .bt{flex-direction:column;gap:7px;min-height:62px;padding:10px 4px 9px;font-size:12.5px;line-height:1.12}
+.trio .bt svg.ic{width:18px;height:18px}
+.trio .bt .lam{width:10px;height:10px;margin:4px 0}
+#vers-banc{display:none}
+
+/* ---------- sur le tableau : arrivages, porte du bureau, choix de la 2e clé ---------- */
+.b-tete{display:flex;align-items:flex-end;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.b-tete .petit{margin-top:14px}
+.libre{display:grid;grid-template-columns:134px minmax(0,1fr);align-items:center;width:100%;margin-top:14px;padding:13px 14px 15px 4px;border-radius:9px;color:var(--txt);text-align:left;cursor:pointer;
+ background:linear-gradient(180deg,#2b2d32,#1b1c20 34%,#141518);box-shadow:inset 0 1px 0 #ffffff2e,inset 0 -1px 0 #000,0 0 0 1px #000,0 12px 20px #000c;transition:transform .2s var(--ease)}
+.libre:active{transform:scale(.99)}
+.l-croc{position:relative;display:block;width:134px;height:84px;--hx:33px;align-self:start;margin-top:2px;grid-row:1 / span 2}
+.l-croc .croc{position:absolute;left:calc(var(--hx) - 11px);top:0;width:22px;height:20px;z-index:4;filter:drop-shadow(0 2px 2px #000a)}
+.l-croc .bal{animation:balance-d 4.2s ease-in-out infinite}
+@keyframes balance-d{0%,100%{transform:rotate(1.6deg)}50%{transform:rotate(-2.2deg)}}
+.l-croc .etiq{width:116px;padding:8px 6px 6px 26px;transform:rotate(3deg)}
+.l-croc .etiq b{font-size:13px;letter-spacing:.01em}
+.l-croc .etiq small{font-size:11.5px;letter-spacing:-.02em;margin-top:3px}
+.etiq.vierge{background:#f2b7051a;box-shadow:none;outline:2px dashed var(--jaune);outline-offset:-2px;color:var(--jaune-c)}
+.etiq.vierge:before{background:#15171A;box-shadow:0 0 0 1.5px var(--jaune)}
+.etiq.vierge u{background:none;box-shadow:none}
+.etiq.vierge b{font-size:19px;line-height:.9}
+.etiq.vierge small{color:var(--jaune-c)}
+.l-txt{display:block;min-width:0;grid-column:2;align-self:end}
+.l-txt b{display:block;font:800 15px/1.16 var(--x);font-stretch:112%;letter-spacing:-.005em;text-wrap:balance}
+.l-txt small{display:block;font:500 12.5px/1.4 var(--x);color:#b3b7be;margin-top:5px}
+.l-go{grid-column:2;justify-self:start;align-self:start;display:inline-flex;align-items:center;gap:6px;margin-top:10px;min-height:34px;padding:7px 12px 6px;border-radius:7px;font:800 12.5px/1 var(--x);white-space:nowrap;color:#141000;background:linear-gradient(180deg,#FFD84F,var(--jaune) 45%,#D99E00);box-shadow:inset 0 1px 0 #ffffff90,inset 0 -1px 0 #9a7000,0 0 0 1px #000}
+.porte{position:relative;display:flex;align-items:center;gap:13px;width:100%;margin-top:26px;padding:11px 14px 11px 12px;border-radius:5px;color:#17181b;text-align:left;
+ background:linear-gradient(180deg,#eceef0 0%,#cfd2d6 16%,#b6bac0 55%,#9a9fa6 100%);box-shadow:inset 0 1px 0 #fff,inset 0 -1px 0 #555960,0 0 0 1px #000,0 9px 18px #000a}
+.porte:before{content:"";position:absolute;inset:0;border-radius:inherit;background:var(--brosse) 0 0/100% 96px;mix-blend-mode:multiply;opacity:.42;pointer-events:none}
+.porte>*{position:relative}
+.porte:active{transform:translateY(1px)}
+.serrure{flex:none;width:36px;height:36px;border-radius:50%;background:conic-gradient(from 215deg,#f6f7f8,#8b8f96 11%,#e8eaec 23%,#6d7178 37%,#dadde0 51%,#7c8087 65%,#f0f1f2 79%,#8b8f96 90%,#f6f7f8);box-shadow:0 0 0 1px #000,0 2px 4px #0009,inset 0 0 0 1px #ffffff90}
+.serrure:before{content:"";position:absolute;inset:6px;border-radius:50%;background:radial-gradient(circle at 50% 30%,#2e3035,#0f1012 72%);box-shadow:inset 0 2px 4px #000}
+.serrure:after{content:"";position:absolute;left:50%;top:50%;width:5px;height:13px;margin:-6.5px 0 0 -2.5px;border-radius:2.5px;background:var(--jaune);box-shadow:0 0 5px #f2b70580}
+.porte b{display:block;font:900 15.5px/1 var(--x);font-stretch:120%;letter-spacing:.02em;text-transform:uppercase;text-shadow:0 1px 0 #ffffffb0}
+.porte small{display:block;font:700 11.5px/1.15 var(--m);letter-spacing:.08em;text-transform:uppercase;margin-top:5px;color:#1d1f23;text-shadow:0 1px 0 #ffffff80}
+.porte .chev{margin-left:auto;font:500 24px/1 var(--x);font-style:normal;color:#33363b}
+.choix{position:sticky;bottom:calc(10px + env(safe-area-inset-bottom));z-index:7;display:flex;align-items:center;gap:10px;margin:0 10px;padding:9px 9px 9px 14px;border-radius:12px;color:#141000;--cm:10px;--cb:calc(10px + env(safe-area-inset-bottom,0px))}
+.choix::before{content:"";position:absolute;inset:0;z-index:-1;border-radius:inherit;pointer-events:none;
+ background:linear-gradient(180deg,#FFE27A 0%,#FFD23F 16%,var(--jaune) 52%,#D99E00 100%);box-shadow:inset 0 1px 0 #ffffffb0,inset 0 -2px 0 #9a7000,0 0 0 1px #000,0 0 0 4px #25272b,0 0 0 5px #000,0 14px 30px #000e}
+.choix::after{content:"";position:absolute;z-index:-2;left:calc(var(--cm)*-1);right:calc(var(--cm)*-1);top:-36px;bottom:calc(var(--cb)*-1);pointer-events:none;background:linear-gradient(180deg,#0c0d0f00 0,#0c0d0fd0 36px,#0c0d0f 64%)}
+.choix>span{flex:1;min-width:0}
+.choix b{display:block;font:700 11.5px/1.2 var(--m);letter-spacing:.07em;text-transform:uppercase}
+.choix em{display:block;font:900 16px/1.14 var(--x);font-stretch:108%;font-style:normal;margin-top:3px}
+.case.m1 .pan{box-shadow:inset 0 1px 0 #ffffff2e,inset 0 -1px 0 #000,0 0 0 1px #000,0 0 0 3.5px var(--jaune),0 0 0 4.5px #000,0 12px 20px #000c}
+.case.m1:after{content:var(--main,"");position:absolute;right:5px;top:5px;z-index:2;background:var(--jaune);color:#111;font:700 11.5px/1 var(--m);letter-spacing:.06em;padding:5px 6px 4px;border-radius:0 5px 0 6px}
+.case.m1 .clef{opacity:0}
+body.choisit .case:not(.m1) .bal{animation:balance-d 2.4s ease-in-out infinite;animation-delay:calc(var(--i,0)*-170ms)}
+
+/* ---------- le banc : deux clés en main ---------- */
+.b-duo{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:9px 10px;margin-top:12px}
+.b-ecran{display:block;width:100%;padding:6px 6px 0;border-radius:13px;background:linear-gradient(180deg,#2c2e33,#191a1d 26%,#0e0f11);box-shadow:inset 0 1px 0 #ffffff2e,inset 0 -1px 0 #000,0 0 0 1px #000,0 12px 22px #000c}
+.b-ecran .verre{display:block;border-radius:7px;cursor:pointer}
+.b-ecran img{width:100%;height:100%;object-fit:cover;display:block}
+.b-ecran .osd{opacity:1;transition:none;left:auto;right:6px;top:6px;color:var(--jaune)}
+.b-ecran .b-bas{display:flex;align-items:center;gap:7px;height:26px;padding:0 4px;font:700 11.5px/1 var(--m);letter-spacing:.08em;text-transform:uppercase;color:#c3c6cb}
+.b-ecran .led{background:var(--jaune);box-shadow:0 0 7px var(--jaune),0 0 0 1px #000}
+.plaque.b-id{margin-top:0;padding:10px 12px 10px}
+.plaque.b-id:after{inset:3px}
+.b-id h3{font:900 14px/1.08 var(--x);font-stretch:114%;letter-spacing:.005em;text-transform:uppercase;color:#131416;text-shadow:0 1px 0 #ffffffb0;overflow-wrap:anywhere}
+.b-id small{display:block;font:700 12px/1.2 var(--x);color:#33363b;margin-top:4px;text-shadow:0 1px 0 #ffffff80;overflow-wrap:anywhere}
+.b-act{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:7px}
+.b-act .bt{min-height:42px;padding:5px 4px;font-size:12.5px}
+.b-rang{margin-top:10px;padding:10px 10px 11px;border-radius:11px;background:linear-gradient(180deg,#090a0b,#131417);box-shadow:inset 0 2px 6px #000,inset 0 0 0 1px #000,0 1px 0 #ffffff17}
+.b-rang>.i-lab{text-align:center}
+.b-vals{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px;margin-top:9px;align-items:start}
+.b-v{min-width:0;display:grid;justify-items:center;gap:8px;align-content:start}
+.b-lam{width:10px;height:10px;border-radius:50%;background:#2f3136;box-shadow:inset 0 1px 1px #000,0 0 0 1px #000,0 1px 0 1px #ffffff14}
+.b-v.mieux .b-lam{background:var(--jaune);box-shadow:0 0 9px var(--jaune),inset 0 1px 1px #ffffff90,0 0 0 1px #000}
+.b-v .lcd{width:100%;height:46px;margin-top:0}
+.b-v .horametre{margin-top:0}
+.b-v .temoin{margin-top:0;text-align:left;gap:6px}
+.b-v .temoin i{width:8px;height:8px;border-radius:2px;box-shadow:0 0 0 1px #000}
+.b-an{position:relative;display:block;padding:8px 16px 7px;border-radius:4px;font:900 22px/1 var(--x);font-stretch:118%;color:#131416;text-shadow:0 1px 0 #ffffffb0,0 -1px 0 #00000026;background:linear-gradient(180deg,#eceef0 0%,#cfd2d6 16%,#b6bac0 55%,#9a9fa6 100%);box-shadow:inset 0 1px 0 #fff,inset 0 -1px 0 #555960,0 0 0 1px #000,0 4px 8px #0009}
+.b-an:before{content:"";position:absolute;inset:0;border-radius:inherit;background:var(--brosse) 0 0/100% 96px;mix-blend-mode:multiply;opacity:.42;pointer-events:none}
+.b-ecart{margin-top:11px;padding-top:9px;border-top:1px solid #ffffff14;text-align:center;font:700 11.5px/1.35 var(--m);letter-spacing:.04em;color:#c9ccd1;text-wrap:balance}
+.b-ecart b{color:var(--jaune);font-weight:700}
+.b-eq{list-style:none;padding:0;margin:0;display:grid;gap:6px;justify-self:stretch;align-self:start}
+.b-eq li{position:relative;padding-left:15px;font:500 12.5px/1.3 var(--x);color:#d9dbde;overflow-wrap:anywhere;text-wrap:pretty}
+.b-eq li:before{content:"";position:absolute;left:1px;top:.4em;width:7px;height:4px;border-left:2px solid var(--jaune);border-bottom:2px solid var(--jaune);transform:rotate(-45deg)}
+#banc .appel{margin-top:16px}
+
+/* ---------- le crochet : une grande étiquette à remplir ---------- */
+.v-intro{font:500 13.5px/1.5 var(--x);color:#c9ccd1;text-align:center;margin:14px 6px 0;text-wrap:balance}
+.g-pend{position:relative;max-width:420px;margin:18px auto 0;padding-top:50px}
+.g-croc{position:absolute;left:50%;top:0;width:44px;height:40px;margin-left:-22px;z-index:3;filter:drop-shadow(0 3px 3px #000a)}
+.g-etiq{position:relative;padding:38px 12px 12px;border-radius:22px;transform-origin:50% -10px;
+ background:linear-gradient(180deg,#FFD84F 0%,var(--jaune) 30%,#E0A300 100%);box-shadow:0 0 0 1px #000,0 18px 34px #000c,inset 0 1px 0 #ffffffa0,inset 0 -2px 0 #9a7000}
+.g-etiq:before{content:"";position:absolute;left:50%;top:9px;width:18px;height:18px;margin-left:-9px;border-radius:50%;background:#0b0c0e;box-shadow:0 0 0 2px #8a6500,inset 0 1px 2px #000}
+.g-etiq:after{content:"";position:absolute;inset:0;border-radius:inherit;background:var(--grain);mix-blend-mode:multiply;opacity:.8;pointer-events:none}
+.g-ann{position:absolute;left:50%;top:-25px;width:42px;height:42px;margin-left:-21px;z-index:2;filter:drop-shadow(0 2px 2px #000a)}
+.g-etiq.swing{animation:balance-g 1.7s cubic-bezier(.35,.1,.4,1) both}
+@keyframes balance-g{0%{transform:rotate(3.2deg)}20%{transform:rotate(-2.2deg)}40%{transform:rotate(1.3deg)}60%{transform:rotate(-.7deg)}80%{transform:rotate(.3deg)}100%{transform:rotate(0)}}
+.g-papier{position:relative;z-index:1;border-radius:11px;padding:14px 13px 16px;color:#1c1a14;color-scheme:light;background:linear-gradient(180deg,#fffdf4,#f1ecdc);box-shadow:inset 0 0 0 1px #00000026,inset 0 1px 3px #0000002e}
+.g-papier label{display:block;margin-top:13px;min-width:0}
+.g-papier label:first-child,.g-papier .deux label{margin-top:0}
+.g-papier .deux{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px;margin-top:13px}
+.g-papier label>span{display:block;font:700 11.5px/1.1 var(--m);letter-spacing:.08em;text-transform:uppercase;color:#5d5747}
+.g-papier input,.g-papier select{display:block;width:100%;height:44px;margin-top:3px;padding:0 2px;border:0;border-bottom:2px solid #1c1a14;border-radius:0;background:transparent;font:800 18px var(--x);color:#1c1a14;outline:0;-webkit-appearance:none;appearance:none}
+.g-papier select{background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5l5 5 5-5' fill='none' stroke='%231c1a14' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") right 4px center/12px 8px no-repeat;padding-right:22px;text-overflow:clip}
+.g-papier input::placeholder{color:#a39b83;font-weight:500}
+.g-papier input:focus,.g-papier select:focus{border-bottom-color:#B88600;background-color:#fff6cf}
+.g-go{position:relative;z-index:1;display:flex;align-items:center;justify-content:center;gap:10px;width:100%;min-height:56px;margin-top:11px;padding:8px 12px;border-radius:13px;font:900 15.5px/1.1 var(--x);font-stretch:108%;text-align:center;color:var(--jaune-c);
+ background:linear-gradient(180deg,#34363b,#191a1d 55%,#0c0d0e);box-shadow:inset 0 1px 0 #ffffff33,inset 0 -2px 0 #000,0 0 0 1px #000,0 6px 12px #0009}
+.g-go:active{transform:translateY(2px)}
+.g-go.clair{min-height:46px;font-size:13.5px;color:#f2f1ec}
+.tampon{display:inline-block;font:900 20px/1 var(--x);font-stretch:118%;letter-spacing:.06em;color:#c8451f;border:3px solid #c8451f;border-radius:6px;padding:7px 12px 5px;transform:rotate(-5deg);opacity:.92}
+.g-res{margin-top:14px;display:grid;gap:5px}
+.g-res b{font:900 21px/1.12 var(--x);font-stretch:112%;overflow-wrap:anywhere}
+.g-res span{font:800 16px/1.2 var(--x)}
+.g-papier p{font:500 13px/1.45 var(--x);color:#4a4537;margin-top:12px}
+#al-ok{text-align:center}
+
+/* ---------- le bureau : espace Dominique ---------- */
+.plaque.titre{margin-top:14px;text-align:center}
+.plaque.titre h2{margin-top:6px}
+.digi{position:relative;width:min(100%,300px);margin:18px auto 0;padding:15px 15px 17px;border-radius:16px;background:linear-gradient(180deg,#2c2e33,#191a1d 26%,#0e0f11);box-shadow:inset 0 1px 0 #ffffff2e,inset 0 -1px 0 #000,0 0 0 1px #000,0 16px 30px #000c}
+.d-voy{display:flex;align-items:center;justify-content:center;gap:15px;height:40px;border-radius:9px;background:#020202;box-shadow:inset 0 2px 5px #000,0 0 0 1px #000,0 1px 0 1px #ffffff1c}
+.d-voy i{width:14px;height:14px;border-radius:50%;background:#2a2c31;box-shadow:inset 0 1px 2px #000,0 0 0 1px #000;transition:background .1s,box-shadow .1s}
+.d-voy i.on{background:var(--jaune);box-shadow:0 0 9px var(--jaune),inset 0 1px 1px #ffffff90,0 0 0 1px #000}
+.digi.faux .d-voy i{background:var(--rouge);box-shadow:0 0 9px var(--rouge),inset 0 1px 1px #ffffff90,0 0 0 1px #000}
+.digi.faux{animation:secoue .42s}
+@keyframes secoue{0%,100%{transform:none}15%{transform:translateX(-7px)}30%{transform:translateX(6px)}45%{transform:translateX(-5px)}60%{transform:translateX(4px)}80%{transform:translateX(-2px)}}
+.d-touches{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin-top:13px}
+.d-touches button{height:56px;border-radius:10px;font:800 23px/1 var(--x);font-stretch:112%;text-align:center;color:#131416;text-shadow:0 1px 0 #ffffffb0;background:linear-gradient(180deg,#f3f4f5,#cbced3 46%,#9da2a9);box-shadow:inset 0 1px 0 #fff,inset 0 -2px 0 #6a6e75,0 0 0 1px #000,0 3px 6px #000a}
+.d-touches button:active{transform:translateY(2px);box-shadow:inset 0 2px 4px #0008,0 0 0 1px #000}
+.d-touches button.fx{background:linear-gradient(180deg,#34363b,#191a1d);color:#e8e9eb;text-shadow:none;box-shadow:inset 0 1px 0 #ffffff26,inset 0 -1px 0 #000,0 0 0 1px #000,0 3px 6px #000a;font-size:19px}
+.d-code{font:700 11.5px/1 var(--m);letter-spacing:.1em;text-transform:uppercase;color:#9a9ea5;text-align:center;margin-bottom:10px}
+#bureau .appel{margin-top:14px;width:100%}
+.reg-t{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-top:20px}
+.reg{display:grid;gap:8px;margin-top:9px}
+.r-ligne{position:relative;display:grid;grid-template-columns:64px minmax(0,1fr) auto;gap:10px;align-items:center;padding:7px 8px 7px 7px;border-radius:10px;background:linear-gradient(180deg,#26282d,#17181b);box-shadow:inset 0 1px 0 #ffffff24,inset 0 -1px 0 #000,0 0 0 1px #000,0 6px 12px #0009}
+.r-ligne img{width:64px;height:48px;object-fit:cover;border-radius:5px;display:block;box-shadow:0 0 0 1px #000}
+.r-n{min-width:0}
+.r-n b{display:block;font:800 13.5px/1.15 var(--x);font-stretch:110%;overflow-wrap:anywhere}
+.r-n small{display:flex;flex-wrap:wrap;align-items:center;gap:5px 8px;margin-top:5px;font:500 12px/1.2 var(--x);color:#b3b7be}
+.r-prix{display:inline-flex;align-items:center;gap:6px;min-height:32px;padding:5px 9px 4px;border-radius:6px;color:#141000;font:800 13px/1 var(--x);white-space:nowrap;background:linear-gradient(180deg,#FFD84F,var(--jaune) 45%,#D99E00);box-shadow:inset 0 1px 0 #ffffff90,inset 0 -1px 0 #9a7000,0 0 0 1px #000}
+.r-prix svg{width:12px;height:12px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.r-edit{display:flex;gap:6px;align-items:center;flex:1 1 100%;min-width:0}
+.r-edit .petit{min-width:38px;padding:0 8px}
+.r-edit input{flex:0 1 104px;min-width:0;width:104px;height:38px;padding:0 7px;border:0;border-radius:8px;background:#090a0b;box-shadow:inset 0 2px 5px #000,inset 0 0 0 1.5px var(--jaune);font:800 16px var(--x);color:var(--txt);outline:0}
+.r-ligne.vendue img{filter:grayscale(1) brightness(.55)}
+.r-ligne.vendue .r-n b{color:#8b8f96}
+.r-ligne .tampon{position:absolute;left:2px;top:50%;margin-top:-11px;box-sizing:border-box;max-width:74px;white-space:nowrap;font-size:11.5px;font-stretch:112%;letter-spacing:.04em;border-width:2px;border-radius:4px;padding:4px 5px 3px;transform:rotate(-12deg);color:#ff7a52;border-color:#ff7a52;background:#17181be6;opacity:1}
+.etapes{display:flex;gap:7px;justify-content:center;margin-top:16px}
+.etapes i{width:34px;height:7px;border-radius:4px;background:#2a2c31;box-shadow:inset 0 1px 2px #000,0 0 0 1px #000}
+.etapes i.on{background:var(--jaune);box-shadow:0 0 8px #f2b70599,0 0 0 1px #000}
+.b-h2{font:900 21px/1.1 var(--x);font-stretch:118%;letter-spacing:-.005em;margin-top:16px;text-wrap:balance}
+.b-p{font:500 13.5px/1.5 var(--x);color:#c9ccd1;margin-top:8px}
+.champ{display:block;margin-top:13px;min-width:0}
+.champ>span,.champ-t{display:block;font:700 11.5px/1.2 var(--m);letter-spacing:.09em;text-transform:uppercase;color:#9a9ea5}
+.champ-t{margin-top:15px}
+.champ input,.champ select,.champ textarea{display:block;width:100%;height:46px;margin-top:6px;padding:0 12px;border:0;border-radius:10px;background:#090a0b;box-shadow:inset 0 2px 5px #000,inset 0 0 0 1px #000,0 1px 0 #ffffff17;font:500 16px var(--x);color:var(--txt);outline:0}
+.champ select{-webkit-appearance:none;appearance:none;padding-right:38px;background:#090a0b url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5l5 5 5-5' fill='none' stroke='%23F2F1EC' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") right 14px center/12px 8px no-repeat}
+.champ textarea{height:88px;padding:11px 12px;resize:vertical;line-height:1.4}
+.champ input:focus,.champ select:focus,.champ textarea:focus{box-shadow:inset 0 2px 5px #000,inset 0 0 0 1.5px var(--jaune)}
+.champ input::placeholder,.champ textarea::placeholder{color:#6f737a}
+.deux{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px}
+.cases{display:grid;gap:7px;margin-top:7px}
+.cases label{position:relative;display:flex;align-items:center;gap:9px;min-height:44px;padding:8px 12px;border-radius:10px;background:#090a0b;box-shadow:inset 0 2px 5px #000,inset 0 0 0 1px #000,0 1px 0 #ffffff17;font:700 13px/1.2 var(--x);cursor:pointer}
+.cases input{position:absolute;opacity:0;pointer-events:none}
+.cases label:has(input:checked){box-shadow:inset 0 2px 5px #000,inset 0 0 0 1.5px var(--jaune);color:var(--jaune-c)}
+.cases i{width:10px;height:10px;border-radius:50%;flex:none;background:var(--jaune);box-shadow:0 0 7px #f2b705aa,inset 0 1px 1px #ffffff90,0 0 0 1px #000}
+.cases i.a{background:var(--ambre);box-shadow:0 0 7px #e0a93baa,inset 0 1px 1px #ffffff90,0 0 0 1px #000}
+.cases i.r{background:var(--rouge);box-shadow:0 0 7px #e0603baa,inset 0 1px 1px #ffffff90,0 0 0 1px #000}
+.photos-pro{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin-top:14px}
+.photos-pro img,.photos-pro label{display:block;width:100%;aspect-ratio:4/3;border-radius:8px}
+.photos-pro img{object-fit:cover;box-shadow:0 0 0 1px #000,0 0 0 4px #1d1f23,0 0 0 5px #000}
+.photos-pro label{position:relative;display:grid;place-items:center;align-content:center;gap:4px;outline:2px dashed var(--jaune);outline-offset:-2px;background:#f2b7051a;color:var(--jaune-c);font:800 12.5px/1.1 var(--x);text-align:center;cursor:pointer}
+.photos-pro label b{font:500 26px/1 var(--x)}
+.photos-pro input{position:absolute;inset:0;opacity:0;cursor:pointer;font-size:0}
+.nav2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.5fr);gap:10px;margin-top:20px}
+.nav2 .bt{min-height:54px;font-size:14px}
+.nav2 .bt.p{color:#141000;font-weight:900;background:linear-gradient(180deg,#FFE27A 0%,#FFD23F 16%,var(--jaune) 52%,#D99E00 100%);box-shadow:inset 0 1px 0 #ffffffb0,inset 0 -2px 0 #9a7000,0 0 0 1px #000,0 4px 10px #0009}
+.apercu{display:grid;grid-template-columns:minmax(0,190px);justify-content:center;padding:18px 0 2px}
+.apercu .case{pointer-events:none}
+.plaque.recap{margin-top:8px;text-align:center}
+.plaque.recap b{display:block;font:900 19px/1.08 var(--x);font-stretch:116%;text-transform:uppercase;margin-top:5px;overflow-wrap:anywhere;text-shadow:0 1px 0 #ffffffb0}
+.plaque.recap small{display:block;font:700 12.5px/1.3 var(--x);margin-top:5px;color:#26282c;text-shadow:0 1px 0 #ffffff80}
+#raz{width:100%;margin-top:16px;min-height:44px;font-size:12.5px;color:#c9ccd1}
+#raz.conf{color:#ff9a7a;box-shadow:inset 0 1px 0 #ffffff26,inset 0 -1px 0 #000,0 0 0 1.5px var(--rouge),0 4px 8px #0008}
+
+/* ---------- la carte de chaque machine : l'année sur sa plaque, le compteur d'heures, d'où vient ce chiffre (25/11) ---------- */
+.pan{display:flex;flex-direction:column;padding:5px 5px 7px}
+.cn{margin-bottom:10px}
+.fi{display:grid;grid-template-columns:auto minmax(0,1fr);gap:7px 7px;margin:auto 1px 0;padding-top:9px;border-top:1px solid #ffffff14;box-shadow:0 -1px 0 #000}
+.fc{display:block;min-width:0}
+.fl{display:block;font:700 11.5px/1 var(--m);font-style:normal;letter-spacing:.08em;text-transform:uppercase;color:#9a9ea5;margin:0 0 5px 1px;white-space:nowrap}
+.fv{display:flex;align-items:center;height:25px;margin:3px;border-radius:4px}
+.fv.an{position:relative;justify-content:center;margin:2px 3px 2px 1px;height:27px;padding:0 8px;border-radius:3px;font:700 13.5px/1 var(--m);letter-spacing:.04em;color:#141517;background:linear-gradient(180deg,#eef0f2,#c5c9ce 46%,#a0a5ac);box-shadow:0 0 0 1px #000,0 3px 6px #000a,inset 0 1px 0 #fff,inset 0 -1px 0 #5c6067;text-shadow:0 1px 0 #ffffff99}
+.fv.an:before{content:"";position:absolute;inset:0;border-radius:inherit;background:var(--brosse) 0 0/100% 96px;mix-blend-mode:multiply;opacity:.4;pointer-events:none}
+.mh{gap:1.5px;padding:0 4px;background:#020202;box-shadow:inset 0 2px 5px #000,0 0 0 1px #000,0 0 0 2px #33363b,0 0 0 3px #000,0 1px 0 3px #ffffff1c}
+.mh i{flex:1;min-width:0;height:19px;border-radius:2px;background:linear-gradient(#2c2d2f,#0c0c0d 38%,#0c0c0d 62%,#2c2d2f);font:700 13px/19px var(--m);font-style:normal;text-align:center;color:#f4f1e6}
+.mh em{flex:none;font:700 11.5px/1 var(--m);font-style:normal;color:#d9dadd;margin:0 1px 0 3px}
+.ft{grid-column:1/-1;display:flex;align-items:center;gap:6px;min-width:0;font:600 11.5px/1.15 var(--x);color:#c9ccd1;padding:0 2px 1px}
+.ft i{width:8px;height:8px;border-radius:50%;flex:none;background:var(--jaune);box-shadow:0 0 6px #f2b705aa,inset 0 1px 1px #ffffff90,0 0 0 1px #000}
+.ft.a i{background:var(--ambre);box-shadow:0 0 6px #e0a93baa,inset 0 1px 1px #ffffff90,0 0 0 1px #000}
+.ft.r i{background:var(--rouge);box-shadow:0 0 6px #e0603baa,inset 0 1px 1px #ffffff90,0 0 0 1px #000}
+/* l'étiquette de la clé : le prix, avec sa mention (HT, netto, excl. VAT, IVA esclusa) */
+.etiq u{padding:5px 2px 5px}
+.etiq small.el{margin:0 0 4px;font:700 11.5px/1 var(--m);letter-spacing:.04em;text-transform:uppercase;color:#5d5540}
+.etiq b{font-size:16.5px}
+
+/* ---------- la recherche sur demande : un bon de recherche, pincé au tableau (25/11) ---------- */
+/* sur le tableau : le bon pincé, à côté du texte */
+.bon-mini{position:relative;display:block;width:112px;height:96px;margin-left:12px;align-self:start;grid-row:1 / span 2}
+.aimant{position:absolute;left:50%;top:0;z-index:3;width:26px;height:26px;margin-left:-13px;border-radius:50%;background:radial-gradient(circle at 36% 30%,#fff6c8 0,#FFD84F 22%,var(--jaune) 52%,#B88600 100%);box-shadow:0 0 0 1px #00000099,inset 0 -2px 3px #8a6100,0 4px 6px #000b}
+.aimant:after{content:"";position:absolute;inset:7px;border-radius:50%;box-shadow:inset 0 1px 2px #8a610099,0 1px 0 #fff6c880}
+.bon-mini .aimant{top:7px;width:20px;height:20px;margin-left:-10px}.bon-mini .aimant:after{inset:5px}
+.bm-p{position:absolute;left:0;right:0;top:15px;bottom:0;display:block;padding:15px 9px 8px 17px;border-radius:3px;transform:rotate(-3deg);color:#1c1a14;
+ background:radial-gradient(circle at 6px 50%,#141518 2.2px,transparent 2.7px) 0 0/12px 11px repeat-y,linear-gradient(180deg,#fffdf4,#efe9d7);box-shadow:0 0 0 1px #00000059,0 8px 14px #000b}
+.bm-p:before{content:"";position:absolute;left:12px;top:6px;bottom:6px;border-left:1.5px dashed #b9b09a}
+.bm-p b{display:block;font:700 11.5px/1 var(--m);letter-spacing:.06em;text-transform:uppercase;padding-bottom:5px;border-bottom:1.5px solid #1c1a14;white-space:nowrap;overflow:hidden}
+.bm-p i{display:block;height:1px;background:#cfc5ab;margin-top:12px}
+.bm-p .loupe{position:absolute;right:7px;bottom:7px;width:30px;height:30px;fill:none;stroke:#1c1a14;stroke-width:2.6;stroke-linecap:round}
+.bm-p .tampon{position:absolute;left:50%;top:56%;transform:translate(-50%,-50%) rotate(-9deg);font-size:11.5px;letter-spacing:.03em;border-width:2px;border-radius:4px;padding:4px 5px 3px;white-space:nowrap;font-style:normal;background:#fffdf4d9}
+.tampon.ok{color:#8a6100;border-color:#8a6100}
+.cmd.res .l-txt b{font-size:14.5px}
+.vide-rc{display:flex;margin:-14px auto 22px}
+
+/* l'écran de la recherche */
+.atouts{list-style:none;display:grid;gap:10px;margin:16px 0 0;padding:13px 14px;border-radius:10px;background:linear-gradient(180deg,#1d1f23,#141518);box-shadow:inset 0 1px 0 #ffffff1f,inset 0 -1px 0 #000,0 0 0 1px #000,0 8px 16px #0008}
+.atouts li{display:flex;align-items:center;gap:10px;font:600 13px/1.3 var(--x);color:#d6d8dc}
+.atouts i{width:9px;height:9px;border-radius:50%;flex:none;background:var(--jaune);box-shadow:0 0 7px #f2b705aa,inset 0 1px 1px #ffffff90,0 0 0 1px #000}
+.bon{position:relative;max-width:440px;margin:22px auto 0;padding-top:20px}
+.bon .aimant{top:9px;width:30px;height:30px;margin-left:-15px}.bon .aimant:after{inset:8px}
+.g-papier.bon-p{border-radius:4px;padding:30px 14px 16px 30px;transform:rotate(-.5deg);
+ background:radial-gradient(circle at 9px 50%,#131417 2.6px,transparent 3.2px) 0 0/18px 17px repeat-y,linear-gradient(180deg,#fffdf4,#f1ecdc);box-shadow:0 0 0 1px #00000059,inset 0 1px 0 #fff,0 16px 30px #000c}
+.g-papier.bon-p:before{content:"";position:absolute;left:19px;top:10px;bottom:10px;border-left:1.5px dashed #b9b09a;pointer-events:none}
+.bon-t{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:4px 10px;padding-bottom:8px;margin-bottom:14px;border-bottom:2px solid #1c1a14}
+.bon-t b{font:900 15px/1.1 var(--x);font-stretch:116%;letter-spacing:.02em;text-transform:uppercase}
+.bon-t span{font:700 11.5px/1.2 var(--m);letter-spacing:.04em;color:#5d5747;white-space:nowrap}
+.bon-p .deux{align-items:end}
+.quand{border:0;padding:0;margin:14px 0 0;min-width:0}
+.quand legend{padding:0;font:700 11.5px/1.1 var(--m);letter-spacing:.08em;text-transform:uppercase;color:#5d5747}
+.chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:7px}
+.g-papier .chips label{position:relative;display:inline-flex;align-items:center;margin:0;min-height:42px;padding:6px 13px;border-radius:999px;cursor:pointer;color:#1c1a14;background:#fffdf4;box-shadow:inset 0 0 0 2px #1c1a14}
+.chips input{position:absolute;opacity:0;pointer-events:none}
+.chips b{font:800 13.5px/1.15 var(--x)}
+.g-papier .chips label:has(input:checked){background:linear-gradient(180deg,#FFD84F,var(--jaune) 50%,#E0A300);box-shadow:inset 0 0 0 2px #1c1a14,inset 0 -2px 0 #9a7000}
+.g-papier .chips label:has(input:focus-visible){outline:3px solid #B88600;outline-offset:2px}
+.bon-s{margin-top:18px;padding-top:12px;border-top:1.5px dashed #b9b09a;font:700 11.5px/1.1 var(--m);letter-spacing:.08em;text-transform:uppercase;color:#1c1a14}
+.g-papier .bon-s+.deux{margin-top:10px}
+.code{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:end;margin-top:16px;padding:10px 12px 12px;border-radius:6px;background:#fff3c4;box-shadow:inset 0 0 0 1.5px #B88600}
+.g-papier .code label{margin-top:0}
+.g-papier .code input{font:800 24px var(--m);letter-spacing:.35em}
+.code .petit{height:44px;padding:0 16px;font-size:14px}
+.g-papier p.bon-demo{margin-top:10px;font:700 12.5px/1.4 var(--x);color:#6b4f00}
+.g-go.jaune{color:#141000;background:linear-gradient(180deg,#FFE27A 0%,#FFD23F 16%,var(--jaune) 52%,#D99E00 100%);box-shadow:inset 0 1px 0 #ffffffb0,inset 0 -2px 0 #9a7000,0 0 0 1px #000,0 8px 16px #0009}
+.bon .g-go{margin-top:16px}
+#rc-neuf{margin-top:16px}
+.rc-lab{display:block;margin:22px 2px 0}
+.bon-p.res{margin-top:12px;transform:none;padding-top:20px}
+.bon-p.res .tampon{display:inline-block;margin:0 0 10px 2px;font-size:15px;transform:rotate(-4deg)}
+.bon-p.res .g-res{margin-top:4px;padding-right:2px}
+.bon-p.res .g-res b{font-size:19px}
+.bon-p.res .g-res .cr{font:700 14px/1.35 var(--x);color:#1c1a14}
+.bon-p.res .g-res .det{font:600 15px/1.3 var(--x);color:#3b3627;overflow-wrap:anywhere}
+.g-papier.bon-p p{font:500 13px/1.45 var(--x);color:#4a4537;margin-top:12px}
+.bon-x{display:inline-flex;align-items:center;min-height:40px;margin-top:6px;padding:0;font:700 12.5px/1.2 var(--x);color:#6b5a3a;text-decoration:underline;text-underline-offset:3px}
+.res.pose{animation:pose .5s cubic-bezier(.2,.8,.3,1) both}
+.res.pose .tampon{animation:tampon .55s .25s cubic-bezier(.2,.9,.3,1.25) both}
+@keyframes pose{0%{transform:translateY(-14px);opacity:0}100%{transform:none;opacity:1}}
+@keyframes tampon{0%{transform:scale(2.3) rotate(-12deg);opacity:0}60%{opacity:1}100%{transform:scale(1) rotate(-4deg);opacity:.92}}
+@media(prefers-reduced-motion:reduce){.res.pose,.res.pose .tampon{animation:none}}
+
+/* le bureau : les recherches demandées */
+.rqs{display:grid;gap:8px;margin-top:9px}
+.rq{position:relative;display:grid;gap:4px;padding:11px 12px 9px;border-radius:10px;background:linear-gradient(180deg,#26282d,#17181b);box-shadow:inset 0 1px 0 #ffffff24,inset 0 -1px 0 #000,0 0 0 1px #000,0 6px 12px #0009}
+.rq-h{display:flex;align-items:baseline;gap:10px;font:700 11.5px/1.2 var(--m);letter-spacing:.04em;color:#9a9ea5}
+.rq-h b{color:var(--jaune-c)}
+.rq-h .tampon{position:absolute;right:10px;top:9px;font-size:11.5px;letter-spacing:.04em;border-width:2px;border-radius:4px;padding:4px 6px 3px;transform:rotate(-6deg);color:var(--jaune-c);border-color:var(--jaune-c);opacity:1;font-style:normal}
+.rq-t{font:800 15px/1.2 var(--x);font-stretch:108%;margin-top:2px}
+.rq-d{font:600 13px/1.35 var(--x);color:#d6d8dc;overflow-wrap:anywhere}
+.rq-c{font:600 12.5px/1.35 var(--x);color:#b3b7be}
+.rq-q{display:flex;align-items:center;gap:7px;font:700 12.5px/1.3 var(--m);color:#e8e6df;margin-top:3px}
+.rq-q svg.ic{width:15px;height:15px;color:var(--jaune)}
+.rq-a{display:flex;flex-wrap:wrap;gap:7px;margin-top:6px}
+.rq-a .petit{height:40px}
+.petit.txt.conf{color:#ff9a7a;box-shadow:inset 0 1px 0 #ffffff26,inset 0 -1px 0 #000,0 0 0 1.5px var(--rouge)}
+.rq.trouvee .rq-t{color:var(--jaune-c)}
+.rq-vide{margin-top:9px;padding:13px 14px;border-radius:10px;font:500 12.5px/1.5 var(--m);color:var(--doux);box-shadow:inset 0 0 0 1.5px #2f3238}
+.rq-note{margin-top:10px}
+
+/* ---------- retouches du contrôle final : très petits téléphones, mots longs ---------- */
+.t-haut .logo{flex:0 1 168px;min-width:0;width:168px;object-fit:contain;object-position:left center}
+.t-haut:has(#installer:not([hidden])) .logo{flex-basis:133px;width:133px}
+.no{font-size:11.5px}
+.cherche input{text-overflow:ellipsis}
+.feuille .num{padding:3px 0}
+.enseigne p.sre{letter-spacing:.015em}
+.enseigne h1.sre{letter-spacing:-.012em}
+.enseigne .pli{white-space:normal;text-wrap:balance}
+@media(max-width:370px){
+ .libre{grid-template-columns:118px minmax(0,1fr);padding-right:12px}
+ .l-croc{width:118px;--hx:29px;grid-row:1}
+ .l-croc .etiq{width:104px;padding-left:24px}
+ .l-txt{align-self:center}
+ .l-txt b{font-size:14px;font-stretch:104%}
+ .l-go{grid-column:1 / -1;justify-self:stretch;justify-content:center;margin:12px 0 0 10px;min-height:40px}
+ .fi{column-gap:5px}.fl{letter-spacing:.04em}.fv.an{padding:0 6px}.mh{padding:0 3px}
+ .bon-mini{width:98px;margin-left:10px}.bm-p{padding-left:15px}
+ .g-papier.bon-p{padding-left:26px;padding-right:12px}
+ .etiq small.el{letter-spacing:.02em}
+}
+/* grand écran de bureau : le tableau de bord d'ouverture prend sa place */
+@media(min-width:1500px) and (min-height:840px){.o-in{zoom:1.2}}
+@media(min-width:1800px) and (min-height:1000px){.o-in{zoom:1.42}}
+
+@media(min-width:640px) and (max-width:999px){.rayon{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-height:600px){.o-in{padding:52px 0 16px}.o-logo{width:190px}.o-pan{margin-top:12px;padding:14px 18px 12px}.o-voy{margin-bottom:16px}.voy{width:30px;height:30px}.voy svg{width:17px;height:17px}#neiman0{--d:132px!important}.o-cpt{margin-top:46px}.o-t{margin-top:14px;font-size:19px}}
+@media(max-height:780px) and (max-width:999px){.verre{aspect-ratio:3/2}}
+@media(max-height:690px) and (max-width:999px){.verre{aspect-ratio:16/9.6}.plaque h2{font-size:21px}}
+@media(max-width:350px){.rayon{gap:20px 8px}.planche{padding-left:10px;padding-right:10px}.pend{--hx:29px}.etiq{width:124px;padding-left:31px}.etiq b{font-size:14px}.plaque h2{font-size:20px}.appel{font-size:14px}.i-lab,.temoin{letter-spacing:-.02em}}
+
+/* ---------- PC : le tableau à gauche, la machine à droite ---------- */
+@media(min-width:1000px){
+ .app{grid-template-columns:clamp(420px,33vw,600px) minmax(0,1fr)}
+ body[data-vue] #tableau{display:block}
+ body[data-vue=tableau] #poste,body[data-vue=poste] #poste{display:flex;flex-direction:column}
+ #tableau{box-shadow:1px 0 0 #000,2px 0 0 #ffffff12;z-index:2}
+ .t-haut{padding:12px 18px}.t-haut .logo{height:34px}
+ .enseigne{margin:18px 18px 0}.enseigne h1{font-size:23px}
+ .t-outils{margin:14px 18px 0}.planche{padding:4px 18px 40px}
+ .rayon{grid-template-columns:repeat(auto-fill,minmax(172px,1fr));gap:24px 14px}
+ #rendre{display:none}
+ .p-haut{padding:12px 26px;justify-content:flex-end}
+ .p-corps{flex:none;width:100%;max-width:1080px;margin:auto;padding:20px 26px 30px;display:grid;grid-template-columns:minmax(0,1fr) clamp(330px,36%,400px);grid-template-rows:auto auto 1fr auto;gap:0 24px;align-items:start}
+ .moniteur{grid-column:1;grid-row:1/5;margin-top:0}
+ .plaque.id{grid-column:2;margin-top:0}
+ .instruments,.commandes,.trio{grid-column:2}
+ .commandes{align-self:center}.trio{align-self:end}
+ .suite{grid-column:1/-1;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:24px;margin-top:24px;align-items:start}
+ .plaque h2{font-size:21px}
+ .p-corps>.signe{grid-column:1/-1}
+ .case:hover .pan{transform:translateY(-2px)}
+ .toast{bottom:28px}
+ .x-pc{display:inline-flex}.ret{display:none}
+ body.cmp2 #vers-banc{display:inline-flex;margin-right:auto}
+ .v-corps{max-width:800px;padding:6px 26px 34px}
+ .v-corps.etroit{max-width:540px}
+ .v-corps>.enseigne{margin:14px 0 0}
+ .choix{margin:0 16px;bottom:14px;--cm:16px;--cb:14px}
+ .case.cmp .pan{box-shadow:inset 0 1px 0 #ffffff2e,inset 0 -1px 0 #000,0 0 0 1px #000,0 0 0 3.5px var(--jaune),0 0 0 4.5px #000,0 12px 20px #000c}
+ .b-duo{gap:10px 16px}.b-vals{gap:16px}
+ .b-id h3{font-size:17px}.b-id small{font-size:13px}.plaque.b-id{padding:12px 16px}
+ .b-act .bt{min-height:44px;font-size:13px}
+ .b-eq li{font-size:13.5px}
+ .b-v .lcd{max-width:260px}
+ .libre{grid-template-columns:134px minmax(0,1fr)}
+ .t-haut .logo{flex-basis:238px;width:238px}
+}
+/* grand écran : les équipements montent dans la colonne de droite, tout tient à la hauteur de l'écran photo */
+@media(min-width:1500px){
+ .p-corps{grid-template-rows:auto auto auto auto 1fr}
+ .moniteur{grid-row:1/6}
+ .commandes{align-self:start}.trio{align-self:start}
+ .suite{display:contents}
+ #bloc-eq{grid-column:2;grid-row:5;align-self:end;margin-top:13px}
+ #bloc-dit{grid-column:1/-1;margin-top:26px;justify-self:center;width:min(100%,640px)}
+ .plaque h2{font-size:23px}
+}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body data-vue="tableau">
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <linearGradient id="acier" x1="0" x2="1"><stop offset="0" stop-color="#70757d"/><stop offset=".34" stop-color="#f1f2f4"/><stop offset=".6" stop-color="#b4b8be"/><stop offset="1" stop-color="#62676f"/></linearGradient>
+    <linearGradient id="acierv" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#f4f5f6"/><stop offset=".5" stop-color="#a5a9af"/><stop offset="1" stop-color="#5f646b"/></linearGradient>
+    <linearGradient id="tete" x1="0" x2="1"><stop offset="0" stop-color="#050506"/><stop offset=".42" stop-color="#3b3e44"/><stop offset="1" stop-color="#0a0a0c"/></linearGradient>
+  </defs>
+  <symbol id="s-clef" viewBox="0 0 26 76">
+    <path fill="url(#acier)" stroke="#2f3237" stroke-width=".7" d="M9.4 26h7.2v6.5l-2.2 2v2.6l2.2 2v4.2l-2.2 2v3.6l2.2 2V57L13 64l-3.6-7z"/>
+    <path d="M12.4 29v30" stroke="#5a5e65" stroke-width=".9" fill="none"/>
+    <path fill="url(#tete)" stroke="#000" stroke-width=".8" d="M4.6 4Q4.6 1 7.8 1h10.4q3.2 0 3.2 3v20.5q0 4.8-8.4 4.8t-8.4-4.8z"/>
+    <circle cx="13" cy="7.6" r="3.3" fill="#0a0b0c" stroke="#6a6e75" stroke-width=".9"/>
+    <circle cx="13" cy="19.6" r="3.1" fill="#F2B705" stroke="#000" stroke-width=".5"/>
+    <path d="M6.6 4.5v18" stroke="#ffffff3d" stroke-width="1.1" fill="none"/>
+  </symbol>
+  <symbol id="s-croc" viewBox="0 0 22 20">
+    <rect x="5" y=".5" width="12" height="8" rx="1.6" fill="url(#acierv)" stroke="#1d1f22" stroke-width=".7"/>
+    <circle cx="11" cy="4.5" r="1.7" fill="#3d4046" stroke="#16171a" stroke-width=".5"/>
+    <path d="M11 8v5.5q0 5 5 5" fill="none" stroke="#1d1f22" stroke-width="4" stroke-linecap="round"/>
+    <path d="M11 8v5.5q0 5 5 5" fill="none" stroke="url(#acier)" stroke-width="2.6" stroke-linecap="round"/>
+  </symbol>
+  <symbol id="s-ann" viewBox="0 0 20 20"><circle cx="10" cy="10" r="8" fill="none" stroke="#1d1f22" stroke-width="3.4"/><circle cx="10" cy="10" r="8" fill="none" stroke="url(#acier)" stroke-width="2"/></symbol>
+  <symbol id="s-tel" viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z"/></symbol>
+  <symbol id="s-part" viewBox="0 0 24 24"><circle cx="18" cy="5" r="2.5"/><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="19" r="2.5"/><path d="M8.2 10.8l7.6-4.4M8.2 13.2l7.6 4.4"/></symbol>
+  <symbol id="s-cle" viewBox="0 0 24 24"><circle cx="8" cy="8" r="4.5"/><path d="M11.2 11.2L20 20M16 16l2.5-2.5M18.5 18.5L21 16"/></symbol>
+  <symbol id="s-loupe" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></symbol>
+  <symbol id="s-inst" viewBox="0 0 24 24"><path d="M12 4v11m0 0l-4-4m4 4l4-4M5 20h14"/></symbol>
+  <symbol id="s-bat" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="11" rx="1.5"/><path d="M7 8V6h3v2M14 8V6h3v2M6.5 13.5h3M15 13.5h3M16.5 12v3"/></symbol>
+  <symbol id="s-huile" viewBox="0 0 24 24"><path d="M3 11l4 1.5V17h9l5-6h-4l-2 2h-5l-1-2.5L3 9zM7 9V7h3v2.5M21.5 15.5q1 1.4 0 2.2-1-.8 0-2.2z"/></symbol>
+  <symbol id="s-pre" viewBox="0 0 24 24"><path d="M2 14c1.2 0 1.2-5 3.2-5s2 6 4 6 2-6 4-6 2 6 4 6 2-5 3.200-5H22"/></symbol>
+  <symbol id="s-cmp" viewBox="0 0 24 24"><path d="M4 8h15m0 0l-3.5-3.5M19 8l-3.500 3.5M20 16H5m0 0l3.500-3.500M5 16l3.500 3.500"/></symbol>
+  <symbol id="s-sms" viewBox="0 0 24 24"><path d="M4 5h16v11H10l-5 4v-4H4z"/><path d="M8 9h8M8 12h5"/></symbol>
+  <symbol id="s-crayon" viewBox="0 0 24 24"><path d="M4 20l1-4.500L16 4.500l3.500 3.500L8.500 19zM14 6.500l3.500 3.500"/></symbol>
+  <symbol id="s-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+</svg>
+
+<!-- ouverture : on met le contact -->
+<div class="ouverture" id="ouverture">
+  <button type="button" class="petit o-passer" id="passer" data-t="passer">Passer</button>
+  <a class="petit o-dossier" id="dossier" href="../index.html" hidden>‹ Dossier</a>
+  <div class="o-in">
+    <img class="o-logo" src="../logo/logo-poly-court-clair.svg" alt="Poly Commerce" width="1000" height="143">
+    <div class="o-pan"><i class="vis"></i><i class="vis"></i><i class="vis"></i><i class="vis"></i>
+    <div class="o-voy" aria-hidden="true">
+      <span class="voy"><svg><use href="#s-bat"/></svg></span>
+      <span class="voy pre"><svg><use href="#s-pre"/></svg></span>
+      <span class="voy"><svg><use href="#s-huile"/></svg></span>
+    </div>
+    <button type="button" class="o-bouton" id="demarrer" aria-label="Mettre le contact">
+      <span class="tour"><svg viewBox="0 0 100 100"><path d="M57.4 2.6A48 48 0 0 1 84.5 16.6"/><path d="M82.6 9.6L84.5 16.6L77.6 15"/></svg></span>
+      <span class="neiman" id="neiman0" style="--d:184px">
+        <span class="n-face"><i data-p="0"></i><i class="p1" data-p="I"></i><i class="p2" data-p="II"></i></span>
+        <span class="n-cyl"></span>
+        <span class="n-cle"><span class="n-pend"><i class="n-ann"></i><span class="n-etiq">POLY<small>COMMERCE</small></span></span></span>
+      </span>
+    </button>
+    <div class="o-cpt"><div class="horametre" id="hora0"></div><span id="o-m" data-t="parc">machines au parc</span></div>
+    </div>
+    <p class="o-t" id="o-t" data-t="ouv1">Mettez le contact</p>
+    <p class="o-s" id="o-s" data-t="ouv2">Touchez la clé : le parc démarre.</p>
+  </div>
+</div>
+
+<div class="app">
+  <!-- le tableau des clés -->
+  <main class="vue" id="tableau"><div class="mur">
+    <header class="t-haut">
+      <img class="logo" id="logo" src="../logo/logo-poly-court-clair.svg" alt="Poly Commerce" width="1000" height="143">
+      <button type="button" class="petit" id="installer" hidden><svg class="ic"><use href="#s-inst"/></svg><span data-t="inst">Installer</span></button>
+      <a class="petit tel" id="tel-haut" href="tel:+33687858436" aria-label="Appeler Poly Commerce"><svg class="ic"><use href="#s-tel"/></svg></a>
+      <span class="petit langue"><span id="lg">FR</span><select id="langue" aria-label="Langue"><option value="fr">Français</option><option value="de">Deutsch</option><option value="en">English</option><option value="it">Italiano</option></select></span>
+      <button type="button" class="petit" id="trousseau" aria-pressed="false" aria-label="Mon trousseau"><svg class="ic"><use href="#s-cle"/></svg><b id="seln">0</b></button>
+    </header>
+    <div class="enseigne"><i class="vis"></i><i class="vis"></i><h1 data-t="tab">Le tableau des clés</h1><p id="etat"></p></div>
+    <p class="aide" data-h="aide"></p>
+    <div class="t-outils">
+      <label class="cherche"><svg class="ic"><use href="#s-loupe"/></svg><input type="search" id="cherche" data-ph="cherche" placeholder="Chercher une machine" aria-label="Chercher une machine"></label>
+      <button type="button" class="petit" id="tri"></button>
+    </div>
+    <div class="planche" id="planche"></div>
+    <div class="choix" id="choix" hidden><span><b id="choix-b"></b><em id="choix-t"></em></span><button type="button" class="petit txt" id="choix-x">Annuler</button></div>
+  </div></main>
+
+  <!-- le poste : la machine se présente -->
+  <main class="vue d poste" id="poste">
+    <header class="p-haut">
+      <button type="button" class="petit" id="rendre"><span aria-hidden="true">‹</span><span id="rendre-t">Les clés</span></button><button type="button" class="petit txt" id="vers-banc"><svg class="ic"><use href="#s-cmp"/></svg><span data-t="cp1b">Comparaison</span></button>
+      <span class="sp"></span>
+      <div class="pas"><button type="button" id="prec" aria-label="Machine précédente">‹</button><span id="rangno"></span><button type="button" id="suiv" aria-label="Machine suivante">›</button></div>
+    </header>
+    <div class="p-corps">
+      <div class="moniteur">
+        <div class="verre"><div class="defile" id="defile"></div><span class="osd" id="osd"></span><span class="osd droite" id="osd2"></span><span class="reflet"></span></div>
+        <div class="m-bas"><i class="led"></i><span class="m-type" id="type"></span><div class="points" id="points"></div></div>
+      </div>
+      <div class="plaque id">
+        <i class="vis"></i><i class="vis"></i><i class="vis"></i><i class="vis"></i>
+        <span class="grave" data-t="marque">Marque · modèle</span>
+        <h2 id="nom"></h2>
+        <div class="p-ligne"><span><span class="grave" data-t="type">Type</span><b id="type2"></b></span><span><span class="grave" data-t="annee">Année</span><b id="annee"></b></span></div>
+      </div>
+      <div class="instruments">
+        <div class="inst"><span class="i-lab" data-t="heures">Heures</span><div class="horametre" id="hora"></div><div class="temoin" id="rep"><i></i><span></span></div><span class="tot" id="tot" hidden></span></div>
+        <div class="inst"><span class="i-lab" data-t="prix">Prix HT</span><div class="lcd" id="prix" role="img"></div><div class="temoin"><i></i><span data-t="vente">En vente</span></div></div>
+      </div>
+      <div class="commandes">
+        <button type="button" class="contact" id="contact" aria-label="Couper le contact"><span class="neiman" id="neiman" style="--d:76px;--f:.118"><span class="n-face"><i data-p="0"></i><i class="p1" data-p="I"></i><i class="p2" data-p="II"></i></span><span class="n-cyl"></span><span class="n-cle"></span></span><em data-t="contact">Contact</em></button>
+        <a class="appel" id="appeler" href="tel:+33687858436"><svg><use href="#s-tel"/></svg><span data-t="appm">Appeler pour cette machine</span></a>
+      </div>
+      <div class="trio">
+        <button type="button" class="bt" id="garder" aria-pressed="false"><i class="lam"></i><span id="garder-t"></span></button>
+        <button type="button" class="bt" id="comparer"><svg class="ic"><use href="#s-cmp"/></svg><span data-t="cp0">Comparer</span></button>
+        <button type="button" class="bt" id="partager"><svg class="ic"><use href="#s-part"/></svg><span data-t="part">Partager</span></button>
+      </div>
+      <div class="suite">
+        <div class="plaque eq" id="bloc-eq"><i class="vis"></i><i class="vis"></i><i class="vis"></i><i class="vis"></i><span class="grave" data-t="equip">Équipements</span><ul id="eq"></ul></div>
+        <div class="mot" id="bloc-dit"><span data-t="dit">Ce qu'en dit Dominique</span><q id="dit"></q></div>
+      </div>
+      <span class="signe" data-t="signe">Appli réalisée par Agence LDR</span>
+    </div>
+  </main>
+
+  <!-- le banc : deux clés en main, deux machines côte à côte -->
+  <main class="vue d" id="banc">
+    <header class="p-haut">
+      <button type="button" class="petit ret" data-ret><span aria-hidden="true">‹</span><span data-t="cles">Les clés</span></button>
+      <span class="sp"></span>
+      <button type="button" class="petit txt" id="banc-part"><svg class="ic"><use href="#s-part"/></svg><span data-t="part">Partager</span></button>
+      <button type="button" class="petit x-pc" data-ret aria-label="Fermer">✕</button>
+    </header>
+    <div class="v-corps">
+      <div class="enseigne"><i class="vis"></i><i class="vis"></i><h1 data-t="cp1">Deux clés en main</h1><p data-t="cp6">Témoin allumé : le plus avantageux</p></div>
+      <div id="banc-c"></div>
+      <a class="appel" href="tel:+33687858436"><svg><use href="#s-tel"/></svg><span data-t="ap0">Appeler Poly Commerce</span></a>
+      <span class="signe" data-t="signe">Appli réalisée par Agence LDR</span>
+    </div>
+  </main>
+
+  <!-- le crochet : prévenu dès que la machine arrive -->
+  <main class="vue d" id="crochet">
+    <header class="p-haut">
+      <button type="button" class="petit ret" data-ret><span aria-hidden="true">‹</span><span data-t="cles">Les clés</span></button>
+      <span class="sp"></span>
+      <button type="button" class="petit x-pc" data-ret aria-label="Fermer">✕</button>
+    </header>
+    <div class="v-corps etroit">
+      <div class="enseigne"><i class="vis"></i><i class="vis"></i><h1 data-t="cr0">Un crochet à votre nom</h1><p data-t="cr1">Prévenu avant tout le monde</p></div>
+      <p class="v-intro" data-t="al2">Dites quelle machine vous cherchez. Dès qu'elle entre sur le parc, vous recevez un SMS, avant la mise en annonce.</p>
+      <div class="g-pend"><svg class="g-croc" aria-hidden="true"><use href="#s-croc"/></svg>
+        <div class="g-etiq" id="g-etiq"><svg class="g-ann" aria-hidden="true"><use href="#s-ann"/></svg>
+          <form class="g-papier" id="f-alerte" novalidate>
+            <label><span data-t="cr3">Je cherche</span><select id="al-type"></select></label>
+            <div class="deux"><label><span data-t="al3">Budget max (€)</span><input type="text" inputmode="numeric" id="al-budget" autocomplete="off"></label><label><span data-t="al4">Heures max</span><input type="text" inputmode="numeric" id="al-h" autocomplete="off"></label></div>
+            <label><span data-t="al5">Votre portable</span><input type="tel" inputmode="tel" autocomplete="tel" id="al-tel"></label>
+          </form>
+          <div class="g-papier" id="al-ok" hidden><span class="tampon" data-t="ar7">RÉSERVÉ</span><div class="g-res" id="al-res"></div><p data-t="cr5">Dès qu'une machine correspond, Dominique vous prévient par SMS (démonstration).</p></div>
+          <button type="submit" form="f-alerte" class="g-go" id="al-go"><svg class="ic"><use href="#s-sms"/></svg><span data-t="al6">Me prévenir par SMS</span></button>
+          <button type="button" class="g-go clair" id="al-rendre" hidden data-t="cr6">Rendre le crochet</button>
+        </div>
+      </div>
+      <p class="note" data-t="al7">Aperçu : l'envoi de SMS sera branché à la mise en service.</p>
+      <span class="signe" data-t="signe">Appli réalisée par Agence LDR</span>
+    </div>
+  </main>
+
+  <!-- la recherche sur demande : Dominique cherche la machine qui n'est pas au tableau -->
+  <main class="vue d" id="recherche">
+    <header class="p-haut">
+      <button type="button" class="petit ret" data-ret><span aria-hidden="true">‹</span><span data-t="cles">Les clés</span></button>
+      <span class="sp"></span>
+      <button type="button" class="petit x-pc" data-ret aria-label="Fermer">✕</button>
+    </header>
+    <div class="v-corps etroit">
+      <div class="enseigne"><i class="vis"></i><i class="vis"></i><h1 data-t="rc0">Recherche sur demande</h1><p data-t="rc1">Dominique la cherche pour vous</p></div>
+      <p class="v-intro" data-t="rc2">Une machine qui n'est pas au tableau ? Décrivez-la sur ce bon. Dominique la cherche, puis vous rappelle pour en parler.</p>
+      <ul class="atouts">
+        <li><i></i><span data-t="rc3">Il vous répond en français, allemand, anglais ou italien</span></li>
+        <li><i></i><span data-t="rc4">Livraison en France et en Europe</span></li>
+        <li><i></i><span data-t="rc5">Du débusqueur à l'hélicoptère</span></li>
+      </ul>
+      <div id="rc-liste"></div>
+      <button type="button" class="g-go jaune" id="rc-neuf" hidden><svg class="ic"><use href="#s-plus"/></svg><span data-t="rc23">Nouvelle recherche</span></button>
+      <div class="bon" id="rc-bon">
+        <i class="aimant" aria-hidden="true"></i>
+        <form class="g-papier bon-p" id="f-rc" novalidate>
+          <div class="bon-t"><b data-t="rc6">Bon de recherche</b><span id="rc-no"></span></div>
+          <label><span data-t="rc7">Type de machine</span><select id="rc-type"></select></label>
+          <label><span data-t="rc8">Marque, modèle, équipements</span><input type="text" id="rc-det" autocomplete="off" maxlength="80"></label>
+          <div class="deux"><label><span data-t="rc9">Budget max (€ HT)</span><input type="text" inputmode="numeric" id="rc-budget" autocomplete="off"></label><label><span data-t="al4">Heures max</span><input type="text" inputmode="numeric" id="rc-h" autocomplete="off"></label></div>
+          <fieldset class="quand"><legend data-t="rc11">Pour quand ?</legend><div class="chips" id="rc-quand"></div></fieldset>
+          <p class="bon-s" data-t="rc13">Vos coordonnées</p>
+          <div class="deux"><label><span data-t="rc14">Prénom</span><input type="text" id="rc-pre" autocomplete="given-name" maxlength="30"></label><label><span data-t="al5">Votre portable</span><input type="tel" inputmode="tel" autocomplete="tel" id="rc-tel" maxlength="20"></label></div>
+          <div class="code" id="rc-code" hidden><label><span data-t="rc16">Code reçu par SMS</span><input type="text" inputmode="numeric" maxlength="4" id="rc-c" autocomplete="one-time-code"></label><button type="button" class="petit jaune txt" id="rc-val" data-t="rc17">Valider</button></div>
+          <p class="bon-demo" id="rc-demo" hidden data-t="rc18">Démonstration : le code est 1234. Sur la vraie appli, il part par SMS.</p>
+        </form>
+        <button type="submit" form="f-rc" class="g-go jaune" id="rc-go"><svg class="ic"><use href="#s-sms"/></svg><span id="rc-go-t" data-t="rc15">Recevoir mon code par SMS</span></button>
+      </div>
+      <p class="note" data-t="al7">Aperçu : l'envoi de SMS sera branché à la mise en service.</p>
+      <span class="signe" data-t="signe">Appli réalisée par Agence LDR</span>
+    </div>
+  </main>
+
+  <!-- le bureau : espace Dominique -->
+  <main class="vue d" id="bureau">
+    <header class="p-haut">
+      <button type="button" class="petit ret" data-ret><span aria-hidden="true">‹</span><span data-t="cles">Les clés</span></button>
+      <span class="sp"></span>
+      <button type="button" class="petit txt" id="sortir" hidden data-t="psortir">Sortir</button>
+      <button type="button" class="petit x-pc" data-ret aria-label="Fermer">✕</button>
+    </header>
+    <div class="v-corps etroit" id="bureau-c"></div>
+  </main>
+</div>
+
+<dialog id="plein"><button type="button" class="fermer" aria-label="Fermer">✕</button><div class="pd" id="plein-d"></div><div class="cpt" id="plein-c"></div></dialog>
+<div class="feuille" id="feuille" role="dialog" aria-label="Appeler"><div><small data-t="ap0">Appeler Poly Commerce</small><a class="num" id="f-num" target="_blank" rel="noopener"></a><div class="f2"><a class="appel" id="f-go" target="_blank" rel="noopener"><svg><use href="#s-tel"/></svg><span data-t="o4">Appeler</span></a><button type="button" class="bt" id="f-copie"></button></div><p data-t="ap2">Dans cet aperçu, le bouton montre le numéro. Sur l'appli en ligne, il lance l'appel directement.</p><button type="button" class="bt" id="f-x" style="width:100%;margin-top:12px" data-t="fermer">Fermer</button></div></div>
+<div class="toast" id="toast" role="status"></div>
+<script>
+const M=[
+{id:"44801596",f:"foret",t:"Débusqueur",n:"John Deere 648 L",a:2016,h:8924,p:108800,hs:"a",eq:["Grapple et treuil","Pneus 30.5-32 à 75 %","Inspection générale complète"],ph:["1715701211_2","1715701211_518","1715701211_59","1715701211_174","1715701212_61"],dit:"Très beau débusqueur, inspection générale complète et lavage complet. Intérieur soigné."},
+{id:"46819975",f:"foret",t:"Débusqueur avec grue",n:"John Deere 648 H · grue Charlier",a:2011,h:8850,p:178800,hs:"o",eq:["Grue Charlier G4, pince 3 m","Radiocommande Falard du treuil","Pneus bons à 95 %"],ph:["1774949277_746","1774949277_627","1774949278_452","1774949278_711","1774949278_525"],dit:"Carrosserie superbe, marchepied large, 8 850 heures d'origine. Pinces sur lame avant. Largeur hors tout 2,98 m."},
+{id:"47116721",f:"foret",t:"Débusqueur reconditionné",n:"John Deere 648 H · reconditionné",a:2014,h:25,p:118800,hs:"r",tot:"heures avant reconditionnement : à confirmer",eq:["Moteur et boîte révisés","Peinture intégrale neuve","Pneus neufs 30.5/32, treuil 20 t"],ph:["1790925939_793","1790925939_511","1790925940_265","1790925940_590","1790925940_78"],dit:"Reconditionné à neuf : articulation et axes neufs, vitres et intérieur neufs, climatisation, aucune fuite. Voie réductible à 2,99 m."},
+{id:"47161115",f:"foret",t:"Débusqueur",n:"John Deere 548 G II · grapple",a:2000,h:21,p:86800,hs:"r",tot:"environ 11 000 h d'origine, selon l'annonce",eq:["Pompe hydraulique neuve","Télécommande de treuil","Pont révisé"],ph:["1793175751_780","1793175751_443","1793175752_892","1793175752_371","1793175752_645"],dit:"Machine aux normes CE, révision récente, poulie tournante sur arche, carrosserie en très bon état."},
+{id:"46983768",f:"foret",t:"Porteur",n:"Logset 5 FP GT",a:2021,h:5650,p:218000,hs:"a",eq:["Grue 10 m, flexibles intégrés","Rallonge de berce coulissante","Cabine suspendue, pneus 700"],ph:["1783002687_309","1783002688_59","1783002688_406","1783002688_926","1783002688_723"],dit:"État d'exception, mis en service fin 2021. Grille avant coulissante."},
+{id:"40791163",f:"foret",t:"Broyeur forestier",n:"Vermeer FT 300",a:2016,h:1120,p:158800,hs:"a",eq:["Moteur Cummins 290 ch","Chenilles de 90 cm","Largeur de travail 1,8 m"],ph:["1711722261_857","1711722261_650","1711722261_57","1711722261_839","1711722262_526"],dit:"Très bon état, utilisable de suite, pas de frais à prévoir. Service après-vente assuré par nos soins."},
+{id:"42710799",f:"tp",t:"Pelle sur chenilles · 22 t",n:"Volvo EC 220 E",a:2016,h:3850,p:94800,hs:"a",eq:["3 godets, attache rapide Arden","Graissage centralisé automatique","Révision des 500 h récente"],ph:["1676544209_519","1676544209_361","1654872660_884","1654872660_143","1654872661_607"],dit:"État d'exception. Clapets de sécurité, 2 lignes hydrauliques proportionnelles, tuiles de 600."},
+{id:"47204061",f:"tp",t:"Pelle sur chenilles · 14 t",n:"Komatsu PC138US-11",a:2019,h:3831,p:64800,hs:"a",eq:["2 godets, attache rapide hydraulique","Double ligne BRH","Climatisation, tuiles de 700"],ph:["1795000764_909","1795000764_817","1795000764_823","1795000764_603","1795000765_492"],dit:"État d'exception, peinture d'origine."},
+{id:"46957854",f:"tp",t:"Pelle sur chenilles · 27 t",n:"Sany SY 265 LC",a:2021,h:1880,p:78800,hs:"a",eq:["Godet de curage + terrassement","Double ligne BRH","Caméras arrière et latérale"],ph:["1781611062_117","1781611062_566","1781611062_774","1781611063_258","1781611063_219"],dit:"État exceptionnel. Attache hydraulique, clapets de sécurité, largeur hors tout 3,20 m."},
+{id:"45029160",f:"tp",t:"Pelle sur chenilles",n:"Hitachi ZX 135 US-5 · lame",a:2014,h:4310,p:63800,hs:"a",eq:["Injection et filtration neuves","Chenilles fer, patins démontables","Attache hydraulique Geith"],ph:["1765796291_45","1765796291_960","1765796291_305","1765796292_802","1765796292_427"],dit:"Très belle machine. Un godet, deux lignes hydrauliques avec retour libre, climatisation."},
+{id:"45477224",f:"tp",t:"Tombereau articulé · 25 t",n:"Volvo A25D",a:2004,h:7800,p:97800,hs:"o",eq:["6 pneus neufs","Benne chauffante","Certificat de conformité"],ph:["1734964703_178","1734964703_479","1734964704_172","1733742108_36","1733742109_176"],dit:"Superbe état, heures d'origine, porte hydraulique arrière, intérieur très soigné. Visible au travail."},
+{id:"46876759",f:"tp",t:"Mini-pelle · 2 t",n:"Kubota KX019-4",a:2022,h:539,p:19800,hs:"a",eq:["4 godets + dent à dessoucher","Attache rapide, ligne BRH","Voie variable"],ph:["1778591922_392","1778591923_529","1778591925_968","1778591925_801","1778591926_547"],dit:"Très bon état, vitesse rapide."},
+{id:"46977702",f:"agri",t:"Télescopique · 18 m",n:"Manitou MT 1840 Easy",a:2020,h:1593,p:69800,hs:"o",eq:["4 t, 18 m, stabilisateurs","Correcteur de dévers","Un seul propriétaire"],ph:["1782723446_804","1782723446_54","1782723446_924","1782723447_37","1782723447_515"],dit:"Plaque constructeur 2019, mise en service en 2020. Heures d'origine certifiées. Fourches à palettes."},
+{id:"47134198",f:"agri",t:"Télescopique · 10 m",n:"Manitou MT 1030 Easy Comfort",a:2020,h:945,p:46800,hs:"o",eq:["Machine de démonstration","Fourches réglables hydrauliquement","Moteur Deutz, stabilisateurs"],ph:["1794313939_414","1794313940_383","1794313940_637","1794314088_91","1794313940_629"],dit:"Excellent état, proche du neuf. Heures certifiées, peinture d'origine."},
+{id:"44541498",f:"agri",t:"Télescopique agricole",n:"JCB 542-70 Agri Super",a:2020,h:2845,p:69800,hs:"a",eq:["Moteur 145 ch","Frein à air, ABS","Crochet hydraulique, joystick"],ph:["1709285537_87","1709285537_351","1709285538_835","1709285538_647","1709285538_837"],dit:"Excellent état. Climatisation, pneus Michelin 460/70R24, fourches à palettes."},
+{id:"45823067",f:"agri",t:"Tracteur · 95 ch",n:"John Deere 5090 GF",a:2018,h:2701,p:34800,hs:"a",eq:["4 roues motrices","Pneus neufs avant et arrière","Roule à 40 km/h"],ph:["1743515944_167","1743515944_971","1743515945_928","1743515945_334","1743515945_764"],dit:"Très bon état, boîte mécanique."},
+{id:"44128996",f:"agri",t:"Tracteur · 74 ch",n:"Kubota M 4072",a:2019,h:132,p:41800,hs:"a",eq:["132 heures","Climatisation, masse avant","Pneus gazon"],ph:["1697017963_441","1697017963_141","1697017964_479","1697017964_610","1697017964_880"],dit:"Très bon état, proche du neuf. 6 vitesses, 3 gammes, distributeurs électriques."},
+{id:"46925985",f:"agri",t:"Transporteur 4x4",n:"John Deere Gator XUV 855",a:2019,h:443,p:23800,hs:"a",eq:["Double cabine","Portes et pare-brise","Jantes alliage"],ph:["1780065606_924","1780065606_42","1780065607_567","1780065607_72","1780065607_763"],dit:"Très beau Gator, 4x4."}
+];
+
+const TYP={de:[["Débusqueur avec grue","Skidder mit Kran"],["Débusqueur reconditionné","Skidder, generalüberholt"],["Débusqueur","Skidder"],["Porteur","Rückezug"],["Broyeur forestier","Forstmulcher"],["Pelle sur chenilles","Kettenbagger"],["Tombereau articulé","Knickgelenkter Dumper"],["Mini-pelle","Minibagger"],["Télescopique agricole","Landw. Teleskoplader"],["Télescopique","Teleskoplader"],["Tracteur","Traktor"],["Transporteur 4x4","Geländefahrzeug 4x4"],["Pelle","Bagger"],["Autre machine","Andere Maschine"]],
+en:[["Débusqueur avec grue","Skidder with crane"],["Débusqueur reconditionné","Rebuilt skidder"],["Débusqueur","Skidder"],["Porteur","Forwarder"],["Broyeur forestier","Forestry mulcher"],["Pelle sur chenilles","Crawler excavator"],["Tombereau articulé","Articulated dump truck"],["Mini-pelle","Mini excavator"],["Télescopique agricole","Farm telehandler"],["Télescopique","Telehandler"],["Tracteur","Tractor"],["Transporteur 4x4","4x4 utility vehicle"],["Pelle","Excavator"],["Autre machine","Other machine"]],
+it:[["Débusqueur avec grue","Skidder con gru"],["Débusqueur reconditionné","Skidder ricondizionato"],["Débusqueur","Skidder"],["Porteur","Forwarder"],["Broyeur forestier","Trincia forestale"],["Pelle sur chenilles","Escavatore cingolato"],["Tombereau articulé","Dumper articolato"],["Mini-pelle","Miniescavatore"],["Télescopique agricole","Sollevatore agricolo"],["Télescopique","Sollevatore telescopico"],["Tracteur","Trattore"],["Transporteur 4x4","Veicolo utility 4x4"],["Pelle","Escavatore"],["Autre machine","Altra macchina"]]};
+
+const IMG='../photos/',TEL='+33687858436',PUBLIC='https://agenceldr.github.io/demos-ldr/poly-commerce/cles/';
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const mem={get(k){try{return JSON.parse(localStorage.getItem(k))}catch(e){return null}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v));return true}catch(e){return false}}};
+const calme=()=>matchMedia('(prefers-reduced-motion:reduce)').matches;
+const large=()=>matchMedia('(min-width:1000px)').matches;
+const vib=p=>{try{navigator.vibrate&&navigator.vibrate(p)}catch(e){}};
+
+/* ---------- langues ---------- */
+const T={
+fr:{ouv1:"Mettez le contact",ouv2:"Touchez la clé : le parc démarre.",ouv3:"Contact",ouv4:"Le parc démarre…",passer:"Passer",tab:"Le tableau des clés",parc:"machines au parc",mach:"machines",releve:"relevé du 24/11/2026",
+ aide:"Prenez une clé : <b>la machine démarre</b>",cherche:"Chercher une machine",tri0:"Prix ↕",tri1:"Prix ↑",tri2:"Prix ↓",f1:"Forêt",f2:"Travaux publics",f3:"Agricole",
+ vide:"Aucune clé ne correspond. Appelez Dominique : il trouve souvent des machines hors catalogue.",cles:"Les clés",marque:"Marque · modèle",type:"Type",annee:"Année",heures:"Heures",prix:"Prix HT",vente:"En vente",
+ contact:"Contact",appm:"Appeler pour cette machine",part:"Partager",garder:"Garder la clé",gardee:"Clé gardée",equip:"Équipements",dit:"Ce qu'en dit Dominique",signe:"Appli réalisée par Agence LDR",inst:"Installer",
+ trousseau:"Mon trousseau",toutes:"Toutes les clés",selv:"Votre trousseau est vide. Sur une machine, touchez « Garder la clé » pour la retrouver ici.",
+ hs:["Heures d'origine","Lu au compteur","Compteur remis à zéro"],copie:"Lien copié : collez-le dans un SMS ou WhatsApp.",partage:"Regardez cette machine chez Poly Commerce : ",
+ gard:"Clé gardée dans votre trousseau",retire:"Clé rendue",neuf:"NOUVEAU",ios:"Sur iPhone : touchez Partager, puis « Sur l'écran d'accueil ».",photo:"Photo",
+ ap0:"Appeler Poly Commerce",ap1:"Copier le numéro",ap1ok:"Numéro copié",ap2:"Dans cet aperçu, le bouton montre le numéro. Sur l'appli en ligne, il lance l'appel directement.",o4:"Appeler",fermer:"Fermer"},
+de:{ouv1:"Zündung einschalten",ouv2:"Schlüssel antippen: Der Platz startet.",ouv3:"Zündung",ouv4:"Der Platz startet…",passer:"Überspringen",tab:"Das Schlüsselbrett",parc:"Maschinen am Platz",mach:"Maschinen",releve:"Stand 24.11.2026",
+ aide:"Schlüssel nehmen: <b>die Maschine startet</b>",cherche:"Maschine suchen",tri0:"Preis ↕",tri1:"Preis ↑",tri2:"Preis ↓",f1:"Forst",f2:"Bau",f3:"Landwirtschaft",
+ vide:"Kein passender Schlüssel. Rufen Sie Dominique an: Er findet oft Maschinen außerhalb des Katalogs.",cles:"Schlüssel",marque:"Marke · Modell",type:"Typ",annee:"Baujahr",heures:"Stunden",prix:"Preis netto",vente:"Zu verkaufen",
+ contact:"Zündung",appm:"Zu dieser Maschine anrufen",part:"Teilen",garder:"Schlüssel merken",gardee:"Schlüssel gemerkt",equip:"Ausstattung",dit:"Was Dominique sagt",signe:"App von Agence LDR",inst:"Installieren",
+ trousseau:"Mein Schlüsselbund",toutes:"Alle Schlüssel",selv:"Ihr Schlüsselbund ist leer. Tippen Sie bei einer Maschine auf „Schlüssel merken“.",
+ hs:["Originalstunden","Am Zähler abgelesen","Zähler auf null"],copie:"Link kopiert: in SMS oder WhatsApp einfügen.",partage:"Schau dir diese Maschine bei Poly Commerce an: ",
+ gard:"Schlüssel am Schlüsselbund gemerkt",retire:"Schlüssel zurückgegeben",neuf:"NEU",ios:"Auf dem iPhone: Teilen tippen, dann „Zum Home-Bildschirm“.",photo:"Foto",
+ ap0:"Poly Commerce anrufen",ap1:"Nummer kopieren",ap1ok:"Nummer kopiert",ap2:"In dieser Vorschau zeigt die Taste die Nummer. In der Online-App startet sie den Anruf direkt.",o4:"Anrufen",fermer:"Schließen"},
+en:{ouv1:"Turn the key",ouv2:"Tap the key: the yard starts up.",ouv3:"Ignition on",ouv4:"The yard is starting…",passer:"Skip",tab:"The key board",parc:"machines in the yard",mach:"machines",releve:"as of 24/11/2026",
+ aide:"Take a key: <b>the machine starts</b>",cherche:"Search a machine",tri0:"Price ↕",tri1:"Price ↑",tri2:"Price ↓",f1:"Forestry",f2:"Construction",f3:"Farming",
+ vide:"No key matches. Call Dominique: he often finds machines outside the catalogue.",cles:"Keys",marque:"Make · model",type:"Type",annee:"Year",heures:"Hours",prix:"Price ex VAT",vente:"For sale",
+ contact:"Ignition",appm:"Call about this machine",part:"Share",garder:"Keep the key",gardee:"Key kept",equip:"Equipment",dit:"What Dominique says",signe:"App made by Agence LDR",inst:"Install",
+ trousseau:"My keyring",toutes:"All keys",selv:"Your keyring is empty. On a machine, tap “Keep the key” to find it here.",
+ hs:["Original hours","Read on the meter","Meter reset"],copie:"Link copied: paste it into a text or WhatsApp.",partage:"Have a look at this machine at Poly Commerce: ",
+ gard:"Key kept on your keyring",retire:"Key returned",neuf:"NEW",ios:"On iPhone: tap Share, then “Add to Home Screen”.",photo:"Photo",
+ ap0:"Call Poly Commerce",ap1:"Copy the number",ap1ok:"Number copied",ap2:"In this preview the button shows the number. In the live app it starts the call directly.",o4:"Call",fermer:"Close"},
+it:{ouv1:"Gira la chiave",ouv2:"Tocca la chiave: il piazzale si accende.",ouv3:"Quadro acceso",ouv4:"Il piazzale si avvia…",passer:"Salta",tab:"Il quadro delle chiavi",parc:"macchine sul piazzale",mach:"macchine",releve:"aggiornato al 24/11/2026",
+ aide:"Prendi una chiave: <b>la macchina si avvia</b>",cherche:"Cerca una macchina",tri0:"Prezzo ↕",tri1:"Prezzo ↑",tri2:"Prezzo ↓",f1:"Forestale",f2:"Movimento terra",f3:"Agricolo",
+ vide:"Nessuna chiave corrisponde. Chiama Dominique: trova spesso macchine fuori catalogo.",cles:"Chiavi",marque:"Marca · modello",type:"Tipo",annee:"Anno",heures:"Ore",prix:"Prezzo + IVA",vente:"In vendita",
+ contact:"Quadro",appm:"Chiama per questa macchina",part:"Condividi",garder:"Tieni la chiave",gardee:"Chiave tenuta",equip:"Dotazioni",dit:"Cosa dice Dominique",signe:"App realizzata da Agence LDR",inst:"Installa",
+ trousseau:"Il mio mazzo",toutes:"Tutte le chiavi",selv:"Il tuo mazzo è vuoto. Su una macchina tocca “Tieni la chiave” per ritrovarla qui.",
+ hs:["Ore originali","Lette sul contaore","Contaore azzerato"],copie:"Link copiato: incollalo in un SMS o su WhatsApp.",partage:"Guarda questa macchina da Poly Commerce: ",
+ gard:"Chiave tenuta nel tuo mazzo",retire:"Chiave restituita",neuf:"NUOVO",ios:"Su iPhone: tocca Condividi, poi “Aggiungi a Home”.",photo:"Foto",
+ ap0:"Chiama Poly Commerce",ap1:"Copia il numero",ap1ok:"Numero copiato",ap2:"In questa anteprima il pulsante mostra il numero. Nell'app online avvia subito la chiamata.",o4:"Chiama",fermer:"Chiudi"}};
+let L=(()=>{const s=mem.get('pk-lang');if(s&&T[s])return s;const n=(navigator.language||'fr').slice(0,2);return T[n]?n:'fr'})();
+const U=()=>T[L];
+const loc=()=>({fr:'fr-FR',de:'de-DE',en:'en-GB',it:'it-IT'})[L];
+const nb=v=>v.toLocaleString(loc(),{useGrouping:'always'}).replace(/[  ]/g,' ');
+const eur=v=>nb(v)+' €';
+const typ=t=>{if(L=='fr')return t;for(const[a,b]of TYP[L])if(t.includes(a))return t.replace(a,b);return t};
+const nom=m=>m.n.split(' · ')[0];const nomc=m=>esc(nom(m)).replace(/ (\S{1,2})$/,'\u00a0$1');
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'})[c]);
+
+/* ---------- matières (grain, alu brossé) fabriquées dans le téléphone : rien à télécharger ---------- */
+(function matieres(){try{
+  const g=document.createElement('canvas');g.width=g.height=128;let x=g.getContext('2d'),d=x.createImageData(128,128);
+  for(let i=0;i<d.data.length;i+=4){const v=Math.random()<.5?0:255;d.data[i]=d.data[i+1]=d.data[i+2]=v;d.data[i+3]=Math.random()*20|0}
+  x.putImageData(d,0,0);document.documentElement.style.setProperty('--grain','url('+g.toDataURL()+')');
+  const b=document.createElement('canvas');b.width=320;b.height=96;x=b.getContext('2d');d=x.createImageData(320,96);
+  for(let y=0;y<96;y++){let v=150+Math.random()*90;for(let i=0;i<320;i++){v+=(Math.random()-.5)*10;v=Math.max(110,Math.min(250,v));const k=(y*320+i)*4;d.data[k]=d.data[k+1]=d.data[k+2]=v;d.data[k+3]=255}}
+  x.putImageData(d,0,0);document.documentElement.style.setProperty('--brosse','url('+b.toDataURL()+')');
+}catch(e){}})();
+
+/* ---------- parc ---------- */
+const AJ=(mem.get('pk-ajouts')||[]).filter(m=>m&&m.id&&m.n),VEN=new Set(mem.get('pk-vendues')||[]);
+let PRIX=mem.get('pk-prix');if(!PRIX||typeof PRIX!='object')PRIX={};
+[...AJ,...M].forEach(m=>{if(m.p0==null)m.p0=m.p;if(PRIX[m.id]>0)m.p=PRIX[m.id]});
+let PARC=[...AJ,...M].filter(m=>!VEN.has(m.id));
+const src=(m,i)=>m.img?m.img[i]:IMG+m.id+'_'+m.ph[i]+'.jpg';
+const nph=m=>m.img?m.img.length:m.ph.length;
+const no=m=>String(Math.max(0,PARC.indexOf(m))+1).padStart(2,'0');
+let FIL='tout',VUE=[],CUR=PARC[0],TRI='',SEL=(mem.get('pk-sel')||[]).filter(id=>PARC.some(m=>m.id==id)),SEQ=0,ALLUME=false;
+const FAMS=[['foret','f1'],['tp','f2'],['agri','f3']];
+
+function langue(l){L=l;mem.set('pk-lang',l);document.documentElement.lang=l;$('#lg').textContent=l.toUpperCase();$('#langue').value=l;
+  $$('[data-t]').forEach(e=>{const v=U()[e.dataset.t];if(v!=null)e.textContent=v});
+  $$('[data-h]').forEach(e=>e.innerHTML=U()[e.dataset.h]);
+  $$('[data-ph]').forEach(e=>{e.placeholder=U()[e.dataset.ph];e.setAttribute('aria-label',U()[e.dataset.ph])});
+  $('#f-copie').textContent=U().ap1;$('#trousseau').setAttribute('aria-label',U().trousseau);$('#tel-haut').setAttribute('aria-label',U().ap0);$('#installer').setAttribute('aria-label',U().inst);
+  majTri();planche();afficher(CUR);if(ALLUME&&CUR)valeurs(CUR,true);majSel();majPlus()}
+function etat(){$('#etat').textContent=PARC.length+' '+U().mach+' · '+U().releve}
+function majTri(){$('#tri').textContent=U()[TRI==''?'tri0':TRI=='+'?'tri1':'tri2'];$('#tri').setAttribute('aria-pressed',!!TRI)}
+
+/* ---------- le tableau des clés ---------- */
+const ROT=[3.5,5,3,4.5,2.5,4,3,5,4,2.5,4.5,3,5,3.5,2.5,4.5,3,4],CLE=[1,-3,3,0,-2,4,-4,2,-1,3,-3,0,2,-2,4,1,-4,3];
+function caseHTML(m,i){const k=Math.max(0,PARC.indexOf(m));
+  return '<button type="button" class="case'+(SEL.includes(m.id)?' g':'')+'" data-id="'+m.id+'" style="--i:'+i+';--r:'+ROT[k%ROT.length]+'deg;--k:'+CLE[k%CLE.length]+'deg" aria-label="'+esc(nom(m))+', '+m.a+', '+nb(m.h)+' h, '+U().hs[Math.max(0,'oar'.indexOf(m.hs))]+', '+U().pht+' '+eur(m.p)+'">'+
+   '<span class="pan"><span class="cadre"><i class="no">'+no(m)+'</i>'+(m.nouv?'<i class="neuf">'+U().neuf+'</i>':'')+'<img src="'+src(m,0)+'" alt="" loading="'+(i<4?'eager':'lazy')+'" width="536" height="402"></span>'+
+   '<span class="cn">'+nomc(m)+'<small>'+esc(typ(m.t)).replace(/ (· .+)$/,' <i>$1</i>')+'</small></span>'+fiche(m)+'</span>'+
+   '<span class="pend"><svg class="croc"><use href="#s-croc"/></svg><span class="bal"><svg class="clef"><use href="#s-clef"/></svg><svg class="ann"><use href="#s-ann"/></svg>'+
+   '<span class="etiq"><u><small class="el">'+U().pht+'</small><b>'+eur(m.p)+'</b></u></span></span></span></button>'}
+let BAL=false;
+/* l'enseigne tient toujours sur une ligne, quelle que soit la langue ou la largeur */
+function ajuste(){$$('.enseigne').forEach(en=>[['h1',large()?23:19,13.5],['p',11.5,11.5]].forEach(([s,max,min])=>{const e=en.querySelector(s);if(!e||!e.offsetParent)return;e.classList.remove('sre','pli');let f=max;e.style.fontSize=f+'px';const trop=()=>e.scrollWidth>e.clientWidth+.5;while(trop()&&f>min){f-=.5;e.style.fontSize=f+'px'}if(trop())e.classList.add('sre');if(trop())e.classList.add('pli')}));serres()}
+addEventListener('resize',()=>{ajuste();marque()});
+try{document.fonts.ready.then(ajuste)}catch(e){}
+function planche(){etat();ajuste();
+  const mots=$('#cherche').value.trim().toLowerCase().split(/\s+/).filter(Boolean);
+  let l=PARC.filter(m=>(FIL!='sel'||SEL.includes(m.id))&&mots.every(x=>(m.n+' '+m.t+' '+typ(m.t)+' '+m.a+' '+(U()[(FAMS.find(f=>f[0]==m.f)||[])[1]]||'')).toLowerCase().includes(x)));
+  const plat=!!TRI||mots.length>0||FIL=='sel';
+  if(TRI)l=[...l].sort((a,b)=>TRI=='+'?a.p-b.p:b.p-a.p);
+  VUE=plat?l:FAMS.flatMap(([f])=>l.filter(m=>m.f==f));
+  const brady=(t,n)=>'<span class="brady">'+t+'<i>'+n+'</i></span>';
+  const tete=n=>'<div class="b-tete">'+brady(U().trousseau,n)+(n>1?'<button type="button" class="petit jaune txt" id="cmp-sel"><svg class="ic"><use href="#s-cmp"/></svg>'+U().cp9+'</button>':'')+'</div>';
+  let h='';
+  if(!l.length)h=(FIL=='sel'?brady(U().trousseau,0):'')+'<p class="vide">'+(FIL=='sel'?U().selv:U().vide)+'</p>'+(FIL=='sel'?'':'<button type="button" class="l-go vide-rc" id="vide-rc">'+U().rs3+'<span aria-hidden="true">›</span></button>');
+  else if(plat)h=(FIL=='sel'?tete(l.length):'')+'<div class="rayon">'+l.map(caseHTML).join('')+'</div>';
+  else{let n=0;h=FAMS.map(([f,k])=>{const s=l.filter(m=>m.f==f);if(!s.length)return'';const r=brady(U()[k],s.length)+'<div class="rayon">'+s.map((m,i)=>caseHTML(m,n+i)).join('')+'</div>';n+=s.length;return r}).join('')}
+  const p=$('#planche');p.innerHTML=h+(FIL=='sel'?'':rechercheHTML()+arrivagesHTML()+porteHTML())+'<span class="signe">'+U().signe+'</span>';
+  if(BAL){BAL=false;p.classList.remove('go');void p.offsetWidth;p.classList.add('go');setTimeout(()=>p.classList.remove('go'),3400)}
+  majChoix();marque()}
+function marque(){const v=document.body.dataset.vue,g=large();$$('#planche .case').forEach(c=>{c.setAttribute('aria-current',g&&ALLUME&&!!CUR&&!VUES.includes(v)&&c.dataset.id==CUR.id);c.classList.toggle('cmp',g&&v=='banc'&&CMP.includes(c.dataset.id))});
+  const i=VUE.indexOf(CUR);$('#rangno').textContent=(i<0?'–':String(i+1).padStart(2,'0'))+' / '+String(VUE.length).padStart(2,'0')}
+
+/* ---------- instruments ---------- */
+function horametre(el,h,n){n=n||5;const s=String(Math.min(h,10**n-1)).padStart(n,'0');
+  if(!el.firstChild)el.innerHTML='<span class="roul">'+Array.from({length:n},()=>'<span class="c"><i>'+'0123456789'.split('').join('<br>')+'</i></span>').join('')+'</span>'+(n==5?'<small>h</small>':'');
+  el.setAttribute('aria-label',nb(h)+(n==5?' h':''));
+  requestAnimationFrame(()=>el.querySelectorAll('i').forEach((i,k)=>i.style.transform='translateY(-'+(+s[k]*10)+'%)'))}
+const SEG={a:[10,2.3,1],g:[10,18,1],d:[10,33.7,1],f:[2.3,10.15,0],b:[17.7,10.15,0],e:[2.3,25.85,0],c:[17.7,25.85,0]};
+const CH={0:'abcdef',1:'bc',2:'abdeg',3:'abcdg',4:'bcfg',5:'acdfg',6:'acdefg',7:'abc',8:'abcdefg',9:'abcdfg',' ':''};
+function segPts(cx,cy,hz){const Lg=hz?13.6:14.1,t=3.5,a=Lg/2,b=t/2;
+  return (hz?[[cx-a,cy],[cx-a+b,cy-b],[cx+a-b,cy-b],[cx+a,cy],[cx+a-b,cy+b],[cx-a+b,cy+b]]:[[cx,cy-a],[cx+b,cy-a+b],[cx+b,cy+a-b],[cx,cy+a],[cx-b,cy+a-b],[cx-b,cy-a+b]]).map(p=>p.map(v=>+v.toFixed(2)).join(',')).join(' ')}
+function lcd(el,v){const s=String(Math.round(v)).replace(/\B(?=(\d{3})+$)/g,' ');const g=s.split(' ');el.style.setProperty('--n',s.replace(/ /g,'').length);el.style.setProperty('--sp',g.length-1);
+  el.innerHTML=g.map(grp=>grp.split('').map(ch=>'<svg viewBox="-1 0 22 36" aria-hidden="true"><g transform="skewX(-5) translate(1.6 0)">'+Object.keys(SEG).map(k=>'<polygon class="s'+(CH[ch].includes(k)?' on':'')+'" points="'+segPts(...SEG[k])+'"/>').join('')+'</g></svg>').join('')).join('<span class="esp"></span>')+'<span class="eur">€</span>';
+  el.setAttribute('aria-label',eur(v))}
+
+/* ---------- la machine ---------- */
+function afficher(m){if(!m)return;const d=$('#defile');
+  d.innerHTML=Array.from({length:nph(m)},(_,i)=>'<span><img src="'+src(m,i)+'" alt="'+esc(m.n)+'" width="536" height="402"'+(i?' loading="lazy"':'')+'></span>').join('');d.scrollLeft=0;
+  d.querySelectorAll('img').forEach(im=>{const f=()=>{if(im.naturalHeight>im.naturalWidth){im.parentElement.classList.add('debout');im.parentElement.style.setProperty('--f','url("'+im.src+'")')}};im.complete?f():im.addEventListener('load',f)});
+  $('#points').innerHTML=nph(m)>1?Array.from({length:nph(m)},(_,i)=>'<button type="button" aria-label="'+U().photo+' '+(i+1)+'" aria-current="'+(i==0)+'"></button>').join(''):'';
+  osd(0);$('#osd2').textContent='N° '+no(m);
+  $('#type').textContent=$('#type2').textContent=typ(m.t);$('#nom').textContent=nom(m);$('#annee').textContent=m.a;
+  const k=Math.max(0,'oar'.indexOf(m.hs));$('#rep').className='temoin '+['','a','r'][k];$('#rep span').textContent=U().hs[k];
+  $('#tot').hidden=!m.tot;$('#tot').textContent=m.tot||'';
+  $('#eq').innerHTML=(m.eq||[]).map(e=>'<li>'+esc(e)+'</li>').join('');$('#bloc-eq').hidden=!(m.eq||[]).length;
+  $('#dit').textContent=m.dit||'';$('#bloc-dit').hidden=!m.dit;
+  $('#appeler').setAttribute('aria-label',U().appm+' : '+nom(m));
+  majGarder();marque()}
+function osd(i){if(CUR)$('#osd').textContent=U().photo.toUpperCase()+' '+(i+1)+'/'+nph(CUR)}
+function valeurs(m,direct){horametre($('#hora'),m.h);lcd($('#prix'),m.p)}
+function eteindre(){horametre($('#hora'),0);const p=$('#prix');if(!p.firstChild)lcd(p,888888)}
+
+/* mettre le contact sur une machine : la clé tourne, les instruments se réveillent */
+function contact(m,mode,de){if(!m)return;const id=++SEQ,P=$('#poste'),N=$('#neiman');CUR=m;if(CHOIX)finChoix();
+  try{const h='#m='+m.id,s=history.state;if(!large()&&!(s&&s.m))history.pushState(de?{m:m.id,de}:{m:m.id},'',h);else history.replaceState(large()?null:Object.assign({},s,{m:m.id}),'',h)}catch(e){}
+  majRetour();
+  document.body.dataset.vue='poste';
+  const T2=(ms,f)=>setTimeout(()=>{if(id==SEQ)f()},ms);
+  const marks=a=>$$('#neiman .n-face i').forEach((e,k)=>e.classList.toggle('on',k==a));
+  if(mode=='vite'&&ALLUME&&!calme()){ // on passe d'une machine à l'autre, moteur tournant
+    P.classList.remove('allume');P.classList.add('test');afficher(m);
+    T2(150,()=>{P.classList.remove('test');P.classList.add('allume');valeurs(m)});
+    if(!large())P.scrollTop=0;return}
+  afficher(m);if(!large())P.scrollTop=0;
+  if(calme()||mode=='direct'){P.classList.remove('test');P.classList.add('allume');N.style.setProperty('--a','55deg');marks(1);ALLUME=true;valeurs(m);marque();return}
+  ALLUME=false;P.classList.remove('allume','test');N.style.setProperty('--a','0deg');marks(0);eteindre();
+  T2(170,()=>{N.style.setProperty('--a','55deg');marks(1);vib(12);P.classList.add('test')});
+  T2(640,()=>{N.style.setProperty('--a','95deg');marks(2);vib([0,35,30,35,30,70])});
+  T2(900,()=>{N.style.setProperty('--a','55deg');marks(1);P.classList.remove('test');P.classList.add('allume');ALLUME=true;valeurs(m);marque()})}
+/* rendre la clé : on coupe le contact et on revient au tableau */
+function versTableau(){const id=++SEQ,P=$('#poste');$('#neiman').style.setProperty('--a','0deg');$$('#neiman .n-face i').forEach((e,k)=>e.classList.toggle('on',k==0));P.classList.remove('allume','test');ALLUME=false;vib(10);
+  setTimeout(()=>{if(id!=SEQ)return;document.body.dataset.vue='tableau';ajuste();marque();const c=$('.case[data-id="'+CUR.id+'"]');
+    if(c){c.scrollIntoView({block:'center'});c.classList.remove('retour','prise');void c.offsetWidth;c.classList.add('retour');setTimeout(()=>c.classList.remove('retour'),1800)}},calme()?0:230)}
+function rendre(){if(large())return;try{if(history.state&&history.state.m){history.back();return}}catch(e){}versTableau()}
+addEventListener('popstate',()=>{if(large())return;const s=history.state;
+  if(s&&s.m){const m=PARC.find(x=>x.id==s.m);if(m){contact(m,'direct');return}}
+  if(s&&s.v&&VUES.includes(s.v)){montrer(s.v,true);return}
+  if(document.body.dataset.vue=='poste')versTableau();else auTableau()});
+/* un lien « #m=… » collé pendant que l'appli est ouverte */
+addEventListener('hashchange',()=>{const hs=location.hash,vv=document.body.dataset.vue;
+  if(hs=='#tableau'){finOuverture();if(!large()){if(vv=='poste')versTableau();else if(vv!='tableau')auTableau()}return}
+  if(hs=='#crochet'||hs=='#bureau'||hs=='#recherche'){if(vv!=hs.slice(1)){finOuverture();montrer(hs.slice(1),true)}return}
+  const cc=(hs.match(/c=([\w-]+),([\w-]+)/)||[]).slice(1).filter(existe);
+  if(cc.length==2&&cc[0]!=cc[1]){if(vv=='banc'&&CMP.join()==cc.join())return;CMP=cc;document.body.classList.add('cmp2');finOuverture();montrer('banc',true);return}
+  const id=(location.hash.match(/m=([\w-]+)/)||[])[1],m=id&&PARC.find(x=>x.id==id);if(!m||(m==CUR&&document.body.dataset.vue=='poste'&&ALLUME))return;finOuverture();contact(m,'direct')});
+function pas(d){if(!VUE.length)return;const i=(Math.max(0,VUE.indexOf(CUR))+d+VUE.length)%VUE.length;contact(VUE[i],'vite')}
+
+$('#planche').addEventListener('click',e=>{const t=e.target;
+  if(t.closest('#libre')){montrer('crochet');return}
+  if(t.closest('#cmd')){montrer('recherche');return}
+  if(t.closest('#vide-rc')){RCPRE=$('#cherche').value.trim();montrer('recherche');return}
+  if(t.closest('#porte')){montrer('bureau');return}
+  if(t.closest('#cmp-sel')){const ids=SEL.filter(existe);if(ids.length==2){CMP=ids;document.body.classList.add('cmp2');montrer('banc')}else debutChoix([],true);return}
+  const c=t.closest('.case');if(!c)return;const m=PARC.find(x=>x.id==c.dataset.id);if(!m)return;
+  if(CHOIX){choisir(m);return}
+  if(calme()){contact(m);return}
+  c.classList.remove('retour');c.classList.add('prise');vib(8);setTimeout(()=>{contact(m);setTimeout(()=>c.classList.remove('prise'),600)},large()?120:300)});
+$('#rendre').onclick=rendre;$('#contact').onclick=()=>{if(large()){contact(CUR)}else rendre()};
+$('#prec').onclick=()=>pas(-1);$('#suiv').onclick=()=>pas(1);
+addEventListener('keydown',e=>{if($('#plein').open||!$('#ouverture').classList.contains('fin'))return;const v=document.body.dataset.vue,champ=e.target.matches('input,select,textarea');
+  if(v=='bureau'&&!OKB&&!champ){if(/^\d$/.test(e.key)){touche(e.key);return}if(e.key=='Backspace'){touche('x');return}}
+  if(e.key=='Escape'&&CHOIX){finChoix();return}
+  if(VUES.includes(v)){if(e.key=='Escape'&&!champ)fermer();return}
+  if(champ)return;
+  if(v!='poste'&&!large())return;
+  if(e.key=='ArrowRight'||e.key=='ArrowDown'){e.preventDefault();pas(1)}if(e.key=='ArrowLeft'||e.key=='ArrowUp'){e.preventDefault();pas(-1)}if(e.key=='Escape')rendre()});
+$('#cherche').oninput=planche;
+$('#tri').onclick=()=>{TRI=TRI==''?'+':TRI=='+'?'-':'';majTri();planche()};
+$('#trousseau').onclick=()=>{FIL=FIL=='sel'?'tout':'sel';$('#trousseau').setAttribute('aria-pressed',FIL=='sel');BAL=true;planche();$('#tableau').scrollTo({top:0,behavior:calme()?'auto':'smooth'});if(!large()&&document.body.dataset.vue=='poste')rendre()};
+$('#langue').onchange=e=>langue(e.target.value);
+
+/* photos : on fait glisser dans l'écran, on touche pour agrandir */
+$('#defile').addEventListener('scroll',()=>{const d=$('#defile'),i=Math.round(d.scrollLeft/d.clientWidth);$$('#points button').forEach((b,k)=>b.setAttribute('aria-current',k==i));osd(i)},{passive:true});
+$('#points').onclick=e=>{const b=e.target.closest('button');if(!b)return;const i=[...$('#points').children].indexOf(b),d=$('#defile');d.scrollTo({left:i*d.clientWidth,behavior:calme()?'auto':'smooth'})};
+$('#defile').onclick=e=>{const s=e.target.closest('#defile>span');if(!s)return;const i=[...$('#defile').children].indexOf(s),p=$('#plein-d');
+  p.innerHTML=Array.from({length:nph(CUR)},(_,k)=>'<img src="'+src(CUR,k)+'" alt="'+esc(CUR.n)+'">').join('');$('#plein').showModal();p.scrollLeft=i*p.clientWidth;cpt()};
+function cpt(){const p=$('#plein-d');$('#plein-c').textContent=(Math.round(p.scrollLeft/p.clientWidth)+1)+' / '+p.children.length}
+$('#plein-d').addEventListener('scroll',cpt,{passive:true});
+$('#plein .fermer').onclick=()=>$('#plein').close();
+
+/* partager, garder la clé */
+let tt;function toast(t){const e=$('#toast');e.textContent=t;e.classList.add('on');clearTimeout(tt);tt=setTimeout(()=>e.classList.remove('on'),2600)}
+$('#partager').onclick=async()=>{if(!CUR)return;const url=PUBLIC+'#m='+CUR.id,txt=U().partage+nom(CUR)+', '+CUR.a+', '+nb(CUR.h)+' h, '+eur(CUR.p)+' HT.';
+  if(navigator.share){try{await navigator.share({title:'Poly Commerce · '+nom(CUR),text:txt,url});return}catch(e){if(e.name=='AbortError')return}}
+  try{await navigator.clipboard.writeText(txt+' '+url);toast(U().copie)}catch(e){toast(url)}};
+function majGarder(){const on=!!CUR&&SEL.includes(CUR.id);$('#garder').setAttribute('aria-pressed',on);$('#garder-t').textContent=on?U().gardee:U().garder}
+function majSel(){$('#seln').textContent=SEL.length;majGarder()}
+$('#garder').onclick=()=>{if(!CUR)return;const on=!SEL.includes(CUR.id);SEL=on?[...SEL,CUR.id]:SEL.filter(x=>x!=CUR.id);mem.set('pk-sel',SEL);majSel();vib(on?[0,18,40,18]:8);toast(on?U().gard:U().retire);if(FIL=='sel')planche();else $$('#planche .case').forEach(c=>c.classList.toggle('g',SEL.includes(c.dataset.id)))};
+
+/* appeler : dans un aperçu (page dans un cadre), les liens d'appel sont bloqués, on montre le numéro */
+const CADRE=(()=>{try{return window.top!==window}catch(e){return true}})();
+const numJoli=TEL.replace('+33','0').replace(/(\d{2})(?=\d)/g,'$1 ');
+/* dans le dossier de l'agence (aperçu), un lien pour revenir au dossier ; jamais sur l'appli en ligne */
+if(CADRE&&!/github\.io$/.test(location.hostname))$('#dossier').hidden=false;
+document.addEventListener('click',e=>{const a=e.target.closest&&e.target.closest('a[href^="tel:"]');if(!a||!CADRE||a.closest('#feuille'))return;e.preventDefault();
+  $('#f-num').textContent=numJoli;$('#f-num').href=$('#f-go').href='tel:'+TEL;$('#f-copie').textContent=U().ap1;$('#feuille').classList.add('on')},true);
+$('#f-x').onclick=()=>$('#feuille').classList.remove('on');
+$('#feuille').addEventListener('click',e=>{if(e.target.id=='feuille')$('#feuille').classList.remove('on')});
+$('#f-copie').onclick=async()=>{try{await navigator.clipboard.writeText(numJoli.replace(/\s/g,''))}catch(e){try{const r=document.createRange();r.selectNodeContents($('#f-num'));const s=getSelection();s.removeAllRanges();s.addRange(r);document.execCommand('copy')}catch(x){}}$('#f-copie').textContent=U().ap1ok};
+
+/* installation */
+let INV=null;
+addEventListener('beforeinstallprompt',e=>{e.preventDefault();INV=e;$('#installer').hidden=false});
+if(/iphone|ipad|ipod/i.test(navigator.userAgent)&&!navigator.standalone&&!CADRE)$('#installer').hidden=false;
+$('#installer').onclick=async()=>{if(INV){INV.prompt();await INV.userChoice;INV=null;$('#installer').hidden=true}else toast(U().ios)};
+if('serviceWorker' in navigator&&location.protocol=='https:'&&!CADRE)navigator.serviceWorker.register('sw.js').catch(()=>{});
+
+/* ---------- ouverture : on met le contact ---------- */
+function finOuverture(){const o=$('#ouverture');if(o.classList.contains('fin'))return;o.classList.add('fin');document.body.classList.add('pret');BAL=true;planche();
+  if(large())setTimeout(()=>{if(document.body.dataset.vue=='tableau')contact(CUR)},450)}
+function demarrer(){const o=$('#ouverture'),N=$('#neiman0');if(o.classList.contains('i')||o.classList.contains('fin'))return;
+  const marks=a=>$$('#neiman0 .n-face i').forEach((e,k)=>e.classList.toggle('on',k==a));
+  if(calme()){finOuverture();return}
+  o.classList.add('i');N.style.setProperty('--a','55deg');marks(1);vib(14);$('#o-t').textContent=U().ouv3;$('#o-s').textContent=U().releve.replace(/^./,c=>c.toUpperCase());
+  horametre($('#hora0'),PARC.length,3);
+  setTimeout(()=>{o.classList.remove('i');o.classList.add('ii');N.style.setProperty('--a','95deg');marks(2);vib([0,45,30,45,30,45,30,90]);$('#o-t').textContent=U().ouv4},900);
+  setTimeout(()=>{N.style.setProperty('--a','55deg');marks(1)},1350);
+  setTimeout(finOuverture,1550)}
+function rejouer(){const o=$('#ouverture'),N=$('#neiman0');o.classList.remove('fin','i','ii');document.body.classList.remove('pret');N.style.setProperty('--a','0deg');$$('#neiman0 .n-face i').forEach((e,k)=>e.classList.toggle('on',k==0));
+  $('#o-t').textContent=U().ouv1;$('#o-s').textContent=U().ouv2;$('#hora0').innerHTML='';horametre($('#hora0'),0,3)}
+$('#demarrer').onclick=demarrer;$('#passer').onclick=finOuverture;$('#logo').onclick=rejouer;
+
+/* ================= la suite de l'appli : comparaison, arrivages, bureau ================= */
+Object.assign(T.fr,{rs0:"Sur demande",rs1:"Pas au tableau ? Dominique la cherche pour vous.",rs2:"Remplissez un bon de recherche : il cherche la machine et vous rappelle.",rs3:"Lancer une recherche",rs4:"Recherche en cours",rs4b:"recherches en cours",rs5:"Voir mes recherches",rs6:"Recherche",rc0:"Recherche sur demande",rc1:"Dominique la cherche pour vous",rc2:"Une machine qui n'est pas au tableau ? Décrivez-la sur ce bon. Dominique la cherche, puis vous rappelle pour en parler.",rc3:"Il vous répond en français, allemand, anglais ou italien",rc4:"Livraison en France et en Europe",rc5:"Du débusqueur à l'hélicoptère",rc6:"Bon de recherche",rc7:"Type de machine",rc8:"Marque, modèle, équipements",rc8p:"Ex. John Deere 648, avec grue",rc9:"Budget max (€ HT)",rc11:"Pour quand ?",rc12:["Dès que possible", "Sous 3 mois", "Je me renseigne"],rc13:"Vos coordonnées",rc14:"Prénom",rc15:"Recevoir mon code par SMS",rc15b:"Renvoyer le code",rc16:"Code reçu par SMS",rc17:"Valider",rc18:"Démonstration : le code est 1234. Sur la vraie appli, il part par SMS.",rc19:"Code incorrect.",rc21:"EN RECHERCHE",rc22:"C'est noté. Dominique vous rappelle sur votre portable, en %l.",lg:{"fr": "français", "de": "allemand", "en": "anglais", "it": "italien"},rc23:"Nouvelle recherche",rc24:"Annuler cette recherche",rc25:"Recherche annulée.",rc26:"Vos recherches",rc27:"Bon de recherche envoyé (démonstration).",rc29:"N°",rq0:"Recherches demandées",rq1:"Aucune recherche pour l'instant. Elles arrivent ici, avec le prénom du client et ce qu'il cherche.",rq3:"Trouvée",rq4:"TROUVÉE",rq5:"Retirer",rq6:"Recherche marquée trouvée.",rq7:"Remettre en cours",rq8:"Recherche retirée.",rq9:"Dominique a trouvé une machine qui correspond : il vous rappelle.",rq10:"Aperçu : le numéro n'est pas gardé en entier sur cet appareil. À la mise en service, Dominique reçoit la demande complète, avec le numéro pour rappeler.",rq11:"Touchez encore pour retirer",vide:"Aucune clé ne correspond. Dominique peut la chercher pour vous.",pht:"Prix HT",cp0:"Comparer",cp1:"Deux clés en main",cp1b:"Comparaison",cp6:"Témoin allumé : le plus avantageux",cp2:"% en main",cp2d:"Prenez la 2e clé",cp2b:"Prenez deux clés",cp2c:"EN MAIN",annuler:"Annuler",
+ cp3:"d'écart",cp4:"Identique",cp5:"Compteur remis à zéro : heures non comparables.",an1:"an",ans:"ans",cp7:"Voir",cp8:"Changer",cp9:"Comparer deux clés",cp10:"Comparez ces deux machines chez Poly Commerce : ",cp11:" et ",cp12:"Prenez deux clés sur le tableau pour les comparer.",cp13:"le plus avantageux",
+ ar0:"Arrivages",ar1:"Prévenu avant tout le monde",ar2:"Réservez un crochet : un SMS dès que votre machine arrive sur le parc.",ar3:"Réserver un crochet",ar4:"à votre nom",ar5:"Crochet réservé",ar6:"Voir ma demande",ar7:"RÉSERVÉ",
+ cr0:"Un crochet à votre nom",cr1:"Prévenu avant tout le monde",al2:"Dites quelle machine vous cherchez. Dès qu'elle entre sur le parc, vous recevez un SMS, avant la mise en annonce.",cr3:"Je cherche",al3:"Budget max (€)",al4:"Heures max",al5:"Votre portable",al6:"Me prévenir par SMS",al7:"Aperçu : l'envoi de SMS sera branché à la mise en service.",
+ alok:"C'est noté. Vous serez prévenu par SMS (démonstration).",cr5:"Dès qu'une machine correspond, Dominique vous prévient par SMS (démonstration).",cr6:"Rendre le crochet",cr7:"Crochet rendu.",cr8:"max",cr10:"Indiquez votre numéro de portable.",
+ bu0:"Bureau",bu1:"Réservé à Dominique",pt:"Espace Dominique",pcode:"Code à 4 chiffres",pdemo:"Démonstration : le code est 1234.",pfaux:"Code incorrect.",peff:"Effacer",pajout:"Accrocher une nouvelle clé",pmes:"Mes clés",pvendue:"Vendue",premettre:"Remettre",pv:"VENDUE",
+ pe1:"1. Les photos",pe1t:"Prenez la machine en photo, ou choisissez dans le téléphone. La première sera la photo principale.",pph:"Photos",pe2:"2. Les infos",pmodele:"Marque et modèle",pp:"Prix HT (€)",phs:"D'où vient le chiffre des heures ?",pnote:"Un mot pour les acheteurs (facultatif)",
+ pe3:"3. Vérifier et accrocher",ppub:"Accrocher au tableau",psuiv:"Suivant",pret:"Retour",pok:"Accrochée. La clé est en tête du tableau.",pmanque:"Il manque : ",psortir:"Sortir",ploc:"Aperçu : ce que vous faites ici reste sur cet appareil. À la mise en service, ce sera en ligne pour tous les clients.",
+ penl:"clés au tableau",penl1:"clé au tableau",pprix:"Changer le prix",pprixok:"Prix changé.",pvok:"Vendue : la clé quitte le tableau.",prok:"La clé est remise au tableau.",praz:"Remettre la démonstration à zéro",praz2:"Touchez encore pour confirmer",prazok:"Démonstration remise à zéro."});
+Object.assign(T.de,{rs0:"Auf Anfrage",rs1:"Nicht am Brett? Dominique sucht sie für Sie.",rs2:"Füllen Sie einen Suchauftrag aus: Er sucht die Maschine und ruft Sie zurück.",rs3:"Suche starten",rs4:"Suche läuft",rs4b:"Suchen laufen",rs5:"Meine Suchen ansehen",rs6:"Suche",rc0:"Suche auf Anfrage",rc1:"Dominique sucht sie für Sie",rc2:"Eine Maschine, die nicht am Brett hängt? Beschreiben Sie sie auf diesem Auftrag. Dominique sucht sie und ruft Sie dann zurück.",rc3:"Er antwortet auf Deutsch, Französisch, Englisch oder Italienisch",rc4:"Lieferung in Frankreich und Europa",rc5:"Vom Skidder bis zum Hubschrauber",rc6:"Suchauftrag",rc7:"Maschinentyp",rc8:"Marke, Modell, Ausstattung",rc8p:"Z. B. John Deere 648 mit Kran",rc9:"Budget max. (€ netto)",rc11:"Bis wann?",rc12:["So bald wie möglich", "Innerhalb von 3 Monaten", "Ich informiere mich"],rc13:"Ihre Kontaktdaten",rc14:"Vorname",rc15:"Code per SMS erhalten",rc15b:"Code erneut senden",rc16:"Code aus der SMS",rc17:"Bestätigen",rc18:"Demo: Der Code ist 1234. In der echten App kommt er per SMS.",rc19:"Falscher Code.",rc21:"IN SUCHE",rc22:"Notiert. Dominique ruft Sie auf Ihrem Handy zurück, auf %l.",lg:{"fr": "Französisch", "de": "Deutsch", "en": "Englisch", "it": "Italienisch"},rc23:"Neue Suche",rc24:"Diese Suche abbrechen",rc25:"Suche abgebrochen.",rc26:"Ihre Suchen",rc27:"Suchauftrag gesendet (Demo).",rc29:"Nr.",rq0:"Angefragte Suchen",rq1:"Noch keine Suche. Sie erscheinen hier, mit dem Vornamen des Kunden und seiner Suche.",rq3:"Gefunden",rq4:"GEFUNDEN",rq5:"Entfernen",rq6:"Als gefunden markiert.",rq7:"Wieder öffnen",rq8:"Suche entfernt.",rq9:"Dominique hat eine passende Maschine gefunden: Er ruft Sie zurück.",rq10:"Vorschau: Die Nummer wird auf diesem Gerät nicht vollständig gespeichert. Nach dem Start erhält Dominique die ganze Anfrage, mit der Nummer zum Zurückrufen.",rq11:"Zum Entfernen noch einmal tippen",vide:"Kein passender Schlüssel. Dominique kann sie für Sie suchen.",pht:"Nettopreis",cp0:"Vergleichen",cp1:"Zwei Schlüssel in der Hand",cp1b:"Vergleich",cp6:"Lampe an: der bessere Wert",cp2:"% in der Hand",cp2d:"2. Schlüssel nehmen",cp2b:"Zwei Schlüssel nehmen",cp2c:"IN DER HAND",annuler:"Abbrechen",
+ cp3:"Unterschied",cp4:"Gleich",cp5:"Zähler auf null: Stunden nicht vergleichbar.",an1:"Jahr",ans:"Jahre",cp7:"Ansehen",cp8:"Wechseln",cp9:"Zwei Schlüssel vergleichen",cp10:"Vergleich dieser zwei Maschinen bei Poly Commerce: ",cp11:" und ",cp12:"Nehmen Sie zwei Schlüssel vom Brett, um sie zu vergleichen.",cp13:"der bessere Wert",
+ ar0:"Neuzugänge",ar1:"Als Erster informiert",ar2:"Reservieren Sie einen Haken: eine SMS, sobald Ihre Maschine auf den Platz kommt.",ar3:"Haken reservieren",ar4:"auf Ihren Namen",ar5:"Haken reserviert",ar6:"Meine Anfrage ansehen",ar7:"RESERVIERT",
+ cr0:"Ein Haken auf Ihren Namen",cr1:"Als Erster informiert",al2:"Sagen Sie uns, welche Maschine Sie suchen. Sobald sie auf den Platz kommt, erhalten Sie eine SMS, noch vor dem Inserat.",cr3:"Ich suche",al3:"Max. Budget (€)",al4:"Max. Stunden",al5:"Ihre Handynummer",al6:"Per SMS benachrichtigen",al7:"Vorschau: Der SMS-Versand wird bei Inbetriebnahme angeschlossen.",
+ alok:"Notiert. Sie werden per SMS benachrichtigt (Demo).",cr5:"Sobald eine Maschine passt, benachrichtigt Dominique Sie per SMS (Demo).",cr6:"Haken zurückgeben",cr7:"Haken zurückgegeben.",cr8:"max.",cr10:"Bitte Ihre Handynummer angeben.",
+ bu0:"Büro",bu1:"Nur für Dominique",pt:"Bereich Dominique",pcode:"4-stelliger Code",pdemo:"Demo: Der Code ist 1234.",pfaux:"Falscher Code.",peff:"Löschen",pajout:"Neuen Schlüssel aufhängen",pmes:"Meine Schlüssel",pvendue:"Verkauft",premettre:"Aufhängen",pv:"VERKAUFT",
+ pe1:"1. Fotos",pe1t:"Maschine fotografieren oder aus dem Telefon wählen. Das erste Foto ist das Hauptfoto.",pph:"Fotos",pe2:"2. Angaben",pmodele:"Marke und Modell",pp:"Preis netto (€)",phs:"Woher kommt die Stundenzahl?",pnote:"Ein Wort für Käufer (optional)",
+ pe3:"3. Prüfen und aufhängen",ppub:"Ans Brett hängen",psuiv:"Weiter",pret:"Zurück",pok:"Aufgehängt. Der Schlüssel hängt ganz oben am Brett.",pmanque:"Es fehlt: ",psortir:"Abmelden",ploc:"Vorschau: Was Sie hier tun, bleibt auf diesem Gerät. Nach dem Start ist es für alle Kunden online.",
+ penl:"Schlüssel am Brett",penl1:"Schlüssel am Brett",pprix:"Preis ändern",pprixok:"Preis geändert.",pvok:"Verkauft: Der Schlüssel verlässt das Brett.",prok:"Der Schlüssel hängt wieder am Brett.",praz:"Demo zurücksetzen",praz2:"Zum Bestätigen noch einmal tippen",prazok:"Demo zurückgesetzt."});
+Object.assign(T.en,{rs0:"On request",rs1:"Not on the board? Dominique will search for it.",rs2:"Fill in a search slip: he looks for the machine and calls you back.",rs3:"Start a search",rs4:"Search in progress",rs4b:"searches in progress",rs5:"See my searches",rs6:"Search",rc0:"Search on request",rc1:"Dominique searches for you",rc2:"A machine that is not on the board? Describe it on this slip. Dominique searches for it, then calls you back to talk it over.",rc3:"He answers in English, French, German or Italian",rc4:"Delivery in France and across Europe",rc5:"From skidders to helicopters",rc6:"Search slip",rc7:"Machine type",rc8:"Make, model, equipment",rc8p:"E.g. John Deere 648 with crane",rc9:"Max budget (€ ex VAT)",rc11:"When?",rc12:["As soon as possible", "Within 3 months", "Just looking"],rc13:"Your details",rc14:"First name",rc15:"Get my code by text",rc15b:"Send the code again",rc16:"Code from the text",rc17:"Confirm",rc18:"Demo: the code is 1234. In the real app it is sent by text.",rc19:"Wrong code.",rc21:"SEARCHING",rc22:"Noted. Dominique will call you back on your mobile, in %l.",lg:{"fr": "French", "de": "German", "en": "English", "it": "Italian"},rc23:"New search",rc24:"Cancel this search",rc25:"Search cancelled.",rc26:"Your searches",rc27:"Search slip sent (demo).",rc29:"No.",rq0:"Search requests",rq1:"No search yet. They arrive here, with the customer's first name and what they are after.",rq3:"Found",rq4:"FOUND",rq5:"Remove",rq6:"Marked as found.",rq7:"Reopen",rq8:"Search removed.",rq9:"Dominique has found a matching machine: he will call you back.",rq10:"Preview: the number is not kept in full on this device. At launch, Dominique gets the whole request, with the number to call back.",rq11:"Tap again to remove",vide:"No key matches. Dominique can search for it.",pht:"Excl. VAT",cp0:"Compare",cp1:"Two keys in hand",cp1b:"Comparison",cp6:"Lamp on: the better figure",cp2:"% in hand",cp2d:"Take the 2nd key",cp2b:"Take two keys",cp2c:"IN HAND",annuler:"Cancel",
+ cp3:"difference",cp4:"Same",cp5:"Meter reset: hours cannot be compared.",an1:"year",ans:"years",cp7:"View",cp8:"Change",cp9:"Compare two keys",cp10:"Compare these two machines at Poly Commerce: ",cp11:" and ",cp12:"Take two keys from the board to compare them.",cp13:"the better figure",
+ ar0:"Arrivals",ar1:"Told before anyone else",ar2:"Reserve a hook: a text as soon as your machine arrives in the yard.",ar3:"Reserve a hook",ar4:"in your name",ar5:"Hook reserved",ar6:"See my request",ar7:"RESERVED",
+ cr0:"A hook in your name",cr1:"Told before anyone else",al2:"Tell us which machine you are after. As soon as it arrives in the yard, you get a text, before it is listed.",cr3:"I am looking for",al3:"Max budget (€)",al4:"Max hours",al5:"Your mobile",al6:"Text me",al7:"Preview: text messages will be connected at launch.",
+ alok:"Noted. You will get a text (demo).",cr5:"As soon as a machine matches, Dominique texts you (demo).",cr6:"Give the hook back",cr7:"Hook given back.",cr8:"max",cr10:"Please enter your mobile number.",
+ bu0:"Office",bu1:"Dominique only",pt:"Dominique's space",pcode:"4-digit code",pdemo:"Demo: the code is 1234.",pfaux:"Wrong code.",peff:"Delete",pajout:"Hang a new key",pmes:"My keys",pvendue:"Sold",premettre:"Relist",pv:"SOLD",
+ pe1:"1. Photos",pe1t:"Take photos of the machine, or pick them from the phone. The first one becomes the main photo.",pph:"Photos",pe2:"2. Details",pmodele:"Make and model",pp:"Price ex VAT (€)",phs:"Where does the hours figure come from?",pnote:"A word for buyers (optional)",
+ pe3:"3. Check and hang",ppub:"Hang on the board",psuiv:"Next",pret:"Back",pok:"Hung. The key is at the top of the board.",pmanque:"Missing: ",psortir:"Log out",ploc:"Preview: what you do here stays on this device. At launch it will be online for every customer.",
+ penl:"keys on the board",penl1:"key on the board",pprix:"Change the price",pprixok:"Price changed.",pvok:"Sold: the key leaves the board.",prok:"The key is back on the board.",praz:"Reset the demo",praz2:"Tap again to confirm",prazok:"Demo reset."});
+Object.assign(T.it,{rs0:"Su richiesta",rs1:"Non è sul quadro? Dominique la cerca per te.",rs2:"Compila un buono di ricerca: cerca la macchina e ti richiama.",rs3:"Avvia una ricerca",rs4:"Ricerca in corso",rs4b:"ricerche in corso",rs5:"Vedi le mie ricerche",rs6:"Ricerca",rc0:"Ricerca su richiesta",rc1:"Dominique la cerca per te",rc2:"Una macchina che non è sul quadro? Descrivila su questo buono. Dominique la cerca, poi ti richiama per parlarne.",rc3:"Ti risponde in italiano, francese, tedesco o inglese",rc4:"Consegna in Francia e in Europa",rc5:"Dallo skidder all'elicottero",rc6:"Buono di ricerca",rc7:"Tipo di macchina",rc8:"Marca, modello, dotazioni",rc8p:"Es. John Deere 648 con gru",rc9:"Budget max (€ IVA esclusa)",rc11:"Per quando?",rc12:["Appena possibile", "Entro 3 mesi", "Mi informo"],rc13:"I tuoi recapiti",rc14:"Nome",rc15:"Ricevi il codice via SMS",rc15b:"Invia di nuovo il codice",rc16:"Codice ricevuto via SMS",rc17:"Conferma",rc18:"Demo: il codice è 1234. Nell'app vera arriva via SMS.",rc19:"Codice errato.",rc21:"IN RICERCA",rc22:"Fatto. Dominique ti richiama sul cellulare, in %l.",lg:{"fr": "francese", "de": "tedesco", "en": "inglese", "it": "italiano"},rc23:"Nuova ricerca",rc24:"Annulla questa ricerca",rc25:"Ricerca annullata.",rc26:"Le tue ricerche",rc27:"Buono di ricerca inviato (demo).",rc29:"N.",rq0:"Ricerche richieste",rq1:"Ancora nessuna ricerca. Arrivano qui, con il nome del cliente e ciò che cerca.",rq3:"Trovata",rq4:"TROVATA",rq5:"Rimuovi",rq6:"Segnata come trovata.",rq7:"Riapri",rq8:"Ricerca rimossa.",rq9:"Dominique ha trovato una macchina adatta: ti richiama.",rq10:"Anteprima: il numero non resta intero su questo dispositivo. Al lancio Dominique riceve la richiesta completa, con il numero da richiamare.",rq11:"Tocca ancora per rimuovere",vide:"Nessuna chiave corrisponde. Dominique può cercarla per te.",pht:"IVA esclusa",cp0:"Confronta",cp1:"Due chiavi in mano",cp1b:"Confronto",cp6:"Spia accesa: il valore migliore",cp2:"% in mano",cp2d:"Prendi la 2ª chiave",cp2b:"Prendi due chiavi",cp2c:"IN MANO",annuler:"Annulla",
+ cp3:"di differenza",cp4:"Uguale",cp5:"Contaore azzerato: ore non confrontabili.",an1:"anno",ans:"anni",cp7:"Vedi",cp8:"Cambia",cp9:"Confronta due chiavi",cp10:"Confronta queste due macchine da Poly Commerce: ",cp11:" e ",cp12:"Prendi due chiavi dal quadro per confrontarle.",cp13:"il valore migliore",
+ ar0:"Arrivi",ar1:"Avvisato prima di tutti",ar2:"Prenota un gancio: un SMS appena la tua macchina arriva sul piazzale.",ar3:"Prenota un gancio",ar4:"a tuo nome",ar5:"Gancio prenotato",ar6:"Vedi la mia richiesta",ar7:"PRENOTATO",
+ cr0:"Un gancio a tuo nome",cr1:"Avvisato prima di tutti",al2:"Dicci quale macchina cerchi. Appena arriva sul piazzale ricevi un SMS, prima dell'annuncio.",cr3:"Cerco",al3:"Budget max (€)",al4:"Ore max",al5:"Il tuo cellulare",al6:"Avvisami via SMS",al7:"Anteprima: l'invio di SMS sarà attivato al lancio.",
+ alok:"Fatto. Riceverai un SMS (demo).",cr5:"Appena una macchina corrisponde, Dominique ti avvisa via SMS (demo).",cr6:"Restituisci il gancio",cr7:"Gancio restituito.",cr8:"max",cr10:"Inserisci il tuo numero di cellulare.",
+ bu0:"Ufficio",bu1:"Riservato a Dominique",pt:"Spazio Dominique",pcode:"Codice a 4 cifre",pdemo:"Demo: il codice è 1234.",pfaux:"Codice errato.",peff:"Cancella",pajout:"Appendi una nuova chiave",pmes:"Le mie chiavi",pvendue:"Venduta",premettre:"Rimetti",pv:"VENDUTA",
+ pe1:"1. Le foto",pe1t:"Fotografa la macchina o scegli dal telefono. La prima sarà la foto principale.",pph:"Foto",pe2:"2. I dati",pmodele:"Marca e modello",pp:"Prezzo + IVA (€)",phs:"Da dove viene il numero di ore?",pnote:"Una parola per gli acquirenti (facoltativa)",
+ pe3:"3. Controlla e appendi",ppub:"Appendi al quadro",psuiv:"Avanti",pret:"Indietro",pok:"Appesa. La chiave è in cima al quadro.",pmanque:"Manca: ",psortir:"Esci",ploc:"Anteprima: ciò che fai qui resta su questo dispositivo. Al lancio sarà online per tutti i clienti.",
+ penl:"chiavi sul quadro",penl1:"chiave sul quadro",pprix:"Cambia il prezzo",pprixok:"Prezzo cambiato.",pvok:"Venduta: la chiave lascia il quadro.",prok:"La chiave torna sul quadro.",praz:"Azzera la demo",praz2:"Tocca ancora per confermare",prazok:"Demo azzerata."});
+
+const TYPES=["Débusqueur","Débusqueur avec grue","Porteur","Broyeur forestier","Pelle sur chenilles","Mini-pelle","Tombereau articulé","Télescopique","Tracteur","Transporteur 4x4"];
+const FAM=t=>/Débusqueur|Porteur|Broyeur/.test(t)?'foret':/Pelle|Tombereau/.test(t)?'tp':'agri';
+const ss=k=>{try{return sessionStorage.getItem(k)}catch(e){return null}};
+const chiffres=s=>String(s==null?'':s).replace(/\D/g,'');
+const existe=id=>PARC.some(m=>m.id==id);
+const VUES=['banc','crochet','recherche','bureau'],VIS4='<i class="vis"></i><i class="vis"></i><i class="vis"></i><i class="vis"></i>';
+let CMP=[],CHOIX=null,CROCHET=mem.get('pk-crochet'),APRES=null;
+if(!CROCHET||!CROCHET.t)CROCHET=null;
+
+/* ---------- le parc change (machine vendue, prix changé, clé ajoutée) ---------- */
+function parc(){[...AJ,...M].forEach(m=>{if(m.p0==null)m.p0=m.p;m.p=PRIX[m.id]>0?PRIX[m.id]:m.p0});
+  PARC=[...AJ,...M].filter(m=>!VEN.has(m.id));
+  const n=SEL.length;SEL=SEL.filter(existe);if(SEL.length!=n)mem.set('pk-sel',SEL);
+  CMP=CMP.filter(existe);document.body.classList.toggle('cmp2',CMP.length==2);
+  if(CHOIX)CHOIX=CHOIX.filter(existe);
+  if(!PARC.includes(CUR)){CUR=PARC[0];ALLUME=false;$('#poste').classList.remove('allume','test');afficher(CUR)}}
+
+/* ---------- sur chaque carte du tableau : l'année sur sa plaque, le compteur d'heures et d'où vient ce chiffre ---------- */
+function fiche(m){const u=U(),k=Math.max(0,'oar'.indexOf(m.hs)),h=String(Math.min(Math.max(0,Math.round(+m.h||0)),99999)).padStart(5,'0');
+  return '<span class="fi"><span class="fc"><i class="fl">'+u.annee+'</i><span class="fv an">'+(+m.a||'–')+'</span></span>'+
+   '<span class="fc"><i class="fl">'+u.heures+'</i><span class="fv mh">'+[...h].map(c=>'<i>'+c+'</i>').join('')+'<em>h</em></span></span>'+
+   '<span class="ft '+['','a','r'][k]+'"><i></i>'+u.hs[k]+'</span></span>'}
+
+/* ---------- sur le tableau : le crochet libre et la porte du bureau ---------- */
+function resume(c){const u=U();return [typ(c.t)].concat(c.b?[eur(c.b)+' '+u.cr8]:[],c.h?[nb(c.h)+' h '+u.cr8]:[])}
+function arrivagesHTML(){const u=U(),c=CROCHET;
+  return '<span class="brady">'+u.ar0+'</span><div class="libre'+(c?' res':'')+'" id="libre">'+
+   '<span class="l-croc" aria-hidden="true"><svg class="croc"><use href="#s-croc"/></svg><span class="bal"><svg class="ann"><use href="#s-ann"/></svg>'+
+   '<span class="etiq'+(c?'':' vierge')+'"><u><b>'+(c?u.ar7:'?')+'</b><small>'+u.ar4+'</small></u></span></span></span>'+
+   '<p class="l-txt"><b>'+(c?u.ar5:u.ar1)+'</b><small>'+(c?esc(resume(c).map(x=>x.replace(/ /g,'\u00a0')).join(' · ')):u.ar2)+'</small></p>'+
+   '<button type="button" class="l-go">'+(c?u.ar6:u.ar3)+'<span aria-hidden="true">›</span></button></div>'}
+function porteHTML(){const u=U();return '<button type="button" class="porte" id="porte"><i class="serrure"></i><span><b>'+u.bu0+'</b><small>'+u.bu1+'</small></span><i class="chev" aria-hidden="true">›</i></button>'}
+
+/* un mot trop long pour son étiquette ou son tampon : on resserre les lettres, puis on réduit un peu, jamais sous la taille lisible */
+function serre(e){if(!e||!e.offsetParent)return;e.style.fontStretch=e.style.fontSize=e.style.letterSpacing='';
+  const trop=()=>e.scrollWidth>e.clientWidth+.5;if(!trop())return;
+  const cs=getComputedStyle(e);let st=parseFloat(cs.fontStretch)||100,f=parseFloat(cs.fontSize);
+  e.style.letterSpacing='0';
+  while(trop()&&st>66){st-=3;e.style.fontStretch=st+'%'}
+  while(trop()&&f>11.5){f-=.5;e.style.fontSize=f+'px'}}
+function serres(){$$('.l-croc .etiq b,.l-croc .etiq small,.r-ligne .tampon').forEach(serre)}
+
+/* ---------- passer d'un écran à l'autre ---------- */
+function auTableau(){document.body.dataset.vue='tableau';ajuste();marque();const f=APRES;APRES=null;if(f)f()}
+function montrer(v,sans){++SEQ;if(CHOIX)finChoix();
+  if(!large()){$('#poste').classList.remove('allume','test');ALLUME=false}
+  if(v=='banc')banc();else if(v=='crochet')crochet();else if(v=='recherche')recherche();else bureau();
+  document.body.dataset.vue=v;$('#'+v).scrollTop=0;ajuste();
+  if(!sans){const h=v=='banc'?'#c='+CMP.join(','):'#'+v;try{const s=history.state;if(large())history.replaceState(null,'',h);else if(s&&(s.m||s.v))history.replaceState({v},'',h);else history.pushState({v},'',h)}catch(e){}}
+  marque()}
+function fermer(){if(large()){document.body.dataset.vue='poste';if(CUR&&!ALLUME)contact(CUR,'direct');else{try{history.replaceState(null,'',CUR?'#m='+CUR.id:location.pathname+location.search)}catch(e){}marque()}return}
+  try{if(history.state&&history.state.v){history.back();return}}catch(e){}
+  try{history.replaceState(null,'',location.pathname+location.search)}catch(e){}auTableau()}
+document.addEventListener('click',e=>{if(e.target.closest&&e.target.closest('[data-ret]'))fermer()});
+function majRetour(){let d=null;try{d=history.state&&history.state.de}catch(e){}$('#rendre-t').textContent=d=='banc'?U().cp1b:U().cles}
+
+/* ---------- comparer : on prend une deuxième clé ---------- */
+function majChoix(){serres();$('#choix').hidden=!CHOIX;document.body.classList.toggle('choisit',!!CHOIX);
+  $('#planche').style.setProperty('--main',JSON.stringify(U().cp2c));
+  $$('#planche .case').forEach(c=>c.classList.toggle('m1',!!CHOIX&&CHOIX.includes(c.dataset.id)));
+  if(CHOIX){const m=PARC.find(x=>x.id==CHOIX[0]);$('#choix-b').textContent=m?U().cp2.replace('%',nom(m)):U().cp1b;$('#choix-t').textContent=m?U().cp2d:U().cp2b}}
+function debutChoix(ids,garderFiltre){if(PARC.length<2){toast(U().cp12);return}
+  CHOIX=ids.filter(existe).slice(0,1);
+  if(!garderFiltre&&(FIL!='tout'||$('#cherche').value)){FIL='tout';$('#trousseau').setAttribute('aria-pressed',false);$('#cherche').value='';planche()}
+  majChoix();const v=document.body.dataset.vue;
+  if(!large()){if(v=='poste')rendre();else if(v!='tableau')fermer()}
+  else if(VUES.includes(v))fermer()}
+function choisir(m){const i=CHOIX.indexOf(m.id);if(i>=0)CHOIX.splice(i,1);else CHOIX.push(m.id);vib(8);
+  if(CHOIX.length>=2){CMP=CHOIX.slice(0,2);CHOIX=null;document.body.classList.add('cmp2');majChoix();montrer('banc');return}
+  majChoix()}
+function finChoix(){CHOIX=null;majChoix()}
+$('#choix-x').onclick=finChoix;
+$('#comparer').onclick=()=>{if(CUR)debutChoix([CUR.id])};
+$('#vers-banc').onclick=()=>{if(CMP.length==2)montrer('banc')};
+
+/* ---------- le banc : deux machines côte à côte ---------- */
+function banc(){const u=U(),el=$('#banc-c'),[a,b]=CMP.map(id=>PARC.find(m=>m.id==id));
+  if(!a||!b){el.innerHTML='<p class="vide">'+u.cp12+'</p>';return}
+  const ecr=m=>'<button type="button" class="b-ecran" data-voir="'+m.id+'" aria-label="'+esc(u.cp7+' : '+nom(m))+'"><span class="verre"><img src="'+src(m,0)+'" alt="" width="536" height="402"><span class="reflet"></span></span><span class="b-bas"><i class="led"></i>N° '+no(m)+'</span></button>';
+  const pla=m=>'<div class="plaque b-id"><h3>'+nomc(m)+'</h3><small>'+esc(typ(m.t))+'</small></div>';
+  const act=(m,k)=>'<div class="b-act"><button type="button" class="bt" data-voir="'+m.id+'">'+u.cp7+'</button><button type="button" class="bt" data-chg="'+k+'">'+u.cp8+'</button></div>';
+  const mx=(x,y,bas)=>x==y?[0,0]:((bas?x<y:x>y)?[1,0]:[0,1]);
+  const cel=(on,h)=>'<div class="b-v'+(on?' mieux':'')+'"><i class="b-lam"></i>'+(on?'<span class="sr">'+u.cp13+'</span>':'')+h+'</div>';
+  const rang=(lab,va,vb,m,ec)=>'<div class="b-rang"><span class="i-lab">'+lab+'</span><div class="b-vals">'+cel(m[0],va)+cel(m[1],vb)+'</div><p class="b-ecart">'+ec+'</p></div>';
+  const ec=(d,t)=>d?'<b>'+t+'</b> '+u.cp3:u.cp4;
+  const raz=a.hs=='r'||b.hs=='r',dp=Math.abs(a.p-b.p),da=Math.abs(a.a-b.a),dh=Math.abs(a.h-b.h);
+  const hr=m=>{const k=Math.max(0,'oar'.indexOf(m.hs));return '<div class="horametre" data-hm="'+m.h+'"></div><div class="temoin '+['','a','r'][k]+'"><i></i><span>'+u.hs[k]+'</span></div>'};
+  const eq=m=>(m.eq||[]).length?'<ul class="b-eq">'+m.eq.map(e=>'<li>'+esc(e)+'</li>').join('')+'</ul>':'<ul class="b-eq"></ul>';
+  el.innerHTML='<div class="b-duo">'+ecr(a)+ecr(b)+pla(a)+pla(b)+act(a,0)+act(b,1)+'</div>'+
+   rang(u.prix,'<div class="lcd" role="img" data-lcd="'+a.p+'"></div>','<div class="lcd" role="img" data-lcd="'+b.p+'"></div>',mx(a.p,b.p,true),ec(dp,eur(dp)))+
+   rang(u.annee,'<span class="b-an">'+a.a+'</span>','<span class="b-an">'+b.a+'</span>',mx(a.a,b.a,false),ec(da,da+' '+(da>1?u.ans:u.an1)))+
+   rang(u.heures,hr(a),hr(b),raz?[0,0]:mx(a.h,b.h,true),raz?u.cp5:ec(dh,nb(dh)+' h'))+
+   ((a.eq||[]).length||(b.eq||[]).length?'<div class="b-rang"><span class="i-lab">'+u.equip+'</span><div class="b-vals">'+eq(a)+eq(b)+'</div></div>':'');
+  el.querySelectorAll('[data-lcd]').forEach(e=>lcd(e,+e.dataset.lcd));
+  el.querySelectorAll('[data-hm]').forEach(e=>horametre(e,+e.dataset.hm))}
+$('#banc-c').addEventListener('click',e=>{const v=e.target.closest('[data-voir]');if(v){const m=PARC.find(x=>x.id==v.dataset.voir);if(m)contact(m,'','banc');return}
+  const c=e.target.closest('[data-chg]');if(c)debutChoix([CMP[1-(+c.dataset.chg)]])});
+$('#banc-part').onclick=async()=>{const [a,b]=CMP.map(id=>PARC.find(m=>m.id==id));if(!a||!b)return;
+  const url=PUBLIC+'#c='+a.id+','+b.id,txt=U().cp10+nom(a)+' ('+eur(a.p)+')'+U().cp11+nom(b)+' ('+eur(b.p)+').';
+  if(navigator.share){try{await navigator.share({title:'Poly Commerce',text:txt,url});return}catch(e){if(e.name=='AbortError')return}}
+  try{await navigator.clipboard.writeText(txt+' '+url);toast(U().copie)}catch(e){toast(url)}};
+
+/* ---------- le crochet : prévenu dès que la machine arrive ---------- */
+function crochet(){const c=CROCHET,sel=$('#al-type'),v=sel.value;
+  sel.innerHTML=[...TYPES,'Autre machine'].map(t=>'<option value="'+t+'">'+esc(typ(t))+'</option>').join('');if(v)sel.value=v;
+  $('#f-alerte').hidden=$('#al-go').hidden=!!c;$('#al-ok').hidden=$('#al-rendre').hidden=!c;
+  if(c){const r=resume(c);$('#al-res').innerHTML='<b>'+esc(r[0])+'</b>'+r.slice(1).map(x=>'<span>'+esc(x)+'</span>').join('')}}
+function balanceEtiq(){const g=$('#g-etiq');g.classList.remove('swing');void g.offsetWidth;g.classList.add('swing')}
+$('#f-alerte').onsubmit=e=>{e.preventDefault();
+  if(chiffres($('#al-tel').value).length<8){toast(U().cr10);$('#al-tel').focus();return}
+  CROCHET={t:$('#al-type').value,b:+chiffres($('#al-budget').value)||0,h:+chiffres($('#al-h').value)||0};mem.set('pk-crochet',CROCHET);
+  e.target.reset();crochet();planche();vib([0,18,40,18]);toast(U().alok);balanceEtiq();$('#crochet').scrollTop=0};
+$('#al-rendre').onclick=()=>{CROCHET=null;mem.set('pk-crochet',null);crochet();planche();toast(U().cr7);balanceEtiq()};
+['#al-budget','#al-h'].forEach(s=>$(s).addEventListener('input',e=>{e.target.value=chiffres(e.target.value).slice(0,7).replace(/\B(?=(\d{3})+$)/g,' ')}));
+
+/* ---------- la recherche sur demande : Dominique cherche la machine qui n'est pas au tableau ---------- */
+TYP.de.push(['Hélicoptère','Hubschrauber']);TYP.en.push(['Hélicoptère','Helicopter']);TYP.it.push(['Hélicoptère','Elicottero']);
+const TYPES_RC=[...TYPES,'Hélicoptère','Autre machine'];
+let RQ=(mem.get('pk-recherches')||[]).filter(r=>r&&r.n&&r.t),RQN=Math.max(+mem.get('pk-rqn')||0,...RQ.map(r=>r.n),0),RCCODE=false,RCOUV=false,RCPRE='',RCNEUF=0,RCRM=null,RCRMT=0;
+const rqNo=n=>U().rc29+' '+String(n).padStart(3,'0');
+const rqDate=r=>{try{return new Date(r.at).toLocaleDateString(loc(),{day:'2-digit',month:'2-digit',year:'numeric'})}catch(e){return ''}};
+const rqRes=r=>{const u=U();return [r.b?eur(r.b)+' '+u.cr8:'',r.h?nb(r.h)+' h '+u.cr8:'',r.q>=0?u.rc12[r.q]:''].filter(Boolean)};
+const rappel=r=>U().rc22.replace('%l',U().lg[r.l]||U().lg[L]);
+function rechercheHTML(){const u=U(),k=RQ.length,f=RQ.find(r=>r.s=='t'),r=f||RQ[0];
+  return '<span class="brady">'+u.rs0+'</span><div class="libre cmd'+(k?' res':'')+'" id="cmd">'+
+   '<span class="bon-mini" aria-hidden="true"><i class="aimant"></i><span class="bm-p"><b>'+(k?rqNo(r.n):u.rs6)+'</b><i></i><i></i><i></i>'+
+   (k?'<em class="tampon'+(f?' ok':'')+'">'+(f?u.rq4:u.rc21)+'</em>':'<svg class="loupe"><use href="#s-loupe"/></svg>')+'</span></span>'+
+   '<p class="l-txt"><b>'+(f?u.rq9:k>1?k+' '+u.rs4b:k?u.rs4:u.rs1)+'</b><small>'+(k?[esc(typ(r.t))].concat(r.d?[esc(r.d)]:[],rqRes(r).map(x=>esc(x).replace(/ /g,' '))).join(' · '):u.rs2)+'</small></p>'+
+   '<button type="button" class="l-go">'+(k?u.rs5:u.rs3)+'<span aria-hidden="true">›</span></button></div>'}
+function slipHTML(r){const u=U(),t=r.s=='t';
+  return '<div class="g-papier bon-p res'+(r.n==RCNEUF?' pose':'')+'" data-rq="'+r.n+'"><div class="bon-t"><b>'+u.rc6+'</b><span>'+rqNo(r.n)+' · '+rqDate(r)+'</span></div>'+
+   '<span class="tampon'+(t?' ok':'')+'">'+(t?u.rq4:u.rc21)+'</span>'+
+   '<div class="g-res"><b>'+esc(typ(r.t))+'</b>'+(r.d?'<span class="det">'+esc(r.d)+'</span>':'')+(rqRes(r).length?'<span class="cr">'+rqRes(r).map(x=>esc(x).replace(/ /g,'\u00a0')).join(' · ')+'</span>':'')+'</div>'+
+   '<p>'+(t?u.rq9:rappel(r))+'</p><button type="button" class="bon-x" data-annule="'+r.n+'">'+u.rc24+'</button></div>'}
+function recherche(){const u=U(),sel=$('#rc-type'),v=sel.value,ch=$('#rc-quand'),q=(ch.querySelector('input:checked')||{}).value;
+  sel.innerHTML=TYPES_RC.map(t=>'<option value="'+t+'">'+esc(typ(t))+'</option>').join('');if(v)sel.value=v;
+  ch.innerHTML=u.rc12.map((t,i)=>'<label><input type="radio" name="rc-q" value="'+i+'"'+(q==String(i)?' checked':'')+'><b>'+t+'</b></label>').join('');
+  $('#rc-det').placeholder=u.rc8p;$('#rc-budget').placeholder='120 000';$('#rc-h').placeholder='8 000';$('#rc-tel').placeholder='06 12 34 56 78';
+  $('#rc-no').textContent=rqNo(RQN+1)+' · '+rqDate({at:new Date().toISOString()});
+  if(RCPRE){$('#rc-det').value=RCPRE.slice(0,80);RCPRE='';RCOUV=true}
+  $('#rc-liste').innerHTML=RQ.length?'<span class="i-lab rc-lab">'+u.rc26+'</span>'+RQ.map(slipHTML).join(''):'';
+  const form=!RQ.length||RCOUV;$('#rc-bon').hidden=!form;$('#rc-neuf').hidden=form;
+  $('#rc-code').hidden=$('#rc-demo').hidden=!RCCODE;$('#rc-go-t').textContent=RCCODE?u.rc15b:u.rc15}
+['#rc-budget','#rc-h'].forEach(s=>$(s).addEventListener('input',e=>{e.target.value=chiffres(e.target.value).slice(0,7).replace(/\B(?=(\d{3})+$)/g,' ')}));
+$('#f-rc').onsubmit=e=>{e.preventDefault();const u=U(),man=[];
+  if(!$('#rc-pre').value.trim())man.push(u.rc14);if(chiffres($('#rc-tel').value).length<8)man.push(u.al5);
+  if(man.length){toast(u.pmanque+man.join(', '));($('#rc-pre').value.trim()?$('#rc-tel'):$('#rc-pre')).focus();return}
+  RCCODE=true;recherche();vib(10);const c=$('#rc-c');c.value='';c.focus()};
+function rcValider(){const u=U(),c=$('#rc-c');if(c.value.length<4){c.focus();return}
+  if(c.value!=='1234'){c.value='';toast(u.rc19);vib([0,60,40,60]);c.focus();return}
+  const d=chiffres($('#rc-tel').value),qq=document.querySelector('#rc-quand input:checked');
+  /* le numéro n'est pas gardé en entier sur l'appareil : seulement les 2 premiers et les 2 derniers chiffres */
+  const r={n:++RQN,t:$('#rc-type').value,d:$('#rc-det').value.trim().slice(0,80),b:+chiffres($('#rc-budget').value)||0,h:+chiffres($('#rc-h').value)||0,
+    q:qq?+qq.value:-1,p:$('#rc-pre').value.trim().slice(0,30),tm:d.slice(0,2)+' •• •• •• '+d.slice(-2),l:L,at:new Date().toISOString(),s:'c'};
+  RQ.unshift(r);mem.set('pk-recherches',RQ);mem.set('pk-rqn',RQN);
+  $('#f-rc').reset();RCCODE=false;RCOUV=false;RCNEUF=r.n;recherche();planche();vib([0,18,40,18]);toast(u.rc27);$('#recherche').scrollTop=0;setTimeout(()=>{RCNEUF=0},1500)}
+$('#rc-val').onclick=rcValider;
+$('#rc-c').addEventListener('input',e=>{e.target.value=chiffres(e.target.value).slice(0,4);if(e.target.value.length==4)rcValider()});
+$('#rc-c').addEventListener('keydown',e=>{if(e.key=='Enter'){e.preventDefault();rcValider()}});
+$('#rc-neuf').onclick=()=>{RCOUV=true;recherche();$('#rc-bon').scrollIntoView({block:'start',behavior:calme()?'auto':'smooth'});setTimeout(()=>$('#rc-type').focus({preventScroll:true}),calme()?0:450)};
+$('#rc-liste').addEventListener('click',e=>{const a=e.target.closest('[data-annule]');if(!a)return;RQ=RQ.filter(r=>r.n!=a.dataset.annule);mem.set('pk-recherches',RQ);recherche();planche();toast(U().rc25)});
+function rqBureauHTML(){const u=U();
+  return '<div class="reg-t"><span class="i-lab">'+u.rq0+' · '+RQ.length+'</span></div>'+
+   (RQ.length?'<div class="rqs">'+RQ.map(r=>{const t=r.s=='t',c=rqRes(r);return '<div class="rq'+(t?' trouvee':'')+'" data-n="'+r.n+'">'+
+     '<div class="rq-h"><b>'+rqNo(r.n)+'</b><span>'+rqDate(r)+' · '+String(r.l||'fr').toUpperCase()+'</span>'+(t?'<i class="tampon ok">'+u.rq4+'</i>':'')+'</div>'+
+     '<b class="rq-t">'+esc(typ(r.t))+'</b>'+(r.d?'<span class="rq-d">'+esc(r.d)+'</span>':'')+(c.length?'<span class="rq-c">'+esc(c.join(' · '))+'</span>':'')+
+     '<span class="rq-q"><svg class="ic"><use href="#s-tel"/></svg>'+esc(r.p)+' · '+esc(r.tm)+'</span>'+
+     '<div class="rq-a"><button type="button" class="petit txt" data-tr="'+r.n+'">'+(t?u.rq7:u.rq3)+'</button><button type="button" class="petit txt'+(RCRM==r.n?' conf':'')+'" data-rm="'+r.n+'">'+(RCRM==r.n?u.rq11:u.rq5)+'</button></div></div>'}).join('')+'</div><p class="note rq-note">'+u.rq10+'</p>'
+    :'<p class="rq-vide">'+u.rq1+'</p>')}
+
+/* ---------- le bureau : espace Dominique ---------- */
+let OKB=ss('pk-pro')=='1',ETAPE=0,BR=null,EDIT=null,CODE='',RAZ=0;
+const neufBR=()=>({img:[],t:TYPES[0],n:'',a:'',h:'',p:'',hs:'a',dit:''});
+function bureau(){bureau0();serres()}
+function bureau0(){const u=U(),el=$('#bureau-c');$('#sortir').hidden=!OKB;
+  if(!OKB){CODE='';el.innerHTML='<div class="plaque titre">'+VIS4+'<span class="grave">'+u.bu0+'</span><h2>'+u.pt+'</h2></div>'+
+    '<div class="digi" id="digi"><p class="d-code">'+u.pcode+'</p><div class="d-voy" aria-hidden="true"><i></i><i></i><i></i><i></i></div><div class="d-touches">'+
+    [1,2,3,4,5,6,7,8,9].map(k=>'<button type="button" data-k="'+k+'">'+k+'</button>').join('')+'<span></span><button type="button" data-k="0">0</button><button type="button" class="fx" data-k="x" aria-label="'+u.peff+'">⌫</button></div></div>'+
+    '<p class="note">'+u.pdemo+'</p><span class="signe">'+u.signe+'</span>';return}
+  if(ETAPE==0){const tous=[...AJ,...M],n=PARC.length;
+    el.innerHTML='<div class="plaque titre">'+VIS4+'<span class="grave">'+u.pt+'</span><h2>'+n+' '+(n>1?u.penl:u.penl1)+'</h2></div>'+
+     '<button type="button" class="appel" id="ajout"><svg><use href="#s-plus"/></svg><span>'+u.pajout+'</span></button>'+rqBureauHTML()+
+     '<div class="reg-t"><span class="i-lab">'+u.pmes+'</span></div><div class="reg">'+tous.map(m=>{const v=VEN.has(m.id);
+       return '<div class="r-ligne'+(v?' vendue':'')+'" data-id="'+m.id+'"><img src="'+src(m,0)+'" alt="" loading="lazy" width="64" height="48">'+(v?'<i class="tampon">'+u.pv+'</i>':'')+
+       '<span class="r-n"><b>'+esc(m.n).replace(/ (\S{1,2})( · |$)/,'\u00a0$1$2')+'</b><small>'+(EDIT==m.id?'<span class="r-edit"><input type="text" inputmode="numeric" maxlength="8" id="e-prix" value="'+m.p+'" aria-label="'+u.pp+'"><button type="button" class="petit jaune" data-ok="'+m.id+'">OK</button></span>'
+         :'<button type="button" class="r-prix" data-prix="'+m.id+'" aria-label="'+esc(u.pprix+' : '+nom(m))+'">'+eur(m.p)+'<svg><use href="#s-crayon"/></svg></button><span>'+m.a+' · '+nb(m.h)+' h</span>')+'</small></span>'+
+       '<button type="button" class="petit txt" data-v="'+m.id+'">'+(v?u.premettre:u.pvendue)+'</button></div>'}).join('')+'</div>'+
+     '<p class="note">'+u.ploc+'</p><button type="button" class="bt" id="raz">'+u.praz+'</button><span class="signe">'+u.signe+'</span>';
+    if(EDIT){const i=$('#e-prix');if(i){i.focus();try{i.select()}catch(e){}}}return}
+  const bar='<div class="etapes" aria-hidden="true">'+[1,2,3].map(i=>'<i class="'+(i<=ETAPE?'on':'')+'"></i>').join('')+'</div>';
+  const nav=s=>'<div class="nav2"><button type="button" class="bt" id="ret2">'+u.pret+'</button><button type="button" class="bt p" id="suiv2">'+s+'</button></div>';
+  if(ETAPE==1)el.innerHTML=bar+'<h2 class="b-h2">'+u.pe1+'</h2><p class="b-p">'+u.pe1t+'</p><div class="photos-pro">'+BR.img.map(s=>'<img src="'+s+'" alt="">').join('')+
+    (BR.img.length<6?'<label><b aria-hidden="true">+</b>'+u.pph+'<input type="file" accept="image/*" multiple id="fich" aria-label="'+u.pph+'"></label>':'')+'</div>'+nav(u.psuiv);
+  if(ETAPE==2)el.innerHTML=bar+'<h2 class="b-h2">'+u.pe2+'</h2>'+
+    '<label class="champ"><span>'+u.type+'</span><select id="b-t">'+TYPES.map(t=>'<option value="'+t+'"'+(t==BR.t?' selected':'')+'>'+esc(typ(t))+'</option>').join('')+'</select></label>'+
+    '<label class="champ"><span>'+u.pmodele+'</span><input id="b-n" value="'+esc(BR.n)+'" placeholder="John Deere 648 H" autocomplete="off"></label>'+
+    '<div class="deux"><label class="champ"><span>'+u.annee+'</span><input id="b-a" type="text" inputmode="numeric" maxlength="4" value="'+esc(BR.a)+'" placeholder="2015"></label><label class="champ"><span>'+u.heures+'</span><input id="b-h" type="text" inputmode="numeric" maxlength="6" value="'+esc(BR.h)+'" placeholder="8500"></label></div>'+
+    '<span class="champ-t">'+u.phs+'</span><div class="cases">'+['o','a','r'].map((k,i)=>'<label><input type="radio" name="hs" value="'+k+'"'+(BR.hs==k?' checked':'')+'><i class="'+['','a','r'][i]+'"></i>'+u.hs[i]+'</label>').join('')+'</div>'+
+    '<label class="champ"><span>'+u.pp+'</span><input id="b-p" type="text" inputmode="numeric" maxlength="8" value="'+esc(BR.p)+'" placeholder="98000"></label>'+
+    '<label class="champ"><span>'+u.pnote+'</span><textarea id="b-d">'+esc(BR.dit)+'</textarea></label>'+nav(u.psuiv);
+  if(ETAPE==3){const m=brouillon(),k=Math.max(0,'oar'.indexOf(m.hs));
+    el.innerHTML=bar+'<h2 class="b-h2">'+u.pe3+'</h2><div class="rayon apercu">'+caseHTML(m,0).replace('<button type="button" class="case','<div class="case').replace(/<\/button>$/,'</div>')+'</div>'+
+    '<div class="plaque recap">'+VIS4+'<span class="grave">'+esc(typ(m.t))+'</span><b>'+esc(m.n)+'</b><small>'+m.a+' · '+nb(m.h)+' h · '+u.hs[k]+'</small></div>'+nav(u.ppub)}}
+function touche(k){const d=$('#digi');if(!d||d.classList.contains('faux')||CODE.length>=4)return;
+  if(k=='x')CODE=CODE.slice(0,-1);else CODE+=k;vib(6);
+  const voy=()=>d.querySelectorAll('.d-voy i').forEach((e,i)=>e.classList.toggle('on',i<CODE.length));voy();
+  if(CODE.length<4)return;
+  if(CODE=='1234'){try{sessionStorage.setItem('pk-pro','1')}catch(e){}vib([0,20,40,20]);setTimeout(()=>{OKB=true;ETAPE=0;EDIT=null;if(document.body.dataset.vue=='bureau')bureau()},calme()?0:260)}
+  else{d.classList.add('faux');vib([0,60,40,60]);toast(U().pfaux);setTimeout(()=>{CODE='';d.classList.remove('faux');voy()},650)}}
+function validerPrix(id){const m=[...AJ,...M].find(x=>x.id==id),v=+chiffres(($('#e-prix')||{}).value);EDIT=null;
+  if(m&&v>0&&v!=m.p){if(v==m.p0)delete PRIX[id];else PRIX[id]=v;mem.set('pk-prix',PRIX);parc();planche();if(CUR&&ALLUME)valeurs(CUR);toast(U().pprixok)}
+  bureau()}
+function garde(){if(ETAPE!=2||!$('#b-t'))return;BR.t=$('#b-t').value;BR.n=$('#b-n').value.trim();BR.a=chiffres($('#b-a').value);BR.h=chiffres($('#b-h').value);BR.p=chiffres($('#b-p').value);BR.dit=$('#b-d').value.trim();BR.hs=(document.querySelector('#bureau-c input[name=hs]:checked')||{}).value||'a'}
+function manque(){const u=U();if(ETAPE==1&&!BR.img.length)return u.pe1.replace(/^\d\.\s*/,'');
+  if(ETAPE==2){const r=[];if(!BR.n)r.push(u.pmodele);if(!/^(19|20)\d\d$/.test(BR.a))r.push(u.annee);if(BR.h==='')r.push(u.heures);if(!(+BR.p>0))r.push(u.pp);return r.join(', ')}return ''}
+function brouillon(){return{id:'n'+Date.now(),nouv:true,f:FAM(BR.t),t:BR.t,n:BR.n,a:+BR.a,h:+BR.h,p:+BR.p,p0:+BR.p,hs:BR.hs,img:BR.img.slice(),eq:[],dit:BR.dit,ph:[]}}
+function reduire(f){return new Promise(r=>{const i=new Image();i.onload=()=>{const w=Math.min(900,i.width),h=Math.round(i.height*w/i.width),c=document.createElement('canvas');c.width=w;c.height=h;c.getContext('2d').drawImage(i,0,0,w,h);r(c.toDataURL('image/jpeg',.72));URL.revokeObjectURL(i.src)};i.onerror=()=>r(null);i.src=URL.createObjectURL(f)})}
+$('#bureau-c').addEventListener('click',e=>{const u=U(),t=e.target,haut=()=>{$('#bureau').scrollTop=0};
+  const k=t.closest('[data-k]');if(k){touche(k.dataset.k);return}
+  if(t.closest('#ajout')){ETAPE=1;BR=neufBR();bureau();haut();return}
+  const tr=t.closest('[data-tr]');if(tr){const r=RQ.find(x=>x.n==tr.dataset.tr);if(r){r.s=r.s=='t'?'c':'t';mem.set('pk-recherches',RQ);planche();bureau();toast(r.s=='t'?u.rq6:u.rs4)}return}
+  const rm=t.closest('[data-rm]');if(rm){const n=+rm.dataset.rm;clearTimeout(RCRMT);
+    if(RCRM!==n){RCRM=n;bureau();RCRMT=setTimeout(()=>{RCRM=null;if(document.body.dataset.vue=='bureau'&&OKB&&ETAPE==0)bureau()},3500);return}
+    RCRM=null;RQ=RQ.filter(x=>x.n!=n);mem.set('pk-recherches',RQ);planche();bureau();toast(u.rq8);return}
+  const v=t.closest('[data-v]');if(v){const id=v.dataset.v,on=!VEN.has(id);on?VEN.add(id):VEN.delete(id);mem.set('pk-vendues',[...VEN]);EDIT=null;parc();planche();majSel();bureau();toast(on?u.pvok:u.prok);return}
+  const p=t.closest('[data-prix]');if(p){EDIT=p.dataset.prix;bureau();return}
+  const o=t.closest('[data-ok]');if(o){validerPrix(o.dataset.ok);return}
+  if(t.closest('#raz')){const b=$('#raz');
+    if(!b.classList.contains('conf')){b.classList.add('conf');b.textContent=u.praz2;clearTimeout(RAZ);RAZ=setTimeout(()=>{const x=$('#raz');if(x){x.classList.remove('conf');x.textContent=U().praz}},3500);return}
+    clearTimeout(RAZ);AJ.length=0;VEN.clear();PRIX={};CROCHET=null;SEL=[];CMP=[];EDIT=null;RQ=[];RQN=0;['pk-ajouts','pk-vendues','pk-prix','pk-crochet','pk-sel','pk-recherches','pk-rqn'].forEach(x=>{try{localStorage.removeItem(x)}catch(e){}});
+    parc();planche();majSel();bureau();haut();toast(u.prazok);return}
+  if(t.closest('#ret2')){garde();ETAPE--;bureau();haut();return}
+  if(t.closest('#suiv2')){garde();const man=manque();if(man){toast(u.pmanque+man);return}
+    if(ETAPE<3){ETAPE++;bureau();haut();return}
+    const m=brouillon();AJ.unshift(m);if(!mem.set('pk-ajouts',AJ)){m.img=m.img.slice(0,1);mem.set('pk-ajouts',AJ)}
+    parc();ETAPE=0;BR=null;FIL='tout';TRI='';$('#trousseau').setAttribute('aria-pressed',false);majTri();$('#cherche').value='';planche();
+    const fin=()=>{const c=$('.case[data-id="'+m.id+'"]');if(c){c.scrollIntoView({block:'center'});c.classList.add('retour');setTimeout(()=>c.classList.remove('retour'),1800)}toast(U().pok)};
+    if(large()){fin();contact(m)}else{APRES=fin;fermer()}}});
+$('#bureau-c').addEventListener('change',async e=>{if(e.target.id!='fich')return;for(const f of [...e.target.files].slice(0,6-BR.img.length)){const s=await reduire(f);if(s)BR.img.push(s)}if(ETAPE==1)bureau()});
+$('#bureau-c').addEventListener('keydown',e=>{if(e.key=='Enter'&&e.target.id=='e-prix'){e.preventDefault();validerPrix(EDIT)}});
+$('#sortir').onclick=()=>{OKB=false;ETAPE=0;EDIT=null;BR=null;try{sessionStorage.removeItem('pk-pro')}catch(e){}bureau();$('#bureau').scrollTop=0};
+
+/* quand la langue change, les écrans ouverts se retraduisent */
+function majPlus(){majChoix();majRetour();$$('.x-pc').forEach(b=>b.setAttribute('aria-label',U().fermer));$('#choix-x').textContent=U().annuler;$('#al-budget').placeholder='80 000';$('#al-h').placeholder='6 000';$('#al-tel').placeholder='06 12 34 56 78';
+  const v=document.body.dataset.vue;if(v=='banc')banc();else if(v=='bureau'){garde();bureau()}else if(v=='recherche')recherche();else crochet()}
+
+/* ---------- démarrage ---------- */
+(()=>{const hs=location.hash,id=(hs.match(/m=([\w-]+)/)||[])[1],m=id&&PARC.find(x=>x.id==id),cc=(hs.match(/c=([\w-]+),([\w-]+)/)||[]).slice(1).filter(existe);
+  langue(L);horametre($('#hora0'),0,3);eteindre();$$('#neiman0 .n-face i,#neiman .n-face i').forEach((e,k)=>e.classList.toggle('on',k%3==0));
+  const pret=()=>{$('#ouverture').classList.add('fin');document.body.classList.add('pret');BAL=true;planche();try{history.replaceState(null,'',location.pathname+location.search)}catch(e){}};
+  if(m){CUR=m;pret();contact(m)}
+  else if(cc.length==2&&cc[0]!=cc[1]){CMP=cc;document.body.classList.add('cmp2');pret();montrer('banc')}
+  else if(hs=='#crochet'||hs=='#bureau'||hs=='#recherche'){pret();montrer(hs.slice(1))}
+  else if(hs=='#tableau')finOuverture();
+})();
+
+</script>
+</body>
+</html>
