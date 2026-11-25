@@ -75,6 +75,14 @@
   .ldr-form [data-test-id="submit-form-button"] div:after{content:"Envoyer ma demande";font-size:16px;font-weight:800}
   .ldr-form .ldr-note{order:8;margin:2px 0 0;text-align:center;color:#8f9ab0;font-size:12.5px;line-height:1.5}
   @media (max-width:640px){.ldr-form{margin:0 18px 60px!important;padding:20px 16px 22px!important}}
+  /* Message « Merci » apres envoi (habillage Nuit & blanc) */
+  .ldr-form>div:has(>div>h3){background:rgba(6,10,22,.95)!important;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-radius:inherit;z-index:5;align-items:center!important;justify-content:center!important}
+  .ldr-form>div:has(>div>h3)>div:not(:has(>h3)){display:none!important}
+  .ldr-form>div>div:has(>h3){background:transparent!important;box-shadow:none!important;border:0!important;text-align:center;max-width:460px;padding:24px!important}
+  .ldr-form>div>div:has(>h3)>svg{display:none!important}
+  .ldr-form>div>div:has(>h3)::before{content:"";display:block;width:64px;height:64px;margin:0 auto 16px;border-radius:50%;border:1.5px solid rgba(255,255,255,.85);background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5'/%3E%3C/svg%3E") center/30px no-repeat;box-shadow:0 0 28px rgba(255,255,255,.25)}
+  .ldr-form>div>div>h3{font-family:'Bebas Neue',Impact,sans-serif!important;font-weight:400!important;font-size:36px!important;letter-spacing:.02em;line-height:1!important;color:#fff!important;margin:0 0 10px!important}
+  .ldr-form>div>div:has(>h3) span{display:block;background:none!important;box-shadow:none!important;padding:0!important;color:rgba(255,255,255,.78)!important;font-family:Inter,system-ui,sans-serif!important;font-size:16px!important;line-height:1.5!important}
 </style>
 
 <div id="ldr-devis">
