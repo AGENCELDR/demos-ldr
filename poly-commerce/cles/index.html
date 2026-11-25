@@ -614,7 +614,7 @@ body.choisit .case:not(.m1) .bal{animation:balance-d 2.4s ease-in-out infinite;a
 .ouverture.tient .n-cle,.ouverture.tient .n-cyl{transition:none;animation:none}
 .ouverture.tient .n-pend{animation:none}
 .ouverture.tient .tour{visibility:hidden}
-.o-s{text-wrap:balance}
+.o-s{text-wrap:balance;white-space:pre-line}
 
 @media(min-width:640px) and (max-width:999px){.rayon{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-height:600px){.o-in{padding:52px 0 16px}.o-logo{width:190px}.o-pan{margin-top:12px;padding:14px 18px 12px}.o-voy{margin-bottom:16px}.voy{width:30px;height:30px}.voy svg{width:17px;height:17px}#neiman0{--d:132px!important}.o-cpt{margin-top:46px}.o-t{margin-top:14px;font-size:19px}}
@@ -1451,10 +1451,10 @@ function majPlus(){majChoix();majRetour();$$('.x-pc').forEach(b=>b.setAttribute(
   const v=document.body.dataset.vue;if(v=='banc')banc();else if(v=='bureau'){garde();bureau()}else if(v=='recherche')recherche();else crochet()}
 
 /* ---------- ouverture : la clé se tourne du doigt, en glissant (le simple toucher marche toujours) ---------- */
-Object.assign(T.fr,{ouv2:"Tournez la clé, ou touchez-la : le parc démarre."});
-Object.assign(T.de,{ouv2:"Schlüssel drehen oder antippen: Der Platz startet."});
-Object.assign(T.en,{ouv2:"Turn the key, or tap it: the yard starts up."});
-Object.assign(T.it,{ouv2:"Gira la chiave o toccala: il piazzale si accende."});
+Object.assign(T.fr,{ouv2:"Tournez la clé, ou touchez-\u2060la\u00a0:\nle parc démarre."});
+Object.assign(T.de,{ouv2:"Schlüssel drehen oder antippen:\nDer Platz startet."});
+Object.assign(T.en,{ouv2:"Turn the key, or tap it:\nthe yard starts up."});
+Object.assign(T.it,{ouv2:"Gira la chiave o toccala:\nil piazzale si accende."});
 (()=>{const B=$('#demarrer'),N=$('#neiman0'),O=$('#ouverture');let G=null,bloque=0;
   const marks=a=>$$('#neiman0 .n-face i').forEach((e,k)=>e.classList.toggle('on',k==a));
   const angle=(x,y,c)=>Math.atan2(x-c.x,c.y-y)*180/Math.PI, norm=d=>((d+540)%360)-180;
