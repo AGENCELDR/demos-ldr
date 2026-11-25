@@ -608,6 +608,14 @@ body.choisit .case:not(.m1) .bal{animation:balance-d 2.4s ease-in-out infinite;a
 @media(min-width:1500px) and (min-height:840px){.o-in{zoom:1.2}}
 @media(min-width:1800px) and (min-height:1000px){.o-in{zoom:1.42}}
 
+/* ouverture : la clé se tourne du doigt (ou d'un simple toucher) */
+#demarrer{touch-action:none;cursor:grab}
+.ouverture.tient #demarrer{cursor:grabbing}
+.ouverture.tient .n-cle,.ouverture.tient .n-cyl{transition:none;animation:none}
+.ouverture.tient .n-pend{animation:none}
+.ouverture.tient .tour{visibility:hidden}
+.o-s{text-wrap:balance}
+
 @media(min-width:640px) and (max-width:999px){.rayon{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-height:600px){.o-in{padding:52px 0 16px}.o-logo{width:190px}.o-pan{margin-top:12px;padding:14px 18px 12px}.o-voy{margin-bottom:16px}.voy{width:30px;height:30px}.voy svg{width:17px;height:17px}#neiman0{--d:132px!important}.o-cpt{margin-top:46px}.o-t{margin-top:14px;font-size:19px}}
 @media(max-height:780px) and (max-width:999px){.verre{aspect-ratio:3/2}}
@@ -1441,6 +1449,42 @@ $('#sortir').onclick=()=>{OKB=false;ETAPE=0;EDIT=null;BR=null;try{sessionStorage
 /* quand la langue change, les écrans ouverts se retraduisent */
 function majPlus(){majChoix();majRetour();$$('.x-pc').forEach(b=>b.setAttribute('aria-label',U().fermer));$('#choix-x').textContent=U().annuler;$('#al-budget').placeholder='80 000';$('#al-h').placeholder='6 000';$('#al-tel').placeholder='06 12 34 56 78';
   const v=document.body.dataset.vue;if(v=='banc')banc();else if(v=='bureau'){garde();bureau()}else if(v=='recherche')recherche();else crochet()}
+
+/* ---------- ouverture : la clé se tourne du doigt, en glissant (le simple toucher marche toujours) ---------- */
+Object.assign(T.fr,{ouv2:"Tournez la clé, ou touchez-la : le parc démarre."});
+Object.assign(T.de,{ouv2:"Schlüssel drehen oder antippen: Der Platz startet."});
+Object.assign(T.en,{ouv2:"Turn the key, or tap it: the yard starts up."});
+Object.assign(T.it,{ouv2:"Gira la chiave o toccala: il piazzale si accende."});
+(()=>{const B=$('#demarrer'),N=$('#neiman0'),O=$('#ouverture');let G=null,bloque=0;
+  const marks=a=>$$('#neiman0 .n-face i').forEach((e,k)=>e.classList.toggle('on',k==a));
+  const angle=(x,y,c)=>Math.atan2(x-c.x,c.y-y)*180/Math.PI, norm=d=>((d+540)%360)-180;
+  const contactI=()=>{if(O.classList.contains('i'))return;O.classList.add('i');vib(14);$('#o-t').textContent=U().ouv3;$('#o-s').textContent=U().releve.replace(/^./,c=>c.toUpperCase());horametre($('#hora0'),PARC.length,3)};
+  B.addEventListener('pointerdown',e=>{if(e.button>0||['i','ii','fin'].some(c=>O.classList.contains(c)))return;
+    const r=N.getBoundingClientRect(),c={x:r.left+r.width/2,y:r.top+r.height/2};
+    G={id:e.pointerId,c,x0:e.clientX,y0:e.clientY,th:angle(e.clientX,e.clientY,c),acc:0,a:0,w:r.width,bouge:false,loin:Math.hypot(e.clientX-c.x,e.clientY-c.y)>r.width*.18};
+    try{B.setPointerCapture(e.pointerId)}catch(x){}});
+  B.addEventListener('pointermove',e=>{if(!G||e.pointerId!=G.id)return;
+    const dx=e.clientX-G.x0,dy=e.clientY-G.y0;if(!G.bouge&&Math.hypot(dx,dy)<8)return;
+    if(!G.bouge){G.bouge=true;O.classList.add('tient')}
+    if(G.loin){const th=angle(e.clientX,e.clientY,G.c);G.acc+=norm(th-G.th);G.th=th}
+    /* on tourne en suivant la flèche, ou en glissant vers la droite : on garde le plus grand des deux */
+    const a=Math.max(0,Math.min(95,Math.max(G.loin?G.acc:0,dx/(G.w*.5)*95)));G.a=a;
+    N.style.setProperty('--a',a.toFixed(1)+'deg');
+    if(a>=50)contactI();marks(a>=90?2:a>=50?1:0)});
+  const lacher=e=>{if(!G||e.pointerId!=G.id)return;const g=G;G=null;O.classList.remove('tient');if(!g.bouge)return;
+    bloque=Date.now();
+    if(g.a<20){N.style.setProperty('--a','0deg');marks(0);
+      if(O.classList.contains('i')){O.classList.remove('i');$('#o-t').textContent=U().ouv1;$('#o-s').textContent=U().ouv2;$('#hora0').innerHTML='';horametre($('#hora0'),0,3)}
+      return}
+    if(calme()){finOuverture();return}
+    /* le moteur démarre, puis la clé revient d'elle-même de II à I, comme une vraie */
+    contactI();O.classList.remove('i');O.classList.add('ii');N.style.setProperty('--a','95deg');marks(2);vib([0,45,30,45,30,45,30,90]);$('#o-t').textContent=U().ouv4;
+    setTimeout(()=>{N.style.setProperty('--a','55deg');marks(1)},450);
+    setTimeout(finOuverture,650)};
+  B.addEventListener('pointerup',lacher);B.addEventListener('pointercancel',lacher);
+  /* après un glissement, le navigateur envoie parfois aussi un toucher : on l'ignore */
+  document.addEventListener('click',e=>{if(e.target.closest&&e.target.closest('#demarrer')&&(O.classList.contains('ii')||bloque&&Date.now()-bloque<700)){e.stopPropagation();e.preventDefault();bloque=0}},true);
+})();
 
 /* ---------- démarrage ---------- */
 (()=>{const hs=location.hash,id=(hs.match(/m=([\w-]+)/)||[])[1],m=id&&PARC.find(x=>x.id==id),cc=(hs.match(/c=([\w-]+),([\w-]+)/)||[]).slice(1).filter(existe);
