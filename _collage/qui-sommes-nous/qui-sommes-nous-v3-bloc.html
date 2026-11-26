@@ -3,6 +3,8 @@
      Tout suit le défilement (doigt ou molette). Rien ne joue tout seul. Aigles officiels entiers, opaques.
      Retour arrière : recoller qui-sommes-nous-v2-bloc.html. -->
 <style id="ldr-qui-v3">
+/* La page va jusqu'aux bords de l'écran : pas de bande sur les côtés (Lilian 26/11 17h) */
+html body [id^="section-"],html body [id^="row-"]{padding-left:0!important;padding-right:0!important}
 #ldr-qui,#ldr-qui *,#ldr-qui *::before,#ldr-qui *::after{box-sizing:border-box}
 #ldr-qui{--web:#F59E0B;--maps:#38BDF8;--res:#34D399;--rad:#EC4899;--g:#D9DFEA;--g2:#A8B3C7;--l:rgba(255,255,255,.1);
   --arc:linear-gradient(90deg,#F59E0B,#38BDF8 38%,#34D399 68%,#EC4899);
