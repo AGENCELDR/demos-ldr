@@ -27,7 +27,7 @@ html body #ldr-fond-flou{display:none!important}
     var im=new Image();im.alt='';im.decoding='async';
     im.sizes='100vw';im.srcset=[800,1200,1800].map(function(w){return U+f[0]+P+w+' '+w+'w'}).join(',');
     im.src=U+f[0]+P+'1200';if(f[3]<1)im.style.filter='brightness('+f[3]+')';d.appendChild(im);
-    f[5]=im;f[4]=q.querySelector(f[1]);
+    f[5]=im;f[6]=f[4];f[4]=q.querySelector(f[1]);
   });
   d.appendChild(document.createElement('b'));
   document.body.insertBefore(d,document.body.firstChild);
