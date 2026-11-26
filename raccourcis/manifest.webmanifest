@@ -5,8 +5,8 @@
  "start_url": "/demos-ldr/raccourcis/",
  "scope": "/demos-ldr/raccourcis/",
  "display": "standalone",
- "background_color": "#000000",
- "theme_color": "#000000",
+ "background_color": "#060912",
+ "theme_color": "#060912",
  "icons": [
   {
    "src": "icone4-192.png",
