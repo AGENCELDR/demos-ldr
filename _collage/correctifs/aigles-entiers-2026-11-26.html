@@ -1,0 +1,27 @@
+<!-- LDR · AIGLES ENTIERS · 26/11/2026 · EN ESSAI (rien collé sans l'OK de Lilian)
+     À coller UNE FOIS, à la toute fin du bloc maître du menu (c09112c2), sous le dernier </style>.
+     Il s'applique à toutes les pages. Retour arrière : supprimer ce bloc.
+     Les 4 aigles officiels entiers (images-ldr/accueil/a07 à a10, 560x700) remplacent les versions carrées recadrées. -->
+<style id="ldr-aigles-entiers-2026-11-26">
+/* 1. Logo du menu (en haut à gauche) : aigle de la page, entier */
+#ldr-nav[data-univers="maps"]{--ldr-aigle:url(https://agenceldr.github.io/demos-ldr/images-ldr/accueil/a07-775dbab2.webp)!important}
+#ldr-nav[data-univers="web"]{--ldr-aigle:url(https://agenceldr.github.io/demos-ldr/images-ldr/accueil/a08-78e0867e.webp)!important}
+#ldr-nav[data-univers="reseaux"]{--ldr-aigle:url(https://agenceldr.github.io/demos-ldr/images-ldr/accueil/a09-89f6cd2a.webp)!important}
+#ldr-nav[data-univers="radar"]{--ldr-aigle:url(https://agenceldr.github.io/demos-ldr/images-ldr/accueil/a10-ce835343.webp)!important}
+
+/* 2. Tuiles d'offre du menu : aigle entier, non recadré */
+#ldr-nav#ldr-nav#ldr-nav .ldr-tuile.ldr-c-maps{background-image:url(https://agenceldr.github.io/demos-ldr/images-ldr/accueil/a07-775dbab2.webp)!important}
+#ldr-nav#ldr-nav#ldr-nav .ldr-tuile.ldr-c-web{background-image:url(https://agenceldr.github.io/demos-ldr/images-ldr/accueil/a08-78e0867e.webp)!important}
+#ldr-nav#ldr-nav#ldr-nav .ldr-tuile.ldr-c-res{background-image:url(https://agenceldr.github.io/demos-ldr/images-ldr/accueil/a09-89f6cd2a.webp)!important}
+#ldr-nav#ldr-nav#ldr-nav .ldr-tuile.ldr-c-radar{background-image:url(https://agenceldr.github.io/demos-ldr/images-ldr/accueil/a10-ce835343.webp)!important}
+#ldr-nav#ldr-nav#ldr-nav .ldr-tuile.ldr-c-maps,#ldr-nav#ldr-nav#ldr-nav .ldr-tuile.ldr-c-web,#ldr-nav#ldr-nav#ldr-nav .ldr-tuile.ldr-c-res,#ldr-nav#ldr-nav#ldr-nav .ldr-tuile.ldr-c-radar{background-size:contain!important;background-repeat:no-repeat!important;background-position:center!important}
+
+/* 3. Accueil : les 4 aigles des offres gardent leur format 4/5 (plus coupés en haut et en bas) */
+.v3 .tu .fondn{aspect-ratio:4/5!important;object-fit:contain!important}
+
+/* 4. Téléphone : le grand aigle du haut de page n'est plus poussé hors de l'écran */
+@media(max-width:700px){
+  #ldr-rs .nb-hai{right:-6%!important;width:112%!important;top:20px!important;opacity:.5!important}          /* Réseaux (vert) */
+  html body #ldr-radars .nb-hag{right:-4vw!important;width:104vw!important;opacity:.5!important}              /* Radars (rose) */
+}
+</style>

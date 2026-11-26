@@ -1,0 +1,69 @@
+<!-- RADARS « EN PRÉPARATION » (jamais le mot « bientôt » : carnet de Lilian) + VEILLE RETIRÉE (26/11/2026, Lilian : « les radars ne sont pas à jour, pour l'instant ça sera grisé » ; la Veille concurrentielle est retirée, il reste 2 Radars).
+     À coller À LA FIN du bloc menu partagé (et de la copie du menu de la page Fiche Google). Rien d'autre à modifier.
+     Pour rouvrir les Radars : supprimer ce morceau. Aucun prix n'est affiché tant qu'il est là. -->
+<style id="ldr-radars-bientot-css">
+.ldr-bientot{display:inline-flex;align-items:center;height:22px;padding:0 10px;border-radius:999px;background:rgba(236,72,153,.22);box-shadow:inset 0 0 0 1px rgba(236,72,153,.75);color:#fff!important;-webkit-text-fill-color:#fff!important;font:700 11px/1 "Plus Jakarta Sans",system-ui,sans-serif;letter-spacing:.1em;text-transform:uppercase;white-space:nowrap;vertical-align:middle}
+/* Menu : lien gardé, tuile un peu éteinte, pastille */
+.ldr-mega-offre.ldr-c-radar{position:relative}
+.ldr-mega-offre.ldr-c-radar .ldr-tuile,.ldr-acc-offre.ldr-c-radar .ldr-tuile{filter:saturate(.35) brightness(.8)}
+.ldr-mega-offre.ldr-c-radar .ldr-bientot{position:absolute;top:12px;right:12px;z-index:3}
+.ldr-acc-offre.ldr-c-radar .ldr-bientot{margin-left:8px}
+/* Accueil : carte Radars un peu éteinte, pastille, plus de prix */
+.ldr-bloc .v3 .grille a.tu.ldr-rb{position:relative}
+.ldr-bloc .v3 .grille a.tu.ldr-rb img.fondn{filter:saturate(.3) brightness(.72)}
+.ldr-bloc .v3 .grille a.tu.ldr-rb>.ldr-bientot{position:absolute;top:12px;right:12px;z-index:5}
+/* Page Radars : tons éteints, textes toujours lisibles */
+body.ldr-rb-page .rd-hero,body.ldr-rb-page .rd-sec{filter:saturate(.28)}
+body.ldr-rb-page a.rd-btn.ldr-rb{pointer-events:none;cursor:default;animation:none!important}
+body.ldr-rb-page a.rd-btn.ldr-rb::before,body.ldr-rb-page a.rd-btn.ldr-rb::after{display:none!important}
+.ldr-rb-ligne{margin:0 0 14px;font:700 15px/1.35 "Plus Jakarta Sans",system-ui,sans-serif;color:#fff}
+.ldr-rb-ligne .ldr-bientot{margin-right:10px}
+/* Page Radars : plus aucun prix (même si la page les réécrit quand on coche) */
+body.ldr-rb-page .nb-go strong{font-size:0!important}
+body.ldr-rb-page .nb-go strong::after{content:"En préparation";font-size:20px;letter-spacing:-.01em}
+body.ldr-rb-page .nb-total,body.ldr-rb-page details.ldr-rb-cache{display:none!important}
+/* Page Radars : la Veille concurrentielle est retirée, il reste 2 Radars */
+body.ldr-rb-page #rd-veille,body.ldr-rb-page a.rd-so[href="#rd-veille"],body.ldr-rb-page .rd-tabs label.tb3,body.ldr-rb-page label.nb-pan[for="ldr-rd-cx3"],body.ldr-rb-page .rd-plq figure.pq.t-qs{display:none!important}
+@media(min-width:900px){body.ldr-rb-page .rd-sx{grid-template-columns:repeat(2,minmax(0,1fr))!important;max-width:780px;margin-left:auto;margin-right:auto}}
+/* Devis : option Radars éteinte */
+#ldr-devis .ld-aigle.ldr-rb{position:relative;pointer-events:none;cursor:default}
+#ldr-devis .ld-aigle.ldr-rb>*:not(.ldr-bientot){filter:saturate(.25);opacity:.62}
+#ldr-devis .ld-aigle.ldr-rb>.ldr-bientot{position:absolute;top:8px;right:8px;z-index:3}
+</style>
+<script id="ldr-radars-bientot-js">
+(function(){
+ function pastille(){var s=document.createElement('span');s.className='ldr-bientot';s.textContent='En préparation';return s}
+ function passe(){
+  /* menu */
+  document.querySelectorAll('.ldr-mega-offre.ldr-c-radar,.ldr-acc-offre.ldr-c-radar').forEach(function(a){
+   if(a.querySelector('.ldr-bientot'))return;
+   if(a.classList.contains('ldr-acc-offre')){var t=a.querySelector('span:not(.ldr-tuile):not(.ldr-fleche)');(t||a).appendChild(pastille())}else a.appendChild(pastille());
+  });
+  /* accueil */
+  document.querySelectorAll('.ldr-bloc .v3 .grille a.tu[href*="8ee0b286"]').forEach(function(a){
+   if(a.classList.contains('ldr-rb'))return;a.classList.add('ldr-rb');a.appendChild(pastille());
+   var px=a.querySelector('.px');if(px)px.textContent='En préparation';
+  });
+  /* page Radars */
+  if(document.querySelector('.rd-hero')){
+   document.body.classList.add('ldr-rb-page');
+   document.querySelectorAll('a.rd-btn').forEach(function(b){
+    if(b.classList.contains('ldr-rb'))return;b.classList.add('ldr-rb');b.textContent='En préparation';b.removeAttribute('href');b.setAttribute('aria-disabled','true');b.setAttribute('tabindex','-1');
+    b.style.setProperty('background','rgba(255,255,255,.10)','important');b.style.setProperty('color','#fff','important');b.style.setProperty('-webkit-text-fill-color','#fff','important');b.style.setProperty('box-shadow','inset 0 0 0 1px rgba(255,255,255,.34)','important');
+   });
+   document.querySelectorAll('a.rd-link').forEach(function(a){a.childNodes.forEach(function(n){if(n.nodeType===3)n.nodeValue=n.nodeValue.replace('trois','deux')})});
+   document.querySelectorAll('details.rd-q').forEach(function(d){if(/€|trois Radars/.test(d.textContent))d.classList.add('ldr-rb-cache')});
+   var cx=document.getElementById('ldr-rd-cx3');if(cx)cx.checked=false;
+   var h3=document.getElementById('ldr-rd-hm3'),h1=document.getElementById('ldr-rd-hm1');if(h3&&h3.checked&&h1)h1.checked=true;
+   var c=document.querySelector('.rd-hero .rd-cta');
+   if(c&&!document.querySelector('.ldr-rb-ligne')){var p=document.createElement('p');p.className='ldr-rb-ligne';p.appendChild(pastille());p.appendChild(document.createTextNode('Les Radars sont en préparation.'));c.parentNode.insertBefore(p,c)}
+  }
+  /* devis */
+  document.querySelectorAll('#ldr-devis .ld-aigle[data-offre="Radars"]').forEach(function(b){
+   if(b.classList.contains('ldr-rb'))return;b.classList.add('ldr-rb');b.disabled=true;b.setAttribute('aria-disabled','true');b.appendChild(pastille());
+  });
+ }
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',passe);else passe();
+ setTimeout(passe,700);setTimeout(passe,2500);
+})();
+</script>
