@@ -86,6 +86,12 @@ header{display:flex;align-items:center;gap:14px;padding:12px max(16px,env(safe-a
 .grille button small{font:700 11px var(--ft);color:#ffb3a5;margin-top:3px}.grille button.b{background:#5a1b10;border-color:var(--rouge)}
 @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(216,179,108,.45)}50%{box-shadow:0 0 0 8px rgba(216,179,108,0)}}
 @keyframes cl{50%{opacity:.3}}@keyframes entre{from{transform:scale(.85);opacity:0}}
+.trn-l{list-style:none;padding:0;margin:0;max-height:46vh;overflow:auto}.trn-l li{display:grid;grid-template-columns:44px 1fr auto auto;gap:10px;align-items:center;padding:9px 0;border-bottom:1px solid var(--ligne)}
+.trn-l .r{font:800 24px var(--fd);color:var(--or);text-align:center}.trn-l .n{font:800 19px var(--fd)}.trn-l .n small{display:block;font:600 13px var(--ft);color:var(--ink2)}.trn-l .s{font:800 26px var(--fd);color:var(--or2)}
+.trn-l li:first-child{background:linear-gradient(90deg,rgba(216,179,108,.22),transparent);border-radius:10px}.trn-l li.x{opacity:.4}.trn-l li.x .n{text-decoration:line-through}
+.trn-l button{min-height:44px;border-radius:10px;border:1.5px solid var(--ligne);padding:0 12px;font:800 14px var(--sc)}.trn-l button.ok{background:var(--vert);color:#07170e;border-color:var(--vert)}
+.trn-v{color:var(--ink2);font-style:italic;margin:8px 0 0}.trn-lot{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:6px}.trn-lot button{min-height:46px;border-radius:12px;border:1.5px solid var(--ligne);padding:0 14px;font:800 15px var(--sc)}
+.trn-lot button[aria-pressed=true]{background:var(--or);color:#17110A;border-color:var(--or)}#btournoi.on{border-color:var(--or);color:var(--or)}
 .sig{position:fixed;right:12px;bottom:6px;font:700 11px var(--sc);letter-spacing:.14em;color:var(--ink2);opacity:.55;text-decoration:none}
 </style>
 </head>
@@ -100,7 +106,8 @@ header{display:flex;align-items:center;gap:14px;padding:12px max(16px,env(safe-a
     <div class="logo"><span class="mono">BPC</span><b>BAR</b><span class="pt" id="pt"></span></div>
     <span id="heure">--:--</span>
     <span class="esp"></span>
-    <button class="bt vert" id="bpause" type="button">Commandes à table : ouvertes</button>
+    <button class="bt vert" id="bpause" type="button">Service à table : oui</button>
+    <button class="bt" id="btournoi" type="button">Tournoi</button>
     <button class="bt" id="btables" type="button">Tables</button>
     <a class="bt" href="stats.html">Statistiques</a>
   </header>
@@ -113,7 +120,7 @@ header{display:flex;align-items:center;gap:14px;padding:12px max(16px,env(safe-a
 <div id="go" class="cache"><div class="bx"><div class="mono">BPC</div><h1>Démarrer le service</h1><p>Touchez pour activer la sonnerie et garder l'écran allumé.</p><button class="gros" id="demarrer">Démarrer</button></div></div>
 <div id="pop" class="cache"></div>
 <div id="modal" class="cache"></div>
-<a class="sig" href="https://agence-ldr.fr" target="_blank" rel="noopener">Réalisé par Agence LDR</a>
+<a class="sig" href="https://www.agence-ldr.fr" target="_blank" rel="noopener">Réalisé par Agence LDR</a>
 
 <script>
 var API=location.origin+'/api',J=null,ws=null,cmds={},pause=false,blocs=[],vus={},aRetry=1000,ctx=null,verrou=null,popFile=[];
@@ -125,7 +132,7 @@ function api(ch,o){o=o||{};var h={'content-type':'application/json'};if(J)h.auth
 function sortir(){J=null;try{localStorage.removeItem('bm-bar-j');}catch(e){}if(ws)try{ws.close();}catch(e){}$('app').classList.add('cache');$('go').classList.add('cache');$('cx').classList.remove('cache');}
 $('entrer').onclick=function(){api('/bar/entrer',{corps:{pin:$('pin').value}}).then(function(d){if(!d.ok){$('e1').textContent=d.message||'Erreur';return;}J=d.jeton;try{localStorage.setItem('bm-bar-j',J);}catch(e){}lancer();});};
 $('pin').addEventListener('keydown',function(e){if(e.key==='Enter')$('entrer').click();});
-function lancer(){$('cx').classList.add('cache');$('app').classList.remove('cache');$('go').classList.remove('cache');brancher();}
+function lancer(){$('cx').classList.add('cache');$('app').classList.remove('cache');$('go').classList.remove('cache');brancher();majTournoi();}
 $('demarrer').onclick=function(){$('go').classList.add('cache');try{ctx=new (window.AudioContext||window.webkitAudioContext)();}catch(e){}bip(0.01);eveil();};
 function eveil(){if('wakeLock' in navigator)navigator.wakeLock.request('screen').then(function(l){verrou=l;}).catch(function(){});}
 document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible'){eveil();if(!ws||ws.readyState>1)brancher();}});
@@ -140,12 +147,13 @@ function brancher(){
     else if(d.type==='blocages'){majBlocs(d.blocages);rendre();}
     else if(d.type==='nouvelle'){cmds[d.commande.id]=d.commande;rendre();alerte(d.commande);}
     else if(d.type==='maj'){cmds[d.commande.id]=d.commande;rendre();}
-    else if(d.type==='pause'){majPause(d.pause);}};
+    else if(d.type==='pause'){majPause(d.pause);}
+    else if(d.type==='tournoi'){majTournoi();}};
   ws.onclose=function(){enLigne(false);setTimeout(function(){if(J)brancher();},aRetry);aRetry=Math.min(aRetry*2,15000);};
 }
 setInterval(function(){if(ws&&ws.readyState===1)ws.send('ping');},25000);
 function enLigne(ok){$('pt').className='pt '+(ok?'ok':'ko');$('horsligne').classList.toggle('cache',ok);}
-function majPause(p){pause=!!p;var b=$('bpause');b.textContent='Commandes à table : '+(pause?'coupées':'ouvertes');b.className='bt '+(pause?'rouge':'vert');}
+function majPause(p){pause=!!p;var b=$('bpause');b.textContent='Service à table : '+(pause?'non':'oui');b.className='bt '+(pause?'rouge':'vert');}
 $('bpause').onclick=function(){api('/bar/pause',{corps:{pause:!pause}}).then(function(d){if(d.ok)majPause(d.pause);});};
 function minutes(c){return Math.max(0,Math.floor((Date.now()-c.cree)/60000));}
 function tpsHTML(c){if(c.st===2)return '<span class="tps">servie</span>';var m=minutes(c);return '<span class="tps'+(m>=10?' r':m>=5?' o':'')+'">'+(m<1?'à l\'instant':m+' min')+'</span>';}
@@ -202,6 +210,24 @@ function tables(){var N=30;
      +DUREES.slice(1).map(function(x){return '<button data-m="'+x[0]+'">'+x[1]+'</button>';}).join('')+'</div><button class="sec" data-retour>Retour</button>';
     m.onclick=function(e3){if(e3.target===m){m.classList.add('cache');return;}if(e3.target.closest('[data-retour]')){tables();return;}var y=e3.target.closest('[data-m]');if(!y)return;
       api('/bar/bloquer',{corps:{table:t,minutes:+y.dataset.m,raison:'Bloquée par le bar',annuler:true}}).then(function(o){if(o.ok){majBlocs(o.blocages);rendre();tables();}});};});});}
+/* ---------- tournoi de fléchettes du soir (le jeu caché de la carte) ---------- */
+var TRN={actif:false,lot:'',classement:[]},trnOuvert=false,LOTS=['Un verre','Un shooter','Un cocktail','Un soft'];
+function majTournoi(){if(!J)return;api('/bar/tournoi').then(function(d){if(!d.ok)return;TRN=d;var b=$('btournoi');b.textContent='Tournoi'+(d.actif?' · en cours':'');b.className='bt'+(d.actif?' on':'');if(trnOuvert)dessTournoi();});}
+function dessTournoi(){var m=$('modal');if(m.classList.contains('cache')){trnOuvert=false;return;}var d=TRN,h='<h3>Tournoi du soir</h3><p style="color:var(--ink2)">Le jeu de fléchettes de la carte. Meilleur score de la soirée = le lot. Le classement repart à zéro chaque soir à 6 h.</p>'
+  +'<button class="gros" data-trn-actif style="margin:0 0 14px;'+(d.actif?'background:var(--vert);color:#07170e':'')+'">'+(d.actif?'Tournoi ouvert · toucher pour fermer':'Ouvrir le tournoi ce soir')+'</button>'
+  +'<div class="sep">LE LOT DU GAGNANT</div><div class="trn-lot">'+LOTS.map(function(x){return '<button data-lot="'+esc(x)+'" aria-pressed="'+(d.lot===x)+'">'+x+'</button>';}).join('')+'<button data-lot="" aria-pressed="'+(!d.lot)+'">Pas de lot</button></div>'
+  +'<div class="sep">CLASSEMENT</div>';
+  if(!d.classement.length)h+='<p class="trn-v">Aucun score pour l\'instant.</p>';
+  else h+='<ul class="trn-l">'+d.classement.map(function(r,i){return '<li class="'+(r.retire?'x':'')+'" data-trn="'+r.id+'"><span class="r">'+(r.retire?'–':r.rang)+'</span><span class="n">'+esc(r.nom)+'<small>Table '+r.table+' · '+r.coups.join(' + ')+'</small></span><span class="s">'+r.total+'</span><span>'
+    +(r.retire?'<button data-trn-remet>Remettre</button>':(i===0&&d.lot?'<button data-trn-servi class="'+(r.servi?'ok':'')+'">'+(r.servi?'Lot servi':'Lot à servir')+'</button> ':'')+'<button data-trn-retire>Retirer</button>')+'</span></li>';}).join('')+'</ul>';
+  h+='<p class="trn-v">Lot alcoolisé : seulement aux majeurs. Un score bizarre ? Retirez-le.</p><button class="sec" data-fermer>Fermer</button>';
+  m.firstChild.innerHTML=h;}
+$('btournoi').onclick=function(){modal('',function(m){trnOuvert=true;dessTournoi();
+  m.addEventListener('click',function(e){var x=e.target.closest('[data-trn-actif],[data-lot],[data-trn-servi],[data-trn-retire],[data-trn-remet]');if(!x)return;var c={},li=x.closest('[data-trn]');
+    if(x.hasAttribute('data-trn-actif'))c.actif=!TRN.actif;else if(x.hasAttribute('data-lot'))c.lot=x.dataset.lot;
+    else if(x.hasAttribute('data-trn-servi')){c.id=li.dataset.trn;c.servi=!x.classList.contains('ok');}
+    else if(x.hasAttribute('data-trn-retire')){if(!x.dataset.ok){x.dataset.ok=1;x.textContent='Sûr ?';return;}c.id=li.dataset.trn;c.retire=true;}else{c.id=li.dataset.trn;c.retire=false;}
+    api('/bar/tournoi',{corps:c}).then(function(d){if(d.ok){TRN=d;majTournoi();}});});});majTournoi();};
 function confirm2(b){if(b.dataset.ok)return true;b.dataset.ok=1;b.textContent='Retirer ?';setTimeout(function(){delete b.dataset.ok;b.textContent='✕';},3000);return false;}
 function alerte(c){popFile.push(c);bip(null,c.genre==='appel');if(navigator.vibrate)navigator.vibrate(300);if($('pop').classList.contains('cache'))pop();}
 function pop(){var c=popFile.shift();if(!c){$('pop').classList.add('cache');return;}

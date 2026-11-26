@@ -15,4 +15,4 @@ self.addEventListener('fetch',e=>{
     e.respondWith(fetch(e.request).then(r=>{if(!r.ok)return caches.match(cle).then(m=>m||r);const c=r.clone();caches.open(CACHE).then(x=>x.put(cle,c));return r;}).catch(()=>caches.match(cle)));return;}
   e.respondWith(caches.match(e.request).then(m=>m||fetch(e.request).then(r=>{if(r.ok&&/\/img\/j-/.test(u.pathname)){const c=r.clone();caches.open(CACHE).then(x=>x.keys().then(ks=>{ks.forEach(k=>{const v=new URL(k.url);if(v.pathname===u.pathname&&v.search!==u.search)x.delete(k);});return x.put(e.request,c);}));}return r;})));
 });
-// v7 : f213628040
+// v7 : c31343061b

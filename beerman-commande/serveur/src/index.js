@@ -56,6 +56,8 @@ export class Bar extends DurableObject {
       CREATE TABLE IF NOT EXISTS limites(cle TEXT PRIMARY KEY, n INTEGER, fen INTEGER);
       CREATE TABLE IF NOT EXISTS reglages(k TEXT PRIMARY KEY, v TEXT);
       CREATE TABLE IF NOT EXISTS blocages(tabl INTEGER PRIMARY KEY, jusqua INTEGER, raison TEXT);
+      CREATE TABLE IF NOT EXISTS tournoi(id TEXT PRIMARY KEY, jour TEXT, nom TEXT, nomc TEXT, tabl INTEGER, total INTEGER, coups TEXT, cree INTEGER, retire INTEGER DEFAULT 0, servi INTEGER DEFAULT 0);
+      CREATE INDEX IF NOT EXISTS tournoi_jour ON tournoi(jour);
       CREATE TABLE IF NOT EXISTS bilan(jour TEXT, genre TEXT, n INTEGER, total REAL, att INTEGER, natt INTEGER, PRIMARY KEY(jour, genre));`);
     for (const c of ["raison TEXT", "alerte TEXT"]) { try { this.sql.exec("ALTER TABLE cmd ADD COLUMN " + c); } catch (_) {} }
   }
@@ -73,10 +75,11 @@ export class Bar extends DurableObject {
       ON CONFLICT(jour,genre) DO UPDATE SET n=n+excluded.n, total=total+excluded.total, att=att+excluded.att, natt=natt+excluded.natt`, lim);
     this.sql.exec("DELETE FROM cmd WHERE cree<?", lim);
     this.sql.exec("DELETE FROM limites WHERE fen<?", t - 3600e3);
+    this.sql.exec("DELETE FROM tournoi WHERE cree<?", t - 7 * 864e5);
     // le ménage se relance tout seul 6 h plus tard, même si plus personne ne passe
     // (l'alarme ne se réarme elle-même que s'il reste quelque chose à effacer)
     try {
-      const reste = this.sql.exec("SELECT (SELECT COUNT(*) FROM cmd)+(SELECT COUNT(*) FROM limites) n").toArray()[0].n;
+      const reste = this.sql.exec("SELECT (SELECT COUNT(*) FROM cmd)+(SELECT COUNT(*) FROM limites)+(SELECT COUNT(*) FROM tournoi) n").toArray()[0].n;
       if (!force || reste) this.ctx.storage.setAlarm(t + 6 * 3600e3);
     } catch (_) {}
   }
@@ -111,6 +114,13 @@ export class Bar extends DurableObject {
     return null;
   }
   now() { return Date.now(); }
+  // tournoi de fléchettes du soir : meilleur score par prénom et par table, le bar peut retirer un score et marquer le lot servi
+  tournoiInfo(bar) {
+    const jour = paris(this.now()).jour;
+    const l = this.sql.exec("SELECT id, nom, tabl, total, coups, servi, retire FROM tournoi WHERE jour=?" + (bar ? "" : " AND retire=0") + " ORDER BY retire ASC, total DESC, cree ASC LIMIT ?", jour, bar ? 40 : 10).toArray()
+      .map((r, i) => bar ? { id: r.id, rang: i + 1, nom: r.nom, table: r.tabl, total: r.total, coups: JSON.parse(r.coups || "[]"), servi: !!r.servi, retire: !!r.retire } : { rang: i + 1, nom: r.nom, table: r.tabl, total: r.total });
+    return { actif: this.reglage("tournoi", false), lot: this.reglage("tournoiLot", ""), classement: l };
+  }
   reglage(k, def) { const r = this.sql.exec("SELECT v FROM reglages WHERE k=?", k).toArray()[0]; return r ? JSON.parse(r.v) : def; }
   regle(k, v) { this.sql.exec("INSERT OR REPLACE INTO reglages(k,v) VALUES(?,?)", k, JSON.stringify(v)); }
   // vrai si la limite est dépassée
@@ -146,6 +156,27 @@ export class Bar extends DurableObject {
 
     // ----- côté client -----
     if (p === "/api/etat" && req.method === "GET") return json({ ok: true, pause, nbTables: nbT });
+
+    if (p === "/api/tournoi" && req.method === "GET") return json({ ok: true, ...this.tournoiInfo(false) });
+    if (p === "/api/tournoi" && req.method === "POST") {
+      if (!this.reglage("tournoi", false)) return err("ferme", "Pas de tournoi ce soir. La partie reste pour le plaisir.", 403);
+      const table = parseInt(corps.table, 10);
+      const g = await this.garde(table, corps, nbT); if (g) return g;
+      const nom = txt(corps.nom, 14);
+      if (nom.length < 2) return err("nom", "Écrivez un prénom ou un surnom.");
+      const ok = v => Number.isInteger(v) && v >= 0 && (v <= 20 || v === 25 || v === 50 || (v <= 40 && v % 2 === 0) || (v <= 60 && v % 3 === 0));
+      const coups = Array.isArray(corps.coups) ? corps.coups.map(Number) : [];
+      if (coups.length !== 3 || !coups.every(ok)) return err("score", "Score illisible.");
+      if (this.limite("tn:" + table, 8, 10 * 60e3) || this.limite("ti:" + ip, 12, 30 * 60e3)) return err("trop", "Beaucoup de parties d'un coup. Reprenez votre souffle.", 429);
+      const total = coups[0] + coups[1] + coups[2], jour = paris(this.now()).jour, nomc = nom.toLowerCase();
+      const avant = this.sql.exec("SELECT id, total, retire FROM tournoi WHERE jour=? AND nomc=? AND tabl=?", jour, nomc, table).toArray()[0];
+      if (avant && avant.retire) return err("retire", "Le bar a retiré ce joueur du tournoi ce soir.", 403);
+      if (!avant) this.sql.exec("INSERT INTO tournoi(id,jour,nom,nomc,tabl,total,coups,cree) VALUES(?,?,?,?,?,?,?,?)", alea(8), jour, nom, nomc, table, total, JSON.stringify(coups), this.now());
+      else if (total > avant.total) this.sql.exec("UPDATE tournoi SET total=?, coups=?, cree=?, nom=? WHERE id=?", total, JSON.stringify(coups), this.now(), nom, avant.id);
+      const info = this.tournoiInfo(false), moi = info.classement.find(x => x.nom.toLowerCase() === nomc && x.table === table);
+      this.diffuser({ type: "tournoi" });
+      return json({ ok: true, ...info, rang: moi ? moi.rang : null, record: Math.max(total, avant ? avant.total : 0), mieux: !avant || total > avant.total });
+    }
 
     if (p === "/api/commande" && req.method === "POST") {
       if (pause) return err("pause", "Les commandes depuis la table sont coupées pour le moment. Passez au bar, on vous sert avec plaisir.", 403);
@@ -262,9 +293,20 @@ export class Bar extends DurableObject {
     // remise à zéro avant la vraie mise en service : efface commandes d'essai et statistiques
     if (p === "/api/bar/remise-a-zero" && req.method === "POST") {
       if (corps.confirme !== "OUI") return err("confirme", "Confirmation manquante.");
-      this.sql.exec("DELETE FROM cmd"); this.sql.exec("DELETE FROM stats"); this.sql.exec("DELETE FROM limites"); this.sql.exec("DELETE FROM bilan");
+      this.sql.exec("DELETE FROM cmd"); this.sql.exec("DELETE FROM stats"); this.sql.exec("DELETE FROM limites"); this.sql.exec("DELETE FROM bilan"); this.sql.exec("DELETE FROM tournoi");
       this.diffuser({ type: "etat", commandes: [], pause: this.reglage("pause", false), blocages: this.blocages() });
       return json({ ok: true });
+    }
+    if (p === "/api/bar/tournoi" && req.method === "GET") return json({ ok: true, ...this.tournoiInfo(true) });
+    if (p === "/api/bar/tournoi" && req.method === "POST") {
+      if ("actif" in corps) this.regle("tournoi", !!corps.actif);
+      if ("lot" in corps) this.regle("tournoiLot", txt(corps.lot, 60));
+      if (corps.id && ("retire" in corps || "servi" in corps)) {
+        if ("retire" in corps) this.sql.exec("UPDATE tournoi SET retire=? WHERE id=?", corps.retire ? 1 : 0, String(corps.id));
+        if ("servi" in corps) this.sql.exec("UPDATE tournoi SET servi=? WHERE id=?", corps.servi ? 1 : 0, String(corps.id));
+      }
+      this.diffuser({ type: "tournoi" });
+      return json({ ok: true, ...this.tournoiInfo(true) });
     }
     if (p === "/api/bar/pause" && req.method === "POST") {
       this.regle("pause", !!corps.pause); this.diffuser({ type: "pause", pause: !!corps.pause });
