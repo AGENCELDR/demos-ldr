@@ -1,0 +1,8 @@
+<!-- LDR · SITE WEB : bouton « remonter » montré seulement quand on remonte (téléphone, tablette) + bande sombre sous le pied de page enlevée · 26/11/2026
+     Où : à la toute fin du bloc de la page Site web (rawhtml-7a31b455). Retour arrière : supprimer ces lignes. -->
+<style id="sw-correctifs-1445">
+@media(max-width:899px){#ldr-sw .remonte.sw-bas{opacity:0!important;pointer-events:none!important;transform:translateY(12px)!important}}
+div:has(> #rawhtml-0290f0a6){display:none!important}
+#row-babadfe8,#section-5ee9264a{padding-bottom:0!important}
+</style>
+<script id="sw-remonte-1445">(function(){var rm=document.getElementById('remonte');if(!rm)return;var d=window.pageYOffset||0;rm.classList.add('sw-bas');addEventListener('scroll',function(){var y=window.pageYOffset||0;if(y<d-4)rm.classList.remove('sw-bas');else if(y>d+4)rm.classList.add('sw-bas');d=y},{passive:true})})();</script>
