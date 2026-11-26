@@ -1,0 +1,42 @@
+
+<!-- ===== 26/11 17h50 · Plus de flou ni de fond sombre : une vraie photo NETTE, plein écran, derrière chaque partie.
+     Elle change en douceur avec le défilement (rien ne joue tout seul). Photos Unsplash (licence libre), servies par leur réseau.
+     Pour changer une photo : remplace son identifiant dans la liste F ci-dessous. ===== -->
+<style id="ldr-qui-photos">
+html body #ldr-fond-flou{display:none!important}
+#ldr-qui-fonds{position:fixed;left:0;top:0;width:100%;height:100vh;height:100lvh;z-index:-1;pointer-events:none;overflow:hidden;background:#050810}
+#ldr-qui-fonds img{position:absolute;left:0;top:0;width:100%;height:100%;max-width:none;object-fit:cover;opacity:0}
+#ldr-qui-fonds img:first-child{opacity:1}
+#ldr-qui-fonds b{position:absolute;left:0;top:0;right:0;bottom:0;background:linear-gradient(180deg,rgba(3,7,18,.66) 0,rgba(3,7,18,.46) 26%,rgba(3,7,18,.5) 72%,rgba(3,7,18,.74) 100%)}
+</style>
+<script>
+(function(){
+  if(window.__ldrQuiFonds)return;window.__ldrQuiFonds=1;
+  var q=document.getElementById('ldr-qui');if(!q||!document.body)return;
+  var U='https://images.unsplash.com/photo-',P='?auto=format&fit=crop&q=70&w=';
+  /* [identifiant de la photo, partie où elle arrive, cadrage] */
+  var F=[['1787059960609-e07ca542580b','.haut','50% 55%'],
+         ['1711580391101-4ff165933d53','.facon','50% 50%'],
+         ['1686515266396-080c4939e6b4','.ensemble','50% 50%'],
+         ['1587454333260-0e5a9df45293','.aigles','50% 70%']];
+  var d=document.createElement('div');d.id='ldr-qui-fonds';d.setAttribute('aria-hidden','true');
+  F.forEach(function(f){
+    var im=new Image();im.alt='';im.decoding='async';
+    im.sizes='100vw';im.srcset=[800,1200,1800].map(function(w){return U+f[0]+P+w+' '+w+'w'}).join(',');
+    im.src=U+f[0]+P+'1200';im.style.objectPosition=f[2];d.appendChild(im);
+    f[3]=im;f[4]=q.querySelector(f[1]);
+  });
+  d.appendChild(document.createElement('b'));
+  document.body.insertBefore(d,document.body.firstChild);
+  function maj(){
+    var vh=window.innerHeight,mid=vh*.5,L=vh*.6;
+    F.forEach(function(f,i){
+      if(!i||!f[4])return;
+      var o=(mid-f[4].getBoundingClientRect().top)/L+.5;
+      f[3].style.opacity=o<0?0:o>1?1:o;
+    });
+  }
+  window.addEventListener('scroll',maj,{passive:true});window.addEventListener('resize',maj);
+  maj();setTimeout(maj,600);setTimeout(maj,2000);
+})();
+</script>
