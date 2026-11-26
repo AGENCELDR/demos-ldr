@@ -1,0 +1,471 @@
+<!-- Agence LDR · Page « Qui sommes-nous » · v3 (26/11/2026) · au niveau de la page Fiche Google
+     Bloc « Code HTML » de la page (rawhtml-fe554971). Le menu et le fond flouté restent dans leurs blocs.
+     Tout suit le défilement (doigt ou molette). Rien ne joue tout seul. Aigles officiels entiers, opaques.
+     Retour arrière : recoller qui-sommes-nous-v2-bloc.html. -->
+<style id="ldr-qui-v3">
+#ldr-qui,#ldr-qui *,#ldr-qui *::before,#ldr-qui *::after{box-sizing:border-box}
+#ldr-qui{--web:#F59E0B;--maps:#38BDF8;--res:#34D399;--rad:#EC4899;--g:#D9DFEA;--g2:#A8B3C7;--l:rgba(255,255,255,.1);
+  --arc:linear-gradient(90deg,#F59E0B,#38BDF8 38%,#34D399 68%,#EC4899);
+  font-family:"Plus Jakarta Sans",system-ui,-apple-system,"Segoe UI",sans-serif;color:#F5F5F4;-webkit-font-smoothing:antialiased;font-feature-settings:"liga" 0;overflow-x:clip;width:100%;background:transparent;text-align:left}
+#ldr-qui h1,#ldr-qui h2,#ldr-qui h3,#ldr-qui p,#ldr-qui figure,#ldr-qui ul{margin:0;padding:0;font-family:inherit;text-align:left}
+#ldr-qui a{color:inherit;text-decoration:none}
+#ldr-qui img{max-width:100%}
+#ldr-qui button{font-family:inherit;cursor:pointer}
+#ldr-qui .w{width:100%;max-width:1180px;margin:0 auto;padding:0 22px}
+html body #ldr-qui h1,html body #ldr-qui h2{font-weight:800;color:#fff;letter-spacing:-.03em;text-wrap:balance;text-shadow:0 2px 26px rgba(0,0,0,.75)}
+html body #ldr-qui h1{font-size:36px;line-height:1.04;margin-top:14px}
+html body #ldr-qui h2{font-size:32px;line-height:1.05;margin-top:12px}
+#ldr-qui h1 span,#ldr-qui h2 span{display:block}
+#ldr-qui .sur{display:flex;align-items:center;gap:10px;font-size:11.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--g)}
+#ldr-qui .sur::before{content:"";width:18px;height:1px;background:var(--g)}
+#ldr-qui .trait{display:block;width:64px;height:4px;border-radius:2px;background:var(--arc);margin:16px 0 0;box-shadow:0 0 18px rgba(56,189,248,.4)}
+#ldr-qui .lead{font-size:15.5px;line-height:1.5;color:var(--g);margin-top:14px;max-width:560px;text-shadow:0 1px 14px rgba(0,0,0,.7)}
+#ldr-qui section{position:relative;padding:54px 0}
+#ldr-qui .b1{display:flex;justify-content:center;align-items:center;gap:10px;padding:17px 22px;border-radius:999px;background:#F5F5F4;color:#0b1020;font-size:16px;font-weight:700;white-space:nowrap;box-shadow:0 10px 30px rgba(255,255,255,.10);transition:transform .2s,box-shadow .2s}
+#ldr-qui .b1:hover{transform:translateY(-1px);box-shadow:0 14px 36px rgba(255,255,255,.18)}
+#ldr-qui .b1 svg{width:18px;height:18px}
+#ldr-qui .b2{display:inline-flex;justify-content:center;align-items:center;gap:8px;padding:4px 0;font-size:15px;font-weight:600;color:#E3E8F0}
+#ldr-qui .b2::after{content:"→";font-weight:500;transition:transform .2s}
+#ldr-qui .b2:hover::after{transform:translateX(3px)}
+#ldr-qui .act{display:flex;flex-direction:column;align-items:stretch;gap:14px;margin-top:22px}
+#ldr-qui .faits{display:flex;flex-wrap:wrap;gap:6px 16px;justify-content:center;font-size:11.5px;color:var(--g);font-weight:500;margin-top:16px}
+#ldr-qui .faits span::before{content:"";display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--maps);margin-right:7px;vertical-align:2px}
+#ldr-qui .faits span:nth-child(2)::before{background:var(--web)}
+
+/* ===== 1. Haut : la vraie photo nette posée sur son flou, l'aigle entier en sceau ===== */
+#ldr-qui .haut{padding:10px 0 40px}
+#ldr-qui .ph{position:relative;margin:0 -22px;isolation:isolate}
+#ldr-qui .ph .img{display:block;width:100%;height:auto;aspect-ratio:1400/933;object-fit:cover;-webkit-mask-image:linear-gradient(180deg,#000 62%,transparent 100%);mask-image:linear-gradient(180deg,#000 62%,transparent 100%);transform:scale(calc(1.06 - var(--h,0)*.06));transform-origin:50% 40%}
+#ldr-qui .ph .aigle{position:absolute;right:8px;bottom:-96px;width:42%;max-width:190px;height:auto;aspect-ratio:1/1;object-fit:contain;filter:drop-shadow(0 14px 30px rgba(0,0,0,.6));transform:translateY(calc(var(--h,0)*-14px))}
+#ldr-qui .ou{display:flex;align-items:center;flex-wrap:wrap;gap:7px;font-size:12px;font-weight:600;color:#E3E8F0;margin-top:22px;max-width:54%;min-height:56px;align-content:center}
+#ldr-qui .ou .pt{width:7px;height:7px;border-radius:50%;background:var(--arc);box-shadow:0 0 10px rgba(245,158,11,.8)}
+#ldr-qui .ou .sep{opacity:.4}
+#ldr-qui .haut .sous{font-size:15.5px;line-height:1.5;color:var(--g);margin-top:14px;max-width:460px;text-shadow:0 1px 14px rgba(0,0,0,.7)}
+
+/* ===== 2. Philosophie : plateforme ou agence d'ici (on touche, ou ça bascule en défilant) ===== */
+#ldr-qui .bascule{display:inline-flex;gap:4px;margin-top:22px;padding:4px;border-radius:999px;background:rgba(3,7,18,.55);box-shadow:inset 0 0 0 1px rgba(255,255,255,.14)}
+#ldr-qui .bascule button{border:0;background:transparent;color:#C9D1DE;font-size:13.5px;font-weight:700;padding:10px 14px;border-radius:999px;transition:background .3s,color .3s}
+#ldr-qui .bascule button[aria-pressed="true"]{background:#F5F5F4;color:#0b1020}
+#ldr-qui .duo{position:relative;margin-top:16px;min-height:292px}
+#ldr-qui .duo>div{position:absolute;inset:0;border-radius:22px;padding:18px;transition:opacity .5s ease,transform .6s cubic-bezier(.2,.7,.2,1);will-change:transform}
+#ldr-qui .duo .pf{background:linear-gradient(160deg,rgba(148,163,184,.2),rgba(15,23,42,.72));box-shadow:inset 0 0 0 1px rgba(148,163,184,.3);color:#CBD5E1}
+#ldr-qui .duo .ici{background:linear-gradient(160deg,rgba(245,158,11,.26),rgba(3,7,18,.7) 46%,rgba(56,189,248,.2));box-shadow:inset 0 0 0 1px rgba(255,255,255,.26),0 30px 70px -30px rgba(245,158,11,.5)}
+#ldr-qui .duo[data-c="pf"] .ici{opacity:0;transform:translateY(18px) scale(.97);pointer-events:none}
+#ldr-qui .duo[data-c="ici"] .pf{opacity:0;transform:translateY(-14px) scale(.97);pointer-events:none}
+#ldr-qui .pf .tete{display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+#ldr-qui .pf .tete em{font-style:normal;padding:5px 10px;border-radius:99px;background:rgba(148,163,184,.22);letter-spacing:.04em}
+#ldr-qui .pf .num{margin-top:14px;font-size:30px;font-weight:800;letter-spacing:.02em;color:#E2E8F0;font-variant-numeric:tabular-nums}
+#ldr-qui .pf .auto{margin-top:12px;padding:12px 14px;border-radius:14px;background:rgba(2,6,23,.5);font-size:14px;line-height:1.4}
+#ldr-qui .pf .auto b{display:block;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:#94A3B8;margin-bottom:4px}
+#ldr-qui .pf .rang{display:flex;justify-content:space-between;gap:10px;margin-top:10px;padding-top:10px;border-top:1px dashed rgba(148,163,184,.35);font-size:13.5px}
+#ldr-qui .pf .rang b{color:#94A3B8;font-weight:600}
+#ldr-qui .pf .pts{display:inline-flex;gap:4px;vertical-align:middle}
+#ldr-qui .pf .pts i{width:5px;height:5px;border-radius:50%;background:#94A3B8}
+#ldr-qui .ici .tete{display:flex;align-items:center;gap:10px;font-size:14px;font-weight:800}
+#ldr-qui .ici .tete img{width:40px;height:40px;border-radius:50%;flex:none}
+#ldr-qui .ici .tete small{display:block;font-size:12px;font-weight:600;color:var(--g)}
+#ldr-qui .ici .mot{margin-top:14px;padding:13px 15px;border-radius:18px 18px 18px 5px;background:#F5F5F4;color:#0b1020;font-size:15px;line-height:1.4;font-weight:600;box-shadow:0 14px 34px rgba(0,0,0,.4)}
+#ldr-qui .ici .puces{display:flex;flex-wrap:wrap;gap:7px;margin-top:14px}
+#ldr-qui .ici .puces span{padding:7px 11px;border-radius:99px;font-size:12px;font-weight:700;background:rgba(3,7,18,.5);box-shadow:inset 0 0 0 1px rgba(255,255,255,.3)}
+#ldr-qui .ici .puces span:nth-child(1){box-shadow:inset 0 0 0 1px var(--web)}
+#ldr-qui .ici .puces span:nth-child(2){box-shadow:inset 0 0 0 1px var(--maps)}
+#ldr-qui .ici .puces span:nth-child(3){box-shadow:inset 0 0 0 1px var(--res)}
+#ldr-qui .dit{margin-top:14px;font-size:14.5px;line-height:1.45;color:var(--g);min-height:42px}
+#ldr-qui .dit b{color:#fff}
+#ldr-qui .note{display:block;margin-top:6px;font-size:11px;color:var(--g2)}
+
+/* ===== 3. Trois mots : Écrit. À vous. Franc. ===== */
+#ldr-qui .mots{display:grid;gap:44px;margin-top:34px}
+#ldr-qui .m{--a:56,189,248;--p:0;position:relative}
+#ldr-qui .m.m2{--a:245,158,11}#ldr-qui .m.m3{--a:52,211,153}
+#ldr-qui .m .quand{font-size:11.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:rgb(var(--a))}
+#ldr-qui .m h3{font-size:56px;line-height:.95;font-weight:800;letter-spacing:-.04em;color:#fff;margin-top:6px;text-shadow:0 0 40px rgba(var(--a),.55),0 2px 20px rgba(0,0,0,.7)}
+#ldr-qui .m p{font-size:15.5px;line-height:1.5;color:var(--g);margin-top:10px;max-width:420px;text-shadow:0 1px 14px rgba(0,0,0,.7)}
+#ldr-qui .scn{position:relative;height:178px;margin-top:6px;display:grid;place-items:center;overflow:visible}
+#ldr-qui .scn::before{content:"";position:absolute;inset:6px -22px;background:radial-gradient(60% 70% at 50% 55%,rgba(var(--a),.34),transparent 72%);z-index:-1}
+#ldr-qui .feuille{position:relative;width:214px;padding:13px 15px;border-radius:10px;background:#F7F4EE;color:#1b1b1b;box-shadow:0 18px 40px rgba(0,0,0,.5);transform:rotate(-3deg) translateY(calc((1 - var(--p))*26px))}
+#ldr-qui .feuille em{display:block;font-style:normal;font-size:10.5px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#0369A1;margin-bottom:6px}
+#ldr-qui .feuille .l{display:flex;align-items:center;gap:8px;font-size:13.5px;font-weight:600;padding:4px 0;border-top:1px dashed #ddd}
+#ldr-qui .feuille .l i{flex:none;width:17px;height:17px;border-radius:50%;border:1.6px solid #d6d3cc;position:relative;transition:.35s}
+#ldr-qui .feuille .l i::after{content:"";position:absolute;left:4.5px;top:1.5px;width:4px;height:8px;border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg);opacity:0;transition:.35s}
+#ldr-qui .feuille .l.ok i{background:#0EA5E9;border-color:#0EA5E9}
+#ldr-qui .feuille .l.ok i::after{opacity:1}
+#ldr-qui .tampon{position:absolute;right:-26px;bottom:-22px;padding:6px 10px;border:2px solid #0EA5E9;border-radius:6px;background:rgba(247,244,238,.96);color:#0369A1;font-size:10.5px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;transform:rotate(8deg) scale(calc(.6 + var(--p)*.4));opacity:calc(var(--p)*2 - 1)}
+#ldr-qui .m2 .scn{gap:10px;align-content:center}
+#ldr-qui .barre{display:flex;align-items:center;gap:8px;padding:10px 17px;border-radius:99px;background:rgba(255,255,255,.96);color:#111;font-size:14.5px;font-weight:700;box-shadow:0 12px 30px rgba(0,0,0,.45);transform:translateY(calc((1 - var(--p))*18px))}
+#ldr-qui .barre svg{width:15px;height:15px;color:#B45309}
+#ldr-qui .cle{display:flex;align-items:center;gap:8px;color:#FBBF24;font-weight:800;font-size:15px}
+#ldr-qui .cle svg{width:34px;height:34px;filter:drop-shadow(0 0 10px rgba(245,158,11,.7));transform:translateX(calc((1 - var(--p))*-70px)) rotate(calc((1 - var(--p))*-60deg))}
+#ldr-qui .cle span{opacity:calc(var(--p)*2 - .6)}
+#ldr-qui .deux{display:flex;gap:8px}
+#ldr-qui .deux span{padding:6px 12px;border-radius:99px;box-shadow:inset 0 0 0 1px rgba(245,158,11,.6);background:rgba(245,158,11,.16);font-size:12.5px;font-weight:700;color:#fff;opacity:calc(var(--p)*2.2 - 1.1)}
+#ldr-qui .m3 .scn{display:flex;flex-direction:column;justify-content:center;gap:9px}
+#ldr-qui .bul{max-width:82%;padding:10px 14px;border-radius:17px;font-size:14px;font-weight:600;line-height:1.3}
+#ldr-qui .bul.q{align-self:flex-start;background:rgba(255,255,255,.16);color:#fff;border-bottom-left-radius:4px;opacity:calc(var(--p)*3 - .3);transform:translateX(calc((1 - min(1,var(--p)*2))*-30px))}
+#ldr-qui .bul.r{align-self:flex-end;background:linear-gradient(135deg,#6EE7B7,#34D399);color:#052e13;border-bottom-right-radius:4px;opacity:calc(var(--p)*3 - 1.2);transform:translateX(calc((1 - var(--p))*30px))}
+
+/* ===== 4. Vous envoyez, on construit : le fil qui se trace en défilant ===== */
+#ldr-qui .fil{--p:0;position:relative;margin-top:30px;padding-left:34px}
+#ldr-qui .fil::before{content:"";position:absolute;left:10px;top:8px;bottom:8px;width:2px;border-radius:2px;background:rgba(255,255,255,.14)}
+#ldr-qui .fil::after{content:"";position:absolute;left:10px;top:8px;width:2px;border-radius:2px;height:calc((100% - 16px)*var(--p));background:linear-gradient(180deg,var(--web),var(--maps) 50%,var(--res));box-shadow:0 0 14px rgba(56,189,248,.7)}
+#ldr-qui .pas{position:relative;padding:0 0 34px;opacity:.28;transform:translateY(14px);transition:opacity .5s ease,transform .6s cubic-bezier(.2,.7,.2,1)}
+#ldr-qui .pas:last-child{padding-bottom:0}
+#ldr-qui .pas.vu{opacity:1;transform:none}
+#ldr-qui .pas::before{content:"";position:absolute;left:-30px;top:4px;width:14px;height:14px;border-radius:50%;background:#0b1020;box-shadow:0 0 0 2px rgba(255,255,255,.3);transition:box-shadow .4s,background .4s}
+#ldr-qui .pas.vu::before{background:var(--c);box-shadow:0 0 0 2px var(--c),0 0 16px var(--c)}
+#ldr-qui .pas .qui-parle{font-size:11.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--c)}
+#ldr-qui .pas b{display:block;font-size:22px;line-height:1.12;font-weight:800;letter-spacing:-.02em;margin-top:4px;text-shadow:0 2px 18px rgba(0,0,0,.7)}
+#ldr-qui .pas p{font-size:15px;line-height:1.45;color:var(--g);margin-top:6px;max-width:420px;text-shadow:0 1px 14px rgba(0,0,0,.7)}
+#ldr-qui .vos{display:flex;margin-top:14px;padding-left:6px;height:112px}
+#ldr-qui .vos img{width:104px;height:104px;object-fit:cover;border-radius:14px;border:3px solid #F5F5F4;box-shadow:0 12px 28px rgba(0,0,0,.5);margin-left:-18px;transition:transform .6s cubic-bezier(.2,.7,.2,1)}
+#ldr-qui .vos img:first-child{margin-left:0}
+#ldr-qui .pas.vu .vos img:nth-child(1){transform:rotate(-7deg)}
+#ldr-qui .pas.vu .vos img:nth-child(2){transform:rotate(3deg) translateY(-6px)}
+#ldr-qui .pas.vu .vos img:nth-child(3){transform:rotate(9deg)}
+#ldr-qui .page-ex{position:relative;margin-top:14px;width:176px;border-radius:16px;overflow:hidden;box-shadow:0 20px 50px rgba(0,0,0,.6),0 0 0 1px rgba(255,255,255,.2);height:250px}
+#ldr-qui .page-ex img{display:block;width:100%;height:auto;transform:translateY(calc(var(--q,0)*-22%))}
+#ldr-qui .page-ex span{position:absolute;left:8px;top:8px;padding:4px 8px;border-radius:99px;background:rgba(3,7,18,.78);font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+#ldr-qui .valide{display:inline-flex;align-items:center;gap:10px;margin-top:14px;padding:10px 16px 10px 10px;border-radius:999px;background:rgba(52,211,153,.16);box-shadow:inset 0 0 0 1px var(--res);font-size:14px;font-weight:700}
+#ldr-qui .valide i{width:28px;height:28px;border-radius:50%;background:var(--res);display:grid;place-items:center;color:#052e13}
+#ldr-qui .valide svg{width:16px;height:16px}
+
+/* ===== 5. Les quatre aigles : on touche, la scène change ===== */
+#ldr-qui .aigles{--c:245,158,11}
+#ldr-qui .aigles[data-o="maps"]{--c:56,189,248}#ldr-qui .aigles[data-o="res"]{--c:52,211,153}#ldr-qui .aigles[data-o="rad"]{--c:236,72,153}
+#ldr-qui .scene{position:relative;margin-top:22px;display:grid;justify-items:center;text-align:center;isolation:isolate}
+#ldr-qui .scene::before{content:"";position:absolute;left:50%;top:6px;width:min(120%,520px);aspect-ratio:1/1;transform:translateX(-50%);background:radial-gradient(closest-side,rgba(var(--c),.5),rgba(var(--c),.12) 56%,transparent 74%);z-index:-1;transition:background .5s}
+#ldr-qui .grand{position:relative;width:min(78%,310px);aspect-ratio:4/5}
+#ldr-qui .grand img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:0;transform:scale(.9) translateY(10px);transition:opacity .45s ease,transform .6s cubic-bezier(.2,.7,.2,1)}
+#ldr-qui .grand img.on{opacity:1;transform:none}
+#ldr-qui .txt{position:relative;width:100%;min-height:150px;margin-top:8px}
+#ldr-qui .txt>div{position:absolute;left:0;right:0;top:0;display:grid;justify-items:center;opacity:0;transform:translateY(8px);transition:opacity .4s ease,transform .5s ease;pointer-events:none}
+#ldr-qui .txt>div.on{opacity:1;transform:none;pointer-events:auto}
+#ldr-qui .txt b{font-size:28px;font-weight:800;letter-spacing:-.03em;line-height:1.05;text-shadow:0 2px 20px rgba(0,0,0,.7)}
+#ldr-qui .txt p{font-size:15px;line-height:1.45;color:var(--g);margin-top:6px;max-width:320px;text-align:center;text-shadow:0 1px 14px rgba(0,0,0,.7)}
+#ldr-qui .txt a{display:inline-flex;align-items:center;gap:8px;margin-top:12px;padding:12px 20px;border-radius:999px;background:rgb(var(--c));color:#06101c;font-size:14.5px;font-weight:800;box-shadow:0 12px 34px rgba(var(--c),.45)}
+#ldr-qui .txt a::after{content:"→"}
+#ldr-qui .txt em{display:inline-block;margin-top:12px;font-style:normal;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:9px 14px;border-radius:99px;background:rgba(236,72,153,.2);box-shadow:inset 0 0 0 1px rgba(236,72,153,.8)}
+#ldr-qui .choix{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:10px}
+#ldr-qui .choix button{position:relative;border:0;background:transparent;padding:0 0 10px;color:#C9D1DE;font-size:11.5px;font-weight:700;line-height:1.15;display:grid;justify-items:center;gap:4px;min-width:0}
+#ldr-qui .choix img{display:block;width:100%;max-width:92px;height:auto;aspect-ratio:1/1;object-fit:contain;transition:transform .35s cubic-bezier(.2,.7,.2,1)}
+#ldr-qui .choix button::after{content:"";position:absolute;left:18%;right:18%;bottom:0;height:3px;border-radius:2px;background:var(--k);opacity:0;transform:scaleX(.3);transition:opacity .3s,transform .4s}
+#ldr-qui .choix button[aria-pressed="true"]{color:#fff}
+#ldr-qui .choix button[aria-pressed="true"] img{transform:translateY(-4px) scale(1.08)}
+#ldr-qui .choix button[aria-pressed="true"]::after{opacity:1;transform:none;box-shadow:0 0 14px var(--k)}
+
+/* ===== 6. Pas de promesses en l'air : les phrases se barrent en défilant ===== */
+#ldr-qui .jamais{--p:0}
+#ldr-qui .phrases{display:grid;gap:18px;margin-top:26px}
+#ldr-qui .phrases p{position:relative;justify-self:start;font-size:23px;line-height:1.2;font-weight:700;font-style:italic;letter-spacing:-.02em;color:rgba(245,245,244,calc(1 - var(--s,0)*.55));text-shadow:0 2px 18px rgba(0,0,0,.7)}
+#ldr-qui .phrases p::after{content:"";position:absolute;left:-4px;top:54%;height:3px;border-radius:2px;width:calc((100% + 8px)*var(--s,0));background:linear-gradient(90deg,#FB7185,#EC4899);box-shadow:0 0 14px rgba(236,72,153,.8)}
+#ldr-qui .alaplace{margin-top:26px;padding-left:16px;border-left:3px solid transparent;border-image:linear-gradient(180deg,#F59E0B,#38BDF8,#34D399) 1;opacity:calc(var(--p)*3 - 1.9);transform:translateY(calc((1 - min(1,max(0,var(--p)*3 - 1.9)))*14px))}
+#ldr-qui .alaplace b{display:block;font-size:11.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--g)}
+#ldr-qui .alaplace span{display:block;font-size:19px;line-height:1.3;font-weight:800;letter-spacing:-.02em;margin-top:6px}
+
+/* ===== 7. Fin : la photo, le bouton, la signature ===== */
+#ldr-qui .fin{padding-bottom:30px}
+#ldr-qui .boite{position:relative;border-radius:24px;overflow:hidden;isolation:isolate;box-shadow:0 30px 80px -30px rgba(0,0,0,.9),0 0 0 1px rgba(255,255,255,.16)}
+#ldr-qui .boite>img{display:block;width:100%;height:auto;aspect-ratio:1100/619;object-fit:cover}
+#ldr-qui .boite .dedans{padding:20px 18px 22px;background:linear-gradient(180deg,rgba(3,7,18,.5),rgba(3,7,18,.82))}
+#ldr-qui .boite h3{font-size:27px;line-height:1.08;font-weight:800;letter-spacing:-.03em;color:#fff}
+#ldr-qui .boite h3 span{display:block}
+#ldr-qui .go{position:relative;display:flex;align-items:center;justify-content:center;gap:14px;margin-top:20px;height:64px;border-radius:999px;background:#F5F5F4;color:#0b1020;font-size:18px;font-weight:800;letter-spacing:-.01em;overflow:hidden;box-shadow:0 18px 50px rgba(255,255,255,.16)}
+#ldr-qui .go .rond{width:38px;height:38px;border-radius:50%;background:#0b1020;color:#F5F5F4;display:grid;place-items:center}
+#ldr-qui .go .rond svg{width:18px;height:18px}
+#ldr-qui .go-s{display:block;text-align:center;font-size:12.5px;line-height:1.4;color:var(--g);margin-top:12px}
+#ldr-qui .lien-test{display:flex;justify-content:center;margin-top:10px}
+#ldr-qui .signe{display:flex;align-items:center;gap:12px;margin:26px 0 0;font-size:13.5px;line-height:1.45;color:var(--g)}
+#ldr-qui .signe img{width:46px;height:46px;border-radius:50%;flex:none}
+#ldr-qui .signe b{color:#fff}
+#ldr-qui .pied{border-top:1px solid var(--l);padding:26px 0 34px}
+#ldr-qui .pied nav{display:flex;flex-wrap:wrap;gap:8px 18px;font-size:13.5px;color:#E3E8F0}
+#ldr-qui .pied .sig{display:flex;align-items:center;gap:8px;margin-top:16px;font-size:12px;color:var(--g)}
+#ldr-qui .pied .sig img{width:22px;height:22px;border-radius:50%}
+#ldr-qui .pied .sig b{color:#fff}
+#ldr-qui .pied .leg{font-size:11px;color:#A8B3C7;margin-top:10px;line-height:1.45}
+#ldr-qui a:focus-visible,#ldr-qui button:focus-visible{outline:2px solid #fff;outline-offset:3px}
+
+/* ===== Tablette et ordinateur ===== */
+@media(min-width:700px){
+  #ldr-qui .w{padding:0 34px}
+  #ldr-qui section{padding:76px 0}
+  html body #ldr-qui h1{font-size:54px}
+  html body #ldr-qui h2{font-size:44px}
+  #ldr-qui .lead{font-size:17px}
+  #ldr-qui .act{flex-direction:row;align-items:center;gap:26px}
+  #ldr-qui .b1{padding:17px 30px}
+  #ldr-qui .faits{justify-content:flex-start}
+  #ldr-qui .ph{margin:0;border-radius:26px;overflow:visible}
+  #ldr-qui .ph .img{border-radius:26px;-webkit-mask-image:none;mask-image:none;box-shadow:0 40px 100px -30px rgba(0,0,0,.9),0 0 0 1px rgba(255,255,255,.14)}
+  #ldr-qui .ph .aigle{right:-6px;bottom:-168px;width:28%;max-width:230px}
+  #ldr-qui .ou{max-width:66%;margin-top:34px}
+  #ldr-qui .haut h1,#ldr-qui .haut .sous{max-width:66%}
+  #ldr-qui .duo{max-width:520px;min-height:280px}
+  #ldr-qui .mots{grid-template-columns:repeat(3,minmax(0,1fr));gap:30px}
+  #ldr-qui .m h3{font-size:52px}
+  #ldr-qui .vos img{width:128px;height:128px}
+  #ldr-qui .vos{height:140px}
+  #ldr-qui .page-ex{width:220px;height:310px}
+  #ldr-qui .phrases p{font-size:30px}
+  #ldr-qui .alaplace span{font-size:24px}
+  #ldr-qui .choix{max-width:560px;margin-left:auto;margin-right:auto;gap:22px}
+  #ldr-qui .choix button{font-size:13px}
+  #ldr-qui .boite h3{font-size:38px}
+  #ldr-qui .boite .dedans{padding:28px 30px 30px}
+  #ldr-qui .go{max-width:420px}
+  #ldr-qui .go-s{text-align:left}
+  #ldr-qui .lien-test{justify-content:flex-start}
+}
+@media(min-width:1024px){
+  #ldr-qui .haut{padding:34px 0 80px}
+  #ldr-qui .haut .w{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);gap:60px;align-items:center}
+  #ldr-qui .haut .ph{order:2}
+  #ldr-qui .ph .aigle{right:-34px;top:-40px;bottom:auto;width:38%;max-width:260px;transform:translateY(calc(var(--h,0)*14px))}
+  #ldr-qui .ou{margin-top:0;max-width:none}
+  #ldr-qui .haut h1,#ldr-qui .haut .sous{max-width:none}
+  html body #ldr-qui h1{font-size:60px}
+  #ldr-qui .fil{padding-left:0;padding-top:38px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:44px;margin-top:40px}
+  #ldr-qui .fil::before{left:0;right:0;top:10px;bottom:auto;width:auto;height:2px}
+  #ldr-qui .fil::after{left:0;top:10px;height:2px;width:calc(100%*var(--p));background:linear-gradient(90deg,var(--web),var(--maps) 50%,var(--res))}
+  #ldr-qui .pas{padding:0}
+  #ldr-qui .pas::before{left:0;top:-35px}
+  #ldr-qui .alaplace{margin-top:0}
+  #ldr-qui .deux-col{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:70px;align-items:center}
+  #ldr-qui .duo{margin-top:0}
+  #ldr-qui .aigles .scene{grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:center;text-align:left;justify-items:start;max-width:920px;margin-left:auto;margin-right:auto}
+  #ldr-qui .aigles .scene::before{left:25%}
+  #ldr-qui .grand{width:min(100%,400px);justify-self:center}
+  #ldr-qui .txt>div{justify-items:start}
+  #ldr-qui .txt p{text-align:left}
+  #ldr-qui .txt b{font-size:40px}
+  #ldr-qui .boite{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr)}
+  #ldr-qui .boite>img{height:100%}
+  #ldr-qui .boite .dedans{display:flex;flex-direction:column;justify-content:center;padding:40px}
+}
+@media(prefers-reduced-motion:reduce){#ldr-qui *{transition:none!important}}
+</style>
+
+<div id="ldr-qui">
+
+  <!-- 1. Haut -->
+  <section class="haut"><div class="w">
+    <figure class="ph">
+      <img class="img" src="https://agenceldr.github.io/demos-ldr/_collage/photos/plan-tablette-mains-femme.webp" alt="Des mains de femme dessinent le plan d'une salle de restaurant sur une tablette" width="1400" height="933" fetchpriority="high">
+      <img class="aigle" src="https://agenceldr.github.io/demos-ldr/images-ldr/aigles-alpha/a06-d7fce7dc.webp" alt="L'aigle multicolore de l'Agence LDR" width="640" height="640">
+    </figure>
+    <div>
+      <div class="ou"><span class="pt"></span>Qui sommes-nous<span class="sep">·</span>Sainte-Menehould<span class="sep">·</span>Marne</div>
+      <h1>Une agence d'ici, <span>pas une plateforme.</span></h1>
+      <p class="sous">Agence LDR, le Déclencheur de Résultats. Nous travaillons pour les entreprises d'ici&nbsp;: artisans, commerces, restaurants.</p>
+      <div class="act"><a class="b1" href="https://www.agence-ldr.fr/5897fccc">Demander mon devis <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10h12M11 5l5 5-5 5"/></svg></a><a class="b2" href="https://www.agence-ldr.fr/d123ba74#ldr-test">Tester ma fiche</a></div>
+      <div class="faits"><span>Premier regard gratuit</span><span>Devis écrit avant tout</span></div>
+    </div>
+  </div></section>
+
+  <!-- 2. Notre philosophie -->
+  <section class="philo"><div class="w"><div class="deux-col">
+    <div>
+      <div class="sur">Notre philosophie</div>
+      <h2>Une plateforme vous donne un numéro. <span>Ici, quelqu'un vous répond.</span></h2><span class="trait"></span>
+      <div class="bascule" role="group" aria-label="Comparer une plateforme et une agence d'ici">
+        <button type="button" data-c="pf" aria-pressed="true">Une plateforme</button>
+        <button type="button" data-c="ici" aria-pressed="false">Une agence d'ici</button>
+      </div>
+    </div>
+    <div>
+      <div class="duo" id="ldr-qui-duo" data-c="pf">
+        <div class="pf" aria-hidden="false">
+          <div class="tete"><span>Votre demande</span><em>En attente</em></div>
+          <div class="num">N° 48&nbsp;213</div>
+          <div class="auto"><b>Réponse automatique</b>Votre demande a bien été enregistrée.</div>
+          <div class="rang"><b>Votre conseiller</b><span>inconnu</span></div>
+          <div class="rang"><b>Réponse</b><span class="pts"><i></i><i></i><i></i></span></div>
+        </div>
+        <div class="ici" aria-hidden="true">
+          <div class="tete"><img src="https://agenceldr.github.io/demos-ldr/images-ldr/accueil/a21-1a624a53.webp" alt="" width="40" height="40" loading="lazy"><span>Agence LDR<small>Sainte-Menehould, Marne</small></span></div>
+          <div class="mot">Bonjour, j'ai regardé votre fiche Google. Je vous écris ce que je vois, et ce que ça coûterait.</div>
+          <div class="puces"><span>Réponse écrite</span><span>Toujours les mêmes personnes</span><span>Devis avant tout</span></div>
+        </div>
+      </div>
+      <p class="dit" id="ldr-qui-dit" aria-live="polite"><b>Une plateforme&nbsp;:</b> un numéro de dossier et une réponse automatique.</p>
+      <span class="note">Exemple illustré.</span>
+    </div>
+  </div></div></section>
+
+  <!-- 3. Trois mots -->
+  <section class="facon"><div class="w">
+    <div class="sur">Notre façon de travailler</div>
+    <h2>Trois choses que vous retrouverez <span>toujours.</span></h2><span class="trait"></span>
+    <div class="mots" id="ldr-qui-mots">
+      <div class="m m1">
+        <div class="scn" aria-hidden="true"><div class="feuille"><em>Votre devis</em><span class="l"><i></i>Ce qu'on fait</span><span class="l"><i></i>Le prix</span><span class="l"><i></i>Le délai</span><span class="tampon">Écrit avant de commencer</span></div></div>
+        <div class="quand">Avant de commencer</div>
+        <h3>Écrit.</h3>
+        <p>Un premier regard gratuit, puis un devis écrit avec le prix et le délai, avant tout engagement.</p>
+      </div>
+      <div class="m m2">
+        <div class="scn" aria-hidden="true">
+          <div class="barre"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>votre-commerce.fr</div>
+          <div class="cle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="7.5" cy="15.5" r="4.5"/><path d="M10.7 12.3 20 3M16 7l3 3M14 9l2 2"/></svg><span>À votre nom</span></div>
+          <div class="deux"><span>Fiche Google</span><span>Site</span></div>
+        </div>
+        <div class="quand">Une fois livré</div>
+        <h3>À vous.</h3>
+        <p>Votre fiche Google et votre site vous appartiennent.</p>
+      </div>
+      <div class="m m3">
+        <div class="scn" aria-hidden="true"><span class="bul q">Il me faut une appli&nbsp;?</span><span class="bul r">Pas pour l'instant. Votre fiche Google d'abord.</span></div>
+        <div class="quand">Quand vous hésitez</div>
+        <h3>Franc.</h3>
+        <p>Nous parlons de ce que vous allez gagner, pas de jargon. Si quelque chose ne vous sert à rien, on vous le dit.</p>
+      </div>
+    </div>
+  </div></section>
+
+  <!-- 4. Vous envoyez, on construit -->
+  <section class="ensemble"><div class="w">
+    <div class="sur">Comment on travaille ensemble</div>
+    <h2>Vous envoyez vos photos. <span>On construit autour.</span></h2><span class="trait"></span>
+    <p class="lead">Pas besoin de rendez-vous sur place. Tout se fait à distance, par écrit, à votre rythme.</p>
+    <div class="fil" id="ldr-qui-fil">
+      <div class="pas" style="--c:var(--web)">
+        <span class="qui-parle">Vous</span>
+        <b>Vos photos, comme elles sont.</b>
+        <p>Votre boutique, vos plats, votre travail. Prises avec votre téléphone, ça suffit.</p>
+        <div class="vos" aria-hidden="true">
+          <img src="https://agenceldr.github.io/demos-ldr/images-ldr/accueil/a20-213fd335.webp" alt="" width="104" height="104" loading="lazy">
+          <img src="https://agenceldr.github.io/demos-ldr/images-ldr/site-web-v2/monde-fleurs-arnelle.webp" alt="" width="104" height="104" loading="lazy">
+          <img src="https://agenceldr.github.io/demos-ldr/images-ldr/site-web-v2/monde-quai-sorbier.webp" alt="" width="104" height="104" loading="lazy">
+        </div>
+      </div>
+      <div class="pas" style="--c:var(--maps)">
+        <span class="qui-parle">Nous</span>
+        <b>On construit votre page autour.</b>
+        <p>On trie, on met en valeur, on écrit les textes avec vous.</p>
+        <div class="page-ex" aria-hidden="true"><img src="https://agenceldr.github.io/demos-ldr/images-ldr/site-web-v2/fleurs-arnelle-tel.webp" alt="" width="780" height="1688" loading="lazy"><span>Exemple</span></div>
+      </div>
+      <div class="pas" style="--c:var(--res)">
+        <span class="qui-parle">Vous</span>
+        <b>Vous regardez, vous corrigez, vous validez.</b>
+        <p>Vous voyez tout avant vos clients.</p>
+        <span class="valide"><i><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10.5l4 4 8-9"/></svg></i>Validé par vous</span>
+      </div>
+    </div>
+  </div></section>
+
+  <!-- 5. Les quatre aigles -->
+  <section class="aigles" id="ldr-qui-aigles" data-o="web"><div class="w">
+    <div class="sur">Ce que nous faisons</div>
+    <h2>Quatre aigles. <span>Quatre façons de vous faire trouver.</span></h2><span class="trait"></span>
+    <div class="scene">
+      <div class="grand" aria-hidden="true">
+        <img class="on" data-o="web" src="https://agenceldr.github.io/demos-ldr/images-ldr/aigles-alpha/a08-78e0867e.webp" alt="" width="560" height="700" loading="lazy">
+        <img data-o="maps" src="https://agenceldr.github.io/demos-ldr/images-ldr/aigles-alpha/a07-775dbab2.webp" alt="" width="560" height="700" loading="lazy">
+        <img data-o="res" src="https://agenceldr.github.io/demos-ldr/images-ldr/aigles-alpha/a09-89f6cd2a.webp" alt="" width="560" height="700" loading="lazy">
+        <img data-o="rad" src="https://agenceldr.github.io/demos-ldr/images-ldr/aigles-alpha/a10-ce835343.webp" alt="" width="560" height="700" loading="lazy">
+      </div>
+      <div>
+        <div class="txt" aria-live="polite">
+          <div class="on" data-o="web"><b>Site web</b><p>Un site clair qui donne envie d'appeler ou de venir.</p><a href="https://www.agence-ldr.fr/77c26f05">Voir la page Site web</a></div>
+          <div data-o="maps"><b>Fiche Google</b><p>Être trouvé, choisi et appelé sur Google Maps.</p><a href="https://www.agence-ldr.fr/d123ba74">Voir la page Fiche Google</a></div>
+          <div data-o="res"><b>Réseaux sociaux</b><p>Vos vraies photos, publiées pour vous.</p><a href="https://www.agence-ldr.fr/reseaux">Voir la page Réseaux</a></div>
+          <div data-o="rad"><b>Radars</b><p>Savoir qui contacter autour de vous.</p><em>En préparation</em></div>
+        </div>
+        <div class="choix" role="group" aria-label="Choisir une offre">
+          <button type="button" data-o="web" aria-pressed="true" style="--k:var(--web)"><img src="https://agenceldr.github.io/demos-ldr/images-ldr/aigles-alpha/a08-78e0867e-menu.webp" alt="" width="200" height="200" loading="lazy">Site web</button>
+          <button type="button" data-o="maps" aria-pressed="false" style="--k:var(--maps)"><img src="https://agenceldr.github.io/demos-ldr/images-ldr/aigles-alpha/a07-775dbab2-menu.webp" alt="" width="200" height="200" loading="lazy">Fiche Google</button>
+          <button type="button" data-o="res" aria-pressed="false" style="--k:var(--res)"><img src="https://agenceldr.github.io/demos-ldr/images-ldr/aigles-alpha/a09-89f6cd2a-menu.webp" alt="" width="200" height="200" loading="lazy">Réseaux</button>
+          <button type="button" data-o="rad" aria-pressed="false" style="--k:var(--rad)"><img src="https://agenceldr.github.io/demos-ldr/images-ldr/aigles-alpha/a10-ce835343-menu.webp" alt="" width="200" height="200" loading="lazy">Radars</button>
+        </div>
+      </div>
+    </div>
+  </div></section>
+
+  <!-- 6. Pas de promesses en l'air -->
+  <section class="jamais" id="ldr-qui-jamais"><div class="w"><div class="deux-col"><div>
+    <div class="sur">Ce que vous n'entendrez pas ici</div>
+    <h2>Pas de promesses <span>en l'air.</span></h2><span class="trait"></span>
+    <div class="phrases">
+      <p>«&nbsp;Premier sur Google, garanti.&nbsp;»</p>
+      <p>«&nbsp;Des avis&nbsp;? On vous en trouve.&nbsp;»</p>
+      <p>«&nbsp;Vos chiffres vont doubler.&nbsp;»</p>
+    </div>
+    </div>
+    <div class="alaplace"><b>À la place</b><span>Un premier regard gratuit, un devis écrit, et un travail que vous pouvez vérifier vous-même.</span></div>
+  </div></div></section>
+
+  <!-- 7. Fin -->
+  <section class="fin"><div class="w">
+    <div class="boite">
+      <img src="https://agenceldr.github.io/demos-ldr/images-ldr/site-web-v2/bas-commercante.webp" alt="Une commerçante souriante, bras croisés, dans son café" width="1100" height="619" loading="lazy">
+      <div class="dedans">
+        <h3>Vos clients vous cherchent déjà. <span>Faisons qu'ils vous trouvent.</span></h3>
+        <a class="go" href="https://www.agence-ldr.fr/5897fccc">Demander mon devis<span class="rond"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10h12M11 5l5 5-5 5"/></svg></span></a>
+        <span class="go-s">Premier regard gratuit · devis écrit avant tout · TVA non applicable, art.&nbsp;293&nbsp;B du CGI</span>
+        <div class="lien-test"><a class="b2" href="https://www.agence-ldr.fr/d123ba74#ldr-test">Tester ma fiche</a></div>
+      </div>
+    </div>
+    <div class="signe"><img src="https://agenceldr.github.io/demos-ldr/images-ldr/accueil/a21-1a624a53.webp" alt="" width="46" height="46" loading="lazy"><p><b>Une agence d'ici, pas une plateforme.</b> Sainte-Menehould, Marne. Vous parlez à ceux qui font le travail.</p></div>
+  </div></section>
+
+  <footer class="pied"><div class="w">
+    <nav><a href="https://www.agence-ldr.fr/">Accueil</a><a href="https://www.agence-ldr.fr/77c26f05">Site web</a><a href="https://www.agence-ldr.fr/d123ba74">Fiche Google</a><a href="https://www.agence-ldr.fr/reseaux">Réseaux sociaux</a><a href="https://www.agence-ldr.fr/8ee0b286">Radars</a><a href="https://www.agence-ldr.fr/9c71372a">Mentions légales</a><a href="https://www.agence-ldr.fr/19b5caee">CGV</a></nav>
+    <span class="sig"><img src="https://agenceldr.github.io/demos-ldr/images-ldr/accueil/a21-1a624a53.webp" alt="" width="22" height="22" loading="lazy">Site réalisé par <b>Agence LDR</b></span>
+    <p class="leg">Agence LDR, nom commercial de l'entreprise individuelle d'Adeline Crombez, Sainte-Menehould (Marne). TVA non applicable, art. 293 B du CGI. Exemples&nbsp;: données fictives.</p>
+  </div></footer>
+</div>
+
+<script>
+(function(){
+  /* Tout suit le défilement (doigt ou molette). Rien ne joue tout seul. */
+  if(window.__ldrQui3) return; window.__ldrQui3=1;
+  var R=document.getElementById('ldr-qui'); if(!R) return;
+  function q(s){return R.querySelector(s)} function qa(s){return R.querySelectorAll(s)}
+  function borne(v){return v<0?0:v>1?1:v}
+
+  /* 2. Plateforme ou agence d'ici */
+  var duo=q('#ldr-qui-duo'), dit=q('#ldr-qui-dit'), touche=false;
+  var DIT={pf:"<b>Une plateforme :</b> un numéro de dossier et une réponse automatique.",ici:"<b>Une agence d'ici :</b> vous parlez à ceux qui font le travail."};
+  function choisir(c){
+    if(!duo||duo.getAttribute('data-c')===c) return;
+    duo.setAttribute('data-c',c); dit.innerHTML=DIT[c];
+    qa('.bascule button').forEach(function(b){b.setAttribute('aria-pressed',b.getAttribute('data-c')===c)});
+    q('.duo .pf').setAttribute('aria-hidden',c!=='pf'); q('.duo .ici').setAttribute('aria-hidden',c!=='ici');
+  }
+  qa('.bascule button').forEach(function(b){b.addEventListener('click',function(){touche=true;choisir(b.getAttribute('data-c'))})});
+
+  /* 5. Les quatre aigles */
+  var sec=q('#ldr-qui-aigles');
+  function offre(o){
+    sec.setAttribute('data-o',o);
+    qa('.grand img,.txt>div').forEach(function(e){e.classList.toggle('on',e.getAttribute('data-o')===o)});
+    qa('.choix button').forEach(function(b){b.setAttribute('aria-pressed',b.getAttribute('data-o')===o)});
+  }
+  qa('.choix button').forEach(function(b){b.addEventListener('click',function(){offre(b.getAttribute('data-o'))})});
+
+  var large=window.matchMedia?window.matchMedia('(min-width:1024px)'):null;
+  var attente=0, ph=q('.ph'), fil=q('#ldr-qui-fil'), pas=qa('.pas'), pageEx=q('.page-ex'), jam=q('#ldr-qui-jamais'), phr=qa('.phrases p'), scn=qa('.mots .m');
+  function maj(){
+    attente=0;
+    var H=window.innerHeight||800, r, p, i;
+    if(ph){ ph.style.setProperty('--h',borne((window.pageYOffset||0)/420).toFixed(3)); }
+    if(duo&&!touche){ r=duo.getBoundingClientRect(); choisir((r.top+r.height*.5)<H*.56?'ici':'pf'); }
+    for(i=0;i<scn.length;i++){
+      r=scn[i].querySelector('.scn').getBoundingClientRect();
+      p=borne((H*.9-r.top)/(H*.42)); scn[i].style.setProperty('--p',p.toFixed(3));
+      var l=scn[i].querySelectorAll('.l'); for(var j=0;j<l.length;j++){ l[j].classList.toggle('ok',p>.3+j*.2); }
+    }
+    if(fil){ r=fil.getBoundingClientRect();
+      if(large&&large.matches){ p=borne((H*.86-r.top)/(H*.5)); fil.style.setProperty('--p',p.toFixed(3));
+        for(i=0;i<pas.length;i++){ pas[i].classList.toggle('vu',p>.1+i*.3); } }
+      else { fil.style.setProperty('--p',borne((H*.62-r.top)/r.height).toFixed(3));
+        for(i=0;i<pas.length;i++){ pas[i].classList.toggle('vu',pas[i].getBoundingClientRect().top<H*.74); } } }
+    if(pageEx){ r=pageEx.getBoundingClientRect(); pageEx.style.setProperty('--q',borne((H*.8-r.top)/(H*.6)).toFixed(3)); }
+    if(jam){ r=q('.phrases').getBoundingClientRect(); p=borne((H*.8-r.top)/(H*.5)); jam.style.setProperty('--p',p.toFixed(3));
+      for(i=0;i<phr.length;i++){ phr[i].style.setProperty('--s',borne(p*3-i*.75).toFixed(3)); } }
+  }
+  function dem(){ if(!attente){ attente=1; (window.requestAnimationFrame||setTimeout)(maj); } }
+  window.addEventListener('scroll',dem,{passive:true}); window.addEventListener('resize',dem);
+  maj(); setTimeout(maj,600); setTimeout(maj,2000);
+})();
+</script>
