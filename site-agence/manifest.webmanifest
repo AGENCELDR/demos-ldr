@@ -9,7 +9,8 @@
   "background_color": "#000000",
   "theme_color": "#030712",
   "icons": [
-    {"src": "https://agenceldr.github.io/demos-ldr/site-agence/aigle-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any"},
-    {"src": "https://agenceldr.github.io/demos-ldr/site-agence/aigle-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any"}
+    {"src": "https://agenceldr.github.io/demos-ldr/site-agence/aigle-app-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any"},
+    {"src": "https://agenceldr.github.io/demos-ldr/site-agence/aigle-app-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any"},
+    {"src": "https://agenceldr.github.io/demos-ldr/site-agence/aigle-app-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"}
   ]
 }
