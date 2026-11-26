@@ -90,5 +90,8 @@ fonts = re.findall(r'<link[^>]+fonts[^>]+>', head)
 bloc = ('<!-- Agence LDR · page Site web v2 (26/11/2026) · bloc à coller tel quel (HTML brut) -->\n'
         + '\n'.join(fonts) + '\n<style id="ldr-sw-css">\n' + scope_css(css) + '\n</style>\n'
         + '<div id="ldr-sw">' + body + '</div>\n<script id="ldr-sw-js">(function(){\n' + js + '\n})();</script>\n')
+import os
+mc=open(os.path.join(os.path.dirname(os.path.abspath(__file__)),'menu-correctif.js'),encoding='utf-8').read()
+bloc += '<script id="ldr-sw-menu">' + mc + '</script>\n<!-- FIN DU BLOC SYSTEME.IO -->\n'
 open(sys.argv[2], 'w', encoding='utf-8').write(bloc)
 print(len(bloc))
