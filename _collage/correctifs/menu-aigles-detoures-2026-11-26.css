@@ -1,0 +1,22 @@
+/* LDR · MENU : AIGLES DÉTOURÉS + BARRE COLLÉE · 26/11/2026 13h45 · EN ESSAI (rien collé sans l'OK de Lilian)
+   Où : dans le bloc du menu partagé (rawhtml-51017432), à l'intérieur de <style id="ldr-aigles-entiers-2026-11-26">,
+   à la toute fin, juste avant </style>. Retour arrière : supprimer ces lignes. */
+
+/* 1. Logo du menu : aigle de la page, entier, fond noir enlevé (plus de carré noir) */
+#ldr-nav{--ldr-aigle:url(https://agenceldr.github.io/demos-ldr/images-ldr/aigles-alpha/a06-d7fce7dc-menu.webp)!important}
+#ldr-nav[data-univers="maps"]{--ldr-aigle:url(https://agenceldr.github.io/demos-ldr/images-ldr/aigles-alpha/a07-775dbab2-menu.webp)!important}
+#ldr-nav[data-univers="web"]{--ldr-aigle:url(https://agenceldr.github.io/demos-ldr/images-ldr/aigles-alpha/a08-78e0867e-menu.webp)!important}
+#ldr-nav[data-univers="reseaux"]{--ldr-aigle:url(https://agenceldr.github.io/demos-ldr/images-ldr/aigles-alpha/a09-89f6cd2a-menu.webp)!important}
+#ldr-nav[data-univers="radar"]{--ldr-aigle:url(https://agenceldr.github.io/demos-ldr/images-ldr/aigles-alpha/a10-ce835343-menu.webp)!important}
+
+/* 2. Tuiles du menu : mêmes aigles détourés, vraies couleurs, sans bord rogné */
+#ldr-nav#ldr-nav#ldr-nav .ldr-tuile.ldr-c-maps{background-image:url(https://agenceldr.github.io/demos-ldr/images-ldr/aigles-alpha/a07-775dbab2-menu.webp)!important}
+#ldr-nav#ldr-nav#ldr-nav .ldr-tuile.ldr-c-web{background-image:url(https://agenceldr.github.io/demos-ldr/images-ldr/aigles-alpha/a08-78e0867e-menu.webp)!important}
+#ldr-nav#ldr-nav#ldr-nav .ldr-tuile.ldr-c-res{background-image:url(https://agenceldr.github.io/demos-ldr/images-ldr/aigles-alpha/a09-89f6cd2a-menu.webp)!important}
+#ldr-nav#ldr-nav#ldr-nav .ldr-tuile.ldr-c-radar{background-image:url(https://agenceldr.github.io/demos-ldr/images-ldr/aigles-alpha/a10-ce835343-menu.webp)!important}
+#ldr-nav#ldr-nav#ldr-nav .ldr-tuile{-webkit-mask:none!important;mask:none!important;mix-blend-mode:normal!important;filter:none!important}
+
+/* 3. Téléphone et tablette : la barre est collée tout en haut et presque opaque, plus aucun titre ne dépasse au-dessus */
+@media (max-width:1023px){
+  #ldr-nav#ldr-nav .ldr-nav-barre{top:0!important;left:0!important;right:0!important;padding-left:12px!important;padding-right:12px!important;background:rgba(3,7,18,.9)!important;box-shadow:0 1px 0 rgba(255,255,255,.06)}
+}
