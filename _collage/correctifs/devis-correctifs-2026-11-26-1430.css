@@ -1,0 +1,7 @@
+/* LDR · DEVIS · 26/11/2026 14h30 · EN LIGNE (collé à la fin du bloc rawhtml-00ef3847, dans <style id="ld-correctifs-1430">)
+   audit : aigles jamais assombris, pas de rond sur la carte Radars (elle ne se choisit pas), titre dans l'écriture du site */
+#ldr-devis .ld-aigle img,#ldr-devis .ld-aigle:hover img{filter:none!important}
+#ldr-devis .ld-aigle.ldr-rb>img{filter:none!important;opacity:1!important}
+#ldr-devis .ld-aigle.ldr-rb>i{display:none!important}
+#ldr-devis h1{font-family:"Plus Jakarta Sans",system-ui,sans-serif!important;font-weight:800!important;font-size:clamp(36px,8vw,58px)!important;line-height:1.06!important;letter-spacing:-.02em!important;margin:.3em 0 .35em!important}
+.ldr-form>div>div>h3{font-family:"Plus Jakarta Sans",system-ui,sans-serif!important;font-weight:800!important;font-size:28px!important;letter-spacing:-.02em!important;line-height:1.1!important}
