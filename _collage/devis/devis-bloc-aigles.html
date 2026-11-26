@@ -1,0 +1,203 @@
+<!-- Agence LDR · Page Devis (idée A, choisie par Lilian le 25/11 à 21h58)
+     Bloc « Code HTML » placé AU-DESSUS du formulaire Systeme.io de la page.
+     Il habille le vrai formulaire (Nuit & blanc) et coche ses cases cachées
+     « Site web / Fiche Google / Réseaux sociaux / Radars » quand on touche un aigle. -->
+<style>
+  #ldr-devis{--nuit:#060a14;--blanc:#fff;--gris:#a7b1c6;--trait:rgba(255,255,255,.16);
+    --maps:#38BDF8;--web:#F59E0B;--res:#22C55E;--rad:#EC4899;
+    font-family:"Plus Jakarta Sans",system-ui,sans-serif;color:#fff;position:relative;
+    max-width:760px;margin:0 auto;padding:40px 18px 0;box-sizing:border-box;text-align:left}
+  #ldr-devis *{box-sizing:border-box}
+  #ldr-devis .ld-fond{position:fixed;inset:0;z-index:0;pointer-events:none;
+    background:linear-gradient(180deg,rgba(6,10,20,.45),rgba(6,10,20,.88) 45%,#060a14 80%),
+    url(https://agenceldr.github.io/demos-ldr/images-ldr/accueil/a19-5b47bc83.webp) center top/cover}
+  #ldr-devis>*:not(.ld-fond){position:relative;z-index:1}
+  #ldr-devis .ld-sur{font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--gris);font-weight:700;display:flex;align-items:center;gap:8px}
+  #ldr-devis .ld-sur:before{content:"";width:7px;height:7px;border-radius:50%;background:#fff;box-shadow:0 0 10px #fff}
+  #ldr-devis h1{font-family:"Bebas Neue",Impact,sans-serif;font-weight:400;font-size:clamp(46px,9vw,84px);line-height:.92;letter-spacing:.01em;margin:.18em 0 .2em;color:#fff}
+  #ldr-devis .ld-intro{color:#cfd6e4;font-size:16px;line-height:1.55;margin:0 0 22px;max-width:52ch}
+  #ldr-devis .ld-etape{font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#fff;font-weight:800;margin:0 0 12px;display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+  #ldr-devis .ld-etape span{color:var(--gris);font-weight:600;letter-spacing:.04em;text-transform:none;font-size:13px}
+  #ldr-devis .ld-grille{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+  #ldr-devis .ld-aigle{appearance:none;border:1px solid rgba(255,255,255,.1);background:#070b16;color:#fff;padding:0;cursor:pointer;text-align:left;font:inherit;
+    border-radius:20px;position:relative;overflow:hidden;transition:transform .2s ease,box-shadow .25s ease;-webkit-tap-highlight-color:transparent}
+  #ldr-devis .ld-aigle img{display:block;width:100%;aspect-ratio:16/11;object-fit:cover;object-position:50% 4%;filter:saturate(.75) brightness(.72);transition:filter .3s ease,transform .4s ease}
+  #ldr-devis .ld-aigle b{display:block;padding:10px 12px 12px;font-size:14.5px;font-weight:800;line-height:1.2;background:linear-gradient(180deg,#0b1120,#070b16);border-top:1px solid rgba(255,255,255,.08)}
+  #ldr-devis .ld-aigle small{display:block;font-weight:500;font-size:11.5px;color:#d9dfeb;margin-top:2px}
+  #ldr-devis .ld-aigle:hover img{filter:saturate(.85) brightness(.75)}
+  #ldr-devis .ld-aigle[aria-pressed="true"]{border-color:var(--c);box-shadow:0 0 0 1px var(--c),0 0 34px color-mix(in srgb,var(--c) 70%,transparent);transform:translateY(-2px)}
+  #ldr-devis .ld-aigle[aria-pressed="true"] img{filter:none;transform:scale(1.04)}
+  #ldr-devis .ld-aigle i{position:absolute;top:9px;right:9px;width:26px;height:26px;border-radius:50%;border:2px solid rgba(255,255,255,.7);
+    display:grid;place-items:center;font-style:normal;font-weight:900;font-size:14px;color:transparent;background:rgba(0,0,0,.35);transition:all .2s}
+  #ldr-devis .ld-aigle[aria-pressed="true"] i{background:var(--c);border-color:var(--c);color:#000}
+  #ldr-devis .ld-aigle:focus-visible{outline:2px solid #fff;outline-offset:3px}
+  #ldr-devis .ld-passur{grid-column:1/-1;display:flex;align-items:center;gap:14px;background:rgba(255,255,255,.05);border:1px solid var(--trait);border-radius:18px;padding:8px 14px 8px 8px}
+  #ldr-devis .ld-passur img{width:58px;height:58px;aspect-ratio:auto;object-position:50% 30%;border-radius:12px;filter:none}
+  #ldr-devis .ld-passur b{padding:0;background:none;border:0;font-size:14.5px}
+  #ldr-devis .ld-passur i{position:static;margin-left:auto;flex:none}
+  #ldr-devis .ld-passur[aria-pressed="true"]{border-color:#fff;box-shadow:0 0 22px rgba(255,255,255,.28);transform:none}
+  #ldr-devis .ld-choix{min-height:1.5em;margin:14px 0 0;color:#cfd6e4;font-size:14px}
+  #ldr-devis .ld-choix b{color:#fff}
+  @media (max-width:640px){
+    #ldr-devis{padding-top:24px}
+    #ldr-devis .ld-grille{grid-template-columns:1fr 1fr;gap:10px}
+    #ldr-devis .ld-intro{font-size:15px}
+    #ldr-devis .ld-etape span{display:none}
+  }
+  @media (prefers-reduced-motion:reduce){#ldr-devis *{transition:none!important}}
+
+  /* ---- Le formulaire Systeme.io, habillé Nuit & blanc ---- */
+  .ldr-form-section{background:transparent!important;position:relative;z-index:1;padding-top:8px!important}
+  .ldr-haut{background:transparent!important;padding-bottom:16px!important}
+  .ldr-form-section>div,.ldr-form-section [id^="row-"]{background:transparent!important}
+  .ldr-form{max-width:760px!important;margin:0 auto 70px!important;padding:24px 22px 26px!important;
+    background:rgba(10,15,28,.78)!important;border:1px solid rgba(255,255,255,.14)!important;border-radius:24px!important;
+    box-shadow:0 30px 80px rgba(0,0,0,.45)!important;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+    display:flex!important;flex-direction:column!important;gap:12px!important;font-family:"Plus Jakarta Sans",system-ui,sans-serif}
+  .ldr-form>div{margin:0!important;padding:0!important;width:100%!important}
+  .ldr-form .ldr-o1{order:1}.ldr-form .ldr-o2{order:2}.ldr-form .ldr-o3{order:3}.ldr-form .ldr-o4{order:4}
+  .ldr-form .ldr-o5{order:5}.ldr-form .ldr-o6{order:6}.ldr-form .ldr-o7{order:7}.ldr-form .ldr-cache{display:none!important}
+  .ldr-form .ldr-titre{order:0;font-size:12px;letter-spacing:.16em;text-transform:uppercase;font-weight:800;color:#fff;margin:0 0 2px}
+  .ldr-form input[type=text],.ldr-form input[type=email],.ldr-form input[type=tel]{
+    background:rgba(255,255,255,.06)!important;border:1px solid rgba(255,255,255,.16)!important;border-radius:14px!important;
+    color:#fff!important;font-family:inherit!important;font-size:16px!important;padding:15px 16px!important;height:auto!important;box-shadow:none!important}
+  .ldr-form input::placeholder{color:#8f9ab0!important;opacity:1}
+  .ldr-form input:focus{border-color:#fff!important;outline:none!important;background:rgba(255,255,255,.09)!important}
+  .ldr-form [id^="field-"]>div{background:transparent!important;border:0!important}
+  .ldr-form button[role=combobox]{background:rgba(255,255,255,.06)!important;border:1px solid rgba(255,255,255,.16)!important;border-radius:14px!important;margin-right:8px}
+  .ldr-form label p,.ldr-form label div{color:#cfd6e4!important;font-family:inherit!important;font-size:13.5px!important;line-height:1.45!important}
+  .ldr-form label input[type=checkbox]{accent-color:#fff}
+  .ldr-form [data-test-id="submit-form-button"]{background:#fff!important;color:#060a14!important;border:0!important;border-radius:999px!important;
+    padding:17px 20px!important;font-family:inherit!important;font-weight:800!important;font-size:16px!important;cursor:pointer;
+    box-shadow:0 10px 30px rgba(255,255,255,.18)!important;transition:transform .15s ease}
+  .ldr-form [data-test-id="submit-form-button"]:hover{transform:translateY(-1px)}
+  .ldr-form [data-test-id="submit-form-button"] div{font-size:0!important;color:#060a14!important}
+  .ldr-form [data-test-id="submit-form-button"] div:after{content:"Envoyer ma demande";font-size:16px;font-weight:800}
+  .ldr-form .ldr-note{order:8;margin:2px 0 0;text-align:center;color:#8f9ab0;font-size:12.5px;line-height:1.5}
+  @media (max-width:640px){.ldr-form{width:auto!important;box-sizing:border-box!important;margin:0 18px 60px!important;padding:20px 16px 22px!important}}
+  /* Message « Merci » apres envoi (habillage Nuit & blanc) */
+  .ldr-form>div:has(>div>h3){background:rgba(6,10,22,.95)!important;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-radius:inherit;z-index:5;align-items:center!important;justify-content:center!important}
+  .ldr-form>div:has(>div>h3)>div:not(:has(>h3)){display:none!important}
+  .ldr-form>div>div:has(>h3){background:transparent!important;box-shadow:none!important;border:0!important;text-align:center;max-width:460px;padding:24px!important}
+  .ldr-form>div>div:has(>h3)>svg{display:none!important}
+  .ldr-form>div>div:has(>h3)::before{content:"";display:block;width:64px;height:64px;margin:0 auto 16px;border-radius:50%;border:1.5px solid rgba(255,255,255,.85);background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5'/%3E%3C/svg%3E") center/30px no-repeat;box-shadow:0 0 28px rgba(255,255,255,.25)}
+  .ldr-form>div>div>h3{font-family:'Bebas Neue',Impact,sans-serif!important;font-weight:400!important;font-size:36px!important;letter-spacing:.02em;line-height:1!important;color:#fff!important;margin:0 0 10px!important}
+  .ldr-form>div>div:has(>h3) span{display:block;background:none!important;box-shadow:none!important;padding:0!important;color:rgba(255,255,255,.78)!important;font-family:Inter,system-ui,sans-serif!important;font-size:16px!important;line-height:1.5!important}
+</style>
+
+<div id="ldr-devis">
+  <div class="ld-fond" aria-hidden="true"></div>
+  <div class="ld-sur">Agence LDR · Devis gratuit</div>
+  <h1>Parlons de votre projet</h1>
+  <p class="ld-intro">Touchez ce qui vous intéresse, plusieurs choix possibles. On vous rappelle pour en parler, sans engagement.</p>
+  <div class="ld-etape">1. Ce qui vous intéresse <span>plusieurs choix possibles</span></div>
+  <div class="ld-grille" role="group" aria-label="Ce qui vous intéresse">
+    <button type="button" class="ld-aigle" data-offre="Site web" aria-pressed="false" style="--c:var(--web)">
+      <img src="https://agenceldr.github.io/demos-ldr/images-ldr/accueil/a08-78e0867e.webp" alt="Aigle orange de la création de site web" loading="lazy"><i>✓</i><b>Site web<small>Un site à votre image</small></b></button>
+    <button type="button" class="ld-aigle" data-offre="Fiche Google" aria-pressed="false" style="--c:var(--maps)">
+      <img src="https://agenceldr.github.io/demos-ldr/images-ldr/accueil/a07-775dbab2.webp" alt="Aigle bleu de la Fiche Google" loading="lazy"><i>✓</i><b>Fiche Google<small>Être trouvé sur Google</small></b></button>
+    <button type="button" class="ld-aigle" data-offre="Réseaux sociaux" aria-pressed="false" style="--c:var(--res)">
+      <img src="https://agenceldr.github.io/demos-ldr/images-ldr/accueil/a09-89f6cd2a.webp" alt="Aigle vert des réseaux sociaux" loading="lazy"><i>✓</i><b>Réseaux sociaux<small>Facebook et Instagram</small></b></button>
+    <button type="button" class="ld-aigle" data-offre="Radars" aria-pressed="false" style="--c:var(--rad)">
+      <img src="https://agenceldr.github.io/demos-ldr/images-ldr/accueil/a10-ce835343.webp" alt="Aigle rose des Radars" loading="lazy"><i>✓</i><b>Radars<small>Trouver vos futurs clients</small></b></button>
+    <button type="button" class="ld-aigle ld-passur" data-offre="" aria-pressed="false" style="--c:#fff">
+      <img src="https://agenceldr.github.io/demos-ldr/images-ldr/accueil/a06-d7fce7dc.webp" alt="Aigle multicolore de l'agence" loading="lazy"><b>Je ne sais pas encore<small>On vous conseille au téléphone</small></b><i>✓</i></button>
+  </div>
+  <p class="ld-choix" id="ldr-choix" aria-live="polite">Rien de choisi pour l'instant.</p>
+</div>
+
+<script>
+(function(){
+  // Systeme.io peut executer ce script deux fois, ou avant que le bloc existe :
+  // on ne pose les ecouteurs qu'une seule fois, et on attend que le bloc soit la.
+  if(window.__ldrDevis) return;
+  var racine=document.getElementById('ldr-devis');
+  if(!racine){ var t0=0; (function guetter(){ if(window.__ldrDevis) return; if(document.getElementById('ldr-devis')){ lancer(); } else if(++t0<200){ setTimeout(guetter,100); } })(); return; }
+  lancer();
+  function lancer(){
+  if(window.__ldrDevis) return; window.__ldrDevis=1;
+  racine=document.getElementById('ldr-devis');
+  var OFFRES=['Site web','Fiche Google','Réseaux sociaux','Radars'];
+  function leForm(){return document.querySelector('form[id^="optinform-"]');}
+  function caseDe(nom){
+    var f=leForm(); if(!f) return null;
+    var ps=f.querySelectorAll('label p, label div > div');
+    for(var i=0;i<ps.length;i++){ if(ps[i].textContent.trim()===nom){ var l=ps[i].closest('label'); return l && l.querySelector('input[type=checkbox]'); } }
+    return null;
+  }
+  function blocDe(el){ var f=leForm(); while(el && el.parentElement!==f) el=el.parentElement; return el; }
+  function habiller(){
+    var f=leForm(); if(!f) return false;
+    if(f.classList.contains('ldr-form') && f.querySelector('.ldr-titre')) return true;
+    f.classList.add('ldr-form');
+    [].slice.call(f.querySelectorAll('.ldr-titre,.ldr-note')).forEach(function(x){x.remove();});
+    var sec=f.closest('section'); if(sec) sec.classList.add('ldr-form-section');
+    var haut=(document.getElementById('ldr-devis')||racine).closest('section'); if(haut) haut.classList.add('ldr-haut');
+    var t=document.createElement('p'); t.className='ldr-titre'; t.textContent='2. Vos coordonnées'; f.insertBefore(t,f.firstChild);
+    var plan=[['input[name=first_name]','ldr-o1','Votre prénom'],['input[type=tel]','ldr-o2','Votre téléphone'],
+      ['input[name=email]','ldr-o3','Votre e-mail'],['input[name=company_name]','ldr-o4','Votre métier (ex. boulanger, plombier)'],
+      ['input[name=city]','ldr-o5','Votre ville']];
+    plan.forEach(function(p){var i=f.querySelector(p[0]); if(!i) return; var b=blocDe(i); if(b) b.classList.add(p[1]);
+      if(p[2]){i.setAttribute('placeholder',p[2]); i.setAttribute('aria-label',p[2]);}});
+    OFFRES.forEach(function(n){var c=caseDe(n); var b=c&&blocDe(c); if(b) b.classList.add('ldr-cache');});
+    var cons=[].slice.call(f.querySelectorAll('input[type=checkbox]')).filter(function(c){return !OFFRES.some(function(n){return caseDe(n)===c;});});
+    cons.forEach(function(c){var b=blocDe(c); if(b) b.classList.add('ldr-o6');});
+    var btn=f.querySelector('[data-test-id="submit-form-button"]'); if(btn){var bb=blocDe(btn); if(bb) bb.classList.add('ldr-o7');}
+    var n=document.createElement('p'); n.className='ldr-note'; n.textContent='Gratuit et sans engagement. Vos coordonnées servent uniquement à vous recontacter.'; f.appendChild(n);
+    return true;
+  }
+  function majTexte(){
+    racine=document.getElementById('ldr-devis');
+    var ch=[].slice.call(racine.querySelectorAll('.ld-aigle[aria-pressed="true"]')).map(function(b){return b.dataset.offre||'Je ne sais pas encore';});
+    document.getElementById('ldr-choix').innerHTML = ch.length ? 'Votre choix : <b>'+ch.join(', ')+'</b>' : "Rien de choisi pour l'instant.";
+  }
+  function regler(nom,etat){ var c=caseDe(nom); if(c && c.checked!==etat) c.click(); }
+  document.addEventListener('click',function(ev){
+    var b=ev.target.closest && ev.target.closest('#ldr-devis .ld-aigle'); if(!b) return;
+    racine=document.getElementById('ldr-devis');
+    var on=b.getAttribute('aria-pressed')!=='true';
+    if(!b.dataset.offre){ // « Je ne sais pas encore » : on retire les autres choix
+      racine.querySelectorAll('.ld-aigle').forEach(function(x){ if(x.dataset.offre) x.setAttribute('aria-pressed','false'); });
+      OFFRES.forEach(function(n){regler(n,false);});
+    } else {
+      var ps=racine.querySelector('.ld-passur'); if(ps) ps.setAttribute('aria-pressed','false');
+      regler(b.dataset.offre,on);
+    }
+    b.setAttribute('aria-pressed',on?'true':'false');
+    majTexte();
+  });
+  // Les choix d'offres sont ecrits dans le champ « metier » juste avant l'envoi,
+  // pour qu'ils apparaissent sur la fiche du contact dans Systeme.io.
+  var SEP=' · Intéressé par : ';
+  function inscrireChoix(){
+    var f=leForm(); var m=f&&f.querySelector('input[name=company_name]'); if(!m) return;
+    racine=document.getElementById('ldr-devis');
+    var ch=[].slice.call(racine.querySelectorAll('.ld-aigle[aria-pressed="true"]')).map(function(b){return b.dataset.offre||'je ne sais pas encore';});
+    var base=m.value.split(SEP)[0].trim();
+    var v=ch.length ? (base?base:'?')+SEP+ch.join(', ') : base;
+    if(v===m.value) return;
+    Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set.call(m,v);
+    m.dispatchEvent(new Event('input',{bubbles:true})); m.dispatchEvent(new Event('change',{bubbles:true}));
+  }
+  // Au clic sur « Envoyer » : on bloque ce premier clic, on ecrit les choix,
+  // puis on relance l'envoi un instant apres (le temps que le formulaire les prenne en compte).
+  var relance=false;
+  document.addEventListener('click',function(ev){
+    var b=ev.target.closest && ev.target.closest('form[id^="optinform-"] [data-test-id="submit-form-button"]'); if(!b) return;
+    if(relance){ relance=false; return; }
+    var f=leForm(); var m=f&&f.querySelector('input[name=company_name]'); var avant=m&&m.value;
+    inscrireChoix();
+    if(m && m.value!==avant){ ev.preventDefault(); ev.stopPropagation(); ev.stopImmediatePropagation();
+      setTimeout(function(){ relance=true; b.click(); },120); }
+  },true);
+  document.addEventListener('keydown',function(ev){
+    if(ev.key!=='Enter' || !(ev.target.closest && ev.target.closest('form[id^="optinform-"]'))) return;
+    var f=leForm(); var b=f&&f.querySelector('[data-test-id="submit-form-button"]'); if(!b) return;
+    ev.preventDefault(); ev.stopPropagation(); b.click();
+  },true);
+  // Habillage : tout de suite, puis surveille (si la page se redessine, on rhabille).
+  habiller(); setInterval(function(){ habiller(); majTexteSiBesoin(); },400);
+  function majTexteSiBesoin(){ var c=document.getElementById('ldr-choix'); if(c && !c.dataset.ok){ c.dataset.ok=1; majTexte(); } }
+  }
+})();
+</script>

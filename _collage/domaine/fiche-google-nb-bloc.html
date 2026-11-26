@@ -1,0 +1,725 @@
+<!-- Agence LDR · page Fiche Google · Nuit & blanc · bloc à coller tel quel (HTML brut) -->
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"><style id="ldr-test-style">
+#ldr-pm *,#ldr-pm *::before,#ldr-pm *::after{box-sizing:border-box;font-variant-ligatures:none;font-feature-settings:"liga" 0,"clig" 0,"dlig" 0}
+#ldr-pm h1,#ldr-pm h2,#ldr-pm h3,#ldr-pm p,#ldr-pm ul,#ldr-pm ol,#ldr-pm li,#ldr-pm form,#ldr-pm label,#ldr-pm blockquote{margin:0;padding:0;text-align:left;font-family:var(--pm-f)}
+#ldr-pm h1,#ldr-pm h2,#ldr-pm h3{color:var(--pm-ink);font-weight:800;letter-spacing:-.025em;text-wrap:balance;text-transform:none}
+#ldr-pm .pm-w{width:100%;max-width:1180px;margin:0 auto;padding:0 24px}
+@keyframes ldrPmfCar{0%{transform:translate3d(-25%,0,0)}100%{transform:translate3d(0,0,0)}}
+@keyframes ldrPmfPin{0%{opacity:0;transform:translate3d(0,6px,0) scale(.3)}4%{opacity:1;transform:translate3d(0,-3px,0) scale(1.12)}7%{opacity:1;transform:translate3d(0,0,0) scale(1)}58%{opacity:1;transform:translate3d(0,0,0) scale(1)}68%{opacity:0;transform:translate3d(0,0,0) scale(.7)}100%{opacity:0;transform:translate3d(0,6px,0) scale(.3)}}
+@keyframes ldrPmfRing{0%{opacity:0;transform:scale(.1)}7%{opacity:1}100%{opacity:0;transform:scale(1)}}
+@keyframes ldrPmfHalo{0%,100%{opacity:.75;transform:scale(.92)}50%{opacity:1;transform:scale(1.04)}}
+@keyframes ldrPmfHop{0%,16%,100%{transform:translate3d(0,0,0)}6%{transform:translate3d(0,-7px,0)}}
+@keyframes ldrPmfDrift{0%{transform:translate3d(-1.6%,-1.1%,0)}100%{transform:translate3d(1.6%,1.1%,0)}}
+@keyframes ldrPmSweep{0%{left:0;opacity:0}15%{opacity:1}85%{opacity:1}100%{left:calc(100% - 160px);opacity:0}}
+#ldr-pm .pm-btn,#ldr-pm .btn{position:relative;overflow:hidden;display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:58px;padding:0 30px;border:0;border-radius:16px;
+  background:linear-gradient(180deg,#67D0FB 0%,#38BDF8 55%,#1CA3E3 100%);color:#03131F!important;font:800 16px/1.2 var(--pm-f);letter-spacing:0;text-decoration:none!important;text-align:center!important;white-space:nowrap;cursor:pointer;
+  box-shadow:0 1px 0 rgba(255,255,255,.5) inset,0 0 0 1px rgba(56,189,248,.45),0 14px 34px -12px rgba(56,189,248,.8);transition:transform .25s var(--pm-ease),box-shadow .25s var(--pm-ease)}
+#ldr-pm .pm-btn::after,#ldr-pm .btn::after{content:"";position:absolute;inset:0;background:linear-gradient(105deg,transparent 35%,rgba(255,255,255,.5) 50%,transparent 65%);transform:translateX(-120%);transition:transform .9s var(--pm-ease);pointer-events:none}
+#ldr-pm .pm-btn:hover,#ldr-pm .btn:hover{transform:translateY(-2px);box-shadow:0 1px 0 rgba(255,255,255,.5) inset,0 0 0 1px rgba(125,211,252,.7),0 18px 44px -12px rgba(56,189,248,.95)}
+#ldr-pm .pm-btn:hover::after,#ldr-pm .btn:hover::after{transform:translateX(120%)}
+#ldr-pm .pm-btn:active,#ldr-pm .btn:active{transform:none}
+#ldr-pm .btn[disabled]{opacity:.55;cursor:progress;transform:none}
+#ldr-pm .pm-link,#ldr-pm .lien{display:inline-flex;align-items:center;min-height:44px;color:var(--pm-soft);font-weight:600;text-decoration:underline;text-decoration-color:rgba(56,189,248,.6);text-decoration-thickness:1.5px;text-underline-offset:5px;transition:color .2s}
+#ldr-pm .pm-link:hover,#ldr-pm .lien:hover{color:var(--pm-ink)}
+@keyframes ldrPmShine{from{background-position:100% 0}to{background-position:0 0}}
+@keyframes ldrPmBlink{50%{opacity:0}}
+#ldr-pm .pm-why{grid-column:1;position:relative;display:block;margin-top:9px;padding-left:18px;color:#8AB4F8;font-size:13.5px;font-weight:600;line-height:1.3;opacity:0;transform:translate3d(0,-4px,0);transition:opacity .45s var(--pm-ease) .35s,transform .45s var(--pm-ease) .35s}
+#ldr-pm .pm-why::before{content:"";position:absolute;left:3px;top:1px;width:8px;height:8px;border:solid #8AB4F8;border-width:2px 0 0 2px;transform:rotate(45deg)}
+#ldr-pm .pm-why::after{content:"";position:absolute;left:6px;top:3px;width:2px;height:11px;background:#8AB4F8}
+@keyframes ldrPmTapC{0%{opacity:1;box-shadow:0 0 0 0 rgba(138,180,248,.85)}100%{opacity:1;box-shadow:0 0 0 16px rgba(138,180,248,0)}}
+@keyframes ldrPmMiss{0%{box-shadow:0 0 0 0 rgba(242,176,122,.75)}100%{box-shadow:0 0 0 9px rgba(242,176,122,0)}}
+@keyframes ldrPmYou{0%,100%{box-shadow:0 0 0 0 rgba(56,189,248,0)}45%{box-shadow:0 0 0 2px rgba(56,189,248,.7),0 0 26px rgba(56,189,248,.45)}}
+@keyframes ldrPmRing{0%{transform:scale(.35);opacity:.95}100%{transform:scale(1.6);opacity:0}}
+@keyframes ldrPmOk{0%{box-shadow:0 0 0 0 rgba(52,199,89,.65)}100%{box-shadow:0 0 0 12px rgba(52,199,89,0)}}
+@keyframes ldrPmCall{0%{box-shadow:0 0 0 0 rgba(56,189,248,.55)}70%,100%{box-shadow:0 0 0 9px rgba(56,189,248,0)}}
+#ldr-pm .pm-test{padding-top:clamp(72px,10vw,128px);scroll-margin-top:calc(var(--pm-menu) + 8px)}
+#ldr-pm .test{position:relative;overflow:hidden;padding:clamp(22px,4vw,52px);border-radius:26px;border:1px solid transparent;
+  background:linear-gradient(160deg,#09162A,#040B18) padding-box,linear-gradient(135deg,rgba(125,211,252,.7),rgba(56,189,248,.06) 45%,rgba(56,189,248,.45)) border-box;
+  box-shadow:0 50px 120px -50px rgba(0,0,0,.9),0 0 80px -30px rgba(56,189,248,.3)}
+#ldr-pm .test::before{content:"";position:absolute;right:-140px;top:-180px;width:560px;height:560px;border-radius:50%;background:radial-gradient(closest-side,rgba(56,189,248,.34),rgba(56,189,248,.08) 55%,transparent);pointer-events:none}
+#ldr-pm .test::after{content:"";position:absolute;left:-160px;bottom:-220px;width:520px;height:520px;border-radius:50%;background:radial-gradient(closest-side,rgba(129,140,248,.30),rgba(99,102,241,.08) 55%,transparent);pointer-events:none}
+#ldr-pm .tgrid,#ldr-pm .tapercu{position:relative;z-index:1}
+#ldr-pm .tapercu{display:inline-block;margin:0 0 22px;padding:8px 14px;border-radius:10px;border:1px dashed rgba(148,178,214,.38);background:rgba(2,6,16,.5);color:var(--pm-soft);font-size:15px;line-height:1.45}
+#ldr-pm .tgrid{position:relative;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:clamp(24px,4vw,56px);align-items:center}
+#ldr-pm .test h2{font-size:clamp(28px,3.2vw,42px);line-height:1.08}
+#ldr-pm .test .sub-t{max-width:34em;margin-top:12px;color:var(--pm-soft)}
+#ldr-pm .tform{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;margin-top:24px;align-items:end}
+#ldr-pm .tfield{position:relative;min-width:0}
+#ldr-pm .tfield label{display:block;margin-bottom:8px;font-size:16px;font-weight:600;line-height:1.3;color:var(--pm-soft)}
+#ldr-pm .tfield input{display:block;width:100%;height:54px;margin:0;padding:0 16px;border-radius:14px;border:1px solid rgba(56,189,248,.45);background:rgba(2,6,16,.82);box-shadow:inset 0 0 0 1px rgba(56,189,248,.08),0 0 24px -10px rgba(56,189,248,.7);color:var(--pm-ink);font:500 16px/1.2 var(--pm-f);outline:none;-webkit-appearance:none;appearance:none;transition:border-color .2s,box-shadow .2s}
+#ldr-pm .tfield input::placeholder{color:#7d8ba0;opacity:1}
+#ldr-pm .tfield input:focus,#ldr-pm .tfield input:focus-visible{border-color:var(--pm-c);box-shadow:0 0 0 4px rgba(56,189,248,.16);outline:none}
+#ldr-pm .ts{margin-top:14px}
+#ldr-pm .ts:empty{display:none}
+#ldr-pm .tmsg{margin-top:14px;font-size:16px;line-height:1.5;color:var(--pm-soft)}
+#ldr-pm .tmsg:empty{display:none}
+#ldr-pm .tmsg.err{color:#FDA4AF}
+#ldr-pm .tsug{position:absolute;z-index:50;left:0;right:0;top:calc(100% + 6px);max-height:300px;overflow-y:auto;padding:6px;border-radius:14px;border:1px solid rgba(56,189,248,.38);background:#081324;box-shadow:0 24px 50px rgba(0,0,0,.6)}
+#ldr-pm .tsug button{display:block;width:100%;min-height:44px;padding:10px 12px;border:0;border-radius:10px;background:transparent;color:var(--pm-ink);font:600 16px/1.35 var(--pm-f);text-align:left;cursor:pointer}
+#ldr-pm .tsug button:hover,#ldr-pm .tsug button.on{background:rgba(56,189,248,.14)}
+#ldr-pm .tsug small,#ldr-pm .tlist small{display:block;margin-top:2px;color:var(--pm-mute);font-size:15px;font-weight:400}
+#ldr-pm .tlist{display:grid;gap:10px;margin-top:16px}
+#ldr-pm .tlist button{display:block;width:100%;min-height:44px;padding:12px 16px;border-radius:12px;border:1px solid var(--pm-line);background:rgba(2,6,16,.55);color:var(--pm-ink);font:600 16px/1.35 var(--pm-f);text-align:left;cursor:pointer;transition:border-color .2s}
+#ldr-pm .tlist button:hover{border-color:var(--pm-c)}
+#ldr-pm .tres{display:grid;grid-template-columns:150px minmax(0,1fr);gap:20px 24px;align-items:center;padding:24px;border-radius:20px;overflow:hidden;border:1px solid transparent;background:linear-gradient(160deg,rgba(8,20,40,.92),rgba(3,9,22,.92)) padding-box,linear-gradient(135deg,rgba(125,211,252,.55),rgba(129,140,248,.12) 50%,rgba(56,189,248,.4)) border-box;box-shadow:0 30px 70px -40px rgba(56,189,248,.55)}
+#ldr-pm .ring{--v:0;--rc:#38BDF8;position:relative;isolation:isolate;display:grid;place-items:center;width:150px;height:150px;border-radius:50%;background:conic-gradient(var(--rc) calc(var(--v) * 3.6deg),rgba(148,178,214,.14) calc(var(--v) * 3.6deg + .5deg))}
+#ldr-pm .ring>div::before{content:"";position:absolute;z-index:-1;left:50%;top:50%;width:270px;height:270px;margin:-135px 0 0 -135px;border-radius:50%;pointer-events:none;background:radial-gradient(circle closest-side,transparent 52%,rgba(56,189,248,.34) 55.5%,rgba(56,189,248,.10) 74%,transparent 100%);background:radial-gradient(circle closest-side,transparent 52%,color-mix(in srgb,var(--rc) 36%,transparent) 55.5%,color-mix(in srgb,var(--rc) 10%,transparent) 74%,transparent 100%)}
+#ldr-pm .ring::before{content:"";position:absolute;z-index:1;inset:12px;border-radius:50%;background:#071224}
+#ldr-pm .ring>div{position:relative;z-index:2;line-height:1.1;text-align:center}
+#ldr-pm .ring strong{display:block;font-size:44px;font-weight:800;line-height:1;letter-spacing:-.02em;color:var(--rc);font-variant-numeric:tabular-nums;text-align:center}
+#ldr-pm .ring span{display:block;margin-top:6px;color:var(--pm-mute);font-size:15px;line-height:1.2;text-align:center}
+#ldr-pm .tres.is-vide .ring{background:rgba(148,178,214,.14)}
+#ldr-pm .tres.is-vide .ring>div::before{background:radial-gradient(circle closest-side,transparent 52%,rgba(56,189,248,.46) 55.5%,rgba(129,140,248,.16) 76%,transparent 100%)}
+#ldr-pm .tres.is-vide .ring::after{content:"";position:absolute;inset:0;border-radius:50%;background:conic-gradient(from 200deg,#38BDF8,#818CF8 40%,#F472B6 62%,transparent 62.5%)}
+#ldr-pm.pm-anim .tres.is-vide .ring::after{animation:ldrPmTurn 9s linear infinite}
+@keyframes ldrPmTurn{to{transform:rotate(360deg)}}
+#ldr-pm .tres.is-vide .ring strong{color:#7DD3FC;font-weight:800;text-shadow:0 0 18px rgba(56,189,248,.8)}
+#ldr-pm .tres.is-vide .tname{color:var(--pm-c2)}
+#ldr-pm .tres.is-vide .tpoints li.flou{filter:blur(5px)}
+#ldr-pm .tname{font-size:20px;font-weight:800;line-height:1.25}
+#ldr-pm .taddr{margin-top:2px;font-size:15px;line-height:1.4;color:var(--pm-mute)}
+#ldr-pm .tpoints{display:grid;gap:8px;margin-top:14px}
+#ldr-pm .tpoints li{display:flex;align-items:center;gap:12px;min-height:44px;padding:10px 14px;border-radius:12px;border:1px solid var(--pm-line);background:rgba(2,6,16,.55);font-size:16px;line-height:1.4;text-wrap:pretty}
+#ldr-pm .tpoints li i{flex:none;width:10px;height:10px;border-radius:50%;background:var(--pm-warn);box-shadow:0 0 10px rgba(245,158,11,.6)}
+#ldr-pm .tpoints li.fort i{background:var(--pm-bad);box-shadow:0 0 10px rgba(248,113,113,.6)}
+#ldr-pm .tpoints li.bien i,#ldr-pm .tpoints li.plus i{background:var(--pm-c);box-shadow:0 0 10px rgba(56,189,248,.6)}
+#ldr-pm .tpoints li.flou{filter:blur(5px);-webkit-user-select:none;user-select:none;pointer-events:none}
+#ldr-pm .tpoints li.vide:nth-child(1) i{background:var(--pm-bad);box-shadow:0 0 10px rgba(248,113,113,.7)}
+#ldr-pm .tpoints li.vide:nth-child(2) i{background:var(--pm-warn);box-shadow:0 0 10px rgba(245,158,11,.7)}
+#ldr-pm .tpoints li.vide:nth-child(3) i{background:var(--pm-c);box-shadow:0 0 10px rgba(56,189,248,.7)}
+#ldr-pm .tpoints li.vide span{display:block;height:10px;border-radius:5px;background:linear-gradient(90deg,rgba(148,178,214,.2) 0%,rgba(125,211,252,.55) 50%,rgba(148,178,214,.2) 100%) 0 0/220% 100%}
+#ldr-pm.pm-anim .tpoints li.vide span{animation:ldrPmShimmer 2.6s ease-in-out infinite}
+#ldr-pm.pm-anim .tpoints li.vide:nth-child(2) span{animation-delay:.3s}
+#ldr-pm.pm-anim .tpoints li.vide:nth-child(3) span{animation-delay:.6s}
+@keyframes ldrPmShimmer{0%{background-position:100% 0}100%{background-position:-120% 0}}
+#ldr-pm .tpoints li.vide .l1{width:78%}
+#ldr-pm .tpoints li.vide .l2{width:60%}
+#ldr-pm .tpoints li.vide .l3{width:70%}
+#ldr-pm .tnote{grid-column:1/-1;font-size:15px;line-height:1.5;color:var(--pm-mute)}
+#ldr-pm .tres.mt-pop .ring{animation:ldrPmPop .5s var(--pm-ease) both}
+@keyframes ldrPmPop{from{opacity:0;transform:scale(.94)}to{opacity:1;transform:none}}
+#ldr-pm .tlead,#ldr-pm .trepli{margin-top:28px;padding:24px;border-radius:18px;border:1px solid rgba(56,189,248,.3);background:rgba(56,189,248,.05)}
+#ldr-pm .tlead h3,#ldr-pm .trepli h3{font-size:22px;line-height:1.2}
+#ldr-pm .trepli h3:focus{outline:none}
+#ldr-pm .tlead-p,#ldr-pm .trepli p{margin-top:8px;font-size:16px;line-height:1.55;color:var(--pm-soft)}
+#ldr-pm .tlead .tform{grid-template-columns:repeat(3,minmax(0,1fr));margin-top:16px}
+#ldr-pm .tcons{display:flex;gap:12px;align-items:flex-start;margin-top:16px;font-size:15px;line-height:1.5;color:var(--pm-mute);cursor:pointer}
+#ldr-pm .tcons input{flex:none;width:22px;height:22px;margin:1px 0 0;accent-color:var(--pm-c);cursor:pointer}
+#ldr-pm .tcons a{color:var(--pm-soft);text-underline-offset:3px}
+#ldr-pm .tlead .btn,#ldr-pm .trepli .btn{margin-top:18px}
+#ldr-pm .trepli .lien{margin-left:18px;margin-top:18px}
+#ldr-pm .pm-why{max-height:0;margin-top:0;overflow:hidden;transition:opacity .45s var(--pm-ease) .35s,transform .45s var(--pm-ease) .35s,max-height .4s var(--pm-ease),margin-top .4s var(--pm-ease)}
+@keyframes ldrPmDk{from{opacity:0;transform:translate3d(0,16px,0)}to{opacity:1;transform:none}}
+@keyframes ldrPmPod{0%{opacity:0;left:83.3%;transform:translate3d(-50%,40px,0)}8%{opacity:1;left:83.3%;transform:translate3d(-50%,0,0)}
+ 18%,40%{opacity:1;left:83.3%;transform:translate3d(-50%,-104px,0)}
+ 58%,88%{opacity:1;left:50%;transform:translate3d(-50%,-172px,0)}
+ 96%,100%{opacity:0;left:50%;transform:translate3d(-50%,-172px,0)}}
+@media (max-width:899px){#ldr-pm .tgrid{grid-template-columns:minmax(0,1fr);gap:24px}
+#ldr-pm .tres{grid-template-columns:minmax(0,1fr);justify-items:center}
+#ldr-pm .tres .tinfo{width:100%}}
+@media (max-width:640px){#ldr-pm .pm-w{padding:0 16px}
+#ldr-pm .test{padding:22px 16px}
+#ldr-pm .tform,#ldr-pm .tlead .tform{grid-template-columns:minmax(0,1fr)}
+#ldr-pm .tform .btn,#ldr-pm .tlead .btn,#ldr-pm .trepli .btn{width:100%}
+#ldr-pm .tres{padding:20px 16px}
+#ldr-pm .tlead,#ldr-pm .trepli{padding:20px 16px}
+#ldr-pm .trepli .lien{margin-left:0;margin-top:8px}}
+@media (max-width:899px){#ldr-pm .pm-test{padding-top:56px}}
+@media (prefers-reduced-motion:reduce){#ldr-pm *,#ldr-pm *::before,#ldr-pm *::after{animation:none!important;transition:none!important}}
+#ldr-pm h1,#ldr-pm h2,#ldr-pm h3{color:var(--ldr-blanc,#F5F5F4)}
+#ldr-pm{background:transparent}
+#ldr-pm .pm-test{padding-bottom:clamp(40px,6vw,80px)}
+</style><style id="ldr-fg-nuit-blanc-2026-11-25">
+/* Fiche Google · Nuit & blanc · même famille que l'Accueil v29, mise en scène propre à la page */
+html{background:#030712!important}
+html body{background:transparent!important;position:relative!important}
+html body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+ background:linear-gradient(180deg,rgba(3,7,18,.10) 0,rgba(3,7,18,.05) 40%,rgba(3,7,18,.55) 100%),url(https://cdn.jsdelivr.net/gh/AGENCELDR/demos-ldr@72c71c8533694b5009ea0e37a2fd38794af606bb/_collage/fonds/fond-maps-plan-tel.webp) center bottom/cover no-repeat,#030712}
+html body.fg-loin::after{background:linear-gradient(180deg,rgba(3,7,18,.78),rgba(3,7,18,.86)),url(https://cdn.jsdelivr.net/gh/AGENCELDR/demos-ldr@72c71c8533694b5009ea0e37a2fd38794af606bb/_collage/fonds/fond-maps-plan-tel.webp) center bottom/cover no-repeat,#030712;transition:background .6s}
+@media(min-width:900px) and (min-aspect-ratio:1/1){html body::after{background:linear-gradient(90deg,rgba(3,7,18,.92) 0,rgba(3,7,18,.6) 38%,rgba(3,7,18,0) 62%),url(https://cdn.jsdelivr.net/gh/AGENCELDR/demos-ldr@72c71c8533694b5009ea0e37a2fd38794af606bb/_collage/fonds/fond-maps-plan-pc.webp) 70% center/cover no-repeat,#030712}html body.fg-loin::after{background:linear-gradient(90deg,rgba(3,7,18,.82),rgba(3,7,18,.7)),url(https://cdn.jsdelivr.net/gh/AGENCELDR/demos-ldr@72c71c8533694b5009ea0e37a2fd38794af606bb/_collage/fonds/fond-maps-plan-pc.webp) center/cover no-repeat,#030712}}
+.fg,.fg *{box-sizing:border-box;margin:0;padding:0}
+.fg{--b:#38BDF8;--bc:#F5F5F4;--g:#A8B3C7;--l:rgba(255,255,255,.08);font-family:"Plus Jakarta Sans",system-ui,sans-serif;color:var(--bc);-webkit-font-smoothing:antialiased;font-feature-settings:"liga" 0;overflow-x:clip;width:100%;background:transparent}
+.fg a{color:inherit;text-decoration:none}
+.fg .w{max-width:1180px;margin:0 auto;padding:0 20px;position:relative}
+.fg .sur{display:flex;align-items:center;gap:10px;font-size:11.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--g)}
+.fg .sur::before{content:"";width:18px;height:1px;background:var(--g)}
+.fg h1,.fg h2{font-weight:800;color:#fff;letter-spacing:-.03em;text-wrap:balance}
+.fg h2{font-size:32px;line-height:1.05;margin-top:12px}
+.fg h2 span,.fg h1 span{display:block;color:#fff}
+.fg .trait{display:block;width:46px;height:4px;border-radius:2px;background:var(--b);margin:16px 0 0;box-shadow:0 0 18px rgba(56,189,248,.55)}
+.fg .lead{font-size:15px;line-height:1.5;color:var(--g);margin-top:14px;max-width:560px}
+/* boutons : les mêmes que l'Accueil */
+.fg .act{display:flex;flex-direction:column;align-items:stretch;gap:14px}
+.fg .b1{display:flex;justify-content:center;align-items:center;gap:10px;padding:17px 22px;border-radius:999px;background:#F5F5F4;color:#0b1020;font-size:16px;font-weight:700;white-space:nowrap;box-shadow:0 10px 30px rgba(255,255,255,.10);transition:transform .2s,box-shadow .2s}
+.fg .b1:hover{transform:translateY(-1px);box-shadow:0 14px 36px rgba(255,255,255,.18)}
+.fg .b1 svg{width:18px;height:18px}
+.fg .b2{display:inline-flex;justify-content:center;align-items:center;gap:8px;padding:4px 0;font-size:15px;font-weight:600;color:#D7DCE6}
+.fg .b2::after{content:"→";font-weight:500;transition:transform .2s}
+.fg .b2:hover::after{transform:translateX(3px)}
+.fg .faits{display:flex;flex-wrap:wrap;gap:6px 16px;justify-content:center;font-size:11.5px;color:var(--g);font-weight:500;margin-top:16px}
+.fg .faits span::before{content:"";display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--b);margin-right:7px;vertical-align:2px}
+.fg .rond{flex:none;width:52px;height:52px;border-radius:50%;background:#F5F5F4;color:#0b1020;display:grid;place-items:center;transition:transform .25s}
+.fg .rond svg{width:20px;height:20px}
+.fg a:hover .rond{transform:translateX(3px)}
+
+/* ===== 1. Haut de page ===== */
+.fg .haut{position:relative;padding:22px 0 34px;isolation:isolate;min-height:calc(100svh - 70px)}
+.fg .haut .aigle{position:absolute;z-index:-1;pointer-events:none;top:-10px;right:-46%;width:112%;max-width:none;opacity:.42;
+ -webkit-mask-image:radial-gradient(closest-side at 50% 42%,#000 30%,transparent 100%);mask-image:radial-gradient(closest-side at 50% 42%,#000 30%,transparent 100%)}
+
+.fg .ou{display:flex;align-items:center;flex-wrap:wrap;gap:7px;font-size:12px;font-weight:600;color:#D4D9E3}
+.fg .ou .pt{width:7px;height:7px;border-radius:50%;background:var(--b);box-shadow:0 0 10px var(--b)}
+.fg .ou .sep{opacity:.35}
+.fg h1{font-size:35px;line-height:1.04;margin-top:14px}
+.fg .haut .sous{font-size:15px;line-height:1.5;color:var(--g);margin-top:14px;max-width:460px}
+/* l'objet du métier : un vrai téléphone, ouvert sur Google Maps, qui déborde */
+.fg .scene{position:relative;margin:30px -20px 0 auto;width:300px;max-width:78%;transform:rotate(-4deg);transform-origin:80% 20%}
+.fg .tel{position:relative;border-radius:40px;padding:6px;background:#050608;box-shadow:0 0 0 1.5px #6b6f77,0 0 0 2.5px #17181c,0 40px 70px -20px rgba(0,0,0,.85),0 0 80px rgba(56,189,248,.18)}
+.fg .tel::after{content:"";position:absolute;right:-3px;top:22%;width:2px;height:11%;border-radius:0 2px 2px 0;background:#6b6f77}
+.fg .ecran{border-radius:34px;overflow:hidden;background:#0f1419;padding:10px 12px 16px;min-height:470px}
+.fg .barre{display:flex;justify-content:space-between;align-items:center;font-size:11px;font-weight:700;color:#e5e7eb;padding:2px 10px 10px}
+.fg .barre .enc{width:70px;height:20px;border-radius:12px;background:#000}
+.fg .ecran .q{display:flex;align-items:center;gap:9px;padding:10px 13px;border-radius:999px;background:#1f262e;font-size:13px;font-weight:600;color:#E5E9F0;box-shadow:0 2px 8px rgba(0,0,0,.4)}
+.fg .ecran .q svg{width:15px;height:15px;color:#9aa4b2}
+.fg .filtres{display:flex;gap:6px;margin:10px 0 4px;overflow:hidden}
+.fg .filtres span{flex:none;font-size:10.5px;font-weight:600;color:#cfd6df;padding:5px 9px;border-radius:999px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.16)}
+.fg .filtres .on{background:rgba(56,189,248,.16);color:#BAE6FD;box-shadow:none}
+.fg .ecran .r{display:grid;grid-template-columns:24px 1fr;gap:9px;padding:12px 2px;border-bottom:1px solid rgba(255,255,255,.07)}
+.fg .ecran .r i{font-style:normal;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;font-size:11px;font-weight:800;background:rgba(255,255,255,.08);color:#fff}
+.fg .ecran .r b{display:block;font-size:14.5px;font-weight:700;color:#fff}
+.fg .ecran .r small{display:block;font-size:11.5px;color:#9aa4b2;margin-top:2px}
+.fg .ecran .r small em{font-style:normal;color:#4ADE80;font-weight:700}
+.fg .ecran .un{background:linear-gradient(90deg,rgba(56,189,248,.10),transparent);border-radius:12px;padding-left:6px;margin:4px -4px 0}
+.fg .ecran .un i{background:var(--b);color:#03121c;box-shadow:0 0 14px rgba(56,189,248,.6)}
+.fg .gestes{display:flex;gap:6px;margin-top:9px}
+.fg .gestes u{text-decoration:none;font-size:10.5px;font-weight:700;padding:6px 9px;border-radius:999px;background:rgba(56,189,248,.16);color:#BAE6FD}
+.fg .gestes u:first-child{background:var(--b);color:#03121c}
+.fg .ecran .saut{text-align:center;color:#6b7685;letter-spacing:.4em;font-size:11px;padding:4px 0;border-bottom:1px solid rgba(255,255,255,.07)}
+.fg .ecran .vous{opacity:.55}
+.fg .ecran .vous small{color:#FDA4AF}
+.fg .bulle{position:absolute;font-size:12px;font-weight:800;padding:8px 13px;border-radius:999px;white-space:nowrap;transform:rotate(4deg);box-shadow:0 12px 30px rgba(0,0,0,.5)}
+.fg .b-un{left:-38%;top:37%;background:#F5F5F4;color:#0b1020}
+.fg .b-un::after{content:"";position:absolute;right:-26px;top:50%;width:26px;height:1.5px;background:#F5F5F4}
+.fg .b-vous{left:-30%;bottom:13%;background:#F43F5E;color:#fff}
+.fg .b-vous::after{content:"";position:absolute;right:-22px;top:50%;width:22px;height:1.5px;background:#F43F5E}
+.fg .scene .ex{position:absolute;right:30px;bottom:-26px;font-size:10.5px;color:#7C879B;transform:rotate(4deg)}
+.fg .trajet .cite{font-size:15px;line-height:1.45;font-style:italic;color:#D7DCE6;margin-top:46px;max-width:440px;padding-left:16px;border-left:2px solid var(--b)}
+.fg .prix{display:flex;align-items:baseline;gap:12px;margin:28px 0 18px}
+.fg .prix strong{font-size:46px;font-weight:800;letter-spacing:-.04em;line-height:1;color:#fff}
+.fg .prix span{font-size:13.5px;color:var(--g);line-height:1.35}
+.fg .prix span b{color:#fff;font-weight:700}
+.fg .tva{font-size:11px;color:#7C879B;text-align:center;margin-top:8px}
+
+/* ===== 2. Le trajet du client : 4 panneaux à balayer ===== */
+.fg .trajet{padding:44px 0 26px}
+.fg .route{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;margin:26px -20px 0;padding:6px 20px 14px;scrollbar-width:none}
+.fg .route::-webkit-scrollbar{display:none}
+.fg .etape{flex:0 0 78%;scroll-snap-align:start;position:relative;min-height:300px;padding:22px 20px 22px;border-radius:0;overflow:hidden;isolation:isolate;
+ background:linear-gradient(180deg,rgba(56,189,248,.10),rgba(3,7,18,.2) 60%);border-top:1px solid rgba(56,189,248,.45)}
+.fg .etape .gn{position:absolute;right:-6px;bottom:-34px;z-index:-1;font-size:170px;font-weight:800;line-height:1;letter-spacing:-.06em;color:transparent;-webkit-text-stroke:1.5px rgba(56,189,248,.35)}
+.fg .etape .notif{min-height:56px;display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:16px;background:rgba(15,20,30,.85);box-shadow:0 14px 30px rgba(0,0,0,.4),inset 0 0 0 1px rgba(255,255,255,.08);font-size:12.5px;font-weight:700;color:#fff}
+.fg .etape .notif i{flex:none;width:30px;height:30px;border-radius:9px;display:grid;place-items:center;background:var(--b);color:#03121c;font-style:normal}
+.fg .etape .notif i svg{width:16px;height:16px}
+.fg .etape .notif small{display:block;font-size:10.5px;font-weight:500;color:#8b96a8;margin-top:1px}
+.fg .etape b{display:block;font-size:34px;font-weight:800;letter-spacing:-.03em;color:#fff;margin-top:30px;line-height:1}
+.fg .etape p{font-size:14.5px;line-height:1.45;color:var(--g);margin-top:10px;max-width:300px}
+.fg .trajet .pts{display:flex;gap:6px;justify-content:center;margin-top:4px}
+.fg .trajet .pts i{width:6px;height:6px;border-radius:3px;background:rgba(255,255,255,.25);transition:width .3s,background .3s}
+.fg .trajet .pts i.on{width:20px;background:#F5F5F4}
+/* ===== 3. Le pack ===== */
+.fg .pack{position:relative;padding:48px 0 30px;isolation:isolate}
+.fg .pack .aigle2{position:absolute;z-index:-1;pointer-events:none;left:-58%;top:20px;width:120%;opacity:.28;transform:scaleX(-1);
+ -webkit-mask-image:radial-gradient(closest-side at 50% 40%,#000 30%,transparent 100%);mask-image:radial-gradient(closest-side at 50% 40%,#000 30%,transparent 100%)}
+.fg .pack .gros{display:flex;align-items:baseline;gap:12px;margin-top:22px}
+.fg .pack .gros strong{font-size:64px;font-weight:800;letter-spacing:-.05em;line-height:.95;color:#fff}
+.fg .pack .gros span{font-size:13.5px;color:var(--g);line-height:1.35}
+.fg .pack .gros span b{color:#fff}
+.fg .pack ul{list-style:none;margin-top:26px;border-top:1px solid var(--l)}
+.fg .pack li{display:grid;grid-template-columns:22px 1fr;gap:12px;align-items:start;padding:15px 0;border-bottom:1px solid var(--l);font-size:16px;font-weight:600;line-height:1.35;color:#fff}
+.fg .pack li svg{width:20px;height:20px;color:var(--b);margin-top:1px}
+.fg .pack li em{display:inline-block;font-style:normal;font-size:10.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#03121c;background:var(--b);padding:3px 7px;border-radius:999px;margin-left:8px;vertical-align:2px}
+.fg .pack .avis{font-size:14.5px;line-height:1.5;color:var(--g);margin-top:20px;max-width:520px}
+.fg .pack .avis b{color:#fff}
+.fg .pack .go{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-top:28px;padding:18px 0;border-top:1px solid var(--l);border-bottom:1px solid var(--l)}
+.fg .pack .go b{display:block;font-size:19px;font-weight:800;color:#fff;letter-spacing:-.01em}
+.fg .pack .go small{display:block;font-size:13px;color:var(--g);margin-top:3px}
+
+/* ===== 4. Comment ça se passe (même code que « On vient chez vous » de l'Accueil) ===== */
+.fg .etapes{position:relative;padding:40px 0 30px}
+.fg .etapes .ph{position:relative;height:250px;margin:0 -20px}
+.fg .etapes .ph img{width:100%;height:100%;object-fit:cover;object-position:50% 40%;opacity:.78;
+ -webkit-mask-image:linear-gradient(180deg,transparent 0,#000 22%,#000 50%,transparent 100%);mask-image:linear-gradient(180deg,transparent 0,#000 22%,#000 50%,transparent 100%)}
+.fg .etapes .txt{position:relative;z-index:1;margin-top:-60px}
+.fg .etapes ol{list-style:none;margin-top:22px}
+.fg .etapes li{display:grid;grid-template-columns:54px 1fr;gap:8px;padding:15px 0;border-top:1px solid var(--l)}
+.fg .etapes li i{font-style:normal;font-size:31px;font-weight:800;line-height:1;color:transparent;-webkit-text-stroke:1px rgba(255,255,255,.55);letter-spacing:-.03em}
+.fg .etapes li b{font-size:17px;color:#fff;font-weight:700}
+.fg .etapes li p{font-size:14.5px;color:var(--g);line-height:1.42;margin-top:3px}
+
+/* ===== 5. Le test (outil d'origine, habillé Nuit & blanc) ===== */
+.fg #ldr-pm{margin-top:20px}
+html body .fg #ldr-pm .pm-test{padding:40px 0 20px!important;background:none!important}
+html body .fg #ldr-pm .test{background:none!important;box-shadow:none!important;border:0!important;padding:0 20px!important;max-width:1180px;margin:0 auto}
+html body .fg #ldr-pm h2{font-size:32px!important;line-height:1.05!important;font-weight:800!important;color:#fff!important;letter-spacing:-.03em!important}
+html body .fg #ldr-pm h2::after{content:"";display:block;width:46px;height:4px;border-radius:2px;background:#38BDF8;margin-top:16px;box-shadow:0 0 18px rgba(56,189,248,.55)}
+html body .fg #ldr-pm .sub-t{color:#A8B3C7!important;font-size:15px!important}
+html body .fg #ldr-pm .btn{background:#F5F5F4!important;color:#0b1020!important;border-radius:999px!important;font-weight:700!important;box-shadow:0 10px 30px rgba(255,255,255,.10)!important;border:0!important}
+html body .fg #ldr-pm input{border-radius:14px!important;background:rgba(255,255,255,.05)!important;border:1px solid rgba(255,255,255,.14)!important;color:#fff!important}
+html body .fg #ldr-pm .tres{background:linear-gradient(180deg,rgba(15,23,42,.7),rgba(8,12,26,.55))!important;box-shadow:inset 0 0 0 1px rgba(255,255,255,.08)!important;border:0!important}
+
+/* ===== 6. Fin ===== */
+.fg .fin{position:relative;padding:56px 0 46px;isolation:isolate;text-align:center}
+.fg .fin .ph{position:absolute;inset:0;z-index:-1;overflow:hidden}
+.fg .fin .ph img{width:100%;height:100%;object-fit:cover;object-position:50% 55%;opacity:.55;
+ -webkit-mask-image:linear-gradient(180deg,transparent,#000 30%,#000 70%,transparent);mask-image:linear-gradient(180deg,transparent,#000 30%,#000 70%,transparent)}
+.fg .fin h2{font-size:33px}
+.fg .fin .trait{margin:16px auto 0}
+.fg .fin .prix{justify-content:center;margin:24px 0 18px}
+.fg .fin .act{max-width:420px;margin:0 auto}
+.fg .qui{display:flex;align-items:center;justify-content:center;gap:12px;margin:30px auto 0;max-width:520px;font-size:13px;line-height:1.45;color:var(--g);text-align:left}
+.fg .qui img{width:44px;height:44px;border-radius:50%}
+.fg .qui b{color:#fff}
+/* pied (le même que l'Accueil) */
+.fg .pied{border-top:1px solid var(--l);padding:26px 0 34px}
+.fg .pied nav{display:flex;flex-wrap:wrap;gap:8px 18px;font-size:13.5px;color:#D7DCE6}
+.fg .pied .sig{display:flex;align-items:center;gap:8px;margin-top:16px;font-size:12px;color:var(--g)}
+.fg .pied .sig img{width:22px;height:22px;border-radius:50%}
+.fg .pied .sig b{color:#fff}
+.fg .pied .leg{font-size:11px;color:#7C879B;margin-top:10px;line-height:1.45}
+
+/* apparition douce */
+.fg [data-v]{opacity:0;transform:translateY(16px);transition:opacity .8s ease,transform .8s cubic-bezier(.2,.7,.2,1)}
+.fg [data-v].vu{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){.fg [data-v]{opacity:1;transform:none;transition:none}}
+
+/* ===== Ordinateur ===== */
+@media(min-width:900px){
+.fg .w{padding:0 44px}
+.fg h1{font-size:60px;max-width:640px}
+.fg h2{font-size:46px}
+.fg .act{flex-direction:row;align-items:center;gap:26px}
+.fg .b1{padding:17px 30px}
+.fg .faits{justify-content:flex-start}
+.fg .tva{text-align:left}
+.fg .haut{padding:56px 0 70px}
+.fg .haut .grille{max-width:600px}
+.fg .haut{min-height:calc(100vh - 80px);display:flex;align-items:center}
+.fg .haut>.w{width:100%}
+.fg .haut h1{font-size:58px;max-width:600px}
+.fg .haut .aigle{top:-90px;right:-8%;width:62%}
+.fg .trajet .grille{display:grid;grid-template-columns:1fr 1fr;gap:20px 70px;align-items:center}
+.fg .trajet .route{grid-column:1/-1}
+.fg .scene{margin:0 auto;width:330px;max-width:none}
+.fg .trajet .cite{margin-top:28px}
+.fg .route{overflow:visible;margin:40px 0 0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.fg .etape{min-height:340px}
+.fg .trajet .pts{display:none}
+.fg .pack .grille{display:grid;grid-template-columns:.85fr 1.15fr;gap:70px;align-items:start}
+.fg .pack .aigle2{left:-22%;width:62%;top:-40px}
+.fg .pack .gros strong{font-size:96px}
+.fg .pack ul{margin-top:8px}
+.fg .etapes .cadre{position:relative;min-height:560px}
+.fg .etapes .ph{position:absolute;margin:0;top:-40px;bottom:0;right:-44px;left:40%;height:auto}
+.fg .etapes .ph img{-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 35%,#000 75%,transparent 100%),linear-gradient(180deg,transparent,#000 20%,#000 80%,transparent);-webkit-mask-composite:source-in;mask-image:linear-gradient(90deg,transparent 0,#000 35%,#000 75%,transparent 100%),linear-gradient(180deg,transparent,#000 20%,#000 80%,transparent);mask-composite:intersect}
+.fg .etapes .txt{margin-top:0;max-width:520px;padding-top:40px}
+.fg .fin{padding:110px 0 80px}
+.fg .fin h2{font-size:52px}
+.fg .fin .act{flex-direction:row;justify-content:center;max-width:none}
+.fg .fin .faits{justify-content:center}
+}
+</style><div class="ldr-bloc fg">
+<section class="haut"><div class="w"><div class="grille"><div>
+<div class="ou"><span class="pt"></span>Pack Maps<span class="sep">·</span>Fiche Google<span class="sep">·</span>Sainte-Menehould</div>
+<h1>Quand on cherche votre métier, <span>on vous trouve&nbsp;?</span></h1>
+<p class="sous">Quand votre fiche ne convainc pas, le client appelle le voisin. Nous faisons en sorte que ce soit vous qu'il choisisse.</p>
+<div class="prix"><strong>590&nbsp;€</strong><span>Paiement unique,<br><b>sans abonnement</b></span></div>
+<div class="act"><a class="b1" href="https://www.agence-ldr.fr/5897fccc">Demander mon devis <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10h12M11 5l5 5-5 5"/></svg></a><a class="b2" href="https://www.agence-ldr.fr/d123ba74#ldr-test">Tester ma fiche</a></div>
+<div class="faits"><span>Premier regard gratuit</span><span>Devis écrit avant tout</span></div>
+</div>
+</div></div></section>
+
+<section class="trajet"><div class="w"><div class="grille"><div data-v>
+<div class="sur">Ce que votre fiche rapporte</div>
+<h2>Deux fiches qui se ressemblent. <span>Une seule est choisie.</span></h2><span class="trait"></span>
+<p class="lead">Ni Google ni vos clients ne choisissent au hasard. Savoir pourquoi, et le corriger dans les règles de Google&nbsp;: c'est notre métier.</p>
+</div>
+<div class="scene"><div class="tel" role="img" aria-label="Exemple de recherche sur Google Maps, données fictives"><div class="ecran">
+<div class="barre"><span>21:47</span><span class="enc"></span><span>5G</span></div>
+<div class="q"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="9" cy="9" r="5.5"/><path d="m13.2 13.2 3.8 3.8"/></svg>Plombier près de chez moi</div>
+<div class="filtres"><span class="on">Ouvert</span><span>Mieux notés</span><span>Près de moi</span></div>
+<div class="r un"><i>1</i><div><b>Fluvane Plomberie</b><small>Plombier · 1,2&nbsp;km</small><small><em>Ouvert</em> · Ferme à 19:00</small><span class="gestes"><u>Appeler</u><u>Itinéraire</u><u>Site web</u></span></div></div>
+<div class="r"><i>2</i><div><b>Plomberie du Centre</b><small>Plombier</small></div></div>
+<div class="saut">· · ·</div>
+<div class="r vous"><i>7</i><div><b>Votre entreprise</b><small>Le client a choisi une autre fiche</small></div></div>
+</div></div>
+<span class="bulle b-un">Le client appelle ici</span><span class="bulle b-vous">C'est vous</span>
+<p class="ex">Exemple · données fictives</p></div>
+<p class="cite">« Le client compare les fiches, puis il appelle la première. La vôtre, il ne l'a même pas ouverte. »</p>
+
+<div class="route" id="fg-route">
+<div class="etape"><span class="gn">01</span><span class="notif"><i><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="9" cy="9" r="5.5"/><path d="m13.2 13.2 3.8 3.8"/></svg></i><span>Votre fiche est apparue<small>à l'instant · exemple</small></span></span><b>Trouvé</b><p>Quand on cherche votre métier près de chez vous, votre fiche apparaît.</p></div>
+<div class="etape"><span class="gn">02</span><span class="notif"><i><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 3v3M4.5 5.5l2 2M3 10h3M8 9l8 3-3.5 1.5L11 17z"/></svg></i><span>Votre fiche est choisie<small>à l'instant · exemple</small></span></span><b>Choisi</b><p>Votre fiche inspire confiance&nbsp;: le client n'a plus de raison d'aller voir ailleurs.</p></div>
+<div class="etape"><span class="gn">03</span><span class="notif"><i><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3h3l1.5 4-2 1.2a9 9 0 0 0 4.3 4.3L13 10.5l4 1.5v3a2 2 0 0 1-2 2A13 13 0 0 1 3 5a2 2 0 0 1 2-2z"/></svg></i><span>Appel via votre fiche Google<small>à l'instant · exemple</small></span></span><b>Appelé</b><p>Le client qui vous a choisi vous appelle ou vient vous voir, sans chercher.</p></div>
+<div class="etape"><span class="gn">04</span><span class="notif"><i><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="10" r="2.2"/><circle cx="15" cy="5" r="2.2"/><circle cx="15" cy="15" r="2.2"/><path d="m7 9 6-3M7 11l6 3"/></svg></i><span>Votre fiche est partagée<small>à l'instant · exemple</small></span></span><b>Recommandé</b><p>Vos clients parlent de vous, librement. Ceux qui hésitent sont rassurés.</p></div>
+</div><div class="pts" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i></div></div></div></section>
+
+<section class="pack"><img class="aigle2" src="https://agenceldr.github.io/demos-ldr/_aigles/maps-card700.webp" alt="" loading="lazy"><div class="w"><div class="grille"><div data-v>
+<div class="sur">Compris dans le Pack Maps</div>
+<h2>Tout, <span>en une fois.</span></h2><span class="trait"></span>
+<div class="gros"><strong>590&nbsp;€</strong><span>Paiement unique,<br><b>sans abonnement</b></span></div>
+</div><div data-v>
+<ul>
+<li><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m4.5 10.5 3.5 3.5 7.5-8"/></svg><span>Un audit écrit de votre fiche, face à vos voisins</span></li>
+<li><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m4.5 10.5 3.5 3.5 7.5-8"/></svg><span>Votre fiche refaite, prête à être choisie</span></li>
+<li><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m4.5 10.5 3.5 3.5 7.5-8"/></svg><span>Un kit prêt à l'emploi pour que vos clients vous recommandent</span></li>
+<li><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m4.5 10.5 3.5 3.5 7.5-8"/></svg><span>Vos prochaines étapes, par écrit</span></li>
+<li><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m4.5 10.5 3.5 3.5 7.5-8"/></svg><span>Un rapport avant / après</span></li>
+<li><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m4.5 10.5 3.5 3.5 7.5-8"/></svg><span>Votre fiche aussi dans ChatGPT<em>bêta</em></span></li>
+</ul>
+<p class="avis"><b>Plus d'avis, sans courir après vos clients&nbsp;:</b> demander un avis à chaque client satisfait, simplement et sans gêne, au bon moment.</p>
+<a class="go" href="https://www.agence-ldr.fr/5897fccc"><span><b>Demander mon devis</b><small>Premier regard gratuit · devis écrit avant tout</small></span><span class="rond"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10h12M11 5l5 5-5 5"/></svg></span></a>
+</div></div></div></section>
+
+<section class="etapes"><div class="w"><div class="cadre">
+<div class="ph"><img src="https://agenceldr.github.io/demos-ldr/images-ldr/accueil/a20-213fd335.webp" alt="Un commerçant montre son téléphone à un client" loading="lazy"></div>
+<div class="txt" data-v><div class="sur">Comment ça se passe</div>
+<h2>Quatre étapes, <span>tout par écrit.</span></h2><span class="trait"></span>
+<ol>
+<li><i>01</i><div><b>Premier regard gratuit</b><p>Nous vous disons par écrit si l'offre vous sert.</p></div></li>
+<li><i>02</i><div><b>Vous nous donnez l'accès</b><p>Un accès gestionnaire, jamais votre mot de passe.</p></div></li>
+<li><i>03</i><div><b>Démarrage sous 72&nbsp;h</b><p>Après réception des accès.</p></div></li>
+<li><i>04</i><div><b>Livraison et suivi</b><p>Rapport avant / après, puis 30&nbsp;jours de réponses par SMS et e-mail.</p></div></li>
+</ol></div></div></div></section>
+
+<div id="ldr-pm" class="pm-anim"><section class="pm-test" id="ldr-test" aria-labelledby="ldr-t-titre">
+  <div class="pm-w" data-r>
+  <div class="test">
+    <p class="tapercu" id="ldr-t-apercu" hidden>Aperçu hors du site&#8239;: exemple figé, aucune vraie fiche analysée.</p>
+    <div class="tgrid">
+      <div class="tleft">
+        <h2 id="ldr-t-titre">Testez votre fiche Google gratuitement.</h2>
+        <p class="sub-t">Tapez le nom de votre entreprise, comme sur Google. Vous voyez votre score LDR et ce qui peut vous coûter des clients.</p>
+        <form class="tform" id="ldr-t-form" novalidate>
+          <div class="tfield"><label for="ldr-t-nom">Nom de votre entreprise</label><input id="ldr-t-nom" name="entreprise" type="text" autocomplete="off" placeholder="Ex. Maison Martin Reims" required role="combobox" aria-autocomplete="list" aria-controls="ldr-t-sug-nom" aria-expanded="false" enterkeyhint="search"><div class="tsug" id="ldr-t-sug-nom" role="listbox" aria-label="Suggestions" hidden></div></div>
+          <button class="btn" type="submit" id="ldr-t-go">Analyser ma fiche</button>
+        </form>
+        <div class="ts" id="ldr-t-turnstile" data-ts="fiche-google"></div>
+        <p class="tmsg" id="ldr-t-msg" role="status" aria-live="polite"></p>
+        <div class="tlist" id="ldr-t-list" hidden></div>
+      </div>
+      <div class="tres is-vide" id="ldr-t-res">
+        <div class="ring" id="ldr-t-ring"><div><strong id="ldr-t-score">—</strong><span>sur 100</span></div></div>
+        <div class="tinfo">
+          <div class="tname" id="ldr-t-name">Exemple de résultat</div>
+          <div class="taddr" id="ldr-t-addr">Données fictives, avant votre test</div>
+          <ul class="tpoints" id="ldr-t-points" aria-hidden="true">
+            <li class="fort"><i></i>On ne vous trouve pas quand on cherche votre métier</li>
+            <li><i></i>Vos clients choisissent une fiche voisine</li>
+            <li class="flou" aria-hidden="true"><i></i>Point masqué&#8239;: visible dans l’analyse complète</li>
+            <li class="flou" aria-hidden="true"><i></i>Point masqué&#8239;: visible dans l’analyse complète</li>
+            <li class="plus"><i></i>2 autres points dans l’analyse complète</li>
+          </ul>
+        </div>
+        <p class="tnote">Score LDR&#8239;: notre propre calcul, pas une note de Google.</p>
+      </div>
+    </div>
+    <div class="tlead" id="ldr-t-lead" hidden>
+      <h3>Recevez l’analyse complète</h3>
+      <p class="tlead-p" hidden></p>
+      <form id="ldr-t-leadform" novalidate>
+        <div class="tform">
+          <div class="tfield"><label for="ldr-t-prenom">Prénom</label><input id="ldr-t-prenom" name="prenom" type="text" autocomplete="given-name"></div>
+          <div class="tfield"><label for="ldr-t-email">E-mail</label><input id="ldr-t-email" name="email" type="email" inputmode="email" autocomplete="email" required></div>
+          <div class="tfield"><label for="ldr-t-tel">Téléphone</label><input id="ldr-t-tel" name="telephone" type="tel" inputmode="tel" autocomplete="tel"></div>
+        </div>
+        <label class="tcons"><input type="checkbox" id="ldr-t-cons"><span>J’accepte que l’Agence LDR utilise ces informations pour me recontacter au sujet de ma fiche Google. Elles sont enregistrées dans nos outils de contacts et dans un journal conservé 180&nbsp;jours. Elles ne sont ni vendues ni cédées. Je peux demander leur consultation, leur correction ou leur suppression via le formulaire de contact, et saisir la CNIL. <a href="https://www.agence-ldr.fr/9c71372a" target="_blank" rel="noopener">En savoir plus</a></span></label>
+        <button class="btn" type="submit" id="ldr-t-send">Recevoir mon analyse complète</button>
+        <p class="tmsg" id="ldr-t-leadmsg" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+    <div class="trepli" id="ldr-t-repli" hidden>
+      <h3 tabindex="-1">Le test ne répond pas pour le moment.</h3>
+      <p>Nous regardons votre fiche nous-mêmes et vous répondons par écrit : laissez vos coordonnées dans le formulaire ci-dessous.</p>
+      <button class="btn" type="button" id="ldr-t-repli-go">Recevoir l’analyse par écrit</button>
+      <p class="tmsg" role="status" aria-live="polite"></p>
+    </div>
+  </div>
+  </div>
+</section></div>
+
+<section class="fin" id="fin"><div class="ph"><img src="https://agenceldr.github.io/demos-ldr/images-ldr/accueil/a19-5b47bc83.webp" alt="" loading="lazy"></div><div class="w" data-v>
+<div class="sur" style="justify-content:center">Votre devis</div>
+<h2>Quand on cherche votre métier, <span>faisons que ce soit vous.</span></h2><span class="trait"></span>
+<div class="prix"><strong>590&nbsp;€</strong><span>Paiement unique,<br><b>sans abonnement</b></span></div>
+<div class="act"><a class="b1" href="https://www.agence-ldr.fr/5897fccc" data-aller="1">Demander mon devis <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10h12M11 5l5 5-5 5"/></svg></a><a class="b2" href="https://www.agence-ldr.fr/d123ba74#ldr-test">Tester ma fiche</a></div>
+<div class="faits"><span>Premier regard gratuit</span><span>TVA non applicable, art.&nbsp;293&nbsp;B du CGI</span></div>
+<div class="qui"><img src="https://agenceldr.github.io/demos-ldr/images-ldr/accueil/a21-1a624a53.webp" alt=""><p><b>Une agence près de chez vous, pas une plateforme.</b> Sainte-Menehould, Marne. Vous parlez à ceux qui font le travail.</p></div>
+</div></section>
+
+<footer class="pied"><div class="w"><nav><a href="https://www.agence-ldr.fr/e8a3647b">Accueil</a><a href="https://www.agence-ldr.fr/d123ba74">Fiche Google</a><a href="https://www.agence-ldr.fr/77c26f05">Site web</a><a href="https://www.agence-ldr.fr/8ee0b286">Radars</a><a href="https://www.agence-ldr.fr/reseaux">Réseaux sociaux</a><a href="https://www.agence-ldr.fr/9c71372a">Mentions légales</a><a href="https://www.agence-ldr.fr/19b5caee">CGV</a></nav>
+<span class="sig"><img src="https://agenceldr.github.io/demos-ldr/images-ldr/accueil/a21-1a624a53.webp" alt="" loading="lazy">Site réalisé par <b>Agence LDR</b></span>
+<p class="leg">Agence LDR, nom commercial de l'entreprise individuelle d'Adeline Crombez, Sainte-Menehould (Marne). Exemples&nbsp;: données fictives.</p></div></footer>
+</div>
+<!-- FIN DU BLOC SYSTEME.IO --><script>
+;(function(){try{
+(function () {
+  "use strict";
+  var WORKER = "https://ldr-diagnostic.curly-limit-eb7f.workers.dev";
+  var TURNSTILE_SITEKEY = "0x4AAAAAAFV75tm9DXyTpgbu";
+  var LIVE_HOSTS = ["agence-lelderetour.systeme.io", "agence-ldr.fr", "www.agence-ldr.fr"];
+  var LIVE = LIVE_HOSTS.indexOf(location.hostname) >= 0;
+  var CONTACT_MAIL = "admin@agence-ldr.fr";
+  var POINTS_VISIBLES = 2;
+  var EXEMPLE = { ok: true, nom: "Exemple d’entreprise", adresse: "Exemple figé · aucune vraie fiche", score: 70,
+    points: [ { titre: "Aucun site internet relié à la fiche", niveau: "fort" },
+              { titre: "Très peu de photos sur la fiche", niveau: "moyen" },
+              { titre: "Horaires non renseignés", niveau: "moyen" } ] };
+  var root = document.getElementById("ldr-pm");
+  if (!root || root.getAttribute("data-mt")) return;
+  root.setAttribute("data-mt", "1");
+  function $(id) { return root.querySelector("#" + id); }
+  var form = $("ldr-t-form"), nom = $("ldr-t-nom"), sugBox = $("ldr-t-sug-nom"), go = $("ldr-t-go"), tsBox = $("ldr-t-turnstile");
+  var msg = $("ldr-t-msg"), list = $("ldr-t-list"), res = $("ldr-t-res"), ring = $("ldr-t-ring"), scoreEl = $("ldr-t-score");
+  var nameEl = $("ldr-t-name"), addrEl = $("ldr-t-addr"), pointsEl = $("ldr-t-points");
+  var lead = $("ldr-t-lead"), leadForm = $("ldr-t-leadform"), leadMsg = $("ldr-t-leadmsg"), send = $("ldr-t-send"), cons = $("ldr-t-cons");
+  var repli = $("ldr-t-repli"), repliGo = $("ldr-t-repli-go"), apercu = $("ldr-t-apercu");
+  if (!form || !nom || !res || !lead || !repli) return;
+  var leadH = lead.querySelector("h3"), leadP = lead.querySelector(".tlead-p"), repliH = repli.querySelector("h3"), repliMsg = repli.querySelector(".tmsg");
+  var mqR = window.matchMedia ? window.matchMedia("(prefers-reduced-motion: reduce)") : null;
+  function reduce() { return !!(mqR && mqR.matches); }
+  function mobile() { return window.innerWidth <= 760; }
+  var ticket = "", placeChoisi = "", placeSelect = "", lastNom = "", entreprise = "";
+  var sessionTok = (window.crypto && crypto.randomUUID) ? crypto.randomUUID() : String(Date.now()) + Math.random().toString(16).slice(2);
+  var NBSP = " ";
+  if (!LIVE && apercu) apercu.hidden = false;
+  function say(el, text, err) { if (!el) return; el.textContent = text || ""; el.classList.toggle("err", !!err); }
+  var tsReady = null;
+  function tsLoad() {
+    if (!LIVE) return Promise.reject(new Error("hors site"));
+    if (tsReady) return tsReady;
+    tsReady = new Promise(function (ok, ko) {
+      if (window.turnstile) { ok(window.turnstile); return; }
+      var s = document.createElement("script"); s.src = "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit"; s.async = true;
+      s.onload = function () { var n = 0; (function wait() { if (window.turnstile) ok(window.turnstile); else if (n++ > 60) ko(new Error("turnstile")); else setTimeout(wait, 100); })(); };
+      s.onerror = function () { tsReady = null; ko(new Error("turnstile")); };
+      document.head.appendChild(s);
+    });
+    return tsReady;
+  }
+  function tsToken(box) {
+    return tsLoad().then(function (ts) {
+      return new Promise(function (ok, ko) {
+        if (box._wid != null) { try { ts.remove(box._wid); } catch (er) {} box._wid = null; }
+        var fini = false, to = setTimeout(function () { if (!fini) { fini = true; ko(new Error("turnstile")); } }, 25000);
+        box._wid = ts.render(box, { sitekey: TURNSTILE_SITEKEY, appearance: "interaction-only", theme: "dark", language: "fr", action: box.getAttribute("data-ts") || "fiche-google",
+          callback: function (tk) { if (!fini) { fini = true; clearTimeout(to); ok(tk); } },
+          "error-callback": function () { if (!fini) { fini = true; clearTimeout(to); ko(new Error("turnstile")); } } });
+      });
+    });
+  }
+  nom.addEventListener("focus", function () { if (LIVE) tsLoad().catch(function () {}); });
+  function post(path, data) {
+    var ctrl = window.AbortController ? new AbortController() : null;
+    var to = setTimeout(function () { if (ctrl) ctrl.abort(); }, 20000);
+    return fetch(WORKER + path, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(data), signal: ctrl ? ctrl.signal : undefined })
+      .then(function (r) {
+        clearTimeout(to);
+        return r.json().then(function (d) { d = (d && typeof d === "object") ? d : { ok: false, _illisible: true }; d._http = r.status; return d; },
+                             function () { return { ok: false, _illisible: true, _http: r.status }; });
+      }, function () { clearTimeout(to); return { ok: false, _net: true }; });
+  }
+  function panne(d) { return !d || d._net || d._illisible || (d._http || 0) >= 500; }
+  var sugTimer = 0, sugItems = [], sugIdx = -1;
+  function closeSug() { if (!sugBox) return; sugBox.hidden = true; sugBox.innerHTML = ""; sugIdx = -1; nom.setAttribute("aria-expanded", "false"); nom.removeAttribute("aria-activedescendant"); }
+  function pick(it) { nom.value = it.label; placeSelect = it.placeId || ""; closeSug(); }
+  function openSug(items) {
+    sugItems = items; sugBox.innerHTML = ""; sugIdx = -1;
+    if (!items.length) return closeSug();
+    items.forEach(function (it, i) {
+      var b = document.createElement("button"); b.type = "button"; b.tabIndex = -1; b.id = "ldr-t-sug-" + i;
+      b.setAttribute("role", "option"); b.setAttribute("aria-selected", "false");
+      var t = document.createElement("strong"); t.textContent = it.label; b.appendChild(t);
+      if (it.sub) { var s = document.createElement("small"); s.textContent = it.sub; b.appendChild(s); }
+      b.addEventListener("mousedown", function (e) { e.preventDefault(); pick(it); });
+      sugBox.appendChild(b);
+    });
+    sugBox.hidden = false; nom.setAttribute("aria-expanded", "true");
+  }
+  function suggestionsExemple(v) {
+    var base = v.charAt(0).toUpperCase() + v.slice(1);
+    return [
+      { label: base, sub: "Exemple · aucune vraie fiche" },
+      { label: base + " Services", sub: "Exemple · aucune vraie fiche" },
+      { label: base + " et Fils", sub: "Exemple · aucune vraie fiche" }
+    ];
+  }
+  if (sugBox) {
+    nom.addEventListener("input", function () {
+      placeSelect = "";
+      clearTimeout(sugTimer);
+      var v = nom.value.trim();
+      if (v.length < 3) return closeSug();
+      sugTimer = setTimeout(function () {
+        if (!LIVE) { if (nom.value.trim() === v) openSug(suggestionsExemple(v)); return; }
+        post("/suggerer", { texte: v, session: sessionTok }).then(function (d) {
+          if (nom.value.trim() !== v) return;
+          openSug(((d && d.suggestions) || []).slice(0, 5).map(function (x) { return { label: x.nom, sub: x.adresse, placeId: x.placeId }; }));
+        });
+      }, 280);
+    });
+    nom.addEventListener("keydown", function (e) {
+      var btns = sugBox.querySelectorAll("button");
+      if (sugBox.hidden || !btns.length) return;
+      if (e.key === "ArrowDown" || e.key === "ArrowUp") {
+        e.preventDefault();
+        sugIdx = (sugIdx + (e.key === "ArrowDown" ? 1 : -1) + btns.length) % btns.length;
+        Array.prototype.forEach.call(btns, function (b, i) { b.classList.toggle("on", i === sugIdx); b.setAttribute("aria-selected", i === sugIdx ? "true" : "false"); });
+        nom.setAttribute("aria-activedescendant", btns[sugIdx].id);
+      } else if (e.key === "Enter" && sugIdx >= 0) { e.preventDefault(); pick(sugItems[sugIdx]); }
+      else if (e.key === "Escape") closeSug();
+    });
+    nom.addEventListener("blur", function () { setTimeout(closeSug, 150); });
+  }
+  function keepVisible(el) {
+    if (!mobile()) return;
+    setTimeout(function () {
+      var vv = window.visualViewport, h = vv ? vv.height : window.innerHeight, r = el.getBoundingClientRect();
+      if (r.bottom > h - 12 || r.top < 0) { try { el.scrollIntoView({ block: "center", behavior: reduce() ? "auto" : "smooth" }); } catch (e) { el.scrollIntoView(); } }
+    }, 320);
+  }
+  Array.prototype.forEach.call(root.querySelectorAll("#ldr-test input"), function (el) { el.addEventListener("focus", function () { keepVisible(el); }); });
+  function mailto(email, prenom) {
+    var f = document.getElementById("ldr-devis");
+    if (f) {
+      var c = f.querySelector('input[name="b"][value="maps"]'); if (c) c.checked = true;
+      var e = f.querySelector('input[name="email"]'); if (e && email) e.value = email;
+      var n = f.querySelector('input[name="nom"]'); if (n && prenom) n.value = prenom;
+      var m = f.querySelector('textarea[name="message"]'); if (m && !m.value) m.value = "Je voudrais l’analyse de ma fiche Google" + (lastNom ? " : " + lastNom : "") + ".";
+    }
+    var d = document.getElementById("devis"); if (d) d.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  function showRepli() {
+    go.disabled = false; say(msg, ""); list.hidden = true; lead.hidden = true;
+    say(repliMsg, ""); repli.hidden = false;
+    try { repliH.focus({ preventScroll: true }); } catch (e) {}
+    try { repli.scrollIntoView({ block: "nearest", behavior: reduce() ? "auto" : "smooth" }); } catch (e2) {}
+  }
+  if (repliGo) repliGo.addEventListener("click", function () { mailto("", ""); say(repliMsg, "Remplissez le formulaire ci-dessous" + NBSP + ": nous vous répondons."); });
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    closeSug();
+    var n = nom.value.trim(); lastNom = n; entreprise = "";
+    repli.hidden = true;
+    if (n.length < 2) { say(msg, "Indiquez le nom de votre entreprise.", true); nom.focus(); return; }
+    list.hidden = true; go.disabled = true;
+    if (!LIVE) {
+      say(msg, "Analyse de votre fiche en cours…");
+      setTimeout(function () { go.disabled = false; say(msg, ""); ticket = ""; afficher(EXEMPLE); }, reduce() ? 0 : 500);
+      return;
+    }
+    say(msg, "Vérification en cours…");
+    tsToken(tsBox).then(function (tk) {
+      say(msg, "Recherche de votre fiche sur Google…");
+      return post("/chercher", { nom: n, ville: "", turnstile: tk, placeId: placeSelect });
+    }).then(function (d) {
+      go.disabled = false;
+      if (panne(d) || d._http === 403) return showRepli();
+      if (!d.ok) return say(msg, d.erreur || "La recherche n’a pas abouti.", true);
+      if (!d.fiches || !d.fiches.length) return say(msg, d.message || "Aucune fiche trouvée. Ajoutez votre ville après le nom.", true);
+      ticket = d.ticket || "";
+      if (d.fiches.length === 1) return analyser(d.fiches[0]);
+      say(msg, "Plusieurs fiches correspondent. Laquelle est la vôtre" + NBSP + "?");
+      list.innerHTML = "";
+      d.fiches.forEach(function (f) {
+        var b = document.createElement("button"); b.type = "button";
+        var t = document.createElement("strong"); t.textContent = f.nom || "";
+        var a = document.createElement("small"); a.textContent = f.adresse || "";
+        b.appendChild(t); b.appendChild(a);
+        b.addEventListener("click", function () { analyser(f); });
+        list.appendChild(b);
+      });
+      list.hidden = false;
+    }, function () { showRepli(); }).catch(function () { showRepli(); });
+  });
+  function analyser(f) {
+    placeChoisi = f.placeId || ""; entreprise = f.nom || lastNom; list.hidden = true;
+    say(msg, "Analyse de votre fiche en cours…");
+    post("/analyser", { placeId: placeChoisi, ticket: ticket }).then(function (d) {
+      if (d._http === 429 || d.limite) { say(msg, ""); return showLead(true, d.erreur || ""); }
+      if (panne(d)) return showRepli();
+      if (!d.ok) return say(msg, d.erreur || "Session expirée. Relancez la recherche.", true);
+      say(msg, ""); afficher(d);
+    });
+  }
+  function li(cls, text) { var x = document.createElement("li"); if (cls) x.className = cls; x.appendChild(document.createElement("i")); x.appendChild(document.createTextNode(text)); return x; }
+  function count(to) {
+    var t0 = 0, D = 700;
+    function stepC(now) { if (!t0) t0 = now; var t = Math.min(1, (now - t0) / D), e = 1 - Math.pow(1 - t, 3); scoreEl.textContent = String(Math.round(to * e)); if (t < 1) requestAnimationFrame(stepC); }
+    scoreEl.textContent = "0"; requestAnimationFrame(stepC);
+  }
+  function afficher(d) {
+    var sc = Math.max(0, Math.min(100, Math.round(Number(d.score) || 0)));
+    res.classList.remove("is-vide");
+    ring.style.setProperty("--v", sc);
+    ring.style.setProperty("--rc", sc >= 75 ? "#22c55e" : sc >= 50 ? "#f59e0b" : "#f87171");
+    nameEl.textContent = d.nom || "Votre fiche";
+    addrEl.textContent = d.adresse || "";
+    entreprise = d.nom || entreprise || lastNom;
+    pointsEl.innerHTML = ""; pointsEl.removeAttribute("aria-hidden");
+    var pts = d.points || [];
+    if (!pts.length) pointsEl.appendChild(li("bien", "Aucun point faible évident" + NBSP + ": votre fiche est bien tenue. L’analyse complète compare avec vos concurrents."));
+    pts.forEach(function (p, i) {
+      var masque = i >= POINTS_VISIBLES;
+      var x = li((p.niveau === "fort" ? "fort" : "") + (masque ? " flou" : ""), masque ? "Point masqué" + NBSP + ": visible dans l’analyse complète" : (p.titre || ""));
+      if (masque) x.setAttribute("aria-hidden", "true");
+      pointsEl.appendChild(x);
+    });
+    if (pts.length > POINTS_VISIBLES) {
+      var n = pts.length - POINTS_VISIBLES;
+      pointsEl.appendChild(li("plus", n === 1 ? "1 autre point détecté dans l’analyse complète" : n + " autres points détectés dans l’analyse complète"));
+    }
+    if (!reduce()) { res.classList.remove("mt-pop"); void res.offsetWidth; res.classList.add("mt-pop"); count(sc); }
+    else scoreEl.textContent = String(sc);
+    showLead(false, "");
+    var r = res.getBoundingClientRect(), h = window.innerHeight;
+    if (r.top < 0 || r.bottom > h) { try { res.scrollIntoView({ block: "start", behavior: reduce() ? "auto" : "smooth" }); } catch (e) { res.scrollIntoView(); } }
+  }
+  function showLead(limite, texte) {
+    repli.hidden = true;
+    leadH.textContent = limite ? "Recevoir l’analyse par écrit" : "Recevez l’analyse complète";
+    leadP.textContent = texte || ""; leadP.hidden = !texte;
+    Array.prototype.forEach.call(leadForm.querySelectorAll("input, button"), function (x) { x.disabled = false; });
+    say(leadMsg, "");
+    lead.hidden = false;
+    if (limite) { try { lead.scrollIntoView({ block: "nearest", behavior: reduce() ? "auto" : "smooth" }); } catch (e) {} }
+  }
+  leadForm.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var email = $("ldr-t-email").value.trim(), prenom = $("ldr-t-prenom").value.trim(), tel = $("ldr-t-tel").value.trim();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { say(leadMsg, "Indiquez une adresse e-mail valide.", true); $("ldr-t-email").focus(); return; }
+    if (!cons.checked) { say(leadMsg, "Cochez la case pour que nous puissions vous recontacter.", true); return; }
+    if (!LIVE) { say(leadMsg, "Aperçu" + NBSP + ": rien n’est envoyé depuis cette page."); return; }
+    if (!ticket) { say(leadMsg, "Lancez d’abord une analyse de votre fiche.", true); return; }
+    send.disabled = true; say(leadMsg, "Envoi en cours…");
+    post("/contact", { ticket: ticket, placeId: placeChoisi, email: email, prenom: prenom, telephone: tel, entreprise: entreprise || lastNom, consentement: true }).then(function (d) {
+      send.disabled = false;
+      if (panne(d)) { mailto(email, prenom); return say(leadMsg, "Remplissez le formulaire ci-dessous" + NBSP + ": nous vous répondons."); }
+      if (!d.ok) return say(leadMsg, d.erreur || "L’envoi n’a pas abouti. Utilisez le formulaire ci-dessous.", true);
+      say(leadMsg, d.message || "C’est noté. Nous vous recontactons avec l’analyse complète de votre fiche.");
+      Array.prototype.forEach.call(leadForm.querySelectorAll("input, button"), function (x) { x.disabled = true; });
+    });
+  });
+})();
+}catch(e){}})();
+</script><script>
+(function(){var b=document.querySelector('.fg');if(!b)return;
+var els=b.querySelectorAll('[data-v]');
+if(!('IntersectionObserver' in window)){[].forEach.call(els,function(e){e.classList.add('vu')});return;}
+var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('vu');io.unobserve(e.target);}})},{rootMargin:'0px 0px -8% 0px'});
+[].forEach.call(els,function(e){io.observe(e)});
+var hh=b.querySelector('.haut');if(hh){var io3=new IntersectionObserver(function(es){document.body.classList.toggle('fg-loin',!es[0].isIntersecting)},{threshold:.25});io3.observe(hh);}
+var r=document.getElementById('fg-route'),pts=b.querySelectorAll('.trajet .pts i');if(r&&pts.length){r.addEventListener('scroll',function(){var k=Math.round(r.scrollLeft/(r.firstElementChild.offsetWidth+14));[].forEach.call(pts,function(p,i){p.classList.toggle('on',i===k)})},{passive:true});}
+})();
+</script>
+<style id="ldr-fg-gauche-2026-11-25">html body .ldr-bloc.fg{text-align:left}</style>
