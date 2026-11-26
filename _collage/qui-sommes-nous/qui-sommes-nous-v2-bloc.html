@@ -1,0 +1,201 @@
+<!-- Agence LDR · Page « Qui sommes-nous » · v2 Nuit & blanc · 26/11/2026 15h
+     Bloc « Code HTML » de la page (rawhtml-fe554971). Le menu et le fond flouté restent dans leurs blocs.
+     Reprend les pièces déjà validées du site : aigle officiel entier, les 3 valeurs animées, les 4 offres dans l'ordre, la boîte photo, le pied commun.
+     Plus de doré, plus de cartes « 01 / 02 / 03 », plus de 2e formulaire (le devis est sur sa page). -->
+<style id="ldr-qui-v2">
+#ldr-qui{--web:#F59E0B;--maps:#38BDF8;--res:#22C55E;--rad:#EC4899;position:relative;z-index:1;font-family:"Plus Jakarta Sans",system-ui,sans-serif;color:#fff;text-align:left;-webkit-font-smoothing:antialiased;overflow-x:clip}
+#ldr-qui *,#ldr-qui *::before,#ldr-qui *::after{box-sizing:border-box}
+#ldr-qui .dans{max-width:1100px;margin:0 auto;padding:0 20px}
+#ldr-qui h1,#ldr-qui h2,#ldr-qui h3,#ldr-qui p{margin:0}
+#ldr-qui a{color:inherit;text-decoration:none}
+
+/* 1. Haut : l'aigle officiel, entier, en vraies couleurs */
+#ldr-qui .q-haut{padding:14px 0 34px}
+#ldr-qui .q-aigle{display:block;width:min(74vw,300px);height:auto;aspect-ratio:560/700;object-fit:contain;margin:0 auto 2px;transform:translateY(calc(var(--qy,0)*-1px));will-change:transform}
+#ldr-qui .q-sur{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#E5E7EB}
+#ldr-qui .q-sur::before{content:"";width:7px;height:7px;border-radius:50%;background:#fff;box-shadow:0 0 10px #fff}
+#ldr-qui h1{margin-top:10px;font-size:40px;line-height:1.06;font-weight:800;letter-spacing:-.02em;text-shadow:0 2px 24px rgba(0,0,0,.8)}
+#ldr-qui .q-chap{margin-top:14px;font-size:17px;line-height:1.5;color:#D7DCE6;max-width:560px;text-shadow:0 1px 14px rgba(0,0,0,.7)}
+#ldr-qui .q-act{margin-top:22px;display:grid;gap:10px;max-width:420px}
+#ldr-qui .q-b1{display:flex;align-items:center;justify-content:center;gap:10px;min-height:56px;border-radius:999px;background:#F5F5F4;color:#0b1020;font-size:17px;font-weight:700;box-shadow:0 10px 30px rgba(255,255,255,.10)}
+#ldr-qui .q-b2{display:flex;align-items:center;justify-content:center;min-height:52px;border-radius:999px;border:1px solid rgba(255,255,255,.34);background:rgba(3,7,18,.3);font-size:15.5px;font-weight:600;color:#fff}
+
+/* 2. Trois choses : les valeurs animées (suivent le doigt ou la molette) */
+#ldr-qui .q-sec{padding:34px 0}
+#ldr-qui .q-k{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#E5E7EB}
+#ldr-qui h2{margin-top:8px;font-size:30px;line-height:1.1;font-weight:800;letter-spacing:-.02em;text-shadow:0 2px 24px rgba(0,0,0,.8)}
+#ldr-qui .q-vals{display:grid;gap:12px;margin-top:22px}
+#ldr-qui .val{--a:245,158,11;border:1px solid rgba(var(--a),.32);border-radius:20px;overflow:hidden;background:linear-gradient(160deg,rgba(var(--a),.13),rgba(3,7,18,.55) 55%)}
+#ldr-qui .val.v1{--a:56,189,248}#ldr-qui .val.v2{--a:245,158,11}#ldr-qui .val.v3{--a:34,197,94}
+#ldr-qui .val b{display:block;padding:14px 18px 0;font-size:22px;line-height:1.1;font-weight:800;letter-spacing:-.02em}
+#ldr-qui .val p{padding:8px 18px 16px;font-size:15.5px;line-height:1.45;color:#C3CCDB}
+#ldr-qui .scn{--p:0;position:relative;height:160px;display:grid;place-items:center;background:radial-gradient(120% 90% at 50% 100%,rgba(var(--a),.24),transparent 70%);border-bottom:1px solid rgba(var(--a),.2);overflow:hidden}
+#ldr-qui .feuille{position:relative;width:200px;margin-top:-14px;padding:12px 14px;border-radius:10px;background:#F7F4EE;color:#1b1b1b;box-shadow:0 14px 30px rgba(0,0,0,.45);transform:rotate(-3deg) translateY(calc((1 - var(--p))*24px))}
+#ldr-qui .feuille em{display:block;font-style:normal;font-size:10.5px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#0369A1;margin-bottom:6px}
+#ldr-qui .feuille .l{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:600;padding:3px 0;border-top:1px dashed #ddd}
+#ldr-qui .feuille .l i{flex:none;width:16px;height:16px;border-radius:50%;border:1.6px solid #d6d3cc;position:relative;transition:.35s}
+#ldr-qui .feuille .l i::after{content:"";position:absolute;left:4px;top:1px;width:4px;height:8px;border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg);opacity:0;transition:.35s}
+#ldr-qui .feuille .l.ok i{background:#0EA5E9;border-color:#0EA5E9}
+#ldr-qui .feuille .l.ok i::after{opacity:1}
+#ldr-qui .tampon{position:absolute;right:-22px;bottom:-30px;padding:5px 9px;border:2px solid #0EA5E9;border-radius:6px;background:rgba(247,244,238,.94);color:#0369A1;font-size:10px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;transform:rotate(8deg) scale(calc(.6 + var(--p)*.4));opacity:calc(var(--p)*2 - 1)}
+#ldr-qui .v2 .scn{gap:10px;align-content:center}
+#ldr-qui .barre{display:flex;align-items:center;gap:8px;padding:9px 16px;border-radius:99px;background:rgba(255,255,255,.95);color:#111;font-size:14px;font-weight:700;box-shadow:0 10px 26px rgba(0,0,0,.4);transform:translateY(calc((1 - var(--p))*18px))}
+#ldr-qui .barre svg{width:15px;height:15px;color:#B45309}
+#ldr-qui .cle{display:flex;align-items:center;gap:8px;color:#FBBF24;font-weight:800;font-size:14px}
+#ldr-qui .cle svg{width:30px;height:30px;filter:drop-shadow(0 0 10px rgba(245,158,11,.7));transform:translateX(calc((1 - var(--p))*-60px)) rotate(calc((1 - var(--p))*-60deg))}
+#ldr-qui .cle span{opacity:calc(var(--p)*2 - .6)}
+#ldr-qui .deux{display:flex;gap:8px}
+#ldr-qui .deux span{padding:5px 11px;border-radius:99px;border:1px solid rgba(245,158,11,.5);background:rgba(245,158,11,.14);font-size:12px;font-weight:700;color:#fff;opacity:calc(var(--p)*2.2 - 1.1)}
+#ldr-qui .v3 .scn{display:flex;flex-direction:column;justify-content:center;gap:8px;padding:0 16px}
+#ldr-qui .bul{max-width:80%;padding:9px 13px;border-radius:16px;font-size:13.5px;font-weight:600;line-height:1.3}
+#ldr-qui .bul.q{align-self:flex-start;background:rgba(255,255,255,.14);color:#fff;border-bottom-left-radius:4px;opacity:calc(var(--p)*3 - .3);transform:translateX(calc((1 - min(1,var(--p)*2))*-30px))}
+#ldr-qui .bul.r{align-self:flex-end;background:linear-gradient(135deg,#4ADE80,#22C55E);color:#052e13;border-bottom-right-radius:4px;opacity:calc(var(--p)*3 - 1.2);transform:translateX(calc((1 - var(--p))*30px))}
+#ldr-qui .q-qui{margin:16px auto 0;text-align:center;font-size:12.5px;line-height:1.45;color:#A8B3C7;max-width:360px}
+
+/* 3. Ce que nous faisons : les 4 offres, dans l'ordre, deux par deux */
+#ldr-qui .q-offres{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 14px;margin-top:20px}
+#ldr-qui .q-of{display:grid;grid-template-columns:80px minmax(0,1fr);align-items:center;column-gap:8px;padding:4px 0 8px;border-bottom:1px solid transparent;border-image:linear-gradient(90deg,var(--c),transparent 85%) 1}
+#ldr-qui .q-of img{display:block;width:80px;height:100px;object-fit:contain;transition:transform .35s cubic-bezier(.2,.7,.2,1)}
+#ldr-qui .q-of:active img{transform:scale(.94)}
+#ldr-qui .q-of b{display:block;font-size:15.5px;line-height:1.15;font-weight:800}
+#ldr-qui .q-of small{display:block;margin-top:4px;font-size:12.5px;line-height:1.3;color:#C3CCDB}
+#ldr-qui .q-of.prep b,#ldr-qui .q-of.prep small{color:#9aa3b5}
+#ldr-qui .q-of.prep em{display:inline-block;margin-top:5px;font-style:normal;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:4px 8px;border-radius:99px;background:rgba(236,72,153,.2);box-shadow:inset 0 0 0 1px rgba(236,72,153,.7);color:#fff;white-space:nowrap}
+
+/* 4. La boîte photo et le pied commun */
+#ldr-qui .q-boite{margin-top:8px;display:grid;gap:16px;padding:14px;border-radius:22px;border:1px solid rgba(255,255,255,.2);background:rgba(3,7,18,.34)}
+#ldr-qui .q-boite img{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;object-position:62% 32%;border-radius:14px}
+#ldr-qui .q-boite h3{font-size:23px;line-height:1.14;font-weight:800;letter-spacing:-.02em}
+#ldr-qui .q-boite .q-b1{margin-top:14px}
+#ldr-qui .q-lien{display:block;margin-top:8px;text-align:center;font-size:15.5px;font-weight:600;color:#D7DCE6;min-height:44px;line-height:44px}
+#ldr-qui .q-faits{display:flex;gap:14px;font-size:12px;color:#A3A3A3;font-weight:500}
+#ldr-qui .q-faits span{flex:1}
+#ldr-qui .q-faits span::before{content:"";display:inline-block;width:5px;height:5px;border-radius:50%;background:#D7DCE6;margin-right:7px;vertical-align:2px}
+#ldr-qui .pied2{padding:26px 0 96px}
+#ldr-qui .pied2 .dans>div{border-top:1px solid rgba(255,255,255,.12);padding-top:18px;display:grid;gap:12px}
+#ldr-qui .pied2 nav{display:flex;flex-wrap:wrap;gap:4px 16px;font-size:14px}
+#ldr-qui .pied2 nav a{color:#D4D4D4;line-height:30px}
+#ldr-qui .pied2 .sig{display:inline-flex;align-items:center;gap:7px;font-size:12.5px;color:#A3A3A3}
+#ldr-qui .pied2 .sig img{height:20px;width:20px;object-fit:contain}
+#ldr-qui .pied2 .sig b{color:#E5E7EB}
+#ldr-qui .pied2 .leg{font-size:11.5px;line-height:1.5;color:#8b90a0}
+
+@media (min-width:700px){
+ #ldr-qui .q-boite{grid-template-columns:300px 1fr;gap:24px;align-items:center}
+ #ldr-qui .q-vals{grid-template-columns:repeat(3,1fr);gap:16px}
+ #ldr-qui .q-offres{grid-template-columns:repeat(4,minmax(0,1fr));gap:20px}
+ #ldr-qui .q-of{grid-template-columns:1fr;row-gap:6px;text-align:left}
+ #ldr-qui .q-of img{width:110px;height:138px}
+}
+@media (min-width:900px){
+ #ldr-qui .dans{padding:0 40px}
+ #ldr-qui .q-haut{padding:40px 0 60px}
+ #ldr-qui .q-haut .dans{display:grid;grid-template-columns:1fr 380px;align-items:center;gap:40px}
+ #ldr-qui .q-aigle{order:2;width:380px;margin:0}
+ #ldr-qui h1{font-size:58px}
+ #ldr-qui .q-chap{font-size:19px}
+ #ldr-qui .q-act{grid-template-columns:auto auto;justify-content:start;max-width:none}
+ #ldr-qui .q-b1,#ldr-qui .q-b2{padding:0 28px}
+ #ldr-qui .q-sec{padding:56px 0}
+ #ldr-qui h2{font-size:46px}
+ #ldr-qui .scn{height:180px}
+ #ldr-qui .q-of{grid-template-columns:110px minmax(0,1fr);column-gap:12px}
+ #ldr-qui .q-of b{font-size:19px}
+ #ldr-qui .q-of small{font-size:13.5px}
+ #ldr-qui .q-boite{grid-template-columns:420px 1fr;gap:40px;align-items:center;padding:22px}
+ #ldr-qui .q-boite h3{font-size:36px}
+ #ldr-qui .q-boite .q-b1,#ldr-qui .q-lien,#ldr-qui .q-faits{max-width:420px}
+ #ldr-qui .pied2{padding-bottom:60px}
+ #ldr-qui .pied2 .dans>div{grid-template-columns:1fr auto;align-items:center}
+ #ldr-qui .pied2 .leg{grid-column:1/-1}
+}
+@media (prefers-reduced-motion:reduce){#ldr-qui .scn{--p:1!important}#ldr-qui .q-aigle{transform:none}}
+</style>
+
+<div id="ldr-qui">
+ <section class="q-haut"><div class="dans">
+  <img class="q-aigle" src="https://agenceldr.github.io/demos-ldr/images-ldr/aigles-alpha/a06-d7fce7dc.webp" alt="L'aigle multicolore de l'Agence LDR" width="560" height="700" fetchpriority="high">
+  <div>
+   <p class="q-sur">Qui sommes-nous</p>
+   <h1>Une agence d'ici, pas une plateforme.</h1>
+   <p class="q-chap">Agence LDR, le Déclencheur de Résultats : installée à Sainte-Menehould, dans la Marne. Nous travaillons pour les entreprises d'ici : artisans, commerces, restaurants.</p>
+   <div class="q-act">
+    <a class="q-b1" href="https://www.agence-ldr.fr/5897fccc">Demander mon devis gratuit <svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10h12M11 5l5 5-5 5"/></svg></a>
+    <a class="q-b2" href="https://www.agence-ldr.fr/d123ba74#ldr-test">Tester ma fiche Google</a>
+   </div>
+  </div>
+ </div></section>
+
+ <section class="q-sec"><div class="dans">
+  <p class="q-k">Notre façon de travailler</p>
+  <h2>Trois choses que vous retrouverez toujours.</h2>
+  <div class="q-vals" id="ldr-qui-valeurs">
+   <div class="val v1"><div class="scn" aria-hidden="true">
+     <div class="feuille"><em>Votre devis</em>
+      <span class="l"><i></i>Ce qu'on fait</span><span class="l"><i></i>Le prix</span><span class="l"><i></i>Le délai</span>
+      <span class="tampon">Écrit avant de commencer</span></div>
+    </div><b>Tout est écrit</b><p>Un premier regard gratuit, puis un devis écrit avec le prix et le délai, avant tout engagement.</p></div>
+   <div class="val v2"><div class="scn" aria-hidden="true">
+     <div class="barre"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>votre-commerce.fr</div>
+     <div class="cle"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="7.5" cy="15.5" r="4.5"/><path d="M10.7 12.3 20 3M16 7l3 3M14 9l2 2"/></svg><span>À votre nom</span></div>
+     <div class="deux"><span>Fiche Google</span><span>Site</span></div>
+    </div><b>Tout reste à vous</b><p>Votre fiche Google et votre site vous appartiennent.</p></div>
+   <div class="val v3"><div class="scn" aria-hidden="true">
+     <span class="bul q">Il me faut une appli ?</span>
+     <span class="bul r">Pas pour l'instant. Votre fiche Google d'abord.</span>
+    </div><b>Un avis franc</b><p>Nous parlons de ce que vous allez gagner, pas de jargon. Si quelque chose ne vous sert à rien, on vous le dit.</p></div>
+  </div>
+  <p class="q-qui">Agence LDR, nom commercial de l'entreprise individuelle d'Adeline Crombez, Sainte-Menehould (Marne). Vous parlez toujours aux mêmes personnes, du premier regard jusqu'au suivi.</p>
+ </div></section>
+
+ <section class="q-sec"><div class="dans">
+  <p class="q-k">Ce que nous faisons</p>
+  <h2>Quatre façons de vous faire trouver.</h2>
+  <div class="q-offres">
+   <a class="q-of" href="https://www.agence-ldr.fr/77c26f05" style="--c:var(--web)"><img src="https://agenceldr.github.io/demos-ldr/images-ldr/aigles-alpha/a08-78e0867e-menu.webp" alt="Aigle orange, création de site web" width="200" height="250" loading="lazy"><span><b>Site web</b><small>Un site clair qui donne envie d'appeler ou de venir.</small></span></a>
+   <a class="q-of" href="https://www.agence-ldr.fr/d123ba74" style="--c:var(--maps)"><img src="https://agenceldr.github.io/demos-ldr/images-ldr/aigles-alpha/a07-775dbab2-menu.webp" alt="Aigle bleu, fiche Google" width="200" height="250" loading="lazy"><span><b>Fiche Google</b><small>Être trouvé, choisi et appelé sur Google Maps.</small></span></a>
+   <a class="q-of" href="https://www.agence-ldr.fr/reseaux" style="--c:var(--res)"><img src="https://agenceldr.github.io/demos-ldr/images-ldr/aigles-alpha/a09-89f6cd2a-menu.webp" alt="Aigle vert, réseaux sociaux" width="200" height="250" loading="lazy"><span><b>Réseaux sociaux</b><small>Vos vraies photos, publiées pour vous.</small></span></a>
+   <a class="q-of prep" href="https://www.agence-ldr.fr/8ee0b286" style="--c:var(--rad)"><img src="https://agenceldr.github.io/demos-ldr/images-ldr/aigles-alpha/a10-ce835343-menu.webp" alt="Aigle rose, les Radars" width="200" height="250" loading="lazy"><span><b>Radars</b><small>Savoir qui contacter autour de vous.</small><em>En préparation</em></span></a>
+  </div>
+ </div></section>
+
+ <section class="q-sec" style="padding-top:10px"><div class="dans">
+  <div class="q-boite"><img src="https://agenceldr.github.io/demos-ldr/images-ldr/site-web-v2/bas-commercante.webp" alt="Une commerçante souriante, bras croisés, dans son café" loading="lazy"><div>
+   <h3>Vos clients vous cherchent déjà. Faisons qu'ils vous trouvent.</h3>
+   <a class="q-b1" href="https://www.agence-ldr.fr/5897fccc">Demander mon devis <svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10h12M11 5l5 5-5 5"/></svg></a>
+   <a class="q-lien" href="https://www.agence-ldr.fr/d123ba74#ldr-test">Tester ma fiche →</a>
+   <div class="q-faits"><span>Premier regard gratuit</span><span>TVA non applicable, art. 293 B</span></div>
+  </div></div>
+ </div></section>
+
+ <footer class="pied2"><div class="dans"><div>
+  <nav><a href="https://www.agence-ldr.fr/77c26f05">Site web</a><a href="https://www.agence-ldr.fr/d123ba74">Fiche Google</a><a href="https://www.agence-ldr.fr/reseaux">Réseaux sociaux</a><a href="https://www.agence-ldr.fr/8ee0b286">Radars</a><a href="https://www.agence-ldr.fr/9c71372a">Mentions légales</a><a href="https://www.agence-ldr.fr/19b5caee">CGV</a><a href="https://www.agence-ldr.fr/9c71372a">Données personnelles</a></nav>
+  <span class="sig"><img src="https://agenceldr.github.io/demos-ldr/images-ldr/site-web-v2/bas-ldr.webp" alt="">Site réalisé par <b>Agence LDR</b></span>
+  <p class="leg">Agence LDR · Le Déclencheur de Résultats · Sainte-Menehould, Marne · TVA non applicable, art. 293 B du CGI.</p>
+ </div></div></footer>
+</div>
+
+<script>
+(function(){
+  /* Les 3 valeurs s'animent en suivant le défilement (doigt ou molette), jamais toutes seules */
+  if(window.__ldrQui) return; window.__ldrQui=1;
+  var attente=0;
+  function maj(){
+    attente=0;
+    var H=window.innerHeight||800;
+    var a=document.querySelector('#ldr-qui .q-aigle');
+    if(a){ var y=Math.max(0,Math.min(60,(window.pageYOffset||0)*.12)); a.style.setProperty('--qy',y.toFixed(1)); }
+    var s=document.querySelectorAll('#ldr-qui-valeurs .scn');
+    for(var i=0;i<s.length;i++){
+      var r=s[i].getBoundingClientRect();
+      var p=(H*0.92-r.top)/(H*0.5); p=p<0?0:p>1?1:p;
+      s[i].style.setProperty('--p',p.toFixed(3));
+      var l=s[i].querySelectorAll('.l');
+      for(var j=0;j<l.length;j++){ l[j].classList.toggle('ok',p>0.3+j*0.2); }
+    }
+  }
+  function dem(){ if(!attente){ attente=1; (window.requestAnimationFrame||setTimeout)(maj); } }
+  window.addEventListener('scroll',dem,{passive:true}); window.addEventListener('resize',dem);
+  maj(); setTimeout(maj,600); setTimeout(maj,2000);
+})();
+</script>
