@@ -1,22 +1,21 @@
 
 <!-- ================= FOND PHOTO FLOUTÉ DES PAGES (26/11/2026) =================
 POUR CHANGER L'IMAGE DE FOND D'UNE PAGE :
-1. Trouve la ligne de la page ci-dessous (ex. "/reseaux").
+1. Trouve la ligne de la page ci-dessous (ex. "/qui-sommes-nous"). Pour une autre page, ajoute une ligne pareille avec la fin de son adresse.
 2. Remplace l'adresse entre guillemets par l'adresse de ta nouvelle image (clic droit sur l'image > Copier l'adresse de l'image).
 3. Enregistrer puis Sauvegarder. Pour enlever le fond d'une page, supprime sa ligne.
 ============================================================================== -->
 <script id="ldr-fonds-config">
 window.LDR_FONDS = {
-  "/reseaux":         "https://agenceldr.github.io/demos-ldr/images-ldr/accueil/a20-213fd335.webp",
-  "/8ee0b286":        "https://agenceldr.github.io/demos-ldr/images-ldr/accueil/a19-5b47bc83.webp",
-  "/qui-sommes-nous": "https://agenceldr.github.io/demos-ldr/images-ldr/accueil/a18-12056dc9.webp"
+  "/qui-sommes-nous": "https://agenceldr.github.io/demos-ldr/images-ldr/accueil/a18-12056dc9.webp",
 };
 </script>
 <style id="ldr-fonds-css">
 #ldr-fond-flou{position:fixed;left:0;top:0;width:100%;height:100vh;z-index:-1;pointer-events:none;overflow:hidden;background:#050810}
 #ldr-fond-flou i{position:absolute;left:-40px;top:-40px;right:-40px;bottom:-40px;background-size:cover;background-position:center;filter:blur(16px) saturate(1.15);transform:scale(1.06)}
 #ldr-fond-flou b{position:absolute;inset:0;background:linear-gradient(180deg,rgba(3,7,18,.66) 0%,rgba(3,7,18,.52) 40%,rgba(3,7,18,.70) 100%)}
-html.ldr-a-fond,html.ldr-a-fond body{background:#050810!important}
+html.ldr-a-fond{background:#050810!important}
+html.ldr-a-fond body{background:transparent!important}
 html.ldr-a-fond #ldr-rs,html.ldr-a-fond #ldr-radars,html.ldr-a-fond #rawhtml-fe554971,html.ldr-a-fond #rawhtml-fe554971>*,html.ldr-a-fond [id^="section-"],html.ldr-a-fond [id^="row-"]{background-color:transparent!important}
 </style>
 <script id="ldr-fonds-js">
