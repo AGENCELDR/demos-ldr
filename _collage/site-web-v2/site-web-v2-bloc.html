@@ -405,6 +405,35 @@
 @media(min-width:900px){#ldr-sw .scene3 .vitre{left:-30px;right:-30px;top:10px;bottom:-14px;border-radius:30px}
 #ldr-sw .scene3 .vitre .sceau{width:64px;right:18px;bottom:14px}}
 #ldr-sw .monde::after{background:linear-gradient(180deg,rgba(3,7,18,.62) 0%,rgba(3,7,18,.4) 24%,rgba(3,7,18,.38) 62%,rgba(3,7,18,.55) 100%)!important}
+#ldr-sw{--gris:#E6E9EE}
+#ldr-sw .monde::after{background:linear-gradient(180deg,rgba(3,7,18,.72) 0%,rgba(3,7,18,.56) 24%,rgba(3,7,18,.54) 62%,rgba(3,7,18,.68) 100%)!important}
+#ldr-sw .sous,#ldr-sw .kick,#ldr-sw .nomsite,#ldr-sw .moment span,#ldr-sw .ensuite,#ldr-sw .onglets button small,#ldr-sw .prixgeant small,#ldr-sw .astuce,#ldr-sw .plus3,#ldr-sw .plus3 small,#ldr-sw .suite p,#ldr-sw .suite small,#ldr-sw .mini,#ldr-sw .bas .pro p,#ldr-sw .bas .qui,#ldr-sw .bas .faits,#ldr-sw .explic span,#ldr-sw .cta2,#ldr-sw .pied2 .sig,#ldr-sw .pied2 .leg,#ldr-sw h1,#ldr-sw h2,#ldr-sw h3{text-shadow:0 1px 2px rgba(0,0,0,.6)}
+#ldr-sw .suite p,#ldr-sw .bas .pro p,#ldr-sw .astuce,#ldr-sw .plus3 small,#ldr-sw .suite small,#ldr-sw .onglets button small,#ldr-sw .prixgeant small,#ldr-sw .nomsite,#ldr-sw .ensuite,#ldr-sw .ensuite b small,#ldr-sw .moment span,#ldr-sw .sous{color:#E6E9EE!important}
+#ldr-sw .suite p span::before{border-color:#E6E9EE}
+#ldr-sw .bas .qui,#ldr-sw .bas .faits,#ldr-sw .pied2 .sig{color:#D9DCE2!important}
+#ldr-sw .pied2 .leg{color:#C4C8D0!important}
+#ldr-sw .inclus .gain small{color:#E6E9EE}
+@media (max-width:899px){#ldr-sw section{padding-top:52px;padding-bottom:52px}
+#ldr-sw .onglets{margin-top:16px;gap:7px}
+#ldr-sw .onglets button{padding:10px 11px;min-height:62px;position:relative}
+#ldr-sw .onglets .conseil{position:absolute;top:-8px;right:8px;margin:0}
+#ldr-sw .prixgeant{margin-top:16px}
+#ldr-sw .prixgeant .p{font-size:52px}
+#ldr-sw .s4 .chemin{margin-top:20px}
+#ldr-sw .moment{padding-bottom:20px}
+#ldr-sw .moment b{font-size:17px}
+#ldr-sw .moment span{font-size:14.5px}
+#ldr-sw .bas{padding-top:44px}
+#ldr-sw .bas .oiseau{width:min(40vw,150px)}
+#ldr-sw .bas .pro{margin-top:14px}
+#ldr-sw .bas .pro div{padding:14px 0 12px}
+#ldr-sw .bas .pro div::before{margin-bottom:10px}
+#ldr-sw .bas .pro b{font-size:22px}
+#ldr-sw .bas .pro p{font-size:14.5px;margin-top:5px}
+#ldr-sw .bas .boite{margin-top:26px}
+#ldr-sw .bas .boite img{height:150px}
+
+}
 
 
 </style>
@@ -524,7 +553,7 @@
 
 <button class="remonte" id="remonte" type="button" aria-label="Revenir en haut de la page"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
 
-</body></html>
+
 
 </div>
 <script id="ldr-sw-js">(function(){
@@ -593,7 +622,7 @@ var B='https://agenceldr.github.io/demos-ldr/images-ldr/site-web-v2/';
   placerBulle();
  }
  function viser(g){var a=document.getElementById('astuce');if(a){a.textContent=g?F[fAct][3][+g.dataset.i][2]:'Touchez une case : l\'écran qui la montre passe devant.';a.classList.toggle('dit',!!g)}var sc=document.getElementById('scene3');sc.querySelectorAll('.focus').forEach(function(x){x.classList.remove('focus')});document.querySelectorAll('#inclus .gain').forEach(function(x){x.setAttribute('aria-pressed',x===g)});var z=g&&g.dataset.z;sc.classList.toggle('aufocus',!!z);if(z){var el=sc.querySelector('.'+z);if(el)el.classList.add('focus')}}
- function formule(n){
+ function formule(n){if(innerWidth<900&&window.__tap){window.__tap=0;setTimeout(function(){var o=document.querySelector('.onglets');if(o){var t=o.getBoundingClientRect().top+scrollY-78;if(Math.abs(scrollY-t)>40)scrollTo({top:t,behavior:'smooth'})}},60)}
   var f=F[n];document.getElementById('prix').textContent=f[0];document.getElementById('prixnote').textContent=f[1];
   document.getElementById('scene3').dataset.f=n;fAct=+n;document.querySelectorAll('#scene3 img[data-k]').forEach(function(i){i.src=B+FS[n]+'-'+i.dataset.k+'.webp'});plus();fond();var vi=document.getElementById('vitreimg');vi.style.opacity=0;setTimeout(function(){vi.src=B+'monde-'+FS[n]+'.webp';vi.onload=function(){vi.style.opacity=1}},220);
   var tu='',ec='';f[3].forEach(function(t,i){if(t[0]=='eco'){var x=t[1].split('|');ec+='<div class="eco"><span>'+x[0]+'</span><span style="white-space:nowrap">'+x[1]+'</span></div>'}else{tu+='<button type="button" class="gain" data-z="'+t[0]+'" data-i="'+i+'" aria-pressed="false"><i aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">'+(ICO[t[1]]||'')+'</svg></i><b>'+t[1]+'</b></button>'}});document.getElementById('inclus').innerHTML='<span class="tete">'+f[2]+'</span><div class="tuiles">'+tu+'</div>'+ec;viser(null);
@@ -604,9 +633,9 @@ var B='https://agenceldr.github.io/demos-ldr/images-ldr/site-web-v2/';
   var m=e.target.closest('.metiers button');
   if(m){document.querySelectorAll('.metiers button').forEach(function(b){b.setAttribute('aria-pressed',b===m)});site(m.dataset.s);points(m.dataset.s);plus();}
   var o=e.target.closest('.onglets button');
-  if(o){document.querySelectorAll('.onglets button').forEach(function(b){b.setAttribute('aria-pressed',b===o)});formule(o.dataset.f);}
+  if(o){document.querySelectorAll('.onglets button').forEach(function(b){b.setAttribute('aria-pressed',b===o)});window.__tap=1;formule(o.dataset.f);}
   var ga=e.target.closest('#inclus .gain');if(ga){viser(ga.getAttribute('aria-pressed')==='true'?null:ga);}
-  var sb=e.target.closest('#suiteb');if(sb&&fAct<4){var nx=document.querySelector('.onglets button[data-f="'+(fAct+1)+'"]');document.querySelectorAll('.onglets button').forEach(function(b){b.setAttribute('aria-pressed',b===nx)});formule(nx.dataset.f);document.querySelector('.prixgeant').scrollIntoView({behavior:'smooth',block:'center'});}
+  var sb=e.target.closest('#suiteb');if(sb&&fAct<4){var nx=document.querySelector('.onglets button[data-f="'+(fAct+1)+'"]');document.querySelectorAll('.onglets button').forEach(function(b){b.setAttribute('aria-pressed',b===nx)});window.__tap=1;formule(nx.dataset.f);if(innerWidth>=900)document.querySelector('.prixgeant').scrollIntoView({behavior:'smooth',block:'center'});}
   var p=e.target.closest('#points .point');
   if(p){auto=false;choisirPoint(+p.dataset.i);}
  });
@@ -618,3 +647,14 @@ var B='https://agenceldr.github.io/demos-ldr/images-ldr/site-web-v2/';
 })();
 
 })();</script>
+<script id="ldr-sw-menu">(function(){
+var ACC="https://www.agence-ldr.fr/e8a3647b";
+function menu(){[].forEach.call(document.querySelectorAll('a[href^="mailto:"]'),function(a){a.setAttribute("href","#devis");a.removeAttribute("aria-label");var sm=a.querySelector("small");if(sm)sm.textContent="Votre demande en 2 minutes"});
+ [].forEach.call(document.querySelectorAll('a[href]'),function(a){var h=a.getAttribute("href");if(h===ACC+"#devis"||h==="/e8a3647b#devis")a.setAttribute("href","#devis");if(/#cgv$/.test(h))a.setAttribute("href","https://www.agence-ldr.fr/19b5caee");if(/#mentions-legales$/.test(h))a.setAttribute("href","https://www.agence-ldr.fr/9c71372a")})}
+menu();setTimeout(menu,800);setTimeout(menu,2500);
+document.addEventListener("click",function(e){var a=e.target.closest&&e.target.closest('a[href^="mailto:"],a.ldr-nav-ecrire,a.ldr-mega-ecrire,a.ldr-p-ecrire,a.ldr-callbar-appel');if(a){e.preventDefault();e.stopPropagation();var d=document.getElementById("devis");if(d)d.scrollIntoView({behavior:"smooth"})}},true);
+function route(){var h=location.hash;if(h==="#cgv")location.replace("https://www.agence-ldr.fr/19b5caee");if(h==="#mentions-legales")location.replace("https://www.agence-ldr.fr/9c71372a")}
+route();window.addEventListener("hashchange",route);
+})();
+</script>
+<!-- FIN DU BLOC SYSTEME.IO -->

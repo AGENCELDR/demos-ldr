@@ -72,6 +72,7 @@ head, body = doc.split('</head>', 1)
 css = '\n'.join(re.findall(r'<style>(.*?)</style>', head, flags=re.S))
 css = re.sub(r'/\*.*?\*/', '', css, flags=re.S)
 body = body.split('<body>', 1)[1].rsplit('</body>', 1)[0]
+body = re.sub(r'</?(body|html)>', '', body)
 body = re.sub(r'<div class="menu">.*?</div></div>\n', '', body, count=1, flags=re.S)
 scr = re.findall(r'<script>(.*?)</script>', body, flags=re.S)
 body = re.sub(r'<script>.*?</script>', '', body, flags=re.S)
@@ -90,5 +91,8 @@ fonts = re.findall(r'<link[^>]+fonts[^>]+>', head)
 bloc = ('<!-- Agence LDR · page Site web v2 (26/11/2026) · bloc à coller tel quel (HTML brut) -->\n'
         + '\n'.join(fonts) + '\n<style id="ldr-sw-css">\n' + scope_css(css) + '\n</style>\n'
         + '<div id="ldr-sw">' + body + '</div>\n<script id="ldr-sw-js">(function(){\n' + js + '\n})();</script>\n')
+import os
+mc=open(os.path.join(os.path.dirname(os.path.abspath(__file__)),'menu-correctif.js'),encoding='utf-8').read()
+bloc += '<script id="ldr-sw-menu">' + mc + '</script>\n<!-- FIN DU BLOC SYSTEME.IO -->\n'
 open(sys.argv[2], 'w', encoding='utf-8').write(bloc)
 print(len(bloc))
