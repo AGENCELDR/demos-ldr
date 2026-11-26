@@ -20,11 +20,11 @@ html body #ldr-fond-flou{display:none!important}
   var F=[['1787059960609-e07ca542580b','.haut','50% 55%',1,'50% 80%'],       /* la rue, le soir */
          ['1711580391101-4ff165933d53','.facon','50% 50%',1,'50% 62%'],      /* le carnet et le stylo */
          ['1686515266396-080c4939e6b4','.ensemble','50% 50%',.58,'50% 62%'], /* la vitrine d'une boutique */
-         ['1787059940496-b2011a8dd57c','.aigles','50% 50%',1,'50% 66%'],     /* la cour aux lanternes */
+         ['1787059940496-b2011a8dd57c','.aigles','50% 50%',.8,'50% 38%'],    /* la cour aux lanternes */
          ['1711580391101-4ff165933d53','.jamais','50% 50%',1,'50% 62%']];    /* le carnet, de nouveau */
   var d=document.createElement('div');d.id='ldr-qui-fonds';d.setAttribute('aria-hidden','true');
   F.forEach(function(f){
-    var im=new Image();im.alt='';im.decoding='async';
+    var im=new Image();im.alt='';
     im.sizes='100vw';im.srcset=[800,1200,1800].map(function(w){return U+f[0]+P+w+' '+w+'w'}).join(',');
     im.src=U+f[0]+P+'1200';if(f[3]<1)im.style.filter='brightness('+f[3]+')';d.appendChild(im);
     f[5]=im;f[6]=f[4];f[4]=q.querySelector(f[1]);
