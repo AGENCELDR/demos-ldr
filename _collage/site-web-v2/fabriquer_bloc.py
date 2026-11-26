@@ -72,6 +72,7 @@ head, body = doc.split('</head>', 1)
 css = '\n'.join(re.findall(r'<style>(.*?)</style>', head, flags=re.S))
 css = re.sub(r'/\*.*?\*/', '', css, flags=re.S)
 body = body.split('<body>', 1)[1].rsplit('</body>', 1)[0]
+body = re.sub(r'</?(body|html)>', '', body)
 body = re.sub(r'<div class="menu">.*?</div></div>\n', '', body, count=1, flags=re.S)
 scr = re.findall(r'<script>(.*?)</script>', body, flags=re.S)
 body = re.sub(r'<script>.*?</script>', '', body, flags=re.S)
