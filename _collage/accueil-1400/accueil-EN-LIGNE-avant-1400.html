@@ -1,0 +1,633 @@
+<!-- Agence LDR · bloc à coller tel quel (HTML brut) -->
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"><style>
+.ldr-bloc,.ldr-bloc *{box-sizing:border-box;margin:0;padding:0}
+.ldr-bloc{background:#030712;font-family:"Plus Jakarta Sans",system-ui,sans-serif;color:#F5F5F4;-webkit-font-smoothing:antialiased;font-feature-settings:"liga" 0;overflow-x:hidden;width:100%}
+.ldr-bloc a{color:inherit;text-decoration:none}
+.ldr{--or:#E9C98B;--bc:#F5F5F4;--nuit:#030712;--maps:#38BDF8;--web:#F59E0B;--radar:#EC4899;--res:#34D399;--gris:#A3A3A3;--trait:rgba(255,255,255,.09)}
+.ldr .ou{display:flex;align-items:center;gap:7px;font-size:11.5px;font-weight:600;color:#D4D4D4;letter-spacing:.01em}
+.ldr .ou .pt{width:7px;height:7px;border-radius:50%;background:#22C55E;box-shadow:0 0 0 3px rgba(34,197,94,.18)}
+.ldr .ou .sep{opacity:.35}
+.ldr .btn{display:flex;align-items:center;justify-content:center;gap:8px;height:46px;border-radius:13px;font-weight:700;font-size:14.5px;letter-spacing:.005em}
+.ldr .btn.b1{background:#F5F5F4;color:#030712}
+.ldr .btn.b2{border:1px solid rgba(255,255,255,.22);color:#F5F5F4}
+.ldr .btn svg{width:16px;height:16px}
+.ldr .ex{font-size:10px;font-weight:600;color:#8C8C8C;letter-spacing:.02em}
+.ldr .ex b{color:#E9C98B;font-weight:700}
+.ldr .faits{display:flex;gap:14px;justify-content:center;font-size:11px;color:#A3A3A3;font-weight:500}
+.ldr .faits span::before{content:"";display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--or);margin-right:6px;vertical-align:2px}
+
+.v3{padding:14px 16px 18px;max-width:1240px;margin:0 auto}
+.v3 h1{font-size:23px;line-height:1.16;font-weight:800;letter-spacing:-.02em;margin:9px 0 0}
+.v3 h1 span{color:var(--or)}
+.v3 .haut-sc{display:none}
+.v3 .grille{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:22px}
+.v3 .tu{position:relative;height:198px;border-radius:20px;display:flex;flex-direction:column;justify-content:flex-end;padding:0 12px 11px;isolation:isolate;
+ background:radial-gradient(90% 60% at 50% 18%,color-mix(in srgb,var(--c) 30%,transparent),transparent 70%),linear-gradient(180deg,#0c1222 0%,#060912 70%);
+ box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--c) 34%,rgba(255,255,255,.06)),0 14px 30px rgba(0,0,0,.45);transition:transform .25s ease,box-shadow .25s ease}
+.v3 .tu:active{transform:scale(.98)}
+.v3 .tu::before{content:"";position:absolute;left:18%;right:18%;top:0;height:1px;background:linear-gradient(90deg,transparent,#E9C98B,transparent);opacity:.7}
+.v3 .tu .sol{position:absolute;left:14%;right:14%;top:44%;height:26px;border-radius:50%;background:radial-gradient(closest-side,color-mix(in srgb,var(--c) 55%,transparent),transparent);filter:blur(6px);z-index:-1}
+.v3 .tu .sc{position:absolute;left:50%;top:-14px;width:96%;height:62%;object-fit:contain;object-position:50% 100%;transform:translateX(-50%);filter:drop-shadow(0 10px 14px rgba(0,0,0,.65));z-index:-1}
+.v3 .tu .brille{position:absolute;inset:0;border-radius:20px;overflow:hidden;z-index:1;pointer-events:none}
+.v3 .tu .brille::after{content:"";position:absolute;top:-20%;bottom:-20%;width:40%;left:-60%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.10),transparent);transform:skewX(-14deg)}
+.v3.vu .tu .brille::after{animation:br 7s ease-in-out infinite}
+.v3.vu .tu:nth-child(2) .brille::after{animation-delay:1.2s}.v3.vu .tu:nth-child(3) .brille::after{animation-delay:2.4s}.v3.vu .tu:nth-child(4) .brille::after{animation-delay:3.6s}
+@keyframes br{0%,70%{left:-60%}100%{left:130%}}
+@media (prefers-reduced-motion:reduce){.v3.vu .tu .brille::after{animation:none}}
+.v3 .tu b{font-size:15px;font-weight:800;letter-spacing:-.01em;display:flex;align-items:center;gap:6px}
+.v3 .tu b i{width:7px;height:7px;border-radius:2px;background:var(--c);box-shadow:0 0 8px var(--c)}
+.v3 .tu small{font-size:11px;line-height:1.28;color:#C9C9C9;margin-top:3px;min-height:28px}
+.v3 .tu .pied{display:flex;align-items:center;justify-content:space-between;margin-top:7px;padding-top:7px;border-top:1px solid rgba(255,255,255,.08)}
+.v3 .tu .px{font-size:14px;font-weight:800;color:#fff}
+.v3 .tu .px em{font-style:normal;font-size:10.5px;font-weight:600;color:#A3A3A3}
+.v3 .tu .fl{width:24px;height:24px;border-radius:50%;display:grid;place-items:center;background:color-mix(in srgb,var(--c) 22%,transparent);color:var(--c)}
+.v3 .tu .fl svg{width:13px;height:13px}
+.v3 .preuve{display:flex;align-items:center;gap:12px;margin-top:10px;padding:8px 12px;border-radius:16px;background:linear-gradient(90deg,rgba(233,201,139,.08),rgba(255,255,255,.02));border:1px solid rgba(233,201,139,.18)}
+.v3 .mini{display:flex;padding-left:4px}
+.v3 .mini img{width:30px;height:54px;object-fit:cover;object-position:top;border-radius:7px;border:2px solid #1a1a1a;margin-left:-9px;box-shadow:0 4px 10px rgba(0,0,0,.6)}
+.v3 .mini img:nth-child(1){transform:rotate(-7deg)}.v3 .mini img:nth-child(3){transform:rotate(7deg)}
+.v3 .preuve p{font-size:11.5px;line-height:1.3;color:#D4D4D4;flex:1}
+.v3 .preuve p b{color:#F5F5F4;display:block;font-size:12.5px}
+.v3 .preuve span{font-size:12px;font-weight:700;color:var(--or);white-space:nowrap}
+.v3 .act{display:grid;grid-template-columns:1.35fr 1fr;gap:8px;margin-top:10px}
+.v3 .faits{margin-top:9px}
+@media(min-width:900px){
+ .v3{padding:44px 40px 48px}
+ .v3 .haut{display:flex;justify-content:space-between;align-items:center;gap:40px}
+ .v3 h1{font-size:46px;max-width:720px}
+ .v3 .haut-sc{display:block;width:300px;height:auto;filter:drop-shadow(0 18px 30px rgba(0,0,0,.6))}
+ .v3 .grille{grid-template-columns:repeat(4,1fr);gap:18px;margin-top:40px}
+ .v3 .tu{height:380px;padding:0 20px 18px;border-radius:26px}.v3 .tu .brille{border-radius:26px}
+ .v3 .tu .sc{top:-26px;height:64%}.v3 .tu .sol{top:50%;height:40px}
+ .v3 .tu:hover{transform:translateY(-4px);box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--c) 60%,rgba(255,255,255,.1)),0 22px 44px rgba(0,0,0,.55)}
+ .v3 .tu b{font-size:21px}.v3 .tu small{font-size:14px;min-height:36px}.v3 .tu .px{font-size:19px}.v3 .tu .fl{width:32px;height:32px}
+ .v3 .bas{display:flex;gap:18px;align-items:center;margin-top:22px}
+ .v3 .preuve{flex:1;margin:0}.v3 .act{margin:0;width:460px}
+ .v3 .faits{justify-content:flex-start}
+}
+
+.s{max-width:1240px;margin:0 auto;padding:0 16px}
+.s h2{font-size:21px;line-height:1.18;font-weight:800;letter-spacing:-.02em}
+.s h2 span{color:var(--or)}
+.s .sur{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--or);margin-bottom:6px}
+/* 2. Comment ça se passe */
+.s2{padding-top:26px}
+.s2 .cadre{border-radius:20px;overflow:hidden;background:#0a0f1c;box-shadow:inset 0 0 0 1px var(--trait)}
+.s2 .ph{position:relative;height:150px}
+.s2 .ph img{width:100%;height:100%;object-fit:cover;object-position:50% 45%;display:block}
+.s2 .ph::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,15,28,0) 40%,#0a0f1c 100%)}
+.s2 .ph em{position:absolute;left:12px;bottom:10px;z-index:1;font-style:normal;font-size:10.5px;font-weight:600;color:#D4D4D4;background:rgba(3,7,18,.6);padding:3px 8px;border-radius:999px;backdrop-filter:blur(4px)}
+.s2 .txt{padding:4px 14px 14px}
+.s2 ol{list-style:none;margin-top:10px;display:grid;gap:8px}
+.s2 li{display:grid;grid-template-columns:26px 1fr;gap:10px;align-items:start}
+.s2 li i{font-style:normal;width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font-size:12px;font-weight:800;color:#030712;background:linear-gradient(135deg,#F3DDAE,#C9A45E)}
+.s2 li b{font-size:13.5px;display:block}
+.s2 li p{font-size:12px;line-height:1.35;color:#BDBDBD;margin-top:1px}
+/* 3. Exemples */
+.s3{padding-top:26px}
+.s3 .t{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.s3 .rangee{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:11px}
+.s3 .tel{border-radius:18px;padding:4px;background:linear-gradient(160deg,#2a2a2a,#0d0d0d 40%,#1c1c1c);box-shadow:0 10px 22px rgba(0,0,0,.5),inset 0 0 0 1px rgba(255,255,255,.08)}
+.s3 .tel img{display:block;width:100%;aspect-ratio:1/2;height:auto;max-height:230px;object-fit:cover;object-position:top;border-radius:14px}
+.s3 p{font-size:11px;line-height:1.25;color:#BDBDBD;margin-top:6px}
+.s3 p b{display:block;color:#F5F5F4;font-size:12px}
+.s3 .note{font-size:11.5px;color:#A3A3A3;margin-top:10px;line-height:1.4}
+/* 4. L'agence */
+.s4{margin-top:28px;position:relative;isolation:isolate;padding:0}
+.s4 .fond{position:absolute;inset:0;z-index:-1}
+.s4 .fond img{width:100%;height:100%;object-fit:cover;object-position:60% 50%}
+.s4 .fond::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(3,7,18,.15),rgba(3,7,18,.55) 35%,rgba(3,7,18,.85) 70%,#030712)}
+.s4 .in{max-width:1240px;margin:0 auto;padding:120px 16px 22px}
+.s4 .ag{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.s4 .ag img{height:44px}
+.s4 .ag span{font-size:11px;font-weight:700;letter-spacing:.1em;color:#E5E5E5;text-transform:uppercase}
+.s4 h2{max-width:560px}
+.s4 .pro{display:grid;gap:9px;margin-top:14px}
+.s4 .pro div{padding:10px 12px;border-radius:14px;background:rgba(3,7,18,.55);backdrop-filter:blur(6px);box-shadow:inset 0 0 0 1px rgba(233,201,139,.18)}
+.s4 .pro b{font-size:13.5px;display:block}
+.s4 .pro p{font-size:12px;color:#C7C7C7;line-height:1.35;margin-top:2px}
+.s4 .qui{font-size:11.5px;color:#A3A3A3;margin-top:12px;line-height:1.45}
+/* 5. Fin */
+.s5{padding-top:26px;padding-bottom:22px}
+.s5 .boite{display:grid;grid-template-columns:1fr;gap:12px;align-items:center;padding:12px;border-radius:20px;background:linear-gradient(135deg,rgba(233,201,139,.10),rgba(255,255,255,.02));box-shadow:inset 0 0 0 1px rgba(233,201,139,.22)}
+.s5 .boite img{width:100%;height:130px;object-fit:cover;object-position:50% 35%;border-radius:14px}
+.s5 h2{font-size:18px}
+.s5 .act{display:grid;grid-template-columns:1.35fr 1fr;gap:8px;margin-top:12px}
+.s5 .faits{margin-top:9px}
+.pied{border-top:1px solid var(--trait);margin-top:6px}
+.pied .in{max-width:1240px;margin:0 auto;padding:16px 16px 22px;display:grid;gap:10px}
+.pied nav{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:12px;color:#D4D4D4}
+.pied .leg{font-size:10.5px;color:#7a7a7a;line-height:1.5}
+.pied .sig{display:inline-flex;align-items:center;gap:6px;font-size:11px;color:#A3A3A3}
+.pied .sig img{height:18px}.pied .sig b{color:var(--or)}
+@media(min-width:900px){
+ .s{padding:0 40px}
+ .s h2{font-size:34px}
+ .s2{padding-top:56px}
+ .s2 .cadre{display:grid;grid-template-columns:1.05fr 1fr;align-items:stretch}
+ .s2 .ph{height:auto;min-height:360px}.s2 .ph::after{background:linear-gradient(90deg,rgba(10,15,28,0) 60%,#0a0f1c 100%)}
+ .s2 .txt{padding:36px 40px;align-self:center}.s2 ol{gap:16px;margin-top:22px}.s2 li b{font-size:17px}.s2 li p{font-size:14.5px}
+ .s2 li{grid-template-columns:34px 1fr}.s2 li i{width:34px;height:34px;font-size:14px}
+ .s3{padding-top:56px}.s3 .rangee{gap:22px;margin-top:22px}.s3 .tel{border-radius:30px;padding:8px}.s3 .tel img{max-height:none;border-radius:23px}.s3 p{font-size:14px}.s3 p b{font-size:16px}
+ .s3 .rangee{max-width:900px}
+ .s4{margin-top:64px}.s4 .in{padding:260px 40px 70px}.s4 .pro{grid-template-columns:repeat(3,1fr);gap:16px;margin-top:28px}.s4 .pro b{font-size:17px}.s4 .pro p{font-size:14px}
+ .s5{padding-top:56px;padding-bottom:48px}.s5 .boite{grid-template-columns:260px 1fr;gap:36px;padding:22px}.s5 .boite img{width:260px;height:220px}.s5 h2{font-size:30px}.s5 .act{max-width:480px}.s5 .faits{justify-content:flex-start}
+ .pied .in{padding:24px 40px 34px;grid-template-columns:1fr auto;align-items:center}
+}
+
+.v3 .tu{height:206px;padding:0;background:#0b0f1a;overflow:hidden;box-shadow:inset 0 0 0 1px rgba(233,201,139,.35),0 14px 30px rgba(0,0,0,.5)}
+.v3 .tu .fondn{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 0;z-index:-2}
+.v3 .tu .sol,.v3 .tu .sc{display:none}
+.v3 .tu::before{z-index:2}
+.v3 .tu .bande{position:relative;padding:8px 11px 9px;background:linear-gradient(180deg,rgba(3,7,18,.35),rgba(3,7,18,.86) 38%);backdrop-filter:blur(3px);-webkit-backdrop-filter:blur(3px);display:flex;flex-direction:column}
+.v3 .tu .bande::before{content:"";position:absolute;left:0;right:0;top:0;height:1px;background:linear-gradient(90deg,transparent,rgba(233,201,139,.55),transparent)}
+.v3 .tu small{min-height:0}
+.v3 .tu .pied{margin-top:6px;padding-top:6px}
+.v3 .tu b i{display:none}
+@media(min-width:900px){.v3 .tu{height:400px}.v3 .tu .bande{padding:16px 20px 18px}}
+
+#ldr-ex .grille-ex{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+#ldr-ex a.ex{display:block;color:inherit;text-decoration:none}
+#ldr-ex .tel-ex{border-radius:20px;padding:4px;background:linear-gradient(160deg,#2a2a2a,#0d0d0d 40%,#1c1c1c);box-shadow:0 10px 22px rgba(0,0,0,.5),inset 0 0 0 1px rgba(255,255,255,.08)}
+#ldr-ex .tel-ex img{display:block;width:100%;height:190px;object-fit:cover;object-position:top;border-radius:16px}
+#ldr-ex .ex b{display:block;margin-top:7px;font-size:14.5px;line-height:1.25;color:#F5F5F4}
+#ldr-ex .ex small{display:block;font-size:12px;line-height:1.35;color:#A3A3A3}
+#ldr-ex .ex .voir{display:inline-flex;align-items:center;gap:5px;margin-top:5px;font-size:12.5px;font-weight:700;color:#E9C98B}
+#ldr-ex .ex:active .tel-ex,#ldr-ex .ex:hover .tel-ex{box-shadow:0 10px 26px rgba(233,201,139,.25),inset 0 0 0 1px rgba(233,201,139,.5)}
+@media(min-width:900px){#ldr-ex .grille-ex{grid-template-columns:repeat(4,1fr);gap:20px}#ldr-ex .tel-ex img{height:330px}}
+
+#ldr-devis{padding:34px 16px 40px;background:radial-gradient(120% 80% at 50% 0%,rgba(233,201,139,.08),transparent 60%),#05070d;color:#F5F5F4}
+#ldr-devis .in{max-width:620px;margin:0 auto}
+#ldr-devis .sur{margin:0;font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#E9C98B}
+#ldr-devis h2{margin:6px 0 4px;font-size:25px;line-height:1.2;font-weight:800;color:#F5F5F4}
+#ldr-devis .chap{margin:0 0 14px;color:#C7C7C7;font-size:15px;line-height:1.45}
+#ldr-devis form{display:grid;gap:11px}
+#ldr-devis .besoins{display:flex;flex-wrap:wrap;gap:8px;border:0;margin:0;padding:0}
+#ldr-devis .besoins legend{font-size:13.5px;font-weight:700;color:#E7E5E4;margin-bottom:7px;padding:0}
+#ldr-devis .besoins label{position:relative;cursor:pointer}
+#ldr-devis .besoins input{position:absolute;opacity:0;width:1px;height:1px}
+#ldr-devis .besoins span{display:inline-flex;align-items:center;min-height:40px;padding:0 14px;border-radius:999px;border:1px solid rgba(255,255,255,.22);font-size:14px;font-weight:600;color:#E7E5E4;background:rgba(255,255,255,.03)}
+#ldr-devis .besoins input:checked+span{border-color:#E9C98B;background:rgba(233,201,139,.16);color:#fff}
+#ldr-devis .besoins input:focus-visible+span{outline:3px solid #E9C98B;outline-offset:2px}
+#ldr-devis .duo{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+#ldr-devis label.ch{display:grid;gap:4px;font-size:13.5px;font-weight:700;color:#E7E5E4}
+#ldr-devis label.ch em{font-style:normal;font-weight:500;color:#A3A3A3}
+#ldr-devis input[type=text],#ldr-devis input[type=tel],#ldr-devis input[type=email],#ldr-devis textarea{width:100%;box-sizing:border-box;min-height:46px;padding:10px 12px;border-radius:12px;border:1px solid rgba(255,255,255,.2);background:#0d111b;color:#fff;font:500 16px/1.3 inherit;font-family:inherit}
+#ldr-devis textarea{min-height:84px;resize:vertical}
+#ldr-devis input:focus,#ldr-devis textarea:focus{outline:2px solid #E9C98B;outline-offset:1px;border-color:transparent}
+#ldr-devis .accord{display:flex;gap:10px;align-items:flex-start;font-size:13px;line-height:1.4;color:#C7C7C7;font-weight:500}
+#ldr-devis .accord input{width:20px;height:20px;margin:1px 0 0;flex:none;accent-color:#E9C98B}
+#ldr-devis .accord a{color:#E9C98B}
+#ldr-devis .envoyer{display:flex;align-items:center;justify-content:center;gap:8px;min-height:52px;border:0;border-radius:999px;background:#F5F5F4;color:#030712;font:800 16.5px/1 inherit;font-family:inherit;cursor:pointer}
+#ldr-devis .envoyer[disabled]{opacity:.6;cursor:wait}
+#ldr-devis .msg{min-height:1.2em;margin:0;font-size:14px;line-height:1.4;color:#FDA4AF}
+#ldr-devis .msg.ok{color:#86EFAC}
+#ldr-devis .ts{min-height:0}
+#ldr-devis .petit{margin:0;font-size:12px;color:#A3A3A3;text-align:center}
+#ldr-devis .fait{display:none;padding:18px;border-radius:16px;border:1px solid rgba(134,239,172,.4);background:rgba(134,239,172,.07)}
+#ldr-devis .fait b{display:block;font-size:19px;margin-bottom:4px}
+#ldr-devis .secours{display:none;gap:8px;padding:12px;border-radius:12px;border:1px solid rgba(255,255,255,.15)}
+#ldr-devis .secours button{min-height:44px;border-radius:999px;border:1.5px solid #F5F5F4;background:transparent;color:#F5F5F4;font:700 15px/1 inherit;font-family:inherit;cursor:pointer}
+@media(min-width:900px){#ldr-devis{padding:60px 24px}#ldr-devis h2{font-size:34px}}
+
+#ldr-devis .plus{margin:4px 0 6px;border:1px solid rgba(233,201,139,.28);border-radius:14px;padding:2px 14px;background:rgba(255,255,255,.02)}
+#ldr-devis .plus summary{cursor:pointer;padding:13px 0;font-weight:700;font-size:14px;color:#E9C98B;list-style:none}
+#ldr-devis .plus summary::-webkit-details-marker{display:none}
+#ldr-devis .plus summary::after{content:"+";float:right;font-size:20px;line-height:1}
+#ldr-devis .plus[open] summary::after{content:"–"}
+#ldr-devis .plus[open]{padding-bottom:12px}
+#ldr-devis .envoyer{background:linear-gradient(180deg,#F3DDA8,#E9C98B 55%,#C9A24F)!important;color:#1A1203!important;font-weight:800!important;font-size:17px!important;min-height:58px;border-radius:999px!important;box-shadow:0 10px 30px rgba(233,201,139,.28)!important}
+</style><div class="ldr-bloc"><span id="accueil" style="position:absolute"></span><section class="ldr v3"><div class="haut"><div>
+<div class="ou"><span class="pt"></span>Agence web locale<span class="sep">·</span>Sainte-Menehould, Marne</div>
+<h1>Tout ce qui fait venir vos clients, <span>au même endroit.</span></h1></div><img class="haut-sc" width="640" height="640" fetchpriority="high" decoding="async" src="https://agenceldr.github.io/demos-ldr/images-ldr/accueil/a06-d7fce7dc.webp" alt=""></div>
+<div class="grille"><a class="tu" href="https://www.agence-ldr.fr/77c26f05" style="--c:var(--web)"><img class="fondn" width="560" height="700" decoding="async" src="https://agenceldr.github.io/demos-ldr/images-ldr/accueil/a08-78e0867e.webp" alt=""><span class="brille"></span><span class="bande"><b><i></i>Site web</b><small>Un site unique qui fait appeler ou réserver</small><span class="pied"><span class="px">dès 1 190 €<em></em></span><span class="fl"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10h12M11 5l5 5-5 5"/></svg></span></span></span></a><a class="tu" href="https://www.agence-ldr.fr/reseaux" style="--c:var(--res)"><img class="fondn" width="560" height="700" decoding="async" src="https://agenceldr.github.io/demos-ldr/images-ldr/accueil/a09-89f6cd2a.webp" alt=""><span class="brille"></span><span class="bande"><b><i></i>Réseaux sociaux</b><small>Vos vraies photos, publiées pour vous</small><span class="pied"><span class="px">dès 290 €<em>/mois</em></span><span class="fl"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10h12M11 5l5 5-5 5"/></svg></span></span></span></a><a class="tu" href="https://www.agence-ldr.fr/d123ba74" style="--c:var(--maps)"><img class="fondn" width="560" height="700" decoding="async" src="https://agenceldr.github.io/demos-ldr/images-ldr/accueil/a07-775dbab2.webp" alt=""><span class="brille"></span><span class="bande"><b><i></i>Fiche Google</b><small>Trouvé, choisi et appelé sur Google Maps</small><span class="pied"><span class="px">590 €<em> une fois</em></span><span class="fl"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10h12M11 5l5 5-5 5"/></svg></span></span></span></a><a class="tu" href="https://www.agence-ldr.fr/8ee0b286" style="--c:var(--radar)"><img class="fondn" width="560" height="700" decoding="async" src="https://agenceldr.github.io/demos-ldr/images-ldr/accueil/a10-ce835343.webp" alt=""><span class="brille"></span><span class="bande"><b><i></i>Radars</b><small>Savoir où sont vos prochains clients</small><span class="pied"><span class="px">dès 79 €<em>/mois</em></span><span class="fl"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10h12M11 5l5 5-5 5"/></svg></span></span></span></a></div>
+<div class="bas"><div><div class="act"><a class="btn b1" href="https://www.agence-ldr.fr/5897fccc">Demander mon devis <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10h12M11 5l5 5-5 5"/></svg></a><a class="btn b2" href="https://www.agence-ldr.fr/d123ba74#ldr-test">Tester ma fiche</a></div></div></div>
+<div class="faits"><span>Premier regard gratuit</span><span>Devis écrit avant tout</span></div>
+</section>
+<section class="ldr s s3" id="realisations"><div class="t"><div><div class="sur">Des sites déjà faits</div><h2>Ce qu'on <span>fabrique</span></h2></div><span class="ex"><b>4 sites</b> · données fictives</span></div>
+<div id="ldr-ex"><div class="ldr-vue" role="group" aria-label="Voir les sites sur"><button type="button" class="on" data-v="tel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M11 18.5h2"/></svg>Téléphone</button><button type="button" data-v="pc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="12" rx="1.8"/><path d="M1.5 19.5h21"/></svg>Ordinateur</button><i class="glisse" aria-hidden="true"></i></div><div class="grille-ex"><a class="ex" href="https://agenceldr.github.io/demos-ldr/exemples/quai-sorbier/" target="_blank" rel="noopener"><div class="tel-ex"><img src="https://cdn.jsdelivr.net/gh/AGENCELDR/demos-ldr@74086aa3273c174a0964dd909c6944eee096758b/_collage/vignettes/quai-tel-2511b.webp" data-tel="https://cdn.jsdelivr.net/gh/AGENCELDR/demos-ldr@74086aa3273c174a0964dd909c6944eee096758b/_collage/vignettes/quai-tel-2511b.webp" data-pc="https://cdn.jsdelivr.net/gh/AGENCELDR/demos-ldr@74086aa3273c174a0964dd909c6944eee096758b/_collage/vignettes/quai-pc-2511b.webp" alt="Le site d’exemple Le Quai Sorbier" loading="lazy"></div><b>Le Quai Sorbier</b><small>Restaurant · réserver sa table</small><span class="voir">Ouvrir le site →</span></a><a class="ex" href="https://agenceldr.github.io/demos-ldr/exemples/studio-ambrine/" target="_blank" rel="noopener"><div class="tel-ex"><img src="https://cdn.jsdelivr.net/gh/AGENCELDR/demos-ldr@74086aa3273c174a0964dd909c6944eee096758b/_collage/vignettes/ambrine-tel-2511b.webp" data-tel="https://cdn.jsdelivr.net/gh/AGENCELDR/demos-ldr@74086aa3273c174a0964dd909c6944eee096758b/_collage/vignettes/ambrine-tel-2511b.webp" data-pc="https://cdn.jsdelivr.net/gh/AGENCELDR/demos-ldr@74086aa3273c174a0964dd909c6944eee096758b/_collage/vignettes/ambrine-pc-2511b.webp" alt="Le site d’exemple Studio Ambrine" loading="lazy"></div><b>Studio Ambrine</b><small>Coiffure · prendre rendez-vous</small><span class="voir">Ouvrir le site →</span></a><a class="ex" href="https://agenceldr.github.io/demos-ldr/exemples/fleurs-arnelle/" target="_blank" rel="noopener"><div class="tel-ex"><img src="https://cdn.jsdelivr.net/gh/AGENCELDR/demos-ldr@74086aa3273c174a0964dd909c6944eee096758b/_collage/vignettes/arnelle-tel-2511b.webp" data-tel="https://cdn.jsdelivr.net/gh/AGENCELDR/demos-ldr@74086aa3273c174a0964dd909c6944eee096758b/_collage/vignettes/arnelle-tel-2511b.webp" data-pc="https://cdn.jsdelivr.net/gh/AGENCELDR/demos-ldr@74086aa3273c174a0964dd909c6944eee096758b/_collage/vignettes/arnelle-pc-2511b.webp" alt="Le site d’exemple Fleurs Arnelle" loading="lazy"></div><b>Fleurs Arnelle</b><small>Fleuriste · commander un bouquet</small><span class="voir">Ouvrir le site →</span></a><a class="ex" href="https://agenceldr.github.io/demos-ldr/exemples/fluvane/" target="_blank" rel="noopener"><div class="tel-ex"><img src="https://cdn.jsdelivr.net/gh/AGENCELDR/demos-ldr@74086aa3273c174a0964dd909c6944eee096758b/_collage/vignettes/fluvane-tel-2511b.webp" data-tel="https://cdn.jsdelivr.net/gh/AGENCELDR/demos-ldr@74086aa3273c174a0964dd909c6944eee096758b/_collage/vignettes/fluvane-tel-2511b.webp" data-pc="https://cdn.jsdelivr.net/gh/AGENCELDR/demos-ldr@74086aa3273c174a0964dd909c6944eee096758b/_collage/vignettes/fluvane-pc-2511b.webp" alt="Le site d’exemple Fluvane" loading="lazy"></div><b>Fluvane</b><small>Plombier · le bon geste, puis l’appel</small><span class="voir">Ouvrir le site →</span></a></div><div class="pts" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i></div></div>
+<p class="note">Chaque site est fait sur mesure, jamais deux fois le même. Touchez un site pour l’ouvrir : tous les boutons marchent.</p></section>
+<section class="ldr s s2"><div class="cadre"><div class="ph"><img loading="lazy" decoding="async" src="https://cdn.jsdelivr.net/gh/AGENCELDR/demos-ldr@5c87d265cc594222a7b1b1be07e2fd54894bdff4/_collage/photos/plan-tablette-mains-femme.webp" alt="Relevé du plan d'une salle de restaurant sur tablette"><em>D'après vos photos et vos plans</em></div>
+<div class="txt"><div class="sur">Comment ça se passe</div><h2>Envoyez-nous vos photos. <span>On construit votre site autour.</span></h2><p style="margin:10px 0 0;font-size:15.5px;line-height:1.45;color:#C9D1E0;max-width:520px">Votre commerce, votre camionnette, vos réalisations : tout ce que vous voulez montrer.</p>
+<ol><li><i>1</i><div><b>Un premier regard, gratuit</b><p>On regarde votre fiche Google et votre site, et on vous dit franchement ce qui vous sert.</p></div></li>
+<li><i>2</i><div><b>Un devis écrit</b><p>Ce qu'on fait, le prix et le délai, avant de commencer. Rien de caché.</p></div></li>
+<li><i>3</i><div><b>C'est en place, et on vous suit</b><p>On démarre vite, et on reste joignables après la livraison.</p></div></li></ol></div></div></section>
+<section class="ldr s4" id="qui-sommes-nous"><div class="fond"><img loading="lazy" decoding="async" src="https://agenceldr.github.io/demos-ldr/images-ldr/accueil/a19-5b47bc83.webp" alt=""></div><div class="in">
+<img loading="lazy" decoding="async" src="https://agenceldr.github.io/demos-ldr/images-ldr/accueil/a06-d7fce7dc.webp" alt="La mascotte de l'Agence LDR : l'aigle aux couleurs de nos quatre offres" style="display:block;width:min(260px,70%);margin:0 auto 6px;-webkit-mask-image:radial-gradient(farthest-side,#000 74%,transparent 100%);mask-image:radial-gradient(farthest-side,#000 74%,transparent 100%)">
+<div class="ag" style="justify-content:center"><span>Agence LDR · Sainte-Menehould</span></div>
+<h2 class="tt">Une agence d'ici, <span>pas une plateforme.</span></h2>
+<div class="pro"><div><b>Tout est écrit</b><p>Ce qu'on fait, le prix, le délai : avant de commencer.</p></div>
+<div><b>Tout reste à vous</b><p>Votre fiche Google et votre site vous appartiennent.</p></div>
+<div><b>Un avis franc</b><p>Si quelque chose ne vous sert à rien, on vous le dit.</p></div></div>
+<p class="qui">Agence LDR, nom commercial de l'entreprise individuelle d'Adeline Crombez, Sainte-Menehould (Marne).</p></div></section>
+<section class="ldr s s5" id="fin"><div class="boite"><img loading="lazy" decoding="async" src="https://agenceldr.github.io/demos-ldr/images-ldr/accueil/a20-213fd335.webp" alt="Un commerçant montre son téléphone à un client"><div>
+<h2>Vos clients vous cherchent déjà. <span>Faisons qu'ils vous trouvent.</span></h2>
+<div class="act"><a class="btn b1" href="https://www.agence-ldr.fr/5897fccc" data-aller="1">Demander mon devis <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10h12M11 5l5 5-5 5"/></svg></a><a class="btn b2" href="https://www.agence-ldr.fr/d123ba74#ldr-test">Tester ma fiche</a></div>
+<div class="faits"><span>Premier regard gratuit</span><span>TVA non applicable, art. 293 B</span></div></div></div></section>
+
+<footer class="ldr pied"><div class="in"><nav><a href="https://www.agence-ldr.fr/d123ba74">Fiche Google</a><a href="https://www.agence-ldr.fr/77c26f05">Site web</a><a href="https://www.agence-ldr.fr/8ee0b286">Radars</a><a href="https://www.agence-ldr.fr/reseaux">Réseaux sociaux</a><a href="https://www.agence-ldr.fr/9c71372a">Mentions légales</a><a href="https://www.agence-ldr.fr/19b5caee">CGV</a><a href="https://www.agence-ldr.fr/9c71372a">Données personnelles</a></nav>
+<span class="sig"><img loading="lazy" decoding="async" src="https://agenceldr.github.io/demos-ldr/images-ldr/accueil/a21-1a624a53.webp" alt="">Site réalisé par <b>Agence LDR</b></span>
+<p class="leg">Agence LDR · Le Déclencheur de Résultats · Sainte-Menehould, Marne · Exemples : données fictives.</p></div></footer>
+</div>
+<!-- FIN DU BLOC SYSTEME.IO --><script>(function(){var s=document.querySelector('.v3');if(!('IntersectionObserver' in window)){s.classList.add('vu');return;}new IntersectionObserver(function(e){s.classList.toggle('vu',e[0].isIntersecting)}).observe(s);})();</script>
+<style id="ldr-cartes-aigle-2026-11-24">.v3 .tu{height:auto!important;justify-content:flex-start!important;padding:0 0 12px!important}.v3 .tu .fondn{position:relative!important;inset:auto!important;width:100%!important;height:auto!important;aspect-ratio:1/1;object-fit:cover!important;object-position:50% 50%!important;z-index:0!important;display:block}.v3 .tu .bande{margin:10px 10px 0!important;padding:12px 14px!important;border-radius:16px!important;background:linear-gradient(180deg,color-mix(in srgb,var(--c) 22%,#0a1020),#070b16 92%)!important;border:1.5px solid color-mix(in srgb,var(--c) 80%,transparent)!important;box-shadow:0 0 0 3px rgba(3,7,18,.9),0 0 20px color-mix(in srgb,var(--c) 40%,transparent),inset 0 1px 0 rgba(255,255,255,.14)!important;backdrop-filter:none!important}.v3 .tu .bande::before{display:none!important}.v3 .tu b i{display:none!important}.v3 .tu b{font-size:14.5px!important;white-space:nowrap}.v3 .tu .px{font-size:15px!important;white-space:nowrap}.v3 .tu .px em{font-size:10px!important}.v3 .tu .fl{width:26px!important;height:26px!important;flex:none}.v3 .tu .bande{flex:1!important;padding:12px 10px!important}.v3 .tu .px{color:var(--c)!important}.v3 .tu .px em{color:#C9C9C9!important}</style>
+
+<style id="ldr-fluidite-2026-11-24">.s2,.s3,.s5{padding-top:34px!important}.s4{margin-top:34px!important}.s3 .t{align-items:flex-end}@media(min-width:768px){.s2,.s3,.s5{padding-top:60px!important}.s4{margin-top:64px!important}}</style>
+
+<style id="ldr-finition-v28-2026-11-25">
+/* tres petit telephone (audit 25/11) : le bouton du haut ne se coupe plus en deux */
+@media(max-width:359px){.ldr-bloc .btn.b1,.ldr-bloc .btn.b2{white-space:nowrap;font-size:13px;padding-left:10px;padding-right:10px}}
+
+/* --- Typographie : titres plus tenus, mieux equilibres --- */
+.ldr-bloc{text-rendering:optimizeLegibility}
+.v3 h1{font-size:27px;line-height:1.1;letter-spacing:-.032em;margin-top:10px;text-wrap:balance}
+.s h2,.s4 h2{letter-spacing:-.03em;text-wrap:balance}
+.s h2{font-size:24px;line-height:1.14}
+.s5 h2{font-size:20px}
+.s .sur,#ldr-devis .sur{font-size:11px;letter-spacing:.14em;display:flex;align-items:center;gap:9px}
+.s .sur::before,#ldr-devis .sur::before{content:"";width:22px;height:1px;background:var(--or,#E9C98B);opacity:.8}
+.ldr .ou{font-size:12px}
+/* --- Un seul bouton principal, dore comme celui du menu et du devis --- */
+.ldr .btn{transition:transform .2s ease,box-shadow .2s ease,background .2s ease,border-color .2s ease,color .2s ease}
+.ldr .btn.b1{background:linear-gradient(180deg,#F3DDA8,#E9C98B 55%,#C9A24F);color:#1A1203;font-weight:800;box-shadow:0 10px 26px rgba(233,201,139,.22),inset 0 1px 0 rgba(255,255,255,.45)}
+.ldr .btn.b2{background:rgba(255,255,255,.03)}
+.ldr .btn:active{transform:scale(.98)}
+.ldr-bloc a:focus-visible,.ldr-bloc button:focus-visible{outline:2px solid #E9C98B;outline-offset:3px;border-radius:10px}
+/* --- Premier ecran telephone : le titre, l'action, puis les offres et leurs prix --- */
+.v3{display:flex;flex-direction:column}
+.v3 .bas{display:contents}
+.v3 .bas>div{order:1}
+.v3 .act{margin-top:14px}
+.v3 .btn{height:50px;font-size:15px}
+.v3 .grille{order:2;margin-top:14px}
+.v3 .preuve{order:3;margin-top:12px}
+.v3 .faits{order:4;margin-top:12px}
+.v3 .tu small{color:#D6D6D6}
+/* --- Exemples : une rangee qu'on fait glisser, ecrans plus grands (telephone) --- */
+#ldr-ex .pts{display:none}
+#ldr-ex .tel-ex{transition:transform .35s cubic-bezier(.2,.7,.2,1),box-shadow .35s ease}
+@media(max-width:899px){
+ #ldr-ex .grille-ex{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;margin:14px -16px 0;padding:0 16px 4px;scroll-padding:0 16px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+ #ldr-ex .grille-ex::-webkit-scrollbar{display:none}
+ #ldr-ex a.ex{flex:0 0 61%;scroll-snap-align:start}
+ #ldr-ex .tel-ex{border-radius:26px;padding:6px}
+ #ldr-ex .tel-ex img{height:auto;aspect-ratio:390/650;border-radius:20px}
+ #ldr-ex .ex b{font-size:16px;margin-top:10px}
+ #ldr-ex .ex small{font-size:13px}
+ #ldr-ex .ex .voir{font-size:13.5px;margin-top:6px}
+ #ldr-ex .pts{display:flex;justify-content:center;gap:6px;margin-top:12px}
+ #ldr-ex .pts i{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.22);transition:width .25s ease,background .25s ease}
+ #ldr-ex .pts i.on{width:18px;border-radius:3px;background:#E9C98B}
+ .s3 .note{text-align:center}
+}
+/* --- Comment ca se passe : les 3 etapes reliees par un filet d'or --- */
+.s2 li{position:relative}
+.s2 li:not(:last-child)::before{content:"";position:absolute;left:12.5px;top:30px;bottom:-6px;width:1px;background:linear-gradient(180deg,rgba(201,164,94,.9),rgba(201,164,94,.12))}
+.s2 .txt{padding:8px 16px 18px}
+.s2 ol{gap:12px;margin-top:14px}
+.s2 li b{font-size:14.5px}
+.s2 li p{font-size:13px;color:#C7C7C7}
+.s2 .ph{height:170px}
+/* --- Une agence d'ici : titre a la taille des autres, centre sous l'aigle --- */
+.s4 h2{font-size:24px;line-height:1.14;text-align:center;max-width:none}
+.s4 h2 span{color:var(--or)}
+.s4 .qui{text-align:center}
+.s4 .pro b{font-size:14.5px}
+.s4 .pro p{font-size:13px}
+.s4 .pro div{padding:12px 14px;border-left:2px solid rgba(233,201,139,.75);border-radius:4px 14px 14px 4px}
+.s5 .boite{padding:14px}
+/* --- Devis : champs en 16 px (sinon l'iPhone zoome tout seul), meme ecriture que la page --- */
+#ldr-devis input[type=text],#ldr-devis input[type=tel],#ldr-devis input[type=email],#ldr-devis textarea{font-family:inherit;font-size:16px;font-weight:500;line-height:1.3;transition:border-color .2s ease,background .2s ease}
+#ldr-devis input[type=text]:hover,#ldr-devis input[type=tel]:hover,#ldr-devis input[type=email]:hover,#ldr-devis textarea:hover{border-color:rgba(233,201,139,.5)}
+#ldr-devis .envoyer,#ldr-devis .secours button{font-family:inherit}
+#ldr-devis .secours button{font-size:15px;font-weight:700}
+/* --- Apparition douce au defilement (coupee si « mouvement reduit ») --- */
+.ldr-bloc.anim [data-r]{opacity:0;transform:translateY(18px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1);transition-delay:var(--d,0s)}
+.ldr-bloc.anim [data-r].on{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.ldr-bloc.anim [data-r]{opacity:1;transform:none;transition:none}}
+/* --- Ordinateur --- */
+@media(min-width:900px){
+ .v3{display:grid;grid-template-columns:minmax(0,1fr) 420px;column-gap:56px;align-items:center;padding:34px 40px 56px}
+ .v3 .haut{display:contents}
+ .v3 .haut>div{grid-column:1;grid-row:1;align-self:end}
+ .v3 .haut-sc{grid-column:2;grid-row:1/4;width:420px;justify-self:end;mix-blend-mode:screen;filter:none}
+ .v3 h1{font-size:clamp(46px,4.5vw,64px);line-height:1.04;max-width:none;margin-top:16px}
+ .ldr .ou{font-size:13.5px}
+ .v3 .bas>div{grid-column:1;grid-row:2;order:0}
+ .v3 .act{width:500px;margin-top:30px}
+ .v3 .btn{height:56px;font-size:16px}
+ .v3 .faits{grid-column:1;grid-row:3;align-self:start;margin-top:16px;font-size:13px;order:0}
+ .v3 .grille{grid-column:1/-1;grid-row:4;margin-top:34px;order:0}
+ .v3 .preuve{grid-column:1/-1;grid-row:5;margin-top:18px;order:0;padding:10px 18px;transition:border-color .25s ease,background .25s ease}
+ .v3 .preuve:hover{border-color:rgba(233,201,139,.5)}
+ .v3 .preuve p{font-size:13.5px}.v3 .preuve p b{font-size:15px}.v3 .preuve span{font-size:14px}
+ .ldr .btn.b1:hover{transform:translateY(-2px);box-shadow:0 16px 34px rgba(233,201,139,.32),inset 0 1px 0 rgba(255,255,255,.5)}
+ .ldr .btn.b2:hover{border-color:#E9C98B;color:#E9C98B}
+ .s h2{font-size:40px;line-height:1.08}
+ .s .sur,#ldr-devis .sur{font-size:12.5px}
+ .s5 h2{font-size:32px}
+ #ldr-ex a.ex:hover .tel-ex{transform:translateY(-6px)}
+ #ldr-ex .ex b{font-size:17px;margin-top:12px}#ldr-ex .ex small{font-size:14px}#ldr-ex .ex .voir{font-size:14px}
+ .s3 .note{font-size:13.5px;margin-top:18px}
+ .s2 li:not(:last-child)::before{left:16.5px;top:40px;bottom:-12px}
+ .s2 li b{font-size:18px}.s2 li p{font-size:15px}
+ .s2 .txt{padding:40px 44px}
+ .s4 h2{font-size:40px;line-height:1.08}
+ .s4 .pro{max-width:1040px;margin-left:auto;margin-right:auto}
+ .s4 .pro b{font-size:18px}.s4 .pro p{font-size:15px}
+ .s4 .pro div{padding:18px 20px}
+ .s5 .boite{padding:22px}
+}
+</style>
+
+<script>(function(){
+var b=document.querySelector('.ldr-bloc');if(!b)return;
+/* points de la rangee d'exemples */
+var g=b.querySelector('#ldr-ex .grille-ex'),p=b.querySelectorAll('#ldr-ex .pts i');
+if(g&&p.length){var t;g.addEventListener('scroll',function(){clearTimeout(t);t=setTimeout(function(){var c=g.children,m=0,d=1e9,x=g.getBoundingClientRect().left;for(var i=0;i<c.length;i++){var e=Math.abs(c[i].getBoundingClientRect().left-x-16);if(e<d){d=e;m=i}}if(g.scrollLeft+g.clientWidth>=g.scrollWidth-4)m=c.length-1;for(var k=0;k<p.length;k++)p[k].className=k===m?'on':''},60)},{passive:true})}
+/* apparition douce */
+if(!('IntersectionObserver' in window))return;
+var s=['.s .sur','.s h2','#ldr-ex a.ex','.s3 .note','.s2 .ph','.s2 li','.s4 .tt','.s4 .pro div','.s5 .boite','#ldr-devis .in'],els=[];
+s.forEach(function(q){[].forEach.call(b.querySelectorAll(q),function(e,i){e.setAttribute('data-r','');e.style.setProperty('--d',(Math.min(i,3)*0.08)+'s');els.push(e)})});
+b.classList.add('anim');
+var o=new IntersectionObserver(function(es){es.forEach(function(x){if(x.isIntersecting){x.target.classList.add('on');o.unobserve(x.target)}})},{rootMargin:'0px 0px -8% 0px',threshold:.08});
+els.forEach(function(e){o.observe(e)});
+setTimeout(function(){els.forEach(function(e){var r=e.getBoundingClientRect();if(r.top<innerHeight)e.classList.add('on')})},1200);
+})();</script>
+<style id="ldr-offres-sans-cadre-2026-11-25">
+/* Demande du 25/11 : plus de cartes carrees. Les 4 offres deviennent une liste ouverte : l'aigle se fond dans la page, un fil de la couleur de l'offre, le prix a droite. Toute la ligne reste cliquable. */
+.ldr-bloc .v3 .grille{grid-template-columns:1fr!important;gap:0!important}
+.ldr-bloc .v3 .tu{display:grid!important;grid-template-columns:104px minmax(0,1fr);align-items:center;column-gap:12px;height:auto!important;padding:6px 0!important;border-radius:0!important;background:none!important;box-shadow:none!important;overflow:visible!important}
+.ldr-bloc .v3 .tu::before{display:none!important}
+.ldr-bloc .v3 .tu::after{content:"";position:absolute;left:104px;right:0;bottom:0;height:1px;background:linear-gradient(90deg,color-mix(in srgb,var(--c) 70%,transparent),rgba(255,255,255,.07) 55%,transparent)}
+.ldr-bloc .v3 .tu:last-child::after{display:none}
+.ldr-bloc .v3 .tu .brille{display:none!important}
+.ldr-bloc .v3 .tu .fondn{position:relative!important;inset:auto!important;width:104px!important;height:104px!important;aspect-ratio:1/1;object-fit:cover!important;object-position:50% 38%!important;z-index:0!important;display:block;mix-blend-mode:screen;-webkit-mask-image:radial-gradient(closest-side,#000 62%,transparent 100%);mask-image:radial-gradient(closest-side,#000 62%,transparent 100%);transition:transform .35s ease}
+.ldr-bloc .v3 .tu .bande{margin:0!important;padding:0!important;border:0!important;border-radius:0!important;background:none!important;box-shadow:none!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;display:grid!important;grid-template-columns:minmax(0,1fr) auto;column-gap:10px;align-items:center}
+.ldr-bloc .v3 .tu b{grid-column:1;font-size:17px!important;letter-spacing:-.015em;white-space:normal}
+.ldr-bloc .v3 .tu small{grid-column:1;font-size:13px!important;line-height:1.35!important;color:#D6D6D6;margin-top:3px;min-height:0!important}
+.ldr-bloc .v3 .tu .pied{grid-column:2;grid-row:1/3;margin:0!important;padding:0!important;border:0!important;display:flex;flex-direction:column;align-items:flex-end;gap:6px}
+.ldr-bloc .v3 .tu .px{font-size:17px!important;color:var(--c)!important;text-align:right;line-height:1.1;white-space:nowrap}
+.ldr-bloc .v3 .tu .px em{display:block;font-size:11px!important;color:#C9C9C9!important;margin-top:2px}
+.ldr-bloc .v3 .tu .fl{width:28px!important;height:28px!important;background:none!important;box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--c) 60%,transparent)}
+.ldr-bloc .v3 .tu:active{transform:none}
+.ldr-bloc .v3 .tu:active .fondn{transform:scale(.96)}
+@media(max-width:359px){.ldr-bloc .v3 .tu{grid-template-columns:84px minmax(0,1fr)}.ldr-bloc .v3 .tu .fondn{width:84px!important;height:84px!important}.ldr-bloc .v3 .tu::after{left:84px}.ldr-bloc .v3 .tu b{font-size:15.5px!important}.ldr-bloc .v3 .tu .px{font-size:15.5px!important}}
+@media(min-width:900px){
+ .ldr-bloc .v3 .grille{grid-template-columns:repeat(4,1fr)!important;gap:28px!important}
+ .ldr-bloc .v3 .tu{display:flex!important;flex-direction:column;align-items:stretch;justify-content:flex-start!important;padding:0!important}
+ .ldr-bloc .v3 .tu::after{left:0;right:0;bottom:auto;top:0;display:none}
+ .ldr-bloc .v3 .tu .fondn{width:100%!important;height:auto!important;max-width:170px;margin:0 auto 0 0;object-position:50% 42%!important}
+ .ldr-bloc .v3 .tu .bande{display:flex!important;flex-direction:column;align-items:stretch;flex:1!important;padding:14px 0 0!important;border-top:1px solid transparent!important;border-image:linear-gradient(90deg,var(--c),rgba(255,255,255,.08) 70%,transparent) 1!important}
+ .ldr-bloc .v3 .tu b{font-size:21px!important}
+ .ldr-bloc .v3 .tu small{font-size:15px!important;margin-top:6px;flex:1}
+ .ldr-bloc .v3 .tu .pied{flex-direction:row;align-items:center;justify-content:space-between;margin-top:14px!important}
+ .ldr-bloc .v3 .tu .px{font-size:21px!important;text-align:left}
+ .ldr-bloc .v3 .tu .px em{display:inline;font-size:13px!important;margin:0 0 0 4px}
+ .ldr-bloc .v3 .tu .fl{width:34px!important;height:34px!important;transition:background .25s ease,color .25s ease,transform .25s ease}
+ .ldr-bloc .v3 .tu:hover{transform:none!important;box-shadow:none!important}
+ .ldr-bloc .v3 .tu:hover .fondn{transform:translateY(-6px) scale(1.04)}
+ .ldr-bloc .v3 .tu:hover .fl{background:var(--c)!important;color:#05070d;transform:translateX(3px)}
+}
+</style>
+<style id="ldr-chaleur-2026-11-25">
+/* Demande du 25/11 : plus de couleur et de chaleur. On reprend les couleurs de l'aigle (orange, rose, bleu, vert) a la place de l'or seul. */
+.ldr-bloc .v3{position:relative}
+.ldr-bloc .v3>*,.ldr-bloc .v3 .haut>*,.ldr-bloc .v3 .bas>*{position:relative;z-index:1}
+.ldr-bloc .v3::before{content:"";position:absolute;z-index:0;pointer-events:none;left:0;right:0;top:-30px;height:640px;background:radial-gradient(closest-side,rgba(245,158,11,.42),transparent) 100% 0/78% 300px no-repeat,radial-gradient(closest-side,rgba(236,72,153,.30),transparent) 0 30%/70% 280px no-repeat,radial-gradient(closest-side,rgba(56,189,248,.16),transparent) 60% 100%/90% 300px no-repeat}
+/* 25/11 08h08 (Lilian) : titres tout en blanc, plus de mot de fin en couleur. L'or de la page = l'or du logo LDR (degrade metal du menu). */
+.ldr-bloc h1,.ldr-bloc h2,.ldr-bloc h1 span,.ldr-bloc h2 span,.ldr-bloc .s4 h2 span{background:none!important;color:#F5F5F4!important;-webkit-text-fill-color:#F5F5F4!important}
+.ldr-bloc .sur,.ldr-bloc .voir,.ldr .ex b,.ldr-bloc .v3 a>p+span,.ldr-bloc .v3 .preuve span,.ldr-bloc .pied .sig b{background:linear-gradient(180deg,#F8EBCB 0%,#E9C98B 50%,#B8935A 100%);-webkit-background-clip:text;background-clip:text;color:transparent!important;-webkit-text-fill-color:transparent}
+.ldr .btn.b1:hover,.ldr .b1:hover{box-shadow:0 16px 36px rgba(233,201,139,.38),inset 0 1px 0 rgba(255,255,255,.6)!important}
+
+.ldr .btn.b1,.ldr .b1,#ldr-devis .envoyer{background:linear-gradient(180deg,#F8EBCB 0%,#E9C98B 50%,#B8935A 100%)!important;color:#1A1206!important;box-shadow:0 12px 30px rgba(233,201,139,.28),inset 0 1px 0 rgba(255,255,255,.6)!important}
+.ldr .btn.b2,.ldr .b2{border-color:rgba(245,158,11,.45)!important}
+.ldr-bloc .ou .pt{background:#E9C98B!important;box-shadow:0 0 10px rgba(233,201,139,.7)!important}
+/* chaque offre baigne dans sa couleur */
+.ldr-bloc .v3 .tu .bande{position:relative}
+.ldr-bloc .v3 .tu .fondn{filter:saturate(1.2) brightness(1.08)}
+.ldr-bloc .v3 .tu b{color:#fff}
+.ldr-bloc .v3 .tu .fl{background:var(--c)!important;color:#05070d!important;box-shadow:0 0 14px color-mix(in srgb,var(--c) 55%,transparent)!important}
+.ldr-bloc .v3 .grille{position:relative}
+.ldr-bloc .v3 .tu>.fondn{box-shadow:none}
+.ldr-bloc .v3 .tu{background:radial-gradient(120px 70px at 52px 50%,color-mix(in srgb,var(--c) 30%,transparent),transparent 72%)!important}
+@media(min-width:900px){
+ .ldr-bloc .v3::before{top:-40px;height:860px;background:radial-gradient(closest-side,rgba(245,158,11,.44),transparent) 92% 12%/52% 560px no-repeat,radial-gradient(closest-side,rgba(236,72,153,.30),transparent) 100% 78%/40% 420px no-repeat,radial-gradient(closest-side,rgba(56,189,248,.14),transparent) 0 0/46% 420px no-repeat}
+ .ldr-bloc .v3 .tu{background:radial-gradient(150px 110px at 85px 85px,color-mix(in srgb,var(--c) 32%,transparent),transparent 72%)!important}
+}
+</style>
+<style id="ldr-fondu-photo-2026-11-25">.ldr-bloc .s4 .fond{-webkit-mask-image:linear-gradient(180deg,transparent 0,#000 26%,#000 62%,transparent 100%);mask-image:linear-gradient(180deg,transparent 0,#000 26%,#000 62%,transparent 100%)}.ldr-bloc .s4 .fond::after{background:linear-gradient(180deg,rgba(3,7,18,.25),rgba(3,7,18,.55) 40%,rgba(3,7,18,.8))!important}</style>
+<style id="ldr-offres-allure-c-deux-par-deux-2026-11-25">
+html body .ldr-bloc .v3 .grille .tu::after,html body .ldr-bloc .v3 .grille .tu .brille{display:none!important}
+html body .ldr-bloc .v3 .grille .tu{background:none!important;box-shadow:none!important;border-radius:0!important;height:auto!important;overflow:visible!important}
+html body .ldr-bloc .v3 .grille .tu .fondn{mix-blend-mode:screen;-webkit-mask-image:radial-gradient(closest-side,#000 60%,transparent 100%);mask-image:radial-gradient(closest-side,#000 60%,transparent 100%);object-fit:cover!important;transition:transform .35s cubic-bezier(.2,.7,.2,1),filter .35s ease}
+html body .ldr-bloc .v3 .grille .tu:active .fondn{transform:scale(.94)}
+
+html body .ldr-bloc .v3 .grille{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:6px 12px!important;margin-top:16px!important}
+html body .ldr-bloc .v3 .grille .tu{display:grid!important;grid-template-columns:62px minmax(0,1fr)!important;align-items:center!important;column-gap:6px!important;padding:4px 0 6px!important;border-bottom:1px solid transparent!important;border-image:linear-gradient(90deg,var(--c),transparent 85%) 1!important}
+html body .ldr-bloc .v3 .grille .tu .fondn{width:62px!important;height:62px!important;object-position:50% 40%!important;position:relative!important;inset:auto!important}
+html body .ldr-bloc .v3 .grille .tu .bande{display:flex!important;flex-direction:column!important;align-items:flex-start!important;padding:0!important;margin:0!important;border:0!important;background:none!important;backdrop-filter:none!important}
+html body .ldr-bloc .v3 .grille .tu b{font-size:14px!important;line-height:1.15!important;white-space:normal!important}
+html body .ldr-bloc .v3 .grille .tu small{display:none!important}
+html body .ldr-bloc .v3 .grille .tu .pied{margin:3px 0 0!important;padding:0!important;border:0!important;display:block!important}
+html body .ldr-bloc .v3 .grille .tu .px{font-size:14px!important;text-align:left!important} html body .ldr-bloc .v3 .grille .tu .px em{display:inline!important;font-size:10.5px!important;margin-left:3px!important}
+html body .ldr-bloc .v3 .grille .tu .fl{display:none!important}
+@media(min-width:900px){
+ html body .ldr-bloc .v3 .grille{grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:24px!important;margin-top:40px!important}
+ html body .ldr-bloc .v3 .grille .tu{grid-template-columns:90px minmax(0,1fr)!important;column-gap:10px!important;padding-bottom:12px!important}
+ html body .ldr-bloc .v3 .grille .tu .fondn{width:90px!important;height:90px!important}
+ html body .ldr-bloc .v3 .grille .tu b{font-size:19px!important}
+ html body .ldr-bloc .v3 .grille .tu small{display:block!important;font-size:13px!important;color:#BDBDBD!important;margin-top:3px}
+ html body .ldr-bloc .v3 .grille .tu .px{font-size:18px!important}
+ html body .ldr-bloc .v3 .grille .tu:hover .fondn{transform:translateY(-5px) scale(1.06)}
+}
+
+html body .ldr-bloc .v3 .preuve{background:none!important;border:0!important;border-radius:0!important;padding:10px 0 0!important;margin-top:4px!important;gap:10px!important;justify-content:center;border-top:1px solid rgba(233,201,139,.14)!important}
+html body .ldr-bloc .v3 .preuve p{flex:0 1 auto!important;font-size:12.5px!important;color:#BDBDBD!important}
+html body .ldr-bloc .v3 .preuve p b{display:inline!important;font-size:13px!important;color:#F5F5F4!important;margin-right:5px}
+html body .ldr-bloc .v3 .preuve span{font-size:13px!important}
+html body .ldr-bloc .v3 .preuve>span:last-child::after{content:" →"}
+@media(max-width:899px){ html body .ldr-bloc .v3 .preuve p{font-size:0!important} html body .ldr-bloc .v3 .preuve p b{font-size:13px!important} html body .ldr-bloc .v3 .preuve p::after{content:"· 4 métiers";font-size:12.5px;color:#9a9a9a} }
+@media(min-width:900px){ html body .ldr-bloc .v3 .preuve{justify-content:flex-start;padding-top:14px!important;margin-top:10px!important} html body .ldr-bloc .v3 .preuve:hover{border-color:rgba(233,201,139,.4)!important} }
+</style>
+<style id="ldr-aigles-grands-2026-11-25">html body .ldr-bloc .v3 .grille{gap:14px 10px!important}html body .ldr-bloc .v3 .grille .tu{grid-template-columns:1fr!important;justify-items:center!important;text-align:center!important;row-gap:2px!important;padding:0 0 12px!important}html body .ldr-bloc .v3 .grille .tu .fondn{width:118px!important;height:118px!important}html body .ldr-bloc .v3 .grille .tu .bande{align-items:center!important}html body .ldr-bloc .v3 .grille .tu b{text-align:center!important;font-size:15px!important}html body .ldr-bloc .v3 .grille .tu .px{text-align:center!important}html body .ldr-bloc .v3 .grille .tu{border-image:linear-gradient(90deg,transparent,var(--c),transparent) 1!important}@media(min-width:900px){html body .ldr-bloc .v3 .grille .tu{grid-template-columns:1fr!important}html body .ldr-bloc .v3 .grille .tu .fondn{width:170px!important;height:170px!important}html body .ldr-bloc .v3 .grille .tu b{font-size:20px!important}}</style>
+<style id="ldr-nuit-blanc-2026-11-25">
+/* 25/11 (Lilian, choix 1) : Nuit & blanc. Plus aucun or. Boutons blancs, petits titres gris bleuté, seules les 4 offres gardent leur couleur. */
+.ldr{--or:#C9D1E0}
+html body .ldr .btn.b1,html body .ldr .b1{background:#F5F5F4!important;color:#0b1020!important;box-shadow:0 10px 30px rgba(255,255,255,.10)!important}
+html body .ldr .btn.b1:hover{box-shadow:0 14px 36px rgba(255,255,255,.18)!important}
+html body .ldr .btn.b2,html body .ldr .b2{border-color:rgba(255,255,255,.28)!important;color:#F5F5F4!important;background:transparent!important}
+html body .ldr-bloc .sur,html body .ldr-bloc .voir,html body .ldr .ex b,html body .ldr-bloc .v3 .preuve span,html body .ldr-bloc .pied .sig b{background:none!important;-webkit-text-fill-color:#A8B3C7!important;color:#A8B3C7!important}
+html body .ldr-bloc .voir{-webkit-text-fill-color:#F5F5F4!important;color:#F5F5F4!important}
+html body .ldr-bloc .ou .pt{background:#F5F5F4!important;box-shadow:0 0 8px rgba(255,255,255,.5)!important}
+html body .ldr-bloc .v3::before{background:radial-gradient(closest-side,rgba(120,140,255,.18),transparent) 100% 0/80% 320px no-repeat,radial-gradient(closest-side,rgba(236,72,153,.10),transparent) 0 30%/70% 280px no-repeat!important}
+html body .ldr-bloc [class*="etap"] i,html body .ldr-bloc ol li i{background:#F5F5F4!important;color:#0b1020!important}
+html body #ldr-ex .pts i.on{background:#F5F5F4!important}
+html body .ldr-bloc .sur::before{background:#A8B3C7!important}
+/* 25/11 10h45 (Lilian) : boutons plus fins, plus de cases. Bouton principal = pilule blanche pleine largeur ; second = simple lien avec fleche. */
+html body .ldr-bloc .act{display:flex!important;flex-direction:column!important;align-items:stretch!important;gap:14px!important}
+html body .ldr .act .btn.b1{display:flex!important;justify-content:center!important;align-items:center!important;gap:10px!important;width:100%!important;min-height:0!important;padding:17px 22px!important;border-radius:999px!important;font-size:16px!important;font-weight:700!important;letter-spacing:-.005em!important;white-space:nowrap!important}
+html body .ldr .act .btn.b1 svg{width:18px!important;height:18px!important}
+html body .ldr .act .btn.b2{display:inline-flex!important;justify-content:center!important;align-items:center!important;gap:8px!important;border:0!important;box-shadow:none!important;padding:4px 0!important;min-height:0!important;font-size:15px!important;font-weight:600!important;color:#D7DCE6!important;background:none!important}
+html body .ldr .act .btn.b2::after{content:"→";font-weight:500;transition:transform .2s}
+html body .ldr .act .btn.b2:hover::after{transform:translateX(3px)}
+@media(min-width:900px){html body .ldr-bloc .act{flex-direction:row!important;align-items:center!important;gap:26px!important}html body .ldr .act .btn.b1{width:auto!important;padding:17px 30px!important}}
+</style>
+<style id="ldr-rang-aigles-2026-11-25">
+/* 25/11 11h23 (Lilian) : sur l'Accueil, les 4 aigles alignés à l'horizontale, tous pareils. 11h31 : aigles d'origine, sans médaillon. */
+html body .ldr-bloc .v3 .grille{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:0!important;margin:6px 0 0!important}
+html body .ldr-bloc .v3 .grille .tu{display:flex!important;flex-direction:column!important;align-items:center!important;justify-items:center!important;text-align:center!important;position:relative!important;padding:8px 4px 10px!important;margin:0!important;border:0!important;border-image:none!important;border-radius:0!important;background:none!important;box-shadow:none!important;min-height:0!important;overflow:visible!important}
+html body .ldr-bloc .v3 .grille .tu .brille{display:none!important}
+html body .ldr-bloc .v3 .grille .tu .fondn{position:relative!important;inset:auto!important;display:block!important;width:92px!important;height:92px!important;max-width:none!important;opacity:1!important;transform:none!important;margin:0 auto 8px!important;transition:transform .45s cubic-bezier(.2,.7,.2,1)!important}
+html body .ldr-bloc .v3 .grille .tu:hover .fondn{transform:translateY(-4px) scale(1.04)!important}
+html body .ldr-bloc .v3 .grille .tu .bande{position:relative!important;inset:auto!important;display:flex!important;flex-direction:column!important;align-items:center!important;text-align:center!important;background:none!important;padding:0!important;margin:0!important;width:100%!important;max-width:none!important;gap:0!important}
+html body .ldr-bloc .v3 .grille .tu .bande::before{display:none!important}
+html body .ldr-bloc .v3 .grille .tu b{display:block!important;font-size:13px!important;line-height:1.15!important;font-weight:800!important;color:#F5F5F4!important;text-align:center!important;margin:0 0 4px!important;min-height:30px!important;max-width:none!important}
+html body .ldr-bloc .v3 .grille .tu b::before,html body .ldr-bloc .v3 .grille .tu b i{display:none!important}
+html body .ldr-bloc .v3 .grille .tu small{display:none!important}
+html body .ldr-bloc .v3 .grille .tu .pied{display:flex!important;flex-direction:column!important;align-items:center!important;gap:6px!important;border:0!important;padding:0!important;margin:0!important;background:none!important;width:auto!important}
+html body .ldr-bloc .v3 .grille .tu .px{font-size:13px!important;font-weight:700!important;color:var(--c)!important;text-align:center!important;white-space:nowrap}
+html body .ldr-bloc .v3 .grille .tu .px em{display:block!important;font-size:11px!important;font-weight:500!important;color:#A8B3C7!important;font-style:normal!important;margin:0!important}
+html body .ldr-bloc .v3 .grille .tu .fl{display:none!important}
+@media(min-width:900px){
+html body .ldr-bloc .v3 .grille{gap:0 18px!important;margin-top:18px!important}
+html body .ldr-bloc .v3 .grille .tu{padding:18px 10px 20px!important;border-radius:22px!important;transition:background .3s!important}
+html body .ldr-bloc .v3 .grille .tu:hover{background:rgba(255,255,255,.03)!important}
+html body .ldr-bloc .v3 .grille .tu .fondn{width:180px!important;height:180px!important;margin-bottom:14px!important}
+html body .ldr-bloc .v3 .grille .tu b{font-size:22px!important;min-height:0!important;margin-bottom:6px!important}
+html body .ldr-bloc .v3 .grille .tu small{display:block!important;font-size:14px!important;line-height:1.45!important;color:#A8B3C7!important;margin:0 0 12px!important;max-width:220px!important;min-height:42px!important}
+html body .ldr-bloc .v3 .grille .tu .pied{flex-direction:row!important;gap:12px!important}
+html body .ldr-bloc .v3 .grille .tu .px{font-size:18px!important;color:#F5F5F4!important}
+html body .ldr-bloc .v3 .grille .tu .px em{display:inline!important;font-size:13px!important}
+html body .ldr-bloc .v3 .grille .tu .fl{display:grid!important;place-items:center!important;width:36px!important;height:36px!important;border-radius:50%!important;background:#F5F5F4!important;color:#0b1020!important;border:0!important}
+html body .ldr-bloc .v3 .grille .tu .fl svg{width:16px!important;height:16px!important}
+}
+</style>
+<style id="ldr-vue-tel-pc-2026-11-25">
+html body #ldr-ex .ldr-vue{position:relative;display:inline-flex;gap:0;padding:4px;margin:6px 0 4px;border-radius:999px;background:rgba(255,255,255,.06);box-shadow:inset 0 0 0 1px rgba(255,255,255,.10)}
+html body #ldr-ex .ldr-vue button{position:relative;z-index:2;display:inline-flex;align-items:center;gap:7px;border:0;background:none;color:#A8B3C7;font:600 13.5px/1 'Plus Jakarta Sans',system-ui,sans-serif;padding:10px 16px;border-radius:999px;cursor:pointer;transition:color .3s}
+html body #ldr-ex .ldr-vue button svg{width:16px;height:16px}
+html body #ldr-ex .ldr-vue button.on{color:#0b1020}
+html body #ldr-ex .ldr-vue .glisse{position:absolute;z-index:1;top:4px;bottom:4px;left:0;width:var(--w,118px);border-radius:999px;background:#F5F5F4;box-shadow:0 6px 18px rgba(255,255,255,.12);transform:translateX(var(--x,4px));transition:transform .45s cubic-bezier(.2,.7,.2,1),width .45s cubic-bezier(.2,.7,.2,1)}
+html body #ldr-ex .tel-ex img{transition:opacity .25s ease}
+html body #ldr-ex.change .tel-ex img{opacity:0}
+html body #ldr-ex.vue-pc a.ex{flex-basis:86%}
+html body #ldr-ex.vue-pc .tel-ex{border-radius:12px;padding:16px 5px 5px;position:relative}
+html body #ldr-ex.vue-pc .tel-ex::before{content:"";position:absolute;left:10px;top:6px;width:30px;height:5px;background:radial-gradient(circle,rgba(255,255,255,.35) 2px,transparent 2.5px) 0 0/10px 5px repeat-x}
+html body #ldr-ex.vue-pc .tel-ex img{height:auto!important;aspect-ratio:16/10;border-radius:6px;object-position:top}
+@media(min-width:900px){html body #ldr-ex.vue-pc .grille-ex{grid-template-columns:repeat(2,1fr)!important;gap:28px 24px!important}}
+</style>
+<script>(function(){var r=document.getElementById('ldr-ex');if(!r||r.dataset.vue)return;r.dataset.vue=1;var v=r.querySelector('.ldr-vue');if(!v)return;var g=v.querySelector('.glisse'),bs=v.querySelectorAll('button');function place(b){g.style.setProperty('--w',b.offsetWidth+'px');g.style.setProperty('--x',b.offsetLeft+'px')}
+function go(b){if(b.classList.contains('on'))return;bs.forEach(function(x){x.classList.toggle('on',x===b)});place(b);var pc=b.dataset.v==='pc';r.classList.add('change');setTimeout(function(){r.classList.toggle('vue-pc',pc);r.querySelectorAll('.tel-ex img').forEach(function(i){if(i.dataset.pc)i.src=pc?i.dataset.pc:i.dataset.tel});var gr=r.querySelector('.grille-ex');if(gr)gr.scrollLeft=0;setTimeout(function(){r.classList.remove('change')},60)},250)}
+bs.forEach(function(b){b.addEventListener('click',function(){go(b)})});requestAnimationFrame(function(){place(v.querySelector('button.on'))});window.addEventListener('resize',function(){place(v.querySelector('button.on'))});
+setTimeout(function(){r.querySelectorAll('.tel-ex img').forEach(function(i){if(i.dataset.pc)(new Image()).src=i.dataset.pc})},2500)})();</script>
+<style id="ldr-fond-rue-page-2026-11-25">
+/* 25/11 12h02 (Lilian, choix A) : une seule image, la rue de nuit, derrière toute la page, PC et téléphone ; elle reste en place pendant le défilement. */
+html{background:#030712!important}
+html body{background:transparent!important;position:relative!important}
+html body .ldr-bloc,html body .ldr-bloc .ldr,html body .ldr-bloc section{background-color:transparent!important}
+html body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(180deg,rgba(3,7,18,.45),rgba(3,7,18,.2) 35%,rgba(3,7,18,.35) 70%),url(https://cdn.jsdelivr.net/gh/AGENCELDR/demos-ldr@1f64fad0415b3cf1913ff19f141c592cdfe77d84/_collage/fonds/rue-choisie.webp) center 40%/cover no-repeat;opacity:.55}
+html body .ldr-bloc .s4 .fond{display:none!important}
+html body .ldr-bloc .s4 .pro div{box-shadow:inset 0 0 0 1px rgba(255,255,255,.12)!important}
+html body .ldr-bloc{text-align:left} html body .ldr-bloc #ldr-ex .ex{text-align:center}
+</style>
+<style id="ldr-s2-on-vient-2026-11-25">
+html body .ldr-bloc .s2 .txt,html body .ldr-bloc .s2 .txt *,html body .ldr-bloc .s4 .pro div,html body .ldr-bloc .s4 .pro div *{text-align:left!important}
+html body .ldr-bloc .s2 h2::after{margin-left:0!important}
+
+/* 25/11 12h04 (Lilian, commentaire) : « On vient chez vous » au niveau idée 3 : plus de case, photo qui déborde, grand titre blanc, 3 étapes en frise. */
+html body .ldr-bloc .s2 .cadre{background:none!important;box-shadow:none!important;border-radius:0!important;overflow:visible!important;position:relative!important;display:block!important}
+html body .ldr-bloc .s2 .ph{position:relative!important;margin:0 calc(50% - 50vw)!important;height:240px!important;min-height:0!important}
+html body .ldr-bloc .s2 .ph img{opacity:.75;-webkit-mask-image:linear-gradient(180deg,transparent 0,#000 22%,#000 50%,transparent 100%);mask-image:linear-gradient(180deg,transparent 0,#000 22%,#000 50%,transparent 100%)}
+html body .ldr-bloc .s2 .ph::after{display:none!important}
+html body .ldr-bloc .s2 .ph em{display:none!important}
+html body .ldr-bloc .s2 .txt{position:relative!important;z-index:1;padding:0!important;margin-top:-56px!important}
+html body .ldr-bloc .s2 .sur{color:#A8B3C7!important}
+html body .ldr-bloc .s2 h2{font-size:34px!important;line-height:1.05!important;font-weight:800!important;color:#fff!important;letter-spacing:-.02em}
+html body .ldr-bloc .s2 h2 span{color:#fff!important;display:block}
+html body .ldr-bloc .s2 h2::after{content:"";display:block;width:46px;height:4px;border-radius:2px;background:#fff;margin-top:16px}
+html body .ldr-bloc .s2 ol{margin-top:22px!important;gap:0!important;counter-reset:e}
+html body .ldr-bloc .s2 li{grid-template-columns:52px 1fr!important;gap:8px!important;padding:14px 0!important;border-top:1px solid rgba(255,255,255,.08)}
+html body .ldr-bloc .s2 li::before{display:none!important}
+html body .ldr-bloc .s2 li i{background:none!important;width:auto!important;height:auto!important;border-radius:0!important;display:block!important;font-size:30px!important;font-weight:800!important;line-height:1!important;color:transparent!important;-webkit-text-stroke:1px rgba(255,255,255,.55);letter-spacing:-.03em}
+html body .ldr-bloc .s2 li i::before{content:"0"}
+html body .ldr-bloc .s2 li b{font-size:17px!important;color:#fff!important}
+html body .ldr-bloc .s2 li p{font-size:14.5px!important;color:#A8B3C7!important;line-height:1.4!important;margin-top:3px!important}
+@media(min-width:900px){
+html body .ldr-bloc .s2 .cadre{min-height:560px}
+html body .ldr-bloc .s2 .ph{position:absolute!important;margin:0!important;top:-50px;bottom:auto;right:calc(50% - 50vw);left:40%;height:420px!important}
+html body .ldr-bloc .s2 .ph img{opacity:.62;-webkit-mask-image:none!important;mask-image:none!important;transition:transform .9s,opacity .9s}
+html body .ldr-bloc .s2 .ph{overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 38%),linear-gradient(180deg,transparent 0,#000 20%,#000 60%,transparent 96%);-webkit-mask-composite:source-in;mask-image:linear-gradient(90deg,transparent 0,#000 38%),linear-gradient(180deg,transparent 0,#000 20%,#000 60%,transparent 96%);mask-composite:intersect}
+html body .ldr-bloc .s2 .cadre:hover .ph img{transform:scale(1.04);opacity:.72}
+html body .ldr-bloc .s2 .ph em{display:none!important}
+html body .ldr-bloc .s2 .txt{margin-top:0!important;padding-top:70px!important}
+html body .ldr-bloc .s2 h2{font-size:56px!important;max-width:560px}
+html body .ldr-bloc .s2 ol{display:grid!important;grid-template-columns:repeat(3,1fr)!important;gap:44px!important;margin-top:190px!important}
+html body .ldr-bloc .s2 li{display:block!important;padding:22px 0 0!important;border-top:1px solid rgba(255,255,255,.14)}
+html body .ldr-bloc .s2 li i{font-size:44px!important;margin-bottom:14px}
+html body .ldr-bloc .s2 li b{font-size:20px!important}
+html body .ldr-bloc .s2 li p{font-size:15px!important}
+}
+</style>
+<style id="ldr-espaces-accueil-2026-11-25">
+/* 25/11 12h03 (Lilian, commentaires) : le haut descend un peu sous le menu ; plus de grand vide au-dessus de « Une agence d'ici ». */
+html body .ldr-bloc .v3{padding-top:40px!important}
+html body .ldr-bloc .s4{margin-top:24px!important}
+html body .ldr-bloc .s4 .in{padding-top:40px!important}
+@media(min-width:900px){html body .ldr-bloc .v3{padding-top:84px!important}html body .ldr-bloc .s4 .in{padding-top:80px!important}}
+</style>
+<style id="ldr-s4-promesses-2026-11-25">
+/* 25/11 12h17 (Lilian : « on peut mieux faire ») : les 3 promesses sans cases, en grand, séparées par un filet. */
+html body .ldr-bloc .s4 .pro{gap:0!important;margin-top:30px!important}
+html body .ldr-bloc .s4 .pro div{background:none!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;box-shadow:none!important;border:0!important;border-radius:0!important;border-top:1px solid rgba(255,255,255,.12)!important;padding:22px 0 20px!important;text-align:left;position:relative}
+html body .ldr-bloc .s4 .pro div::before{content:"";display:block;width:46px;height:4px;border-radius:2px;background:rgba(255,255,255,.35);margin-bottom:16px;transition:width .6s,background .6s}
+html body .ldr-bloc .s4 .pro div:hover::before{width:90px;background:#fff}
+html body .ldr-bloc .s4 .pro b{font-size:26px!important;font-weight:800!important;line-height:1.05!important;color:#fff!important;letter-spacing:-.02em}
+html body .ldr-bloc .s4 .pro p{font-size:15px!important;color:#A8B3C7!important;line-height:1.45!important;margin-top:8px!important;max-width:300px}
+@media(min-width:900px){
+html body .ldr-bloc .s4 .pro{max-width:1100px!important;grid-template-columns:repeat(3,1fr)!important;margin-top:44px!important}
+html body .ldr-bloc .s4 .pro div{border-top:0!important;border-left:1px solid rgba(255,255,255,.12)!important;padding:6px 40px 6px!important}
+html body .ldr-bloc .s4 .pro div:first-child{border-left:0!important;padding-left:0!important}
+html body .ldr-bloc .s4 .pro b{font-size:34px!important}
+}
+</style><style id="ldr-sites-ecrans-3d-2026-11-25">
+/* 25/11 12h44 (Lilian, choix A) : les sites en écrans flottants en 3D, sans cadre, avec reflet. */
+html body #ldr-ex .tel-ex{padding:0!important;background:none!important;box-shadow:none!important;border-radius:0!important;overflow:visible!important;transition:transform .9s cubic-bezier(.2,.7,.2,1)!important}
+html body #ldr-ex .tel-ex::before,html body #ldr-ex .tel-ex::after{content:none!important}
+html body #ldr-ex .tel-ex img{height:auto!important;aspect-ratio:780/1400!important;object-fit:cover;object-position:top;border-radius:26px!important;border:0!important;box-shadow:0 0 0 1px rgba(255,255,255,.16),0 46px 70px -24px rgba(0,0,0,.9),-24px 26px 50px -30px rgba(0,0,0,.7)!important;-webkit-box-reflect:below 8px linear-gradient(transparent 78%,rgba(255,255,255,.16))}
+html body #ldr-ex .ex b,html body #ldr-ex .ex span{transition:opacity .6s}
+html body #ldr-ex .grille-ex{perspective:1600px}
+@media(max-width:899px){
+html body #ldr-ex .grille-ex{gap:22px!important;padding-top:10px!important;padding-bottom:70px!important}
+html body #ldr-ex .grille-ex .ex{flex:0 0 62%!important;max-width:260px}
+html body #ldr-ex .tel-ex{transform:rotateY(-12deg)}
+html body #ldr-ex .ex:active .tel-ex{transform:rotateY(0)}
+}
+@media(min-width:900px){
+html body #ldr-ex .grille-ex{display:flex!important;justify-content:center;gap:0!important;padding:20px 0 90px!important}
+html body #ldr-ex .grille-ex .ex{width:270px;flex:0 0 270px;margin:0 10px;position:relative;z-index:1}
+html body #ldr-ex .tel-ex{transform:rotateY(-24deg) rotateX(4deg)}
+html body #ldr-ex .grille-ex .ex:nth-child(even) .tel-ex{transform:rotateY(-24deg) rotateX(4deg) translateY(34px)}
+html body #ldr-ex .grille-ex .ex:hover{z-index:3}
+html body #ldr-ex .grille-ex .ex:hover .tel-ex{transform:rotateY(0) translateY(-12px) scale(1.04)!important}
+html body #ldr-ex .grille-ex .ex b{display:block;margin-top:18px}
+}
+/* Vue Ordinateur : écrans larges, inclinés de part et d'autre */
+html body #ldr-ex.vue-pc .tel-ex img{aspect-ratio:16/10!important;border-radius:12px!important;-webkit-box-reflect:below 6px linear-gradient(transparent 82%,rgba(255,255,255,.12))}
+@media(min-width:900px){
+html body #ldr-ex.vue-pc .grille-ex{display:grid!important;grid-template-columns:repeat(2,1fr)!important;gap:60px 70px!important;padding:20px 30px 60px!important}
+html body #ldr-ex.vue-pc .grille-ex .ex{width:auto;margin:0}
+html body #ldr-ex.vue-pc .tel-ex,html body #ldr-ex.vue-pc .grille-ex .ex:nth-child(even) .tel-ex{transform:rotateY(14deg) rotateX(3deg)}
+html body #ldr-ex.vue-pc .grille-ex .ex:nth-child(even) .tel-ex{transform:rotateY(-14deg) rotateX(3deg)}
+}
+@media(max-width:899px){html body #ldr-ex.vue-pc .grille-ex .ex{flex:0 0 84%!important;max-width:340px}html body #ldr-ex.vue-pc .tel-ex{transform:rotateY(-8deg)}}
+</style>
+<script>/* 25/11 12h45 (Lilian) : sur ordinateur, les sites s'ouvrent directement en vue Ordinateur ; le bouton Téléphone reste là. */
+(function(){function go(){if(!window.matchMedia('(min-width:900px)').matches)return;var b=document.querySelector('#ldr-ex .ldr-vue button[data-v=pc]');if(b&&!b.classList.contains('on'))b.click()}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',function(){setTimeout(go,300)});else setTimeout(go,300)})();</script>
+<style id="ldr-tel-grand-aigle-2026-11-25">
+@media(max-width:899px){
+html body .ldr-bloc .v3 .haut{display:flex!important;flex-direction:column!important;position:relative}
+html body .ldr-bloc .v3 .haut-sc{display:block!important;order:-1;width:min(76vw,310px)!important;height:auto!important;margin:-10px auto -26px!important;mix-blend-mode:screen;filter:none!important;-webkit-mask-image:radial-gradient(closest-side,#000 62%,transparent 100%);mask-image:radial-gradient(closest-side,#000 62%,transparent 100%);animation:ldrTelAigle 1.1s cubic-bezier(.2,.7,.2,1) both}
+@keyframes ldrTelAigle{from{opacity:0;transform:scale(.86) translateY(10px)}to{opacity:1;transform:none}}
+}
+</style>
