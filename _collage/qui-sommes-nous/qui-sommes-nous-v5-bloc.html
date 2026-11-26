@@ -480,6 +480,8 @@ html body #ldr-fond-flou{display:none!important}
 #ldr-qui-fonds{position:fixed;left:0;top:0;width:100%;height:100vh;height:100lvh;z-index:-1;pointer-events:none;overflow:hidden;background:#050810}
 #ldr-qui-fonds img{position:absolute;left:0;top:0;width:100%;height:100%;max-width:none;object-fit:cover;opacity:0}
 #ldr-qui-fonds img:first-child{opacity:1}
+/* au téléphone, la photo du haut se fond aussi par le dessus : plus de bord net sous le menu */
+@media(max-width:699px){#ldr-qui .ph .img{-webkit-mask-image:linear-gradient(180deg,transparent 0,#000 16%,#000 62%,transparent 100%);mask-image:linear-gradient(180deg,transparent 0,#000 16%,#000 62%,transparent 100%)}}
 #ldr-qui-fonds b{position:absolute;left:0;top:0;right:0;bottom:0;background:linear-gradient(180deg,rgba(3,7,18,.6) 0,rgba(3,7,18,.3) 24%,rgba(3,7,18,.3) 74%,rgba(3,7,18,.62) 100%)}
 </style>
 <script>
@@ -490,7 +492,7 @@ html body #ldr-fond-flou{display:none!important}
   /* [identifiant de la photo, partie où elle arrive, cadrage] */
   var F=[['1787059960609-e07ca542580b','.haut','50% 55%',1],      /* la rue, le soir */
          ['1711580391101-4ff165933d53','.facon','50% 50%',1],     /* le carnet et le stylo */
-         ['1686515266396-080c4939e6b4','.ensemble','50% 50%',.5], /* la vitrine d'une boutique */
+         ['1686515266396-080c4939e6b4','.ensemble','50% 50%',.58], /* la vitrine d'une boutique */
          ['1787059940496-b2011a8dd57c','.aigles','50% 50%',1],    /* la cour aux lanternes */
          ['1711580391101-4ff165933d53','.jamais','50% 50%',1]];   /* le carnet, de nouveau */
   var d=document.createElement('div');d.id='ldr-qui-fonds';d.setAttribute('aria-hidden','true');
