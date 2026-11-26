@@ -6,3 +6,13 @@ div:has(> #rawhtml-0290f0a6){display:none!important}
 #row-babadfe8,#section-5ee9264a{padding-bottom:0!important}
 </style>
 <script id="sw-remonte-1445">(function(){var rm=document.getElementById('remonte');if(!rm)return;var d=window.pageYOffset||0;rm.classList.add('sw-bas');addEventListener('scroll',function(){var y=window.pageYOffset||0;if(y<d-4)rm.classList.remove('sw-bas');else if(y>d+4)rm.classList.add('sw-bas');d=y},{passive:true})})();</script>
+
+<!-- 26/11 15h20 : le petit aigle orange de l'exemple n'est plus en fondu, il est plein (couleurs d'origine). -->
+<style id="sw-sceau-plein-1520">
+html body #ldr-sw .scene3 .vitre .sceau{content:url(https://agenceldr.github.io/demos-ldr/images-ldr/aigles-alpha/a08-78e0867e-menu.webp)!important;mix-blend-mode:normal!important;opacity:1!important;-webkit-mask-image:none!important;mask-image:none!important;filter:none!important}
+</style>
+
+<!-- 26/11 17h05 (en ligne) : 1) carte Google de l'exemple sans photo : dans le script, 'url(monde-'+sf+'.webp)' devient 'url('+B+'monde-'+sf+'.webp)' (l'adresse de l'image était incomplète).
+     2) bande sur les côtés au téléphone : le bloc va jusqu'aux bords. -->
+<style id="sw-bord-1705">/* 26/11 17h05 : plus de bande sur les côtés au téléphone (Lilian : « vieille démarcation »). Le bloc va jusqu'aux bords, le fond est continu. */
+html body #section-5ee9264a,html body #row-babadfe8{padding-left:0!important;padding-right:0!important}</style>

@@ -1,0 +1,9 @@
+/* 26/11 15h35 : menu sur téléphone et tablette, transparent et fondu (Lilian : « mal incrusté », plus de barre plate).
+   En haut de page : aucun fond, juste un léger fondu sombre derrière le logo. Quand on a défilé : fond nuit qui se fond vers le bas, sans trait, pour que rien ne se lise derrière le logo. */
+@media (max-width:1023px){
+  #ldr-nav#ldr-nav#ldr-nav .ldr-nav-barre{top:0!important;left:0!important;right:0!important;padding-left:12px!important;padding-right:12px!important;background:transparent!important;box-shadow:none!important;border:0!important;border-radius:0!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important}
+  #ldr-nav#ldr-nav#ldr-nav .ldr-nav-barre::before{content:"";position:absolute;left:0;right:0;top:0;height:104px;z-index:-1;pointer-events:none;background:linear-gradient(180deg,rgba(3,7,18,.74) 0,rgba(3,7,18,.46) 46%,rgba(3,7,18,.14) 78%,rgba(3,7,18,0) 100%)}
+  #ldr-nav#ldr-nav#ldr-nav.ldr-defile .ldr-nav-barre::before{height:92px;background:linear-gradient(180deg,rgba(3,7,18,.96) 0,rgba(3,7,18,.94) 64%,rgba(3,7,18,.5) 84%,rgba(3,7,18,0) 100%)}
+}
+/* Pages sans offre (Accueil, Qui sommes-nous, Devis, Mentions, CGV) : aigle multicolore détouré dans le menu */
+#ldr-nav[data-univers="agence"]{--ldr-aigle:url(https://agenceldr.github.io/demos-ldr/images-ldr/aigles-alpha/a06-d7fce7dc-menu.webp)!important}
