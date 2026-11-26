@@ -16,24 +16,26 @@ html body #ldr-fond-flou{display:none!important}
   if(window.__ldrQuiFonds)return;window.__ldrQuiFonds=1;
   var q=document.getElementById('ldr-qui');if(!q||!document.body)return;
   var U='https://images.unsplash.com/photo-',P='?auto=format&fit=crop&q=70&w=';
-  /* [identifiant de la photo, partie où elle arrive, cadrage] */
-  var F=[['1787059960609-e07ca542580b','.haut','50% 55%',1],      /* la rue, le soir */
-         ['1711580391101-4ff165933d53','.facon','50% 50%',1],     /* le carnet et le stylo */
-         ['1686515266396-080c4939e6b4','.ensemble','50% 50%',.58], /* la vitrine d'une boutique */
-         ['1787059940496-b2011a8dd57c','.aigles','50% 50%',1],    /* la cour aux lanternes */
-         ['1711580391101-4ff165933d53','.jamais','50% 50%',1]];   /* le carnet, de nouveau */
+  /* [identifiant de la photo, partie où elle arrive, cadrage au téléphone, luminosité, cadrage sur écran large] */
+  var F=[['1787059960609-e07ca542580b','.haut','50% 55%',1,'50% 80%'],       /* la rue, le soir */
+         ['1711580391101-4ff165933d53','.facon','50% 50%',1,'50% 62%'],      /* le carnet et le stylo */
+         ['1686515266396-080c4939e6b4','.ensemble','50% 50%',.58,'50% 62%'], /* la vitrine d'une boutique */
+         ['1787059940496-b2011a8dd57c','.aigles','50% 50%',1,'50% 66%'],     /* la cour aux lanternes */
+         ['1711580391101-4ff165933d53','.jamais','50% 50%',1,'50% 62%']];    /* le carnet, de nouveau */
   var d=document.createElement('div');d.id='ldr-qui-fonds';d.setAttribute('aria-hidden','true');
   F.forEach(function(f){
     var im=new Image();im.alt='';im.decoding='async';
     im.sizes='100vw';im.srcset=[800,1200,1800].map(function(w){return U+f[0]+P+w+' '+w+'w'}).join(',');
-    im.src=U+f[0]+P+'1200';im.style.objectPosition=f[2];if(f[3]<1)im.style.filter='brightness('+f[3]+')';d.appendChild(im);
+    im.src=U+f[0]+P+'1200';if(f[3]<1)im.style.filter='brightness('+f[3]+')';d.appendChild(im);
     f[5]=im;f[4]=q.querySelector(f[1]);
   });
   d.appendChild(document.createElement('b'));
   document.body.insertBefore(d,document.body.firstChild);
   function maj(){
     var vh=window.innerHeight,mid=vh*.5,L=vh*.6;
+    var large=window.innerWidth>vh;
     F.forEach(function(f,i){
+      f[5].style.objectPosition=large?f[6]:f[2];
       if(!i||!f[4])return;
       var o=(mid-f[4].getBoundingClientRect().top)/L+.5;
       f[5].style.opacity=o<0?0:o>1?1:o;
