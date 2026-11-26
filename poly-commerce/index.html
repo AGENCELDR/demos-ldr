@@ -644,15 +644,16 @@ body.choisit .case:not(.m1) .bal{animation:balance-d 2.4s ease-in-out infinite;a
 .pied p+p{margin-top:3px}
 .pied b{color:#e2e3e6;font-weight:700}
 .pied a{color:#e2e3e6;text-decoration:underline;text-underline-offset:3px}
+.pied a.nw{padding:9px 0}
 .pied .pi-n{margin-top:10px;font-size:11.5px;color:#959aa1;text-wrap:balance}
-.pied .pi-s{display:inline-block;margin-top:14px;padding:6px 4px;font-size:11.5px;color:#959aa1;text-decoration:none}
+.pied .pi-s{display:inline-block;margin-top:11px;padding:10px 4px;font-size:11.5px;color:#959aa1;text-decoration:none}
 .nw{white-space:nowrap}
 
 /* le bon de reprise : les photos de la machine */
 .vp-l{display:flex;flex-wrap:wrap;gap:8px;margin-top:9px}
 .vp{position:relative;width:78px;height:78px;border-radius:6px;overflow:hidden;box-shadow:0 0 0 1px #00000059,0 3px 6px #0004}
 .vp img{display:block;width:100%;height:100%;object-fit:cover}
-.vp button{position:absolute;right:3px;top:3px;width:30px;height:30px;border-radius:50%;font:800 12px/1 var(--x);color:#fffdf4;background:#1c1a14d9;box-shadow:0 0 0 1px #fffdf480}
+.vp button{position:absolute;right:2px;top:2px;width:34px;height:34px;border-radius:50%;font:800 12px/1 var(--x);color:#fffdf4;background:#1c1a14d9;box-shadow:0 0 0 1px #fffdf480}
 .g-papier .vp-add{position:relative;display:flex;align-items:center;gap:10px;flex:1 1 170px;margin:0;min-height:52px;padding:6px 14px 6px 8px;border-radius:999px;cursor:pointer;color:#1c1a14;background:#fffdf4;box-shadow:inset 0 0 0 2px #1c1a14}
 .vp-add b{display:grid;place-items:center;width:34px;height:34px;flex:none;border-radius:50%;font:800 20px/1 var(--x);color:#141000;background:linear-gradient(180deg,#FFD84F,var(--jaune) 50%,#E0A300);box-shadow:inset 0 0 0 1.5px #1c1a14}
 .g-papier .vp-add span{font:800 13.5px/1.15 var(--x);letter-spacing:0;text-transform:none;color:#1c1a14}
@@ -711,10 +712,30 @@ body.choisit .case:not(.m1) .bal{animation:balance-d 2.4s ease-in-out infinite;a
  background:linear-gradient(180deg,#FFD84F,var(--jaune) 45%,#E0A300);box-shadow:inset 0 1px 0 #ffffff90,inset 0 -1px 0 #9a7000,0 0 0 1px #000,0 8px 16px #0009}
 .pa-cons:before{content:"";position:absolute;left:0;right:0;top:0;height:9px;background:repeating-linear-gradient(-45deg,#141000 0 8px,transparent 8px 16px)}
 #pa-pied .pied{margin-top:26px}
+/* petit téléphone : le tampon du bon, sur le tableau, se resserre pour tenir dans le bon (« ZURÜCKGERUFEN ») */
+@media(max-width:370px){.dm .bm-p .tampon{font-stretch:90%;letter-spacing:0}}
 @media(min-width:1000px){
  .pa-h{font-size:22px}
  .pa-adr b{font-size:19px}
 }
+
+/* ================= correction du 26/11 (Lilian) ================= */
+/* le choix du secteur : quatre boutons de l'appli dans une glissière, celui choisi s'allume en jaune */
+.secteurs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;margin:10px 14px 0;padding:5px;border-radius:12px;background:#090a0b;box-shadow:inset 0 2px 5px #000,inset 0 0 0 1px #000,0 1px 0 #ffffff17}
+.secteurs .petit{height:44px;min-width:0;justify-content:space-between;gap:8px;padding:0 12px 0 13px;font:700 12.5px/1.1 var(--x);letter-spacing:0;text-align:left}
+.secteurs .petit span{min-width:0}
+.secteurs .petit b{font:700 12px var(--m)}
+@media(min-width:640px) and (max-width:999px){.secteurs{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media(max-width:350px){.secteurs .petit{padding:0 9px 0 10px;font-size:12px;font-stretch:94%}}
+@media(min-width:1000px){.secteurs{margin:10px 18px 0}}
+/* le retour : une flèche jaune et le mot « Retour », en haut à gauche de chaque écran (téléphone et PC) */
+.p-haut .ret,#rendre{height:42px;padding:0 14px 0 10px;gap:7px;font:800 13px var(--x);letter-spacing:.01em}
+.p-haut .ret svg.ic,#rendre svg.ic{width:20px;height:20px;stroke-width:2.6;color:var(--jaune)}
+@media(min-width:1000px){.p-haut .ret{display:inline-flex}.p-haut .x-pc{display:none}}
+/* sur la plaque, la petite ligne reste lisible même sur une rayure sombre du métal */
+.pl-b>small{color:#111214}
+/* la clé ne tourne qu'une fois : ensuite elle se pose sans bouger (26/11, Lilian) */
+.neiman.net,.neiman.net *{transition:none!important}
 
 @media(min-width:640px) and (max-width:999px){.rayon{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-height:600px){.o-in{padding:52px 0 16px}.o-logo{width:190px}.o-pan{margin-top:12px;padding:14px 18px 12px}.o-voy{margin-bottom:16px}.voy{width:30px;height:30px}.voy svg{width:17px;height:17px}#neiman0{--d:132px!important}.o-cpt{margin-top:46px}.o-t{margin-top:14px;font-size:19px}}
@@ -809,6 +830,7 @@ body.choisit .case:not(.m1) .bal{animation:balance-d 2.4s ease-in-out infinite;a
   <symbol id="s-vend" viewBox="0 0 24 24"><path d="M3.5 12V4.5a1 1 0 0 1 1-1H12l8.500 8.500a1 1 0 0 1 0 1.400l-7.100 7.100a1 1 0 0 1-1.400 0z"/><circle cx="8" cy="8" r="1.600"/></symbol>
   <symbol id="s-cal" viewBox="0 0 24 24"><rect x="3.500" y="5" width="17" height="15.500" rx="2"/><path d="M3.500 10h17M8 3v4M16 3v4M8 14h3M13 14h3M8 17h3"/></symbol>
   <symbol id="s-pin" viewBox="0 0 24 24"><path d="M12 21s-6.500-5.800-6.500-11.200a6.500 6.500 0 0 1 13 0C18.500 15.200 12 21 12 21z"/><circle cx="12" cy="9.800" r="2.400"/></symbol>
+  <symbol id="s-ret" viewBox="0 0 24 24"><path d="M19.500 12H5.500m0 0l5.500-5.500M5.500 12l5.500 5.500"/></symbol>
 </svg>
 
 <!-- ouverture : on met le contact -->
@@ -854,6 +876,7 @@ body.choisit .case:not(.m1) .bal{animation:balance-d 2.4s ease-in-out infinite;a
       <label class="cherche"><svg class="ic"><use href="#s-loupe"/></svg><input type="search" id="cherche" data-ph="cherche" placeholder="Chercher une machine" aria-label="Chercher une machine"></label>
       <button type="button" class="petit" id="tri"></button>
     </div>
+    <div class="secteurs" id="secteurs" role="group" aria-label="Choisir un secteur"><button type="button" class="petit" data-fil="tout" aria-pressed="true"><span data-t="f0">Tout</span><b></b></button><button type="button" class="petit" data-fil="foret" aria-pressed="false"><span data-t="f1">Forêt</span><b></b></button><button type="button" class="petit" data-fil="tp" aria-pressed="false"><span data-t="f2">Travaux publics</span><b></b></button><button type="button" class="petit" data-fil="agri" aria-pressed="false"><span data-t="f3">Agricole</span><b></b></button></div>
     <div class="planche" id="planche"></div>
     <div class="choix" id="choix" hidden><span><b id="choix-b"></b><em id="choix-t"></em></span><button type="button" class="petit txt" id="choix-x">Annuler</button></div>
   </div></main>
@@ -861,7 +884,7 @@ body.choisit .case:not(.m1) .bal{animation:balance-d 2.4s ease-in-out infinite;a
   <!-- le poste : la machine se présente -->
   <main class="vue d poste" id="poste">
     <header class="p-haut">
-      <button type="button" class="petit" id="rendre"><span aria-hidden="true">‹</span><span id="rendre-t">Les clés</span></button><button type="button" class="petit txt" id="vers-banc"><svg class="ic"><use href="#s-cmp"/></svg><span data-t="cp1b">Comparaison</span></button>
+      <button type="button" class="petit" id="rendre"><svg class="ic"><use href="#s-ret"/></svg><span id="rendre-t">Retour</span></button><button type="button" class="petit txt" id="vers-banc"><svg class="ic"><use href="#s-cmp"/></svg><span data-t="cp1b">Comparaison</span></button>
       <span class="sp"></span>
       <div class="pas"><button type="button" id="prec" aria-label="Machine précédente">‹</button><span id="rangno"></span><button type="button" id="suiv" aria-label="Machine suivante">›</button></div>
     </header>
@@ -900,7 +923,7 @@ body.choisit .case:not(.m1) .bal{animation:balance-d 2.4s ease-in-out infinite;a
   <!-- le banc : deux clés en main, deux machines côte à côte -->
   <main class="vue d" id="banc">
     <header class="p-haut">
-      <button type="button" class="petit ret" data-ret><span aria-hidden="true">‹</span><span data-t="cles">Les clés</span></button>
+      <button type="button" class="petit ret" data-ret><svg class="ic"><use href="#s-ret"/></svg><span data-t="ret">Retour</span></button>
       <span class="sp"></span>
       <button type="button" class="petit txt" id="banc-part"><svg class="ic"><use href="#s-part"/></svg><span data-t="part">Partager</span></button>
       <button type="button" class="petit x-pc" data-ret aria-label="Fermer">✕</button>
@@ -916,7 +939,7 @@ body.choisit .case:not(.m1) .bal{animation:balance-d 2.4s ease-in-out infinite;a
   <!-- le crochet : prévenu dès que la machine arrive -->
   <main class="vue d" id="crochet">
     <header class="p-haut">
-      <button type="button" class="petit ret" data-ret><span aria-hidden="true">‹</span><span data-t="cles">Les clés</span></button>
+      <button type="button" class="petit ret" data-ret><svg class="ic"><use href="#s-ret"/></svg><span data-t="ret">Retour</span></button>
       <span class="sp"></span>
       <button type="button" class="petit x-pc" data-ret aria-label="Fermer">✕</button>
     </header>
@@ -943,7 +966,7 @@ body.choisit .case:not(.m1) .bal{animation:balance-d 2.4s ease-in-out infinite;a
   <!-- la recherche sur demande : Dominique cherche la machine qui n'est pas au tableau -->
   <main class="vue d" id="recherche">
     <header class="p-haut">
-      <button type="button" class="petit ret" data-ret><span aria-hidden="true">‹</span><span data-t="cles">Les clés</span></button>
+      <button type="button" class="petit ret" data-ret><svg class="ic"><use href="#s-ret"/></svg><span data-t="ret">Retour</span></button>
       <span class="sp"></span>
       <button type="button" class="petit x-pc" data-ret aria-label="Fermer">✕</button>
     </header>
@@ -980,7 +1003,7 @@ body.choisit .case:not(.m1) .bal{animation:balance-d 2.4s ease-in-out infinite;a
   <!-- le bureau : espace Dominique -->
   <main class="vue d" id="bureau">
     <header class="p-haut">
-      <button type="button" class="petit ret" data-ret><span aria-hidden="true">‹</span><span data-t="cles">Les clés</span></button>
+      <button type="button" class="petit ret" data-ret><svg class="ic"><use href="#s-ret"/></svg><span data-t="ret">Retour</span></button>
       <span class="sp"></span>
       <button type="button" class="petit txt" id="sortir" hidden data-t="psortir">Sortir</button>
       <button type="button" class="petit x-pc" data-ret aria-label="Fermer">✕</button>
@@ -990,7 +1013,7 @@ body.choisit .case:not(.m1) .bal{animation:balance-d 2.4s ease-in-out infinite;a
   <!-- je vends ma machine : Poly Commerce achète aussi (comme sur le site) -->
   <main class="vue d" id="vendre">
     <header class="p-haut">
-      <button type="button" class="petit ret" data-ret><span aria-hidden="true">‹</span><span data-t="cles">Les clés</span></button>
+      <button type="button" class="petit ret" data-ret><svg class="ic"><use href="#s-ret"/></svg><span data-t="ret">Retour</span></button>
       <span class="sp"></span>
       <button type="button" class="petit x-pc" data-ret aria-label="Fermer">✕</button>
     </header>
@@ -1023,7 +1046,7 @@ body.choisit .case:not(.m1) .bal{animation:balance-d 2.4s ease-in-out infinite;a
   <!-- visite du parc : le client choisit son jour, Dominique rappelle pour l'heure -->
   <main class="vue d" id="visite">
     <header class="p-haut">
-      <button type="button" class="petit ret" data-ret><span aria-hidden="true">‹</span><span data-t="cles">Les clés</span></button>
+      <button type="button" class="petit ret" data-ret><svg class="ic"><use href="#s-ret"/></svg><span data-t="ret">Retour</span></button>
       <span class="sp"></span>
       <button type="button" class="petit x-pc" data-ret aria-label="Fermer">✕</button>
     </header>
@@ -1054,7 +1077,7 @@ body.choisit .case:not(.m1) .bal{animation:balance-d 2.4s ease-in-out infinite;a
   <!-- le parc : adresse, acheter de loin, le compteur franc, le bas de page -->
   <main class="vue d" id="parc">
     <header class="p-haut">
-      <button type="button" class="petit ret" data-ret><span aria-hidden="true">‹</span><span data-t="cles">Les clés</span></button>
+      <button type="button" class="petit ret" data-ret><svg class="ic"><use href="#s-ret"/></svg><span data-t="ret">Retour</span></button>
       <span class="sp"></span>
       <button type="button" class="petit x-pc" data-ret aria-label="Fermer">✕</button>
     </header>
@@ -1214,9 +1237,9 @@ let BAL=false;
 function ajuste(){$$('.enseigne').forEach(en=>[['h1',large()?23:19,13.5],['p',11.5,11.5]].forEach(([s,max,min])=>{const e=en.querySelector(s);if(!e||!e.offsetParent)return;e.classList.remove('sre','pli');let f=max;e.style.fontSize=f+'px';const trop=()=>e.scrollWidth>e.clientWidth+.5;while(trop()&&f>min){f-=.5;e.style.fontSize=f+'px'}if(trop())e.classList.add('sre');if(trop())e.classList.add('pli')}));serres()}
 addEventListener('resize',()=>{ajuste();marque()});
 try{document.fonts.ready.then(ajuste)}catch(e){}
-function planche(){etat();ajuste();
+function planche(){etat();ajuste();majFil();
   const mots=$('#cherche').value.trim().toLowerCase().split(/\s+/).filter(Boolean);
-  let l=PARC.filter(m=>(FIL!='sel'||SEL.includes(m.id))&&mots.every(x=>(m.n+' '+m.t+' '+typ(m.t)+' '+m.a+' '+(U()[(FAMS.find(f=>f[0]==m.f)||[])[1]]||'')).toLowerCase().includes(x)));
+  let l=PARC.filter(m=>(FIL=='tout'||(FIL=='sel'?SEL.includes(m.id):m.f==FIL))&&mots.every(x=>(m.n+' '+m.t+' '+typ(m.t)+' '+m.a+' '+(U()[(FAMS.find(f=>f[0]==m.f)||[])[1]]||'')).toLowerCase().includes(x)));
   const plat=!!TRI||mots.length>0||FIL=='sel';
   if(TRI)l=[...l].sort((a,b)=>TRI=='+'?a.p-b.p:b.p-a.p);
   VUE=plat?l:FAMS.flatMap(([f])=>l.filter(m=>m.f==f));
@@ -1274,17 +1297,20 @@ function contact(m,mode,de){if(!m)return;const id=++SEQ,P=$('#poste'),N=$('#neim
     T2(150,()=>{P.classList.remove('test');P.classList.add('allume');valeurs(m)});
     if(!large())P.scrollTop=0;return}
   afficher(m);if(!large())P.scrollTop=0;
+  if(CLE1&&mode!='cle'&&mode!='direct'&&!calme()){N.classList.add('net');N.style.setProperty('--a','55deg');marks(1);void N.offsetWidth;requestAnimationFrame(()=>N.classList.remove('net'));
+    P.classList.remove('allume');P.classList.add('test');T2(150,()=>{P.classList.remove('test');P.classList.add('allume');ALLUME=true;valeurs(m);marque()});return}
   if(calme()||mode=='direct'){P.classList.remove('test');P.classList.add('allume');N.style.setProperty('--a','55deg');marks(1);ALLUME=true;valeurs(m);marque();return}
   ALLUME=false;P.classList.remove('allume','test');N.style.setProperty('--a','0deg');marks(0);eteindre();
   T2(170,()=>{N.style.setProperty('--a','55deg');marks(1);vib(12);P.classList.add('test')});
   T2(640,()=>{N.style.setProperty('--a','95deg');marks(2);vib([0,35,30,35,30,70])});
-  T2(900,()=>{N.style.setProperty('--a','55deg');marks(1);P.classList.remove('test');P.classList.add('allume');ALLUME=true;valeurs(m);marque()})}
+  T2(900,()=>{N.style.setProperty('--a','55deg');marks(1);P.classList.remove('test');P.classList.add('allume');ALLUME=true;CLE1=true;valeurs(m);marque()})}
 /* rendre la clé : on coupe le contact et on revient au tableau */
-function versTableau(){const id=++SEQ,P=$('#poste');$('#neiman').style.setProperty('--a','0deg');$$('#neiman .n-face i').forEach((e,k)=>e.classList.toggle('on',k==0));P.classList.remove('allume','test');ALLUME=false;vib(10);
+function versTableau(){const id=++SEQ,P=$('#poste');if(!CLE1){$('#neiman').style.setProperty('--a','0deg');$$('#neiman .n-face i').forEach((e,k)=>e.classList.toggle('on',k==0))}P.classList.remove('allume','test');ALLUME=false;vib(10);
   setTimeout(()=>{if(id!=SEQ)return;document.body.dataset.vue='tableau';ajuste();marque();const c=$('.case[data-id="'+CUR.id+'"]');
     if(c){c.scrollIntoView({block:'center'});c.classList.remove('retour','prise');void c.offsetWidth;c.classList.add('retour');setTimeout(()=>c.classList.remove('retour'),1800)}},calme()?0:230)}
 function rendre(){if(large())return;try{if(history.state&&history.state.m){history.back();return}}catch(e){}versTableau()}
-addEventListener('popstate',()=>{if(large())return;const s=history.state;
+addEventListener('popstate',()=>{const s=history.state;
+  if(large()){const vv=document.body.dataset.vue,hs=location.hash;if(s&&s.v&&VUES.includes(s.v)){if(vv!=s.v)montrer(s.v,true);return}if(/^#(m|c)=/.test(hs)||ROUTES.includes(hs.slice(1)))return;if(VUES.includes(vv))pcPoste();return}
   if(s&&s.m){const m=PARC.find(x=>x.id==s.m);if(m){contact(m,'direct');return}}
   if(s&&s.v&&VUES.includes(s.v)){montrer(s.v,true);return}
   if(document.body.dataset.vue=='poste')versTableau();else auTableau()});
@@ -1310,7 +1336,7 @@ $('#planche').addEventListener('click',e=>{const t=e.target;
   if(CHOIX){choisir(m);return}
   if(calme()){contact(m);return}
   c.classList.remove('retour');c.classList.add('prise');vib(8);setTimeout(()=>{contact(m);setTimeout(()=>c.classList.remove('prise'),600)},large()?120:300)});
-$('#rendre').onclick=rendre;$('#contact').onclick=()=>{if(large()){contact(CUR)}else rendre()};
+$('#rendre').onclick=rendre;$('#contact').onclick=()=>{if(large()){contact(CUR,'cle')}else rendre()};
 $('#prec').onclick=()=>pas(-1);$('#suiv').onclick=()=>pas(1);
 addEventListener('keydown',e=>{if($('#plein').open||!$('#ouverture').classList.contains('fin'))return;const v=document.body.dataset.vue,champ=e.target.matches('input,select,textarea');
   if(v=='bureau'&&!OKB&&!champ){if(/^\d$/.test(e.key)){touche(e.key);return}if(e.key=='Backspace'){touche('x');return}}
@@ -1361,7 +1387,7 @@ $('#installer').onclick=async()=>{if(INV){INV.prompt();await INV.userChoice;INV=
 if('serviceWorker' in navigator&&location.protocol=='https:'&&!CADRE)navigator.serviceWorker.register('sw.js').catch(()=>{});
 
 /* ---------- ouverture : on met le contact ---------- */
-function finOuverture(){const o=$('#ouverture');if(o.classList.contains('fin'))return;o.classList.add('fin');document.body.classList.add('pret');BAL=true;planche();
+function finOuverture(){const o=$('#ouverture');if(o.classList.contains('fin'))return;o.classList.add('fin');if(o.classList.contains('ii'))CLE1=true;document.body.classList.add('pret');BAL=true;planche();
   if(large())setTimeout(()=>{if(document.body.dataset.vue=='tableau')contact(CUR)},450)}
 function demarrer(){const o=$('#ouverture'),N=$('#neiman0');if(o.classList.contains('i')||o.classList.contains('fin'))return;
   const marks=a=>$$('#neiman0 .n-face i').forEach((e,k)=>e.classList.toggle('on',k==a));
@@ -1461,13 +1487,14 @@ function montrer(v,sans){++SEQ;if(CHOIX)finChoix();
   if(!large()){$('#poste').classList.remove('allume','test');ALLUME=false}
   if(v=='banc')banc();else if(v=='crochet')crochet();else if(v=='recherche')recherche();else if(v=='vendre')vendre();else if(v=='visite')visite();else if(v=='parc')parcVue();else bureau();
   document.body.dataset.vue=v;$('#'+v).scrollTop=0;ajuste();
-  if(!sans){const h=v=='banc'?'#c='+CMP.join(','):'#'+v;try{const s=history.state;if(large())history.replaceState(null,'',h);else if(s&&(s.m||s.v))history.replaceState({v},'',h);else history.pushState({v},'',h)}catch(e){}}
+  if(!sans){const h=v=='banc'?'#c='+CMP.join(','):'#'+v;try{const s=history.state;if(large()?(s&&s.v):(s&&(s.m||s.v)))history.replaceState({v},'',h);else history.pushState({v},'',h)}catch(e){}}
   marque()}
-function fermer(){if(large()){document.body.dataset.vue='poste';if(CUR&&!ALLUME)contact(CUR,'direct');else{try{history.replaceState(null,'',CUR?'#m='+CUR.id:location.pathname+location.search)}catch(e){}marque()}return}
+function pcPoste(url){document.body.dataset.vue='poste';if(CUR&&!ALLUME)contact(CUR,'direct');else{if(url)try{history.replaceState(null,'',CUR?'#m='+CUR.id:location.pathname+location.search)}catch(e){}marque()}}
+function fermer(){if(large()){try{if(history.state&&history.state.v){history.back();return}}catch(e){}pcPoste(true);return}
   try{if(history.state&&history.state.v){history.back();return}}catch(e){}
   try{history.replaceState(null,'',location.pathname+location.search)}catch(e){}auTableau()}
 document.addEventListener('click',e=>{if(e.target.closest&&e.target.closest('[data-ret]'))fermer()});
-function majRetour(){let d=null;try{d=history.state&&history.state.de}catch(e){}$('#rendre-t').textContent=d=='banc'?U().cp1b:U().cles}
+function majRetour(){$('#rendre-t').textContent=U().ret||U().cles}
 
 /* ---------- comparer : on prend une deuxième clé ---------- */
 function majChoix(){serres();$('#choix').hidden=!CHOIX;document.body.classList.toggle('choisit',!!CHOIX);
@@ -1897,6 +1924,18 @@ function parcVue(){const u=U();
   $('#pa-pied').innerHTML=piedHTML()}
 function allerParc(s){PAV=s||'';montrer('parc');if(PAV&&PAV!='haut')setTimeout(()=>{const e=$('#pa-'+PAV);if(e)e.scrollIntoView({block:'start'})},40)}
 $('#pa-vis').onclick=()=>montrer('visite');
+
+/* ---------- correction du 26/11 (Lilian) : le choix du secteur sur le tableau, et un vrai « Retour » ---------- */
+Object.assign(T.fr,{f0:"Tout",sect:"Choisir un secteur",ret:"Retour"});
+Object.assign(T.de,{f0:"Alle",sect:"Bereich wählen",ret:"Zurück"});
+Object.assign(T.en,{f0:"All",sect:"Choose a sector",ret:"Back"});
+Object.assign(T.it,{f0:"Tutte",sect:"Scegli un settore",ret:"Indietro"});
+function majFil(){const s=$('#secteurs');if(!s)return;s.setAttribute('aria-label',U().sect);
+  $$('#secteurs [data-fil]').forEach(b=>{const f=b.dataset.fil;b.setAttribute('aria-pressed',FIL==f);b.querySelector('b').textContent=f=='tout'?PARC.length:PARC.filter(m=>m.f==f).length})}
+$('#secteurs').addEventListener('click',e=>{const b=e.target.closest('[data-fil]');if(!b||FIL==b.dataset.fil)return;
+  FIL=b.dataset.fil;$('#trousseau').setAttribute('aria-pressed',false);vib(8);BAL=true;planche()});
+/* la clé ne tourne qu'une fois par visite (26/11, Lilian) : vrai dès que le contact a été mis une première fois */
+var CLE1=false;
 
 /* ---------- démarrage ---------- */
 (()=>{const hs=location.hash,id=(hs.match(/m=([\w-]+)/)||[])[1],m=id&&PARC.find(x=>x.id==id),cc=(hs.match(/c=([\w-]+),([\w-]+)/)||[]).slice(1).filter(existe);
