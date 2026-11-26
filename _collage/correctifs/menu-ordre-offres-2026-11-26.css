@@ -1,0 +1,9 @@
+/* 26/11 13h55 : ordre des offres voulu par Lilian : Site web, Fiche Google, Réseaux, Radars (grisé) */
+#ldr-nav#ldr-nav#ldr-nav .ldr-acc-offre.ldr-c-web{order:-4!important}
+#ldr-nav#ldr-nav#ldr-nav .ldr-acc-offre.ldr-c-maps{order:-3!important}
+#ldr-nav#ldr-nav#ldr-nav .ldr-acc-offre.ldr-c-res{order:-2!important}
+#ldr-nav#ldr-nav#ldr-nav .ldr-acc-offre.ldr-c-radar{order:-1!important}
+#ldr-nav#ldr-nav#ldr-nav .ldr-mega-offre.ldr-c-web{order:1!important}
+#ldr-nav#ldr-nav#ldr-nav .ldr-mega-offre.ldr-c-maps{order:2!important}
+#ldr-nav#ldr-nav#ldr-nav .ldr-mega-offre.ldr-c-res{order:3!important}
+#ldr-nav#ldr-nav#ldr-nav .ldr-mega-offre.ldr-c-radar{order:4!important}
