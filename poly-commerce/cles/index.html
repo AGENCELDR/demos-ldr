@@ -15,7 +15,16 @@
 <meta name="apple-mobile-web-app-title" content="Poly Commerce">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta property="og:title" content="Poly Commerce · Les clés du parc">
-<meta property="og:image" content="https://agenceldr.github.io/demos-ldr/poly-commerce/logo/icone-512.png">
+<meta property="og:image" content="https://agenceldr.github.io/demos-ldr/poly-commerce/partage.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:site_name" content="Poly Commerce">
+<meta property="og:url" content="https://agenceldr.github.io/demos-ldr/poly-commerce/">
+<meta property="og:description" content="Le parc de Poly Commerce : prenez la clé d'une machine, mettez le contact. Machines forestières, TP et agricoles d'occasion à Givry-en-Argonne.">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://agenceldr.github.io/demos-ldr/poly-commerce/">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
 <style>
@@ -37,7 +46,7 @@ svg.ic{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;strok
 .app{height:100dvh;display:grid;grid-template-columns:minmax(0,1fr)}
 .vue{min-width:0;min-height:0;overflow-y:auto;overflow-x:hidden;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:#3a3d43 transparent}
 .vue.d,body:not([data-vue=tableau]) #tableau{display:none}
-body[data-vue=poste] #poste,body[data-vue=banc] #banc,body[data-vue=crochet] #crochet,body[data-vue=bureau] #bureau,body[data-vue=recherche] #recherche{display:block}
+body[data-vue=poste] #poste,body[data-vue=banc] #banc,body[data-vue=crochet] #crochet,body[data-vue=bureau] #bureau,body[data-vue=recherche] #recherche,body[data-vue=vendre] #vendre,body[data-vue=visite] #visite,body[data-vue=parc] #parc{display:block}
 /* tant que le contact n'est pas mis, l'appli derrière n'est ni visible ni touchable */
 body:not(.pret) .app{visibility:hidden;transition:visibility 0s .6s}
 
@@ -616,6 +625,117 @@ body.choisit .case:not(.m1) .bal{animation:balance-d 2.4s ease-in-out infinite;a
 .ouverture.tient .tour{visibility:hidden}
 .o-s{text-wrap:balance;white-space:pre-line}
 
+/* ================= le site = l'appli (26/11) : je vends, visite du parc, le parc, le bas de page ================= */
+/* sur le tableau : les plaques du parc, vissées comme les autres */
+.plaques{display:grid;gap:10px;margin-top:14px}
+.plaque.pl-b{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;column-gap:10px;width:100%;margin-top:0;padding:14px 24px 14px 26px;text-align:left;cursor:pointer;transition:transform .2s var(--ease)}
+.plaque.pl-b .vis,.plaque.pa-adr .vis{position:absolute}
+.pl-b>.grave,.pl-b>b,.pl-b>small{grid-column:1;min-width:0}
+.pl-b>b{display:block;font:900 17px/1.06 var(--x);font-stretch:118%;letter-spacing:.01em;text-transform:uppercase;margin-top:5px;color:#131416;text-shadow:0 1px 0 #ffffffb0;overflow-wrap:anywhere;text-wrap:balance}
+.pl-b>small{display:block;font:700 12.5px/1.3 var(--x);margin-top:5px;color:#1d1f23;text-shadow:0 1px 0 #ffffff80}
+.pl-b .chev{grid-column:2;grid-row:1 / span 3;font:500 24px/1 var(--x);font-style:normal;color:#33363b}
+.pl-b:active{transform:translateY(1px)}
+.pl-b:focus-visible,.porte:focus-visible,.libre:focus-visible{outline:3px solid var(--jaune);outline-offset:3px}
+.dm .bm-p .loupe{width:28px;height:28px;stroke-width:2.4;stroke-linejoin:round}
+
+/* le bas de page : la vraie identité de Poly Commerce */
+.pied{margin-top:30px;padding:18px 6px 4px;border-top:1px solid #ffffff17;text-align:center;font:500 12px/1.55 var(--m);color:#a3a7ae}
+.pied p+p{margin-top:3px}
+.pied b{color:#e2e3e6;font-weight:700}
+.pied a{color:#e2e3e6;text-decoration:underline;text-underline-offset:3px}
+.pied a.nw{padding:9px 0}
+.pied .pi-n{margin-top:10px;font-size:11.5px;color:#959aa1;text-wrap:balance}
+.pied .pi-s{display:inline-block;margin-top:11px;padding:10px 4px;font-size:11.5px;color:#959aa1;text-decoration:none}
+.nw{white-space:nowrap}
+
+/* le bon de reprise : les photos de la machine */
+.vp-l{display:flex;flex-wrap:wrap;gap:8px;margin-top:9px}
+.vp{position:relative;width:78px;height:78px;border-radius:6px;overflow:hidden;box-shadow:0 0 0 1px #00000059,0 3px 6px #0004}
+.vp img{display:block;width:100%;height:100%;object-fit:cover}
+.vp button{position:absolute;right:2px;top:2px;width:34px;height:34px;border-radius:50%;font:800 12px/1 var(--x);color:#fffdf4;background:#1c1a14d9;box-shadow:0 0 0 1px #fffdf480}
+.g-papier .vp-add{position:relative;display:flex;align-items:center;gap:10px;flex:1 1 170px;margin:0;min-height:52px;padding:6px 14px 6px 8px;border-radius:999px;cursor:pointer;color:#1c1a14;background:#fffdf4;box-shadow:inset 0 0 0 2px #1c1a14}
+.vp-add b{display:grid;place-items:center;width:34px;height:34px;flex:none;border-radius:50%;font:800 20px/1 var(--x);color:#141000;background:linear-gradient(180deg,#FFD84F,var(--jaune) 50%,#E0A300);box-shadow:inset 0 0 0 1.5px #1c1a14}
+.g-papier .vp-add span{font:800 13.5px/1.15 var(--x);letter-spacing:0;text-transform:none;color:#1c1a14}
+.g-papier .vp-add input{position:absolute;inset:0;width:100%;height:100%;margin:0;padding:0;opacity:0;cursor:pointer}
+.g-papier .vp-add:has(input:focus-visible){outline:3px solid #B88600;outline-offset:2px}
+.vp-r{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.vp-r img{width:60px;height:60px;object-fit:cover;border-radius:5px;box-shadow:0 0 0 1px #00000059}
+.g-papier .vi-ml{margin-top:15px}
+
+/* la visite : l'adresse, sous le bon */
+.pa-mini{display:flex;align-items:center;flex-wrap:wrap;gap:6px 9px;margin-top:20px;padding:12px 14px;border-radius:10px;font:600 13px/1.35 var(--x);color:#d6d8dc;background:linear-gradient(180deg,#1d1f23,#141518);box-shadow:inset 0 1px 0 #ffffff1f,inset 0 -1px 0 #000,0 0 0 1px #000,0 8px 16px #0008}
+.pa-mini svg.ic{width:17px;height:17px;color:var(--jaune)}
+.pa-mini>span{flex:1 1 180px;min-width:0}
+.pa-mini a{display:inline-flex;align-items:center;min-height:36px;font-weight:800;color:var(--jaune-c);text-decoration:underline;text-underline-offset:3px}
+
+/* le parc : la plaque de l'adresse, les temps de route */
+.plaque.pa-adr{margin-top:16px;padding:16px 26px 15px;text-align:center}
+.pa-adr b{display:block;font:900 clamp(15px,4.6vw,19px)/1.12 var(--x);font-stretch:116%;text-transform:uppercase;margin-top:7px;color:#131416;text-shadow:0 1px 0 #ffffffb0;overflow-wrap:anywhere}
+.pa-adr b+b{margin-top:2px}
+.pa-adr small{display:block;font:700 12.5px/1.3 var(--x);margin-top:7px;color:#26282c;text-shadow:0 1px 0 #ffffff80}
+.pa-route{margin-top:18px}
+.pa-route .i-lab{margin:0 2px 9px}
+.pa-dist{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:0}
+.pa-dist div{min-width:0;padding:10px 12px 11px;border-radius:9px;background:linear-gradient(180deg,#1d1f23,#141518);box-shadow:inset 0 1px 0 #ffffff1f,inset 0 -1px 0 #000,0 0 0 1px #000,0 6px 12px #0008}
+.pa-dist dt{font:600 12.5px/1.25 var(--x);color:#c9ccd1;overflow-wrap:anywhere}
+.pa-dist dd{margin:5px 0 0;font:800 17px/1 var(--m);letter-spacing:-.02em;color:var(--jaune-c);white-space:nowrap}
+#parc .appel{margin-top:18px}
+.pa-2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:9px;margin-top:10px}
+.pa-2 .bt{text-decoration:none}
+.pa-2 .bt svg.ic{color:var(--jaune)}
+
+/* acheter de loin : la route en 4 étapes, chaque étape sur sa plaque numérotée */
+.pa-sec{margin-top:38px;text-align:center;scroll-margin-top:76px}
+.pa-sec .brady{margin-top:0}
+.pa-h{font:900 20px/1.08 var(--x);font-stretch:114%;letter-spacing:.005em;text-transform:uppercase;color:#f2f1ec;margin-top:12px;text-wrap:balance}
+.pa-et{position:relative;list-style:none;counter-reset:et;margin:18px 0 0;padding:0;display:grid;gap:12px}
+.pa-et:before{content:"";position:absolute;left:21px;top:22px;bottom:22px;border-left:2px dashed #f2b70566;pointer-events:none}
+.pa-et li{position:relative;counter-increment:et;display:grid;grid-template-columns:44px minmax(0,1fr);column-gap:13px;align-items:start}
+.pa-et li:before{content:counter(et);grid-row:1 / span 2;display:grid;place-items:center;width:44px;height:44px;border-radius:6px;font:900 21px/1 var(--x);font-stretch:118%;color:#17181b;
+ background:linear-gradient(180deg,#eceef0 0%,#cfd2d6 16%,#b6bac0 55%,#9a9fa6 100%);box-shadow:inset 0 1px 0 #fff,inset 0 -1px 0 #555960,0 0 0 1px #000,0 6px 12px #000a;text-shadow:0 1px 0 #ffffffb0}
+.pa-et li:last-child:before{color:#141000;background:linear-gradient(180deg,#FFE27A 0%,#FFD23F 16%,var(--jaune) 52%,#D99E00 100%);box-shadow:inset 0 1px 0 #ffffffb0,inset 0 -2px 0 #9a7000,0 0 0 1px #000,0 6px 12px #000a}
+.pa-et b{display:block;padding-top:3px;font:800 15px/1.2 var(--x);font-stretch:108%;color:#f2f1ec}
+.pa-et span{display:block;margin-top:4px;font:500 13px/1.45 var(--x);color:#c9ccd1}
+.pa-livr{position:relative;margin-top:20px;padding:16px 15px 15px;border-radius:4px;color:#1c1a14;transform:rotate(-.4deg);
+ background:linear-gradient(180deg,#fffdf4,#f1ecdc);box-shadow:0 0 0 1px #00000059,inset 0 1px 0 #fff,0 12px 24px #000b}
+.pa-livr b{display:inline-block;font:900 14px/1 var(--x);font-stretch:118%;letter-spacing:.06em;text-transform:uppercase;color:#c8451f;border:2px solid #c8451f;border-radius:4px;padding:5px 8px 4px;transform:rotate(-4deg)}
+.pa-livr p{margin-top:10px;font:600 13.5px/1.45 var(--x);color:#2b2719}
+
+/* le compteur franc : les trois voyants, comme sur chaque clé */
+.pa-rep{display:grid;gap:8px;margin-top:16px}
+.pa-r{padding:12px 13px 12px;border-radius:10px;background:linear-gradient(180deg,#26282d,#17181b);box-shadow:inset 0 1px 0 #ffffff24,inset 0 -1px 0 #000,0 0 0 1px #000,0 6px 12px #0009}
+.pa-r .temoin{margin-top:0;font-size:12.5px;letter-spacing:.02em;text-transform:uppercase;color:#f2f1ec}
+.pa-r p{margin-top:7px;font:500 13px/1.45 var(--x);color:#d6d8dc}
+/* le conseil : une plaque d'avertissement, comme sur les machines */
+.pa-cons{position:relative;margin-top:18px;padding:22px 16px 15px;border-radius:6px;overflow:hidden;font:700 13.5px/1.45 var(--x);color:#141000;
+ background:linear-gradient(180deg,#FFD84F,var(--jaune) 45%,#E0A300);box-shadow:inset 0 1px 0 #ffffff90,inset 0 -1px 0 #9a7000,0 0 0 1px #000,0 8px 16px #0009}
+.pa-cons:before{content:"";position:absolute;left:0;right:0;top:0;height:9px;background:repeating-linear-gradient(-45deg,#141000 0 8px,transparent 8px 16px)}
+#pa-pied .pied{margin-top:26px}
+/* petit téléphone : le tampon du bon, sur le tableau, se resserre pour tenir dans le bon (« ZURÜCKGERUFEN ») */
+@media(max-width:370px){.dm .bm-p .tampon{font-stretch:90%;letter-spacing:0}}
+@media(min-width:1000px){
+ .pa-h{font-size:22px}
+ .pa-adr b{font-size:19px}
+}
+
+/* ================= correction du 26/11 (Lilian) ================= */
+/* le choix du secteur : quatre boutons de l'appli dans une glissière, celui choisi s'allume en jaune */
+.secteurs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;margin:10px 14px 0;padding:5px;border-radius:12px;background:#090a0b;box-shadow:inset 0 2px 5px #000,inset 0 0 0 1px #000,0 1px 0 #ffffff17}
+.secteurs .petit{height:44px;min-width:0;justify-content:space-between;gap:8px;padding:0 12px 0 13px;font:700 12.5px/1.1 var(--x);letter-spacing:0;text-align:left}
+.secteurs .petit span{min-width:0}
+.secteurs .petit b{font:700 12px var(--m)}
+@media(min-width:640px) and (max-width:999px){.secteurs{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media(max-width:350px){.secteurs .petit{padding:0 9px 0 10px;font-size:12px;font-stretch:94%}}
+@media(min-width:1000px){.secteurs{margin:10px 18px 0}}
+/* le retour : une flèche jaune et le mot « Retour », en haut à gauche de chaque écran (téléphone et PC) */
+.p-haut .ret,#rendre{height:42px;padding:0 14px 0 10px;gap:7px;font:800 13px var(--x);letter-spacing:.01em}
+.p-haut .ret svg.ic,#rendre svg.ic{width:20px;height:20px;stroke-width:2.6;color:var(--jaune)}
+@media(min-width:1000px){.p-haut .ret{display:inline-flex}.p-haut .x-pc{display:none}}
+/* sur la plaque, la petite ligne reste lisible même sur une rayure sombre du métal */
+.pl-b>small{color:#111214}
+/* la clé ne tourne qu'une fois : ensuite elle se pose sans bouger (26/11, Lilian) */
+.neiman.net,.neiman.net *{transition:none!important}
+
 @media(min-width:640px) and (max-width:999px){.rayon{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-height:600px){.o-in{padding:52px 0 16px}.o-logo{width:190px}.o-pan{margin-top:12px;padding:14px 18px 12px}.o-voy{margin-bottom:16px}.voy{width:30px;height:30px}.voy svg{width:17px;height:17px}#neiman0{--d:132px!important}.o-cpt{margin-top:46px}.o-t{margin-top:14px;font-size:19px}}
 @media(max-height:780px) and (max-width:999px){.verre{aspect-ratio:3/2}}
@@ -706,6 +826,10 @@ body.choisit .case:not(.m1) .bal{animation:balance-d 2.4s ease-in-out infinite;a
   <symbol id="s-sms" viewBox="0 0 24 24"><path d="M4 5h16v11H10l-5 4v-4H4z"/><path d="M8 9h8M8 12h5"/></symbol>
   <symbol id="s-crayon" viewBox="0 0 24 24"><path d="M4 20l1-4.500L16 4.500l3.500 3.500L8.500 19zM14 6.500l3.500 3.500"/></symbol>
   <symbol id="s-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="s-vend" viewBox="0 0 24 24"><path d="M3.5 12V4.5a1 1 0 0 1 1-1H12l8.500 8.500a1 1 0 0 1 0 1.400l-7.100 7.100a1 1 0 0 1-1.400 0z"/><circle cx="8" cy="8" r="1.600"/></symbol>
+  <symbol id="s-cal" viewBox="0 0 24 24"><rect x="3.500" y="5" width="17" height="15.500" rx="2"/><path d="M3.500 10h17M8 3v4M16 3v4M8 14h3M13 14h3M8 17h3"/></symbol>
+  <symbol id="s-pin" viewBox="0 0 24 24"><path d="M12 21s-6.500-5.800-6.500-11.200a6.500 6.500 0 0 1 13 0C18.500 15.200 12 21 12 21z"/><circle cx="12" cy="9.800" r="2.400"/></symbol>
+  <symbol id="s-ret" viewBox="0 0 24 24"><path d="M19.500 12H5.500m0 0l5.500-5.500M5.500 12l5.500 5.500"/></symbol>
 </svg>
 
 <!-- ouverture : on met le contact -->
@@ -751,6 +875,7 @@ body.choisit .case:not(.m1) .bal{animation:balance-d 2.4s ease-in-out infinite;a
       <label class="cherche"><svg class="ic"><use href="#s-loupe"/></svg><input type="search" id="cherche" data-ph="cherche" placeholder="Chercher une machine" aria-label="Chercher une machine"></label>
       <button type="button" class="petit" id="tri"></button>
     </div>
+    <div class="secteurs" id="secteurs" role="group" aria-label="Choisir un secteur"><button type="button" class="petit" data-fil="tout" aria-pressed="true"><span data-t="f0">Tout</span><b></b></button><button type="button" class="petit" data-fil="foret" aria-pressed="false"><span data-t="f1">Forêt</span><b></b></button><button type="button" class="petit" data-fil="tp" aria-pressed="false"><span data-t="f2">Travaux publics</span><b></b></button><button type="button" class="petit" data-fil="agri" aria-pressed="false"><span data-t="f3">Agricole</span><b></b></button></div>
     <div class="planche" id="planche"></div>
     <div class="choix" id="choix" hidden><span><b id="choix-b"></b><em id="choix-t"></em></span><button type="button" class="petit txt" id="choix-x">Annuler</button></div>
   </div></main>
@@ -758,7 +883,7 @@ body.choisit .case:not(.m1) .bal{animation:balance-d 2.4s ease-in-out infinite;a
   <!-- le poste : la machine se présente -->
   <main class="vue d poste" id="poste">
     <header class="p-haut">
-      <button type="button" class="petit" id="rendre"><span aria-hidden="true">‹</span><span id="rendre-t">Les clés</span></button><button type="button" class="petit txt" id="vers-banc"><svg class="ic"><use href="#s-cmp"/></svg><span data-t="cp1b">Comparaison</span></button>
+      <button type="button" class="petit" id="rendre"><svg class="ic"><use href="#s-ret"/></svg><span id="rendre-t">Retour</span></button><button type="button" class="petit txt" id="vers-banc"><svg class="ic"><use href="#s-cmp"/></svg><span data-t="cp1b">Comparaison</span></button>
       <span class="sp"></span>
       <div class="pas"><button type="button" id="prec" aria-label="Machine précédente">‹</button><span id="rangno"></span><button type="button" id="suiv" aria-label="Machine suivante">›</button></div>
     </header>
@@ -797,7 +922,7 @@ body.choisit .case:not(.m1) .bal{animation:balance-d 2.4s ease-in-out infinite;a
   <!-- le banc : deux clés en main, deux machines côte à côte -->
   <main class="vue d" id="banc">
     <header class="p-haut">
-      <button type="button" class="petit ret" data-ret><span aria-hidden="true">‹</span><span data-t="cles">Les clés</span></button>
+      <button type="button" class="petit ret" data-ret><svg class="ic"><use href="#s-ret"/></svg><span data-t="ret">Retour</span></button>
       <span class="sp"></span>
       <button type="button" class="petit txt" id="banc-part"><svg class="ic"><use href="#s-part"/></svg><span data-t="part">Partager</span></button>
       <button type="button" class="petit x-pc" data-ret aria-label="Fermer">✕</button>
@@ -813,7 +938,7 @@ body.choisit .case:not(.m1) .bal{animation:balance-d 2.4s ease-in-out infinite;a
   <!-- le crochet : prévenu dès que la machine arrive -->
   <main class="vue d" id="crochet">
     <header class="p-haut">
-      <button type="button" class="petit ret" data-ret><span aria-hidden="true">‹</span><span data-t="cles">Les clés</span></button>
+      <button type="button" class="petit ret" data-ret><svg class="ic"><use href="#s-ret"/></svg><span data-t="ret">Retour</span></button>
       <span class="sp"></span>
       <button type="button" class="petit x-pc" data-ret aria-label="Fermer">✕</button>
     </header>
@@ -840,7 +965,7 @@ body.choisit .case:not(.m1) .bal{animation:balance-d 2.4s ease-in-out infinite;a
   <!-- la recherche sur demande : Dominique cherche la machine qui n'est pas au tableau -->
   <main class="vue d" id="recherche">
     <header class="p-haut">
-      <button type="button" class="petit ret" data-ret><span aria-hidden="true">‹</span><span data-t="cles">Les clés</span></button>
+      <button type="button" class="petit ret" data-ret><svg class="ic"><use href="#s-ret"/></svg><span data-t="ret">Retour</span></button>
       <span class="sp"></span>
       <button type="button" class="petit x-pc" data-ret aria-label="Fermer">✕</button>
     </header>
@@ -877,12 +1002,115 @@ body.choisit .case:not(.m1) .bal{animation:balance-d 2.4s ease-in-out infinite;a
   <!-- le bureau : espace Dominique -->
   <main class="vue d" id="bureau">
     <header class="p-haut">
-      <button type="button" class="petit ret" data-ret><span aria-hidden="true">‹</span><span data-t="cles">Les clés</span></button>
+      <button type="button" class="petit ret" data-ret><svg class="ic"><use href="#s-ret"/></svg><span data-t="ret">Retour</span></button>
       <span class="sp"></span>
       <button type="button" class="petit txt" id="sortir" hidden data-t="psortir">Sortir</button>
       <button type="button" class="petit x-pc" data-ret aria-label="Fermer">✕</button>
     </header>
     <div class="v-corps etroit" id="bureau-c"></div>
+  </main>
+  <!-- je vends ma machine : Poly Commerce achète aussi (comme sur le site) -->
+  <main class="vue d" id="vendre">
+    <header class="p-haut">
+      <button type="button" class="petit ret" data-ret><svg class="ic"><use href="#s-ret"/></svg><span data-t="ret">Retour</span></button>
+      <span class="sp"></span>
+      <button type="button" class="petit x-pc" data-ret aria-label="Fermer">✕</button>
+    </header>
+    <div class="v-corps etroit">
+      <div class="enseigne"><i class="vis"></i><i class="vis"></i><h1 data-t="ve0">Vous vendez ?</h1><p data-t="ve1">Poly Commerce achète aussi</p></div>
+      <p class="v-intro" data-t="ve2">Décrivez votre machine sur ce bon, avec des photos si vous en avez. Dominique la regarde et vous rappelle pour en parler.</p>
+      <div id="ve-liste"></div>
+      <button type="button" class="g-go jaune" id="ve-neuf" hidden><svg class="ic"><use href="#s-plus"/></svg><span data-t="ve12">Proposer une autre machine</span></button>
+      <div class="bon" id="ve-bon">
+        <i class="aimant" aria-hidden="true"></i>
+        <form class="g-papier bon-p" id="f-ve" novalidate>
+          <div class="bon-t"><b data-t="ve3">Bon de reprise</b><span id="ve-no"></span></div>
+          <label><span data-t="rc7">Type de machine</span><select id="ve-type"></select></label>
+          <label><span data-t="pmodele">Marque et modèle</span><input type="text" id="ve-mod" autocomplete="off" maxlength="60"></label>
+          <div class="deux"><label><span data-t="annee">Année</span><input type="text" inputmode="numeric" maxlength="4" id="ve-an" autocomplete="off"></label><label><span data-t="heures">Heures</span><input type="text" inputmode="numeric" id="ve-h" autocomplete="off"></label></div>
+          <p class="bon-s" data-t="ve4">Photos (facultatif)</p>
+          <div class="vp-l" id="ve-ph"></div>
+          <p class="bon-s" data-t="rc13">Vos coordonnées</p>
+          <div class="deux"><label><span data-t="rc14">Prénom</span><input type="text" id="ve-pre" autocomplete="given-name" maxlength="30"></label><label><span data-t="al5">Votre portable</span><input type="tel" inputmode="tel" autocomplete="tel" id="ve-tel" maxlength="20"></label></div>
+          <div class="code" id="ve-code" hidden><label><span data-t="rc16">Code reçu par SMS</span><input type="text" inputmode="numeric" maxlength="4" id="ve-c" autocomplete="one-time-code"></label><button type="button" class="petit jaune txt" id="ve-val" data-t="rc17">Valider</button></div>
+          <p class="bon-demo" id="ve-demo" hidden data-t="rc18">Démonstration : le code est 1234. Sur la vraie appli, il part par SMS.</p>
+        </form>
+        <button type="submit" form="f-ve" class="g-go jaune" id="ve-go"><svg class="ic"><use href="#s-sms"/></svg><span id="ve-go-t" data-t="rc15">Recevoir mon code par SMS</span></button>
+      </div>
+      <p class="note" data-t="al7">Aperçu : l'envoi de SMS sera branché à la mise en service.</p>
+      <span class="signe" data-t="signe">Appli réalisée par Agence LDR</span>
+    </div>
+  </main>
+
+  <!-- visite du parc : le client choisit son jour, Dominique rappelle pour l'heure -->
+  <main class="vue d" id="visite">
+    <header class="p-haut">
+      <button type="button" class="petit ret" data-ret><svg class="ic"><use href="#s-ret"/></svg><span data-t="ret">Retour</span></button>
+      <span class="sp"></span>
+      <button type="button" class="petit x-pc" data-ret aria-label="Fermer">✕</button>
+    </header>
+    <div class="v-corps etroit">
+      <div class="enseigne"><i class="vis"></i><i class="vis"></i><h1 data-t="vi0">Visite du parc</h1><p data-t="vi1">Sur rendez-vous, 7 jours sur 7</p></div>
+      <p class="v-intro" data-t="vi2">Choisissez votre jour. Dominique vous rappelle pour fixer l'heure.</p>
+      <div id="vi-liste"></div>
+      <button type="button" class="g-go jaune" id="vi-neuf" hidden><svg class="ic"><use href="#s-plus"/></svg><span data-t="vi12">Demander une autre visite</span></button>
+      <div class="bon" id="vi-bon">
+        <i class="aimant" aria-hidden="true"></i>
+        <form class="g-papier bon-p" id="f-vi" novalidate>
+          <div class="bon-t"><b data-t="vi3">Bon de visite</b><span id="vi-no"></span></div>
+          <fieldset class="quand"><legend data-t="vi4">Quel jour vous arrange ?</legend><div class="chips" id="vi-jour"></div></fieldset>
+          <label class="vi-ml"><span data-t="vi5">Machine à voir</span><select id="vi-m"></select></label>
+          <p class="bon-s" data-t="rc13">Vos coordonnées</p>
+          <div class="deux"><label><span data-t="rc14">Prénom</span><input type="text" id="vi-pre" autocomplete="given-name" maxlength="30"></label><label><span data-t="al5">Votre portable</span><input type="tel" inputmode="tel" autocomplete="tel" id="vi-tel" maxlength="20"></label></div>
+          <div class="code" id="vi-code" hidden><label><span data-t="rc16">Code reçu par SMS</span><input type="text" inputmode="numeric" maxlength="4" id="vi-c" autocomplete="one-time-code"></label><button type="button" class="petit jaune txt" id="vi-val" data-t="rc17">Valider</button></div>
+          <p class="bon-demo" id="vi-demo" hidden data-t="rc18">Démonstration : le code est 1234. Sur la vraie appli, il part par SMS.</p>
+        </form>
+        <button type="submit" form="f-vi" class="g-go jaune" id="vi-go"><svg class="ic"><use href="#s-sms"/></svg><span id="vi-go-t" data-t="rc15">Recevoir mon code par SMS</span></button>
+      </div>
+      <div class="pa-mini"><svg class="ic" aria-hidden="true"><use href="#s-pin"/></svg><span>1 avenue de la Gare, <span class="nw">51330 Givry-en-Argonne</span></span><a href="https://www.google.com/maps/search/?api=1&amp;query=Poly+Commerce+1+avenue+de+la+Gare+51330+Givry-en-Argonne" target="_blank" rel="noopener" data-t="pa8">Itinéraire</a></div>
+      <p class="note" data-t="al7">Aperçu : l'envoi de SMS sera branché à la mise en service.</p>
+      <span class="signe" data-t="signe">Appli réalisée par Agence LDR</span>
+    </div>
+  </main>
+
+  <!-- le parc : adresse, acheter de loin, le compteur franc, le bas de page -->
+  <main class="vue d" id="parc">
+    <header class="p-haut">
+      <button type="button" class="petit ret" data-ret><svg class="ic"><use href="#s-ret"/></svg><span data-t="ret">Retour</span></button>
+      <span class="sp"></span>
+      <button type="button" class="petit x-pc" data-ret aria-label="Fermer">✕</button>
+    </header>
+    <div class="v-corps etroit">
+      <div class="enseigne"><i class="vis"></i><i class="vis"></i><h1 data-t="pa0">Le parc de Givry</h1><p>Poly Commerce · Givry-en-Argonne</p></div>
+      <div class="plaque pa-adr"><i class="vis"></i><i class="vis"></i><i class="vis"></i><i class="vis"></i><span class="grave" data-t="pa2">Adresse du parc</span><b>1 avenue de la Gare</b><b>51330 Givry-en-Argonne</b><small data-t="pa3">Entre Reims et Verdun</small></div>
+      <ul class="atouts">
+        <li><i></i><span data-t="pa4">Joignable 7 jours sur 7, de 8 h à 21 h</span></li>
+        <li><i></i><span data-t="pa5">Visite sur rendez-vous : appelez avant de venir</span></li>
+        <li><i></i><span data-t="rc3">Il vous répond en français, allemand, anglais ou italien</span></li>
+      </ul>
+      <div class="pa-route"><span class="i-lab" data-t="pa6">En voiture depuis</span>
+        <dl class="pa-dist"><div><dt>Châlons-en-Champagne</dt><dd>30 min</dd></div><div><dt>Reims</dt><dd>45 min</dd></div><div><dt>Metz</dt><dd>2 h</dd></div><div><dt>Paris</dt><dd>2 h 30</dd></div></dl>
+      </div>
+      <a class="appel" href="tel:+33687858436"><svg><use href="#s-tel"/></svg><span data-t="pa7">Appeler Dominique</span></a>
+      <div class="pa-2"><a class="bt" href="https://www.google.com/maps/search/?api=1&amp;query=Poly+Commerce+1+avenue+de+la+Gare+51330+Givry-en-Argonne" target="_blank" rel="noopener"><svg class="ic"><use href="#s-pin"/></svg><span data-t="pa8">Itinéraire</span></a><button type="button" class="bt" id="pa-vis"><svg class="ic"><use href="#s-cal"/></svg><span data-t="pa9">Réserver une visite</span></button></div>
+
+      <div class="pa-sec" id="pa-distance"><span class="brady" data-t="pd0">Acheter de loin</span><h2 class="pa-h" data-t="pd1">En 4 étapes, sans vous déplacer</h2></div>
+      <ol class="pa-et">
+        <li><b data-t="pd2">Photos détaillées</b><span data-t="pd3">On vous envoie toutes les photos que vous demandez : moteur, articulation, pneus, cabine.</span></li>
+        <li><b data-t="pd4">Votre mécanicien, si vous voulez</b><span data-t="pd5">Vous pouvez faire venir un mécanicien sur le parc. Conseillé pour les machines de plus de 15 ans.</span></li>
+        <li><b data-t="pd6">Acompte, la machine est bloquée</b><span data-t="pd7">Un chèque de réservation ou un virement d'acompte réserve la machine pour vous. Facture éditée à réception.</span></li>
+        <li><b data-t="pd8">Livraison, solde au livreur</b><span data-t="pd9">On organise le transport et on vous appelle avant. Le solde se règle avant livraison, par virement ou chèque au livreur.</span></li>
+      </ol>
+      <div class="pa-livr"><b data-t="pd10">Livraison</b><p data-t="pd11">Transport organisé dans toute la France et en Europe, en général en moins de dix jours. Les mises aux normes propres à chaque pays restent à la charge de l'acheteur.</p></div>
+      <p class="note" data-t="pd12">Références clients disponibles sur demande : demandez à Dominique.</p>
+
+      <div class="pa-sec" id="pa-compteur"><span class="brady" data-t="pf0">Le compteur franc</span><h2 class="pa-h" data-t="pf1">D'où vient le chiffre des heures</h2></div>
+      <p class="v-intro" data-t="pf2">Sur une machine d'occasion, la première question, c'est les heures. Chaque clé dit clairement d'où vient le chiffre affiché, avec trois repères simples.</p>
+      <div class="pa-rep" id="pa-rep"></div>
+      <p class="pa-cons" data-t="pf6">Pour les machines de plus de 15 ans ou 6 000 heures, nous conseillons de venir avec une personne compétente pour contrôler le moteur et la boîte avant l'achat. C'est écrit dans nos conditions de vente.</p>
+      <p class="note" data-t="pf7">Aperçu : les repères sont tirés du texte des annonces, à valider machine par machine avec Dominique.</p>
+      <div id="pa-pied"></div>
+    </div>
   </main>
 </div>
 
@@ -915,7 +1143,7 @@ const TYP={de:[["Débusqueur avec grue","Skidder mit Kran"],["Débusqueur recond
 en:[["Débusqueur avec grue","Skidder with crane"],["Débusqueur reconditionné","Rebuilt skidder"],["Débusqueur","Skidder"],["Porteur","Forwarder"],["Broyeur forestier","Forestry mulcher"],["Pelle sur chenilles","Crawler excavator"],["Tombereau articulé","Articulated dump truck"],["Mini-pelle","Mini excavator"],["Télescopique agricole","Farm telehandler"],["Télescopique","Telehandler"],["Tracteur","Tractor"],["Transporteur 4x4","4x4 utility vehicle"],["Pelle","Excavator"],["Autre machine","Other machine"]],
 it:[["Débusqueur avec grue","Skidder con gru"],["Débusqueur reconditionné","Skidder ricondizionato"],["Débusqueur","Skidder"],["Porteur","Forwarder"],["Broyeur forestier","Trincia forestale"],["Pelle sur chenilles","Escavatore cingolato"],["Tombereau articulé","Dumper articolato"],["Mini-pelle","Miniescavatore"],["Télescopique agricole","Sollevatore agricolo"],["Télescopique","Sollevatore telescopico"],["Tracteur","Trattore"],["Transporteur 4x4","Veicolo utility 4x4"],["Pelle","Escavatore"],["Autre machine","Altra macchina"]]};
 
-const IMG='../photos/',TEL='+33687858436',PUBLIC='https://agenceldr.github.io/demos-ldr/poly-commerce/cles/';
+const IMG='../photos/',TEL='+33687858436',PUBLIC='https://agenceldr.github.io/demos-ldr/poly-commerce/';
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const mem={get(k){try{return JSON.parse(localStorage.getItem(k))}catch(e){return null}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v));return true}catch(e){return false}}};
 const calme=()=>matchMedia('(prefers-reduced-motion:reduce)').matches;
@@ -1008,9 +1236,9 @@ let BAL=false;
 function ajuste(){$$('.enseigne').forEach(en=>[['h1',large()?23:19,13.5],['p',11.5,11.5]].forEach(([s,max,min])=>{const e=en.querySelector(s);if(!e||!e.offsetParent)return;e.classList.remove('sre','pli');let f=max;e.style.fontSize=f+'px';const trop=()=>e.scrollWidth>e.clientWidth+.5;while(trop()&&f>min){f-=.5;e.style.fontSize=f+'px'}if(trop())e.classList.add('sre');if(trop())e.classList.add('pli')}));serres()}
 addEventListener('resize',()=>{ajuste();marque()});
 try{document.fonts.ready.then(ajuste)}catch(e){}
-function planche(){etat();ajuste();
+function planche(){etat();ajuste();majFil();
   const mots=$('#cherche').value.trim().toLowerCase().split(/\s+/).filter(Boolean);
-  let l=PARC.filter(m=>(FIL!='sel'||SEL.includes(m.id))&&mots.every(x=>(m.n+' '+m.t+' '+typ(m.t)+' '+m.a+' '+(U()[(FAMS.find(f=>f[0]==m.f)||[])[1]]||'')).toLowerCase().includes(x)));
+  let l=PARC.filter(m=>(FIL=='tout'||(FIL=='sel'?SEL.includes(m.id):m.f==FIL))&&mots.every(x=>(m.n+' '+m.t+' '+typ(m.t)+' '+m.a+' '+(U()[(FAMS.find(f=>f[0]==m.f)||[])[1]]||'')).toLowerCase().includes(x)));
   const plat=!!TRI||mots.length>0||FIL=='sel';
   if(TRI)l=[...l].sort((a,b)=>TRI=='+'?a.p-b.p:b.p-a.p);
   VUE=plat?l:FAMS.flatMap(([f])=>l.filter(m=>m.f==f));
@@ -1020,7 +1248,7 @@ function planche(){etat();ajuste();
   if(!l.length)h=(FIL=='sel'?brady(U().trousseau,0):'')+'<p class="vide">'+(FIL=='sel'?U().selv:U().vide)+'</p>'+(FIL=='sel'?'':'<button type="button" class="l-go vide-rc" id="vide-rc">'+U().rs3+'<span aria-hidden="true">›</span></button>');
   else if(plat)h=(FIL=='sel'?tete(l.length):'')+'<div class="rayon">'+l.map(caseHTML).join('')+'</div>';
   else{let n=0;h=FAMS.map(([f,k])=>{const s=l.filter(m=>m.f==f);if(!s.length)return'';const r=brady(U()[k],s.length)+'<div class="rayon">'+s.map((m,i)=>caseHTML(m,n+i)).join('')+'</div>';n+=s.length;return r}).join('')}
-  const p=$('#planche');p.innerHTML=h+(FIL=='sel'?'':rechercheHTML()+arrivagesHTML()+porteHTML())+'<span class="signe">'+U().signe+'</span>';
+  const p=$('#planche');p.innerHTML=h+(FIL=='sel'?'':rechercheHTML()+demandesHTML()+arrivagesHTML()+plaquesHTML()+porteHTML())+piedHTML();
   if(BAL){BAL=false;p.classList.remove('go');void p.offsetWidth;p.classList.add('go');setTimeout(()=>p.classList.remove('go'),3400)}
   majChoix();marque()}
 function marque(){const v=document.body.dataset.vue,g=large();$$('#planche .case').forEach(c=>{c.setAttribute('aria-current',g&&ALLUME&&!!CUR&&!VUES.includes(v)&&c.dataset.id==CUR.id);c.classList.toggle('cmp',g&&v=='banc'&&CMP.includes(c.dataset.id))});
@@ -1068,24 +1296,27 @@ function contact(m,mode,de){if(!m)return;const id=++SEQ,P=$('#poste'),N=$('#neim
     T2(150,()=>{P.classList.remove('test');P.classList.add('allume');valeurs(m)});
     if(!large())P.scrollTop=0;return}
   afficher(m);if(!large())P.scrollTop=0;
+  if(CLE1&&mode!='cle'&&mode!='direct'&&!calme()){N.classList.add('net');N.style.setProperty('--a','55deg');marks(1);void N.offsetWidth;requestAnimationFrame(()=>N.classList.remove('net'));
+    P.classList.remove('allume');P.classList.add('test');T2(150,()=>{P.classList.remove('test');P.classList.add('allume');ALLUME=true;valeurs(m);marque()});return}
   if(calme()||mode=='direct'){P.classList.remove('test');P.classList.add('allume');N.style.setProperty('--a','55deg');marks(1);ALLUME=true;valeurs(m);marque();return}
   ALLUME=false;P.classList.remove('allume','test');N.style.setProperty('--a','0deg');marks(0);eteindre();
   T2(170,()=>{N.style.setProperty('--a','55deg');marks(1);vib(12);P.classList.add('test')});
   T2(640,()=>{N.style.setProperty('--a','95deg');marks(2);vib([0,35,30,35,30,70])});
-  T2(900,()=>{N.style.setProperty('--a','55deg');marks(1);P.classList.remove('test');P.classList.add('allume');ALLUME=true;valeurs(m);marque()})}
+  T2(900,()=>{N.style.setProperty('--a','55deg');marks(1);P.classList.remove('test');P.classList.add('allume');ALLUME=true;CLE1=true;valeurs(m);marque()})}
 /* rendre la clé : on coupe le contact et on revient au tableau */
-function versTableau(){const id=++SEQ,P=$('#poste');$('#neiman').style.setProperty('--a','0deg');$$('#neiman .n-face i').forEach((e,k)=>e.classList.toggle('on',k==0));P.classList.remove('allume','test');ALLUME=false;vib(10);
+function versTableau(){const id=++SEQ,P=$('#poste');if(!CLE1){$('#neiman').style.setProperty('--a','0deg');$$('#neiman .n-face i').forEach((e,k)=>e.classList.toggle('on',k==0))}P.classList.remove('allume','test');ALLUME=false;vib(10);
   setTimeout(()=>{if(id!=SEQ)return;document.body.dataset.vue='tableau';ajuste();marque();const c=$('.case[data-id="'+CUR.id+'"]');
     if(c){c.scrollIntoView({block:'center'});c.classList.remove('retour','prise');void c.offsetWidth;c.classList.add('retour');setTimeout(()=>c.classList.remove('retour'),1800)}},calme()?0:230)}
 function rendre(){if(large())return;try{if(history.state&&history.state.m){history.back();return}}catch(e){}versTableau()}
-addEventListener('popstate',()=>{if(large())return;const s=history.state;
+addEventListener('popstate',()=>{const s=history.state;
+  if(large()){const vv=document.body.dataset.vue,hs=location.hash;if(s&&s.v&&VUES.includes(s.v)){if(vv!=s.v)montrer(s.v,true);return}if(/^#(m|c)=/.test(hs)||ROUTES.includes(hs.slice(1)))return;if(VUES.includes(vv))pcPoste();return}
   if(s&&s.m){const m=PARC.find(x=>x.id==s.m);if(m){contact(m,'direct');return}}
   if(s&&s.v&&VUES.includes(s.v)){montrer(s.v,true);return}
   if(document.body.dataset.vue=='poste')versTableau();else auTableau()});
 /* un lien « #m=… » collé pendant que l'appli est ouverte */
 addEventListener('hashchange',()=>{const hs=location.hash,vv=document.body.dataset.vue;
   if(hs=='#tableau'){finOuverture();if(!large()){if(vv=='poste')versTableau();else if(vv!='tableau')auTableau()}return}
-  if(hs=='#crochet'||hs=='#bureau'||hs=='#recherche'){if(vv!=hs.slice(1)){finOuverture();montrer(hs.slice(1),true)}return}
+  if(ROUTES.includes(hs.slice(1))){if(vv!=hs.slice(1)){finOuverture();montrer(hs.slice(1),true)}return}
   const cc=(hs.match(/c=([\w-]+),([\w-]+)/)||[]).slice(1).filter(existe);
   if(cc.length==2&&cc[0]!=cc[1]){if(vv=='banc'&&CMP.join()==cc.join())return;CMP=cc;document.body.classList.add('cmp2');finOuverture();montrer('banc',true);return}
   const id=(location.hash.match(/m=([\w-]+)/)||[])[1],m=id&&PARC.find(x=>x.id==id);if(!m||(m==CUR&&document.body.dataset.vue=='poste'&&ALLUME))return;finOuverture();contact(m,'direct')});
@@ -1094,6 +1325,9 @@ function pas(d){if(!VUE.length)return;const i=(Math.max(0,VUE.indexOf(CUR))+d+VU
 $('#planche').addEventListener('click',e=>{const t=e.target;
   if(t.closest('#libre')){montrer('crochet');return}
   if(t.closest('#cmd')){montrer('recherche');return}
+  if(t.closest('#vend')){montrer('vendre');return}
+  if(t.closest('#visi')){montrer('visite');return}
+  {const pa=t.closest('[data-pa]');if(pa){allerParc(pa.dataset.pa);return}}
   if(t.closest('#vide-rc')){RCPRE=$('#cherche').value.trim();montrer('recherche');return}
   if(t.closest('#porte')){montrer('bureau');return}
   if(t.closest('#cmp-sel')){const ids=SEL.filter(existe);if(ids.length==2){CMP=ids;document.body.classList.add('cmp2');montrer('banc')}else debutChoix([],true);return}
@@ -1101,7 +1335,7 @@ $('#planche').addEventListener('click',e=>{const t=e.target;
   if(CHOIX){choisir(m);return}
   if(calme()){contact(m);return}
   c.classList.remove('retour');c.classList.add('prise');vib(8);setTimeout(()=>{contact(m);setTimeout(()=>c.classList.remove('prise'),600)},large()?120:300)});
-$('#rendre').onclick=rendre;$('#contact').onclick=()=>{if(large()){contact(CUR)}else rendre()};
+$('#rendre').onclick=rendre;$('#contact').onclick=()=>{if(large()){contact(CUR,'cle')}else rendre()};
 $('#prec').onclick=()=>pas(-1);$('#suiv').onclick=()=>pas(1);
 addEventListener('keydown',e=>{if($('#plein').open||!$('#ouverture').classList.contains('fin'))return;const v=document.body.dataset.vue,champ=e.target.matches('input,select,textarea');
   if(v=='bureau'&&!OKB&&!champ){if(/^\d$/.test(e.key)){touche(e.key);return}if(e.key=='Backspace'){touche('x');return}}
@@ -1152,7 +1386,7 @@ $('#installer').onclick=async()=>{if(INV){INV.prompt();await INV.userChoice;INV=
 if('serviceWorker' in navigator&&location.protocol=='https:'&&!CADRE)navigator.serviceWorker.register('sw.js').catch(()=>{});
 
 /* ---------- ouverture : on met le contact ---------- */
-function finOuverture(){const o=$('#ouverture');if(o.classList.contains('fin'))return;o.classList.add('fin');document.body.classList.add('pret');BAL=true;planche();
+function finOuverture(){const o=$('#ouverture');if(o.classList.contains('fin'))return;o.classList.add('fin');if(o.classList.contains('ii'))CLE1=true;document.body.classList.add('pret');BAL=true;planche();
   if(large())setTimeout(()=>{if(document.body.dataset.vue=='tableau')contact(CUR)},450)}
 function demarrer(){const o=$('#ouverture'),N=$('#neiman0');if(o.classList.contains('i')||o.classList.contains('fin'))return;
   const marks=a=>$$('#neiman0 .n-face i').forEach((e,k)=>e.classList.toggle('on',k==a));
@@ -1250,15 +1484,16 @@ function serres(){$$('.l-croc .etiq b,.l-croc .etiq small,.r-ligne .tampon').for
 function auTableau(){document.body.dataset.vue='tableau';ajuste();marque();const f=APRES;APRES=null;if(f)f()}
 function montrer(v,sans){++SEQ;if(CHOIX)finChoix();
   if(!large()){$('#poste').classList.remove('allume','test');ALLUME=false}
-  if(v=='banc')banc();else if(v=='crochet')crochet();else if(v=='recherche')recherche();else bureau();
+  if(v=='banc')banc();else if(v=='crochet')crochet();else if(v=='recherche')recherche();else if(v=='vendre')vendre();else if(v=='visite')visite();else if(v=='parc')parcVue();else bureau();
   document.body.dataset.vue=v;$('#'+v).scrollTop=0;ajuste();
-  if(!sans){const h=v=='banc'?'#c='+CMP.join(','):'#'+v;try{const s=history.state;if(large())history.replaceState(null,'',h);else if(s&&(s.m||s.v))history.replaceState({v},'',h);else history.pushState({v},'',h)}catch(e){}}
+  if(!sans){const h=v=='banc'?'#c='+CMP.join(','):'#'+v;try{const s=history.state;if(large()?(s&&s.v):(s&&(s.m||s.v)))history.replaceState({v},'',h);else history.pushState({v},'',h)}catch(e){}}
   marque()}
-function fermer(){if(large()){document.body.dataset.vue='poste';if(CUR&&!ALLUME)contact(CUR,'direct');else{try{history.replaceState(null,'',CUR?'#m='+CUR.id:location.pathname+location.search)}catch(e){}marque()}return}
+function pcPoste(url){document.body.dataset.vue='poste';if(CUR&&!ALLUME)contact(CUR,'direct');else{if(url)try{history.replaceState(null,'',CUR?'#m='+CUR.id:location.pathname+location.search)}catch(e){}marque()}}
+function fermer(){if(large()){try{if(history.state&&history.state.v){history.back();return}}catch(e){}pcPoste(true);return}
   try{if(history.state&&history.state.v){history.back();return}}catch(e){}
   try{history.replaceState(null,'',location.pathname+location.search)}catch(e){}auTableau()}
 document.addEventListener('click',e=>{if(e.target.closest&&e.target.closest('[data-ret]'))fermer()});
-function majRetour(){let d=null;try{d=history.state&&history.state.de}catch(e){}$('#rendre-t').textContent=d=='banc'?U().cp1b:U().cles}
+function majRetour(){$('#rendre-t').textContent=U().ret||U().cles}
 
 /* ---------- comparer : on prend une deuxième clé ---------- */
 function majChoix(){serres();$('#choix').hidden=!CHOIX;document.body.classList.toggle('choisit',!!CHOIX);
@@ -1385,7 +1620,7 @@ function bureau0(){const u=U(),el=$('#bureau-c');$('#sortir').hidden=!OKB;
     '<p class="note">'+u.pdemo+'</p><span class="signe">'+u.signe+'</span>';return}
   if(ETAPE==0){const tous=[...AJ,...M],n=PARC.length;
     el.innerHTML='<div class="plaque titre">'+VIS4+'<span class="grave">'+u.pt+'</span><h2>'+n+' '+(n>1?u.penl:u.penl1)+'</h2></div>'+
-     '<button type="button" class="appel" id="ajout"><svg><use href="#s-plus"/></svg><span>'+u.pajout+'</span></button>'+rqBureauHTML()+
+     '<button type="button" class="appel" id="ajout"><svg><use href="#s-plus"/></svg><span>'+u.pajout+'</span></button>'+rqBureauHTML()+dmBureauHTML()+
      '<div class="reg-t"><span class="i-lab">'+u.pmes+'</span></div><div class="reg">'+tous.map(m=>{const v=VEN.has(m.id);
        return '<div class="r-ligne'+(v?' vendue':'')+'" data-id="'+m.id+'"><img src="'+src(m,0)+'" alt="" loading="lazy" width="64" height="48">'+(v?'<i class="tampon">'+u.pv+'</i>':'')+
        '<span class="r-n"><b>'+esc(m.n).replace(/ (\S{1,2})( · |$)/,'\u00a0$1$2')+'</b><small>'+(EDIT==m.id?'<span class="r-edit"><input type="text" inputmode="numeric" maxlength="8" id="e-prix" value="'+m.p+'" aria-label="'+u.pp+'"><button type="button" class="petit jaune" data-ok="'+m.id+'">OK</button></span>'
@@ -1433,7 +1668,7 @@ $('#bureau-c').addEventListener('click',e=>{const u=U(),t=e.target,haut=()=>{$('
   const o=t.closest('[data-ok]');if(o){validerPrix(o.dataset.ok);return}
   if(t.closest('#raz')){const b=$('#raz');
     if(!b.classList.contains('conf')){b.classList.add('conf');b.textContent=u.praz2;clearTimeout(RAZ);RAZ=setTimeout(()=>{const x=$('#raz');if(x){x.classList.remove('conf');x.textContent=U().praz}},3500);return}
-    clearTimeout(RAZ);AJ.length=0;VEN.clear();PRIX={};CROCHET=null;SEL=[];CMP=[];EDIT=null;RQ=[];RQN=0;['pk-ajouts','pk-vendues','pk-prix','pk-crochet','pk-sel','pk-recherches','pk-rqn'].forEach(x=>{try{localStorage.removeItem(x)}catch(e){}});
+    clearTimeout(RAZ);AJ.length=0;VEN.clear();PRIX={};CROCHET=null;SEL=[];CMP=[];EDIT=null;RQ=[];RQN=0;DM=[];DMN={v:0,p:0};VEPH=[];['pk-ajouts','pk-vendues','pk-prix','pk-crochet','pk-sel','pk-recherches','pk-rqn','pk-demandes','pk-dmn'].forEach(x=>{try{localStorage.removeItem(x)}catch(e){}});
     parc();planche();majSel();bureau();haut();toast(u.prazok);return}
   if(t.closest('#ret2')){garde();ETAPE--;bureau();haut();return}
   if(t.closest('#suiv2')){garde();const man=manque();if(man){toast(u.pmanque+man);return}
@@ -1448,7 +1683,7 @@ $('#sortir').onclick=()=>{OKB=false;ETAPE=0;EDIT=null;BR=null;try{sessionStorage
 
 /* quand la langue change, les écrans ouverts se retraduisent */
 function majPlus(){majChoix();majRetour();$$('.x-pc').forEach(b=>b.setAttribute('aria-label',U().fermer));$('#choix-x').textContent=U().annuler;$('#al-budget').placeholder='80 000';$('#al-h').placeholder='6 000';$('#al-tel').placeholder='06 12 34 56 78';
-  const v=document.body.dataset.vue;if(v=='banc')banc();else if(v=='bureau'){garde();bureau()}else if(v=='recherche')recherche();else crochet()}
+  const v=document.body.dataset.vue;if(v=='banc')banc();else if(v=='bureau'){garde();bureau()}else if(v=='recherche')recherche();else if(v=='vendre')vendre();else if(v=='visite')visite();else if(v=='parc')parcVue();else crochet()}
 
 /* ---------- ouverture : la clé se tourne du doigt, en glissant (le simple toucher marche toujours) ---------- */
 Object.assign(T.fr,{ouv2:"Tournez la clé, ou touchez-\u2060la\u00a0:\nle parc démarre."});
@@ -1486,13 +1721,228 @@ Object.assign(T.it,{ouv2:"Gira la chiave o toccala:\nil piazzale si accende."});
   document.addEventListener('click',e=>{if(e.target.closest&&e.target.closest('#demarrer')&&(O.classList.contains('ii')||bloque&&Date.now()-bloque<700)){e.stopPropagation();e.preventDefault();bloque=0}},true);
 })();
 
+
+/* ================= le site = l'appli (26/11, demande de Lilian) : je vends ma machine, visite du parc, le parc, le bas de page ================= */
+Object.assign(T.fr,{vb0:"Vendre · Visiter",vb1:"Reprise",vb2:"Poly Commerce achète aussi des machines. Décrivez la vôtre : Dominique vous rappelle.",vb3:"Proposer ma machine",
+ vb4:"Sur rendez-vous, 7 jours sur 7. Choisissez votre jour : Dominique vous rappelle.",vb5:"Choisir mon jour",
+ ve0:"Vous vendez ?",ve1:"Poly Commerce achète aussi",ve2:"Décrivez votre machine sur ce bon, avec des photos si vous en avez. Dominique la regarde et vous rappelle pour en parler.",
+ ve3:"Bon de reprise",ve4:"Photos (facultatif)",ve5:"Ajouter des photos",ve8:"Retirer la photo",ve9:"PROPOSÉE",ve10:"Machine proposée",ve12:"Proposer une autre machine",ve13:"Bon de reprise envoyé (démonstration).",
+ vi0:"Visite du parc",vi1:"Sur rendez-vous, 7 jours sur 7",vi2:"Choisissez votre jour. Dominique vous rappelle pour fixer l'heure.",vi3:"Bon de visite",vi4:"Quel jour vous arrange ?",vi5:"Machine à voir",
+ vi6:"Visite",vi7:"Aujourd'hui",vi8:"Demain",vi9:"DEMANDÉE",vi10:"Visite demandée",vi12:"Demander une autre visite",vi13:"Bon de visite envoyé (démonstration).",vi14:"Tout le parc",vi15:"Le jour",vi16:"Autre jour",vi17:"Autre jour, à convenir",
+ dm0:"Demandes de rappel",dm1:"Aucune demande pour l'instant. Les machines proposées et les visites arrivent ici, avec le prénom du client.",dm3:"Rappelé",dm4:"RAPPELÉ",dm6:"Dominique vous a rappelé.",
+ dm7:"Remettre en attente",dm8:"Demande marquée rappelée.",dm9:"Demande remise en attente.",dm10:"Demande retirée.",dm11:"Annuler cette demande",dm12:"Demande annulée.",dm13:"Vos demandes",dm14:"À voir : ",
+ pl0:"Le parc",pl2:"7 j/7, de 8 h à 21 h · visite sur rendez-vous",pl3:"Sans vous déplacer",pl4:"4 étapes · livraison France et Europe",pl5:"Notre façon de faire",pl6:"Ce que dit le voyant de chaque clé",
+ pa0:"Le parc de Givry",pa2:"Adresse du parc",pa3:"Entre Reims et Verdun",pa4:"Joignable 7 jours sur 7, de 8 h à 21 h",pa5:"Visite sur rendez-vous : appelez avant de venir",pa6:"En voiture depuis",pa7:"Appeler Dominique",pa8:"Itinéraire",pa9:"Réserver une visite",
+ pd0:"Acheter de loin",pd1:"En 4 étapes, sans vous déplacer",pd2:"Photos détaillées",pd3:"On vous envoie toutes les photos que vous demandez : moteur, articulation, pneus, cabine.",
+ pd4:"Votre mécanicien, si vous voulez",pd5:"Vous pouvez faire venir un mécanicien sur le parc. Conseillé pour les machines de plus de 15 ans.",
+ pd6:"Acompte, la machine est bloquée",pd7:"Un chèque de réservation ou un virement d'acompte réserve la machine pour vous. Facture éditée à réception.",
+ pd8:"Livraison, solde au livreur",pd9:"On organise le transport et on vous appelle avant. Le solde se règle avant livraison, par virement ou chèque au livreur.",
+ pd10:"Livraison",pd11:"Transport organisé dans toute la France et en Europe, en général en moins de dix jours. Les mises aux normes propres à chaque pays restent à la charge de l'acheteur.",
+ pd12:"Références clients disponibles sur demande : demandez à Dominique.",
+ pf0:"Le compteur franc",pf1:"D'où vient le chiffre des heures",pf2:"Sur une machine d'occasion, la première question, c'est les heures. Chaque clé dit clairement d'où vient le chiffre affiché, avec trois repères simples.",
+ pf3:"Le vrai total de la machine, écrit dans l'annonce. Ex. : John Deere 648 H, 8 850 h.",pf4:"Le chiffre de l'horamètre le jour de la photo. Venez le vérifier, ou envoyez votre mécanicien.",
+ pf5:"Machine reconditionnée ou horamètre changé : on donne aussi l'estimation du total quand on l'a.",
+ pf6:"Pour les machines de plus de 15 ans ou 6 000 heures, nous conseillons de venir avec une personne compétente pour contrôler le moteur et la boîte avant l'achat. C'est écrit dans nos conditions de vente.",
+ pf7:"Aperçu : les repères sont tirés du texte des annonces, à valider machine par machine avec Dominique.",
+ pi1:"7 jours sur 7, de 8 h à 21 h",pi2:"Prix et caractéristiques relevés le 24/11/2026 sur les annonces de Poly Commerce. Prix hors taxes, sous réserve de vente.",pi3:"Réalisé par Agence LDR"});
+Object.assign(T.de,{vb0:"Verkaufen · Besuchen",vb1:"Ankauf",vb2:"Poly Commerce kauft auch Maschinen an. Beschreiben Sie Ihre: Dominique ruft Sie zurück.",vb3:"Maschine anbieten",
+ vb4:"Nach Vereinbarung, 7 Tage die Woche. Wählen Sie Ihren Tag: Dominique ruft Sie zurück.",vb5:"Tag wählen",
+ ve0:"Sie verkaufen?",ve1:"Poly Commerce kauft auch an",ve2:"Beschreiben Sie Ihre Maschine auf diesem Schein, gern mit Fotos. Dominique sieht sie sich an und ruft Sie zurück.",
+ ve3:"Ankaufschein",ve4:"Fotos (optional)",ve5:"Fotos hinzufügen",ve8:"Foto entfernen",ve9:"ANGEBOTEN",ve10:"Maschine angeboten",ve12:"Weitere Maschine anbieten",ve13:"Ankaufschein gesendet (Demo).",
+ vi0:"Platzbesuch",vi1:"Nach Vereinbarung, 7 Tage die Woche",vi2:"Wählen Sie Ihren Tag. Dominique ruft Sie zurück, um die Uhrzeit festzulegen.",vi3:"Besuchsschein",vi4:"Welcher Tag passt Ihnen?",vi5:"Maschine ansehen",
+ vi6:"Besuch",vi7:"Heute",vi8:"Morgen",vi9:"ANGEFRAGT",vi10:"Besuch angefragt",vi12:"Weiteren Besuch anfragen",vi13:"Besuchsschein gesendet (Demo).",vi14:"Der ganze Platz",vi15:"Der Tag",vi16:"Anderer Tag",vi17:"Anderer Tag, nach Absprache",
+ dm0:"Rückrufwünsche",dm1:"Noch keine Anfrage. Angebotene Maschinen und Besuche erscheinen hier, mit dem Vornamen des Kunden.",dm3:"Zurückgerufen",dm4:"ZURÜCKGERUFEN",dm6:"Dominique hat Sie zurückgerufen.",
+ dm7:"Wieder offen",dm8:"Als zurückgerufen markiert.",dm9:"Anfrage wieder offen.",dm10:"Anfrage entfernt.",dm11:"Diese Anfrage stornieren",dm12:"Anfrage storniert.",dm13:"Ihre Anfragen",dm14:"Ansehen: ",
+ pl0:"Der Platz",pl2:"Täglich 8 bis 21 Uhr · Besuch nach Vereinbarung",pl3:"Ohne Anreise",pl4:"4 Schritte · Lieferung Frankreich und Europa",pl5:"Unsere Arbeitsweise",pl6:"Was die Lampe jedes Schlüssels sagt",
+ pa0:"Der Platz in Givry",pa2:"Adresse des Platzes",pa3:"Zwischen Reims und Verdun",pa4:"Täglich erreichbar, 8 bis 21 Uhr",pa5:"Besuch nach Vereinbarung: bitte vorher anrufen",pa6:"Mit dem Auto ab",pa7:"Dominique anrufen",pa8:"Route",pa9:"Besuch vereinbaren",
+ pd0:"Aus der Ferne kaufen",pd1:"In 4 Schritten, ohne Anreise",pd2:"Detailfotos",pd3:"Wir schicken Ihnen alle gewünschten Fotos: Motor, Knickgelenk, Reifen, Kabine.",
+ pd4:"Ihr Mechaniker, wenn Sie möchten",pd5:"Sie können einen Mechaniker auf den Platz schicken. Empfohlen für Maschinen über 15 Jahre.",
+ pd6:"Anzahlung, die Maschine ist reserviert",pd7:"Ein Reservierungsscheck oder eine Anzahlung per Überweisung reserviert die Maschine für Sie. Rechnung bei Eingang.",
+ pd8:"Lieferung, Restzahlung an den Fahrer",pd9:"Wir organisieren den Transport und rufen Sie vorher an. Der Rest wird vor der Lieferung bezahlt, per Überweisung oder Scheck an den Fahrer.",
+ pd10:"Lieferung",pd11:"Transport in ganz Frankreich und Europa, meist in weniger als zehn Tagen. Länderspezifische Anpassungen an Vorschriften trägt der Käufer.",
+ pd12:"Kundenreferenzen auf Anfrage: fragen Sie Dominique.",
+ pf0:"Der ehrliche Zähler",pf1:"Woher die Stundenzahl kommt",pf2:"Bei einer Gebrauchtmaschine ist die erste Frage die nach den Stunden. Jeder Schlüssel zeigt klar, woher die Zahl kommt, mit drei einfachen Kennzeichen.",
+ pf3:"Die echte Gesamtzahl der Maschine, wie im Inserat angegeben. Z. B.: John Deere 648 H, 8.850 h.",pf4:"Der Stand des Betriebsstundenzählers am Tag des Fotos. Prüfen Sie ihn vor Ort oder schicken Sie Ihren Mechaniker.",
+ pf5:"Maschine überholt oder Zähler getauscht: Wir nennen auch die geschätzte Gesamtzahl, wenn wir sie haben.",
+ pf6:"Bei Maschinen über 15 Jahre oder 6.000 Stunden empfehlen wir, mit einer fachkundigen Person zu kommen, um Motor und Getriebe vor dem Kauf zu prüfen. So steht es in unseren Verkaufsbedingungen.",
+ pf7:"Vorschau: Die Kennzeichen stammen aus den Inseraten und werden mit Dominique Maschine für Maschine bestätigt.",
+ pi1:"7 Tage die Woche, 8 bis 21 Uhr",pi2:"Preise und Angaben am 24.11.2026 aus den Inseraten von Poly Commerce übernommen. Nettopreise, Zwischenverkauf vorbehalten.",pi3:"Erstellt von Agence LDR"});
+Object.assign(T.en,{vb0:"Sell · Visit",vb1:"Trade-in",vb2:"Poly Commerce also buys machines. Describe yours: Dominique calls you back.",vb3:"Offer my machine",
+ vb4:"By appointment, 7 days a week. Pick your day: Dominique calls you back.",vb5:"Pick my day",
+ ve0:"Selling a machine?",ve1:"Poly Commerce buys too",ve2:"Describe your machine on this slip, with photos if you have some. Dominique looks at it and calls you back to talk it over.",
+ ve3:"Trade-in slip",ve4:"Photos (optional)",ve5:"Add photos",ve8:"Remove photo",ve9:"OFFERED",ve10:"Machine offered",ve12:"Offer another machine",ve13:"Trade-in slip sent (demo).",
+ vi0:"Visit the yard",vi1:"By appointment, 7 days a week",vi2:"Pick your day. Dominique calls you back to set the time.",vi3:"Visit slip",vi4:"Which day suits you?",vi5:"Machine to see",
+ vi6:"Visit",vi7:"Today",vi8:"Tomorrow",vi9:"REQUESTED",vi10:"Visit requested",vi12:"Request another visit",vi13:"Visit slip sent (demo).",vi14:"The whole yard",vi15:"The day",vi16:"Another day",vi17:"Another day, to be agreed",
+ dm0:"Call-back requests",dm1:"No requests yet. Offered machines and visits arrive here, with the customer's first name.",dm3:"Called back",dm4:"CALLED BACK",dm6:"Dominique has called you back.",
+ dm7:"Mark as waiting",dm8:"Marked as called back.",dm9:"Request back to waiting.",dm10:"Request removed.",dm11:"Cancel this request",dm12:"Request cancelled.",dm13:"Your requests",dm14:"To see: ",
+ pl0:"The yard",pl2:"Daily, 8 am to 9 pm · visits by appointment",pl3:"Without travelling",pl4:"4 steps · delivery in France and Europe",pl5:"How we work",pl6:"What each key's light tells you",
+ pa0:"The Givry yard",pa2:"Yard address",pa3:"Between Reims and Verdun",pa4:"Reachable 7 days a week, 8 am to 9 pm",pa5:"Visits by appointment: call before you come",pa6:"By car from",pa7:"Call Dominique",pa8:"Directions",pa9:"Book a visit",
+ pd0:"Buy from afar",pd1:"In 4 steps, without travelling",pd2:"Detailed photos",pd3:"We send you every photo you ask for: engine, articulation, tyres, cab.",
+ pd4:"Your mechanic, if you wish",pd5:"You can send a mechanic to the yard. Advised for machines over 15 years old.",
+ pd6:"Deposit, the machine is held",pd7:"A reservation cheque or a deposit transfer holds the machine for you. Invoice issued on receipt.",
+ pd8:"Delivery, balance to the driver",pd9:"We arrange transport and call you first. The balance is paid before delivery, by transfer or by cheque to the driver.",
+ pd10:"Delivery",pd11:"Transport arranged across France and Europe, usually in under ten days. Any country-specific compliance work is the buyer's responsibility.",
+ pd12:"Customer references on request: ask Dominique.",
+ pf0:"The honest hour meter",pf1:"Where the hours figure comes from",pf2:"On a used machine, the first question is the hours. Each key shows clearly where the figure comes from, with three simple markers.",
+ pf3:"The machine's real total, as stated in the listing. E.g. John Deere 648 H, 8,850 h.",pf4:"The hour meter reading on the day of the photo. Come and check it, or send your mechanic.",
+ pf5:"Rebuilt machine or replaced meter: we also give the estimated total when we have it.",
+ pf6:"For machines over 15 years old or 6,000 hours, we advise coming with a competent person to check the engine and gearbox before buying. It is written in our terms of sale.",
+ pf7:"Preview: the markers come from the listings and will be confirmed machine by machine with Dominique.",
+ pi1:"7 days a week, 8 am to 9 pm",pi2:"Prices and specifications taken on 24/11/2026 from Poly Commerce's listings. Prices exclude VAT, subject to prior sale.",pi3:"Made by Agence LDR"});
+Object.assign(T.it,{vb0:"Vendere · Visitare",vb1:"Ritiro",vb2:"Poly Commerce compra anche macchine. Descrivi la tua: Dominique ti richiama.",vb3:"Proponi la mia macchina",
+ vb4:"Su appuntamento, 7 giorni su 7. Scegli il giorno: Dominique ti richiama.",vb5:"Scegli il giorno",
+ ve0:"Vendi una macchina?",ve1:"Poly Commerce compra anche",ve2:"Descrivi la tua macchina su questo buono, con foto se ne hai. Dominique la guarda e ti richiama per parlarne.",
+ ve3:"Buono di ritiro",ve4:"Foto (facoltative)",ve5:"Aggiungi foto",ve8:"Togli la foto",ve9:"PROPOSTA",ve10:"Macchina proposta",ve12:"Proponi un'altra macchina",ve13:"Buono di ritiro inviato (demo).",
+ vi0:"Visita al piazzale",vi1:"Su appuntamento, 7 giorni su 7",vi2:"Scegli il giorno. Dominique ti richiama per fissare l'ora.",vi3:"Buono di visita",vi4:"Quale giorno ti va bene?",vi5:"Macchina da vedere",
+ vi6:"Visita",vi7:"Oggi",vi8:"Domani",vi9:"RICHIESTA",vi10:"Visita richiesta",vi12:"Richiedi un'altra visita",vi13:"Buono di visita inviato (demo).",vi14:"Tutto il piazzale",vi15:"Il giorno",vi16:"Altro giorno",vi17:"Altro giorno, da concordare",
+ dm0:"Richieste di richiamata",dm1:"Nessuna richiesta per ora. Le macchine proposte e le visite arrivano qui, con il nome del cliente.",dm3:"Richiamato",dm4:"RICHIAMATO",dm6:"Dominique ti ha richiamato.",
+ dm7:"Rimetti in attesa",dm8:"Segnata come richiamata.",dm9:"Richiesta rimessa in attesa.",dm10:"Richiesta rimossa.",dm11:"Annulla questa richiesta",dm12:"Richiesta annullata.",dm13:"Le tue richieste",dm14:"Da vedere: ",
+ pl0:"Il piazzale",pl2:"Tutti i giorni, dalle 8 alle 21 · visita su appuntamento",pl3:"Senza spostarti",pl4:"4 passi · consegna in Francia e in Europa",pl5:"Il nostro metodo",pl6:"Cosa dice la spia di ogni chiave",
+ pa0:"Il piazzale di Givry",pa2:"Indirizzo del piazzale",pa3:"Tra Reims e Verdun",pa4:"Raggiungibile 7 giorni su 7, dalle 8 alle 21",pa5:"Visita su appuntamento: chiama prima di venire",pa6:"In auto da",pa7:"Chiama Dominique",pa8:"Indicazioni",pa9:"Prenota una visita",
+ pd0:"Comprare a distanza",pd1:"In 4 passi, senza spostarti",pd2:"Foto dettagliate",pd3:"Ti mandiamo tutte le foto che chiedi: motore, articolazione, pneumatici, cabina.",
+ pd4:"Il tuo meccanico, se vuoi",pd5:"Puoi far venire un meccanico sul piazzale. Consigliato per le macchine con più di 15 anni.",
+ pd6:"Acconto, la macchina è bloccata",pd7:"Un assegno di prenotazione o un bonifico di acconto riserva la macchina per te. Fattura emessa al ricevimento.",
+ pd8:"Consegna, saldo al trasportatore",pd9:"Organizziamo il trasporto e ti chiamiamo prima. Il saldo si paga prima della consegna, con bonifico o assegno al trasportatore.",
+ pd10:"Consegna",pd11:"Trasporto organizzato in tutta la Francia e in Europa, in genere in meno di dieci giorni. Gli adeguamenti alle norme di ogni paese restano a carico dell'acquirente.",
+ pd12:"Referenze clienti su richiesta: chiedi a Dominique.",
+ pf0:"Il contaore onesto",pf1:"Da dove viene il numero di ore",pf2:"Su una macchina usata, la prima domanda sono le ore. Ogni chiave dice chiaramente da dove viene il numero, con tre semplici indicatori.",
+ pf3:"Il vero totale della macchina, scritto nell'annuncio. Es.: John Deere 648 H, 8.850 h.",pf4:"Il numero del contaore il giorno della foto. Vieni a verificarlo o manda il tuo meccanico.",
+ pf5:"Macchina ricondizionata o contaore sostituito: diamo anche la stima del totale quando l'abbiamo.",
+ pf6:"Per le macchine con più di 15 anni o 6.000 ore, consigliamo di venire con una persona competente per controllare motore e cambio prima dell'acquisto. È scritto nelle nostre condizioni di vendita.",
+ pf7:"Anteprima: gli indicatori vengono dagli annunci, da confermare macchina per macchina con Dominique.",
+ pi1:"7 giorni su 7, dalle 8 alle 21",pi2:"Prezzi e caratteristiche rilevati il 24/11/2026 dagli annunci di Poly Commerce. Prezzi IVA esclusa, salvo venduto.",pi3:"Realizzato da Agence LDR"});
+
+const ROUTES=['crochet','bureau','recherche','vendre','visite','parc'];
+VUES.push('vendre','visite','parc');
+let DM=(mem.get('pk-demandes')||[]).filter(d=>d&&d.n&&(d.k=='v'||d.k=='p')),DMN=Object.assign({v:0,p:0},mem.get('pk-dmn')||{}),
+ DMC={v:false,p:false},DMO={v:false,p:false},DMNEUF='',DMRM=null,DMRMT=0,VEPH=[],VIM=null,PAV='';
+['v','p'].forEach(k=>{DMN[k]=Math.max(+DMN[k]||0,...DM.filter(d=>d.k==k).map(d=>+d.n||0),0)});
+const DMK={v:'ve',p:'vi'},DMV={v:'vendre',p:'visite'};
+const dmCle=d=>d.k+d.n;
+const dmNo=d=>U().rc29+' '+String(d.n).padStart(3,'0');
+const dmGarde=()=>mem.set('pk-demandes',DM)&&mem.set('pk-dmn',DMN);
+const insec=s=>String(s).replace(/(\d) (?=\d)/g,'$1 ').replace(/ h\b/g,' h');
+const jourIso=i=>{const d=new Date();d.setHours(12,0,0,0);d.setDate(d.getDate()+i);return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')};
+const jourDate=s=>{const [y,m,d]=s.split('-').map(Number);return new Date(y,m-1,d,12)};
+const jourLong=s=>{if(!s||s=='autre')return U().vi17;try{return jourDate(s).toLocaleDateString(loc(),{weekday:'long',day:'numeric',month:'long'}).replace(/^./,c=>c.toUpperCase())}catch(e){return s}};
+const jourCourt=i=>{const u=U();if(i==0)return u.vi7;if(i==1)return u.vi8;return jourDate(jourIso(i)).toLocaleDateString(loc(),{weekday:'short',day:'numeric'})};
+const imgOk=s=>typeof s=='string'&&/^data:image\/(jpeg|png|webp);base64,/.test(s);
+function dmRes(d){const u=U();
+  if(d.k=='v')return [esc(typ(d.t))+(d.mod?' · '+esc(d.mod):''),[d.a?String(d.a):'',d.h?nb(d.h)+' h':''].filter(Boolean).join(' · ')].map(insec).filter(Boolean);
+  return [esc(jourLong(d.j)),esc(d.mn?u.dm14+d.mn:u.vi14)]}
+const dmPh=d=>{const l=(d.ph||[]).filter(imgOk);return l.length?'<span class="vp-r">'+l.map(s=>'<img src="'+s+'" alt="">').join('')+'</span>':''};
+
+/* ---------- sur le tableau : les deux bons (je vends, visite), les plaques du parc, le bas de page ---------- */
+function demandesHTML(){const u=U(),bloc=k=>{const l=DM.filter(d=>d.k==k),f=l.find(d=>d.s=='f'),r=f||l[0],v=k=='v';
+  return '<div class="libre cmd dm'+(r?' res':'')+'" id="'+(v?'vend':'visi')+'">'+
+   '<span class="bon-mini" aria-hidden="true"><i class="aimant"></i><span class="bm-p"><b>'+(r?dmNo(r):(v?u.vb1:u.vi6))+'</b><i></i><i></i><i></i>'+
+   (r?'<em class="tampon'+(f?' ok':'')+'">'+(f?u.dm4:(v?u.ve9:u.vi9))+'</em>':'<svg class="loupe"><use href="#'+(v?'s-vend':'s-cal')+'"/></svg>')+'</span></span>'+
+   '<p class="l-txt"><b>'+(f?u.dm6:r?(l.length>1?l.length+' · ':'')+(v?u.ve10:u.vi10):(v?u.ve0:u.vi0))+'</b><small>'+(r?dmRes(r).join(' · '):(v?u.vb2:u.vb4))+'</small></p>'+
+   '<button type="button" class="l-go">'+(r?u.ar6:(v?u.vb3:u.vb5))+'<span aria-hidden="true">›</span></button></div>'};
+  return '<span class="brady">'+u.vb0+'</span>'+bloc('v')+bloc('p')}
+function plaquesHTML(){const u=U(),pl=(s,g,b,t)=>'<button type="button" class="plaque pl-b" data-pa="'+s+'">'+VIS4+'<span class="grave">'+g+'</span><b>'+b+'</b><small>'+t+'</small><i class="chev" aria-hidden="true">›</i></button>';
+  return '<span class="brady">'+u.pl0+'</span><div class="plaques">'+pl('haut','Givry-en-Argonne (51)',u.pa0,u.pl2)+pl('distance',u.pl3,u.pd0,u.pl4)+pl('compteur',u.pl5,u.pf0,u.pl6)+'</div>'}
+function piedHTML(){const u=U();
+  return '<footer class="pied"><p><b>SARL Poly Commerce</b></p><p>1 avenue de la Gare, <span class="nw">51330 Givry-en-Argonne</span></p><p><span class="nw">SIRET 509 844 205 00021</span></p><p><span class="nw">Dominique Campana</span> · <a class="nw" href="tel:+33687858436">06 87 85 84 36</a></p>'+
+   '<p>'+u.pi1+'</p><p class="pi-n">'+u.pi2+'</p><a class="pi-s" href="https://agence-ldr.fr/" target="_blank" rel="noopener">'+u.pi3+'</a></footer>'}
+
+/* ---------- les deux bons : même geste que la recherche (prénom, portable, code SMS) ---------- */
+function dmSlip(d){const u=U(),f=d.s=='f',v=d.k=='v',r=dmRes(d);
+  return '<div class="g-papier bon-p res'+(dmCle(d)==DMNEUF?' pose':'')+'" data-dm="'+dmCle(d)+'"><div class="bon-t"><b>'+(v?u.ve3:u.vi3)+'</b><span>'+dmNo(d)+' · '+rqDate(d)+'</span></div>'+
+   '<span class="tampon'+(f?' ok':'')+'">'+(f?u.dm4:(v?u.ve9:u.vi9))+'</span>'+
+   '<div class="g-res"><b>'+r[0]+'</b>'+(r[1]?'<span class="det">'+r[1]+'</span>':'')+'</div>'+dmPh(d)+
+   '<p>'+(f?u.dm6:rappel(d))+'</p><button type="button" class="bon-x" data-dma="'+dmCle(d)+'">'+u.dm11+'</button></div>'}
+function dmVue(k){const u=U(),p=DMK[k],l=DM.filter(d=>d.k==k);
+  $('#'+p+'-no').textContent=dmNo({n:DMN[k]+1})+' · '+rqDate({at:new Date().toISOString()});
+  $('#'+p+'-liste').innerHTML=l.length?'<span class="i-lab rc-lab">'+u.dm13+'</span>'+l.map(dmSlip).join(''):'';
+  const form=!l.length||DMO[k];$('#'+p+'-bon').hidden=!form;$('#'+p+'-neuf').hidden=form;
+  $('#'+p+'-code').hidden=$('#'+p+'-demo').hidden=!DMC[k];$('#'+p+'-go-t').textContent=DMC[k]?u.rc15b:u.rc15;
+  $('#'+p+'-tel').placeholder='06 12 34 56 78'}
+function vendre(){const sel=$('#ve-type'),v=sel.value;
+  sel.innerHTML=[...TYPES,'Autre machine'].map(t=>'<option value="'+t+'">'+esc(typ(t))+'</option>').join('');if(v)sel.value=v;
+  $('#ve-mod').placeholder='John Deere 648 H';$('#ve-an').placeholder='2012';$('#ve-h').placeholder='9 500';veph();dmVue('v')}
+function veph(){const u=U();
+  $('#ve-ph').innerHTML=VEPH.map((s,i)=>'<span class="vp"><img src="'+s+'" alt=""><button type="button" data-vpx="'+i+'" aria-label="'+esc(u.ve8)+'">✕</button></span>').join('')+
+   (VEPH.length<3?'<label class="vp-add"><b aria-hidden="true">+</b><span>'+u.ve5+'</span><input type="file" accept="image/*" multiple id="ve-fich"></label>':'')}
+function visite(){const u=U(),ch=$('#vi-jour'),q=(ch.querySelector('input:checked')||{}).value,sel=$('#vi-m'),mv=VIM!=null?VIM:(SEL.find(existe)||'');
+  ch.innerHTML=[0,1,2,3,4,5,6].map(i=>{const v=jourIso(i);return '<label><input type="radio" name="vi-j" value="'+v+'"'+(q==v?' checked':'')+'><b>'+esc(jourCourt(i))+'</b></label>'}).join('')+
+   '<label><input type="radio" name="vi-j" value="autre"'+(q=='autre'?' checked':'')+'><b>'+u.vi16+'</b></label>';
+  sel.innerHTML='<option value="">'+esc(u.vi14)+'</option>'+PARC.map(m=>'<option value="'+m.id+'">'+esc(nom(m))+' · '+m.a+'</option>').join('');
+  sel.value=PARC.some(m=>m.id==mv)?mv:'';dmVue('p')}
+function dmEnvoi(k,e){e.preventDefault();const u=U(),p=DMK[k],man=[],pre=$('#'+p+'-pre'),tel=$('#'+p+'-tel');let pr=null;
+  if(k=='v'&&!$('#ve-mod').value.trim()){man.push(u.pmodele);pr=$('#ve-mod')}
+  if(k=='p'&&!document.querySelector('#vi-jour input:checked')){man.push(u.vi15);pr=document.querySelector('#vi-jour input')}
+  if(!pre.value.trim()){man.push(u.rc14);pr=pr||pre}
+  if(chiffres(tel.value).length<8){man.push(u.al5);pr=pr||tel}
+  if(man.length){toast(u.pmanque+man.join(', '));if(pr)pr.focus();return}
+  DMC[k]=true;dmVue(k);vib(10);const c=$('#'+p+'-c');c.value='';c.focus()}
+function dmValider(k){const u=U(),p=DMK[k],c=$('#'+p+'-c');if(c.value.length<4){c.focus();return}
+  if(c.value!=='1234'){c.value='';toast(u.rc19);vib([0,60,40,60]);c.focus();return}
+  /* comme pour la recherche : le numéro n'est pas gardé en entier sur l'appareil, seulement les 2 premiers et les 2 derniers chiffres */
+  const t=chiffres($('#'+p+'-tel').value),d={k,n:++DMN[k],p:$('#'+p+'-pre').value.trim().slice(0,30),tm:t.slice(0,2)+' •• •• •• '+t.slice(-2),l:L,at:new Date().toISOString(),s:'c'};
+  if(k=='v')Object.assign(d,{t:$('#ve-type').value,mod:$('#ve-mod').value.trim().slice(0,60),a:+chiffres($('#ve-an').value).slice(0,4)||0,h:+chiffres($('#ve-h').value)||0,ph:VEPH.filter(imgOk).slice(0,3)});
+  else{const j=document.querySelector('#vi-jour input:checked'),m=PARC.find(x=>x.id==$('#vi-m').value);Object.assign(d,{j:j?j.value:'autre',m:m?m.id:'',mn:m?nom(m)+' · '+m.a:''})}
+  DM.unshift(d);if(!dmGarde()){d.ph=[];dmGarde()}
+  $('#f-'+p).reset();if(k=='v')VEPH=[];else VIM=null;DMC[k]=false;DMO[k]=false;DMNEUF=dmCle(d);
+  (k=='v'?vendre:visite)();planche();vib([0,18,40,18]);toast(k=='v'?u.ve13:u.vi13);$('#'+DMV[k]).scrollTop=0;setTimeout(()=>{DMNEUF=''},1500)}
+$('#f-ve').onsubmit=e=>dmEnvoi('v',e);$('#f-vi').onsubmit=e=>dmEnvoi('p',e);
+['v','p'].forEach(k=>{const p=DMK[k];
+  $('#'+p+'-val').onclick=()=>dmValider(k);
+  $('#'+p+'-c').addEventListener('input',e=>{e.target.value=chiffres(e.target.value).slice(0,4);if(e.target.value.length==4)dmValider(k)});
+  $('#'+p+'-c').addEventListener('keydown',e=>{if(e.key=='Enter'){e.preventDefault();dmValider(k)}});
+  $('#'+p+'-neuf').onclick=()=>{DMO[k]=true;(k=='v'?vendre:visite)();$('#'+p+'-bon').scrollIntoView({block:'start',behavior:calme()?'auto':'smooth'})};
+  $('#'+p+'-liste').addEventListener('click',e=>{const a=e.target.closest('[data-dma]');if(!a)return;DM=DM.filter(d=>dmCle(d)!=a.dataset.dma);dmGarde();(k=='v'?vendre:visite)();planche();toast(U().dm12)})});
+$('#ve-h').addEventListener('input',e=>{e.target.value=chiffres(e.target.value).slice(0,6).replace(/\B(?=(\d{3})+$)/g,' ')});
+$('#ve-an').addEventListener('input',e=>{e.target.value=chiffres(e.target.value).slice(0,4)});
+$('#vi-m').addEventListener('change',e=>{VIM=e.target.value});
+function petite(f){return new Promise(r=>{const i=new Image(),u=URL.createObjectURL(f);
+  i.onload=()=>{const w=Math.min(480,i.width),h=Math.round(i.height*w/i.width),c=document.createElement('canvas');c.width=w;c.height=h;c.getContext('2d').drawImage(i,0,0,w,h);URL.revokeObjectURL(u);r(c.toDataURL('image/jpeg',.62))};
+  i.onerror=()=>{URL.revokeObjectURL(u);r(null)};i.src=u})}
+$('#ve-ph').addEventListener('change',async e=>{if(e.target.id!='ve-fich')return;for(const f of [...e.target.files].slice(0,3-VEPH.length)){const s=await petite(f);if(s)VEPH.push(s)}veph()});
+$('#ve-ph').addEventListener('click',e=>{const x=e.target.closest('[data-vpx]');if(!x)return;e.preventDefault();VEPH.splice(+x.dataset.vpx,1);veph()});
+
+/* ---------- au bureau de Dominique : les demandes de rappel ---------- */
+function dmBureauHTML(){const u=U();
+  return '<div class="reg-t"><span class="i-lab">'+u.dm0+' · '+DM.length+'</span></div>'+
+   (DM.length?'<div class="rqs">'+DM.map(d=>{const f=d.s=='f',c=dmCle(d),r=dmRes(d),v=d.k=='v';
+     return '<div class="rq dmq'+(f?' trouvee':'')+'" data-dq="'+c+'">'+
+      '<div class="rq-h"><b>'+(v?u.ve3:u.vi3)+' · '+dmNo(d)+'</b><span>'+rqDate(d)+' · '+String(d.l||'fr').toUpperCase()+'</span>'+(f?'<i class="tampon ok">'+u.dm4+'</i>':'')+'</div>'+
+      '<b class="rq-t">'+r[0]+'</b>'+(r[1]?'<span class="rq-d">'+r[1]+'</span>':'')+dmPh(d)+
+      '<span class="rq-q"><svg class="ic"><use href="#s-tel"/></svg>'+esc(d.p)+' · '+esc(d.tm)+'</span>'+
+      '<div class="rq-a"><button type="button" class="petit txt" data-dmf="'+c+'">'+(f?u.dm7:u.dm3)+'</button><button type="button" class="petit txt'+(DMRM==c?' conf':'')+'" data-dmx="'+c+'">'+(DMRM==c?u.rq11:u.rq5)+'</button></div></div>'}).join('')+'</div>'
+    :'<p class="rq-vide">'+u.dm1+'</p>')}
+$('#bureau-c').addEventListener('click',e=>{const u=U(),t=e.target;
+  const f=t.closest('[data-dmf]');if(f){const d=DM.find(x=>dmCle(x)==f.dataset.dmf);if(d){d.s=d.s=='f'?'c':'f';dmGarde();planche();bureau();toast(d.s=='f'?u.dm8:u.dm9)}return}
+  const x=t.closest('[data-dmx]');if(!x)return;const c=x.dataset.dmx;clearTimeout(DMRMT);
+  if(DMRM!==c){DMRM=c;bureau();DMRMT=setTimeout(()=>{DMRM=null;if(document.body.dataset.vue=='bureau'&&OKB&&ETAPE==0)bureau()},3500);return}
+  DMRM=null;DM=DM.filter(d=>dmCle(d)!=c);dmGarde();planche();bureau();toast(u.dm10)});
+
+/* ---------- le parc : adresse, acheter de loin, le compteur franc ---------- */
+function parcVue(){const u=U();
+  $('#pa-rep').innerHTML=[0,1,2].map(i=>'<div class="pa-r"><div class="temoin '+['','a','r'][i]+'"><i></i><span>'+u.hs[i]+'</span></div><p>'+u['pf'+(3+i)]+'</p></div>').join('');
+  $('#pa-pied').innerHTML=piedHTML()}
+function allerParc(s){PAV=s||'';montrer('parc');if(PAV&&PAV!='haut')setTimeout(()=>{const e=$('#pa-'+PAV);if(e)e.scrollIntoView({block:'start'})},40)}
+$('#pa-vis').onclick=()=>montrer('visite');
+
+/* ---------- correction du 26/11 (Lilian) : le choix du secteur sur le tableau, et un vrai « Retour » ---------- */
+Object.assign(T.fr,{f0:"Tout",sect:"Choisir un secteur",ret:"Retour"});
+Object.assign(T.de,{f0:"Alle",sect:"Bereich wählen",ret:"Zurück"});
+Object.assign(T.en,{f0:"All",sect:"Choose a sector",ret:"Back"});
+Object.assign(T.it,{f0:"Tutte",sect:"Scegli un settore",ret:"Indietro"});
+function majFil(){const s=$('#secteurs');if(!s)return;s.setAttribute('aria-label',U().sect);
+  $$('#secteurs [data-fil]').forEach(b=>{const f=b.dataset.fil;b.setAttribute('aria-pressed',FIL==f);b.querySelector('b').textContent=f=='tout'?PARC.length:PARC.filter(m=>m.f==f).length})}
+$('#secteurs').addEventListener('click',e=>{const b=e.target.closest('[data-fil]');if(!b||FIL==b.dataset.fil)return;
+  FIL=b.dataset.fil;$('#trousseau').setAttribute('aria-pressed',false);vib(8);BAL=true;planche()});
+/* la clé ne tourne qu'une fois par visite (26/11, Lilian) : vrai dès que le contact a été mis une première fois */
+var CLE1=false;
+
 /* ---------- démarrage ---------- */
 (()=>{const hs=location.hash,id=(hs.match(/m=([\w-]+)/)||[])[1],m=id&&PARC.find(x=>x.id==id),cc=(hs.match(/c=([\w-]+),([\w-]+)/)||[]).slice(1).filter(existe);
   langue(L);horametre($('#hora0'),0,3);eteindre();$$('#neiman0 .n-face i,#neiman .n-face i').forEach((e,k)=>e.classList.toggle('on',k%3==0));
   const pret=()=>{$('#ouverture').classList.add('fin');document.body.classList.add('pret');BAL=true;planche();try{history.replaceState(null,'',location.pathname+location.search)}catch(e){}};
   if(m){CUR=m;pret();contact(m)}
   else if(cc.length==2&&cc[0]!=cc[1]){CMP=cc;document.body.classList.add('cmp2');pret();montrer('banc')}
-  else if(hs=='#crochet'||hs=='#bureau'||hs=='#recherche'){pret();montrer(hs.slice(1))}
+  else if(ROUTES.includes(hs.slice(1))){pret();montrer(hs.slice(1))}
   else if(hs=='#tableau')finOuverture();
 })();
 
