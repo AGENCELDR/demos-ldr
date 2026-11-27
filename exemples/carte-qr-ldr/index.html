@@ -1,0 +1,708 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Le Quai Sorbier · la carte · démonstration Agence LDR</title>
+<meta name="robots" content="noindex">
+<meta name="description" content="Exemple de carte QR créée par Agence LDR : la carte d'un restaurant dans le téléphone de ses clients, modifiable par le patron en un geste.">
+<meta name="theme-color" content="#070A12">
+<link rel="icon" href="img/aigle-site-web.webp">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --nuit:#070A12;--nuit2:#0C111D;--panneau:rgba(9,12,21,.88);--panneau2:rgba(16,21,34,.92);
+  --ligne:rgba(246,222,142,.16);--ligne2:rgba(255,255,255,.09);
+  --or1:#FFF8DC;--or2:#F6DE8E;--or3:#D4A93A;--or4:#9A6E14;
+  --or:linear-gradient(180deg,#FFF8DC 0%,#F6DE8E 28%,#D4A93A 58%,#9A6E14 82%,#E2BE5A 100%);
+  --orange:#F59E0B;--blanc:#fff;--texte:#E9ECF2;--doux:#A9B1C2;--vert:#7BD88F;--rouge:#F08A7E;
+  --r:18px;--ombre:0 18px 50px rgba(0,0,0,.45);
+  --ff:"Plus Jakarta Sans",system-ui,-apple-system,"Segoe UI",sans-serif;--fc:"Cinzel",Georgia,serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font:400 15px/1.5 var(--ff);color:var(--texte);background:var(--nuit) url(img/salle-terrasse.webp) center/cover fixed;min-height:100vh;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0;background:linear-gradient(180deg,rgba(7,10,18,.55) 0%,rgba(7,10,18,.82) 45%,rgba(7,10,18,.9) 100%);z-index:-1;pointer-events:none}
+img{display:block;max-width:100%}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;-webkit-tap-highlight-color:transparent}
+input,select,textarea{font:inherit;color:var(--texte)}
+.page{max-width:560px;margin:0 auto;position:relative}
+.or{background:var(--or);-webkit-background-clip:text;background-clip:text;color:transparent}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+
+/* Bandeau démonstration */
+.demo{display:flex;align-items:center;gap:10px;padding:8px 14px;background:rgba(7,10,18,.92);border-bottom:1px solid var(--ligne);font-size:12px;color:var(--doux)}
+.demo img{width:30px;height:auto;flex:none}
+.demo b{color:var(--or2);font-weight:700}
+.demo .esp{flex:1}
+.demo button{font-size:12px;font-weight:700;color:var(--or2);border:1px solid var(--ligne);border-radius:99px;padding:5px 11px}
+
+/* Haut */
+.hero{position:relative;min-height:430px;display:flex;flex-direction:column;justify-content:flex-end;padding:26px 20px 22px;overflow:hidden}
+.hero>img.fond{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-1}
+.hero::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(7,10,18,.15) 0%,rgba(7,10,18,.35) 40%,rgba(7,10,18,.95) 100%)}
+.lieu{font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--or2)}
+.hero h1{font:700 44px/1.02 var(--fc);letter-spacing:.02em;margin:8px 0 10px;text-shadow:0 2px 24px rgba(0,0,0,.5)}
+.hero h1 span{display:block}
+.hero h1 .petit{font-size:16px;letter-spacing:.34em;font-weight:600;margin-bottom:2px}
+.hero .aigle{position:absolute;top:16px;right:14px;width:92px;height:auto;filter:drop-shadow(0 8px 22px rgba(0,0,0,.55))}
+.hero p.acc{font-size:16px;color:#F2F4F8;max-width:30ch}
+.etat{display:inline-flex;align-items:center;gap:8px;margin-top:14px;padding:7px 13px;border-radius:99px;background:rgba(7,10,18,.72);border:1px solid var(--ligne2);font-size:13px;font-weight:600}
+.etat i{width:8px;height:8px;border-radius:50%;background:var(--doux)}
+.etat.ouvert i{background:var(--vert);box-shadow:0 0 0 4px rgba(123,216,143,.18)}
+.hero .btns{display:flex;gap:10px;margin-top:16px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:46px;padding:0 18px;border-radius:14px;font-weight:700;font-size:15px}
+.btn-or{background:var(--or);color:#1A1204;box-shadow:0 8px 24px rgba(212,169,58,.28)}
+.btn-ligne{border:1px solid rgba(246,222,142,.45);color:var(--or1);background:rgba(7,10,18,.5)}
+
+/* Prix du moment */
+.bloc{padding:22px 16px 6px}
+.titre-bloc{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin:0 4px 12px}
+.titre-bloc h2{font:600 21px/1.2 var(--fc);letter-spacing:.04em}
+.titre-bloc small{font-size:12px;color:var(--doux)}
+.defile{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding:2px 4px 6px;margin:0 -4px}
+.defile::-webkit-scrollbar{display:none}
+.moment{flex:0 0 88%;scroll-snap-align:start;border-radius:var(--r);overflow:hidden;background:var(--panneau2);border:1px solid var(--ligne);box-shadow:var(--ombre);text-align:left;position:relative}
+.moment .ph{position:relative;aspect-ratio:16/9;overflow:hidden}
+.moment .ph img{width:100%;height:100%;object-fit:cover}
+.moment .ph::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 45%,rgba(9,12,21,.9))}
+.pastille{position:absolute;top:12px;left:12px;z-index:2;font-size:12px;font-weight:800;letter-spacing:.04em;padding:6px 11px;border-radius:99px;background:var(--or);color:#1A1204}
+.pastille.info{background:rgba(7,10,18,.85);color:var(--or2);border:1px solid var(--ligne)}
+.moment .co{padding:14px 16px 16px}
+.moment h3{font:600 19px/1.25 var(--fc)}
+.moment p{font-size:14px;color:var(--doux);margin-top:4px}
+.prixm{display:flex;align-items:baseline;gap:10px;margin-top:10px}
+.prixm s{color:var(--doux);font-size:15px}
+.prixm b{font-size:24px;font-weight:800;color:var(--or2)}
+.jauge{margin-top:12px}
+.jauge .barre{height:7px;border-radius:99px;background:rgba(255,255,255,.08);overflow:hidden}
+.jauge .barre i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,#F59E0B,#F6DE8E)}
+.jauge .txt{display:flex;justify-content:space-between;font-size:12.5px;color:var(--doux);margin-top:6px}
+.jauge .txt b{color:var(--texte)}
+.points{display:flex;justify-content:center;gap:7px;margin-top:10px}
+.points i{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.2);transition:.25s}
+.points i.on{background:var(--or2);width:20px;border-radius:99px}
+
+/* Onglets */
+.onglets{position:sticky;top:0;z-index:30;background:#070A12;border-bottom:1px solid var(--ligne);padding:10px 0 0}
+.ong{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding:0 14px 10px}
+.ong::-webkit-scrollbar{display:none}
+.ong button{flex:none;padding:9px 15px;border-radius:99px;font-size:14px;font-weight:600;color:var(--doux);border:1px solid var(--ligne2);white-space:nowrap}
+.ong button.on{color:#1A1204;background:var(--or);border-color:transparent}
+.outils{display:flex;gap:8px;padding:0 14px 10px;align-items:center}
+.cherche{flex:1;position:relative}
+.cherche input{width:100%;height:40px;border-radius:12px;border:1px solid var(--ligne2);background:rgba(255,255,255,.05);padding:0 36px 0 38px;font-size:14px}
+.cherche input::placeholder{color:#7F889B}
+.cherche svg{position:absolute;left:12px;top:11px;width:18px;height:18px;color:var(--doux)}
+.cherche .x{position:absolute;right:6px;top:6px;width:28px;height:28px;border-radius:8px;display:none;color:var(--doux);font-size:18px}
+.cherche.plein .x{display:block}
+.bfiltre{height:40px;padding:0 13px;border-radius:12px;border:1px solid var(--ligne2);display:flex;align-items:center;gap:7px;font-size:14px;font-weight:600;white-space:nowrap}
+.bfiltre .n{min-width:20px;height:20px;border-radius:99px;background:var(--or);color:#1A1204;font-size:12px;font-weight:800;display:none;align-items:center;justify-content:center;padding:0 5px}
+.bfiltre.actif{border-color:rgba(246,222,142,.5);color:var(--or1)}
+.bfiltre.actif .n{display:inline-flex}
+.filtres{display:none;padding:0 14px 12px}
+.filtres.ouvert{display:block}
+.filtres p{font-size:12px;color:var(--doux);margin:2px 0 7px;font-weight:600;letter-spacing:.04em;text-transform:uppercase}
+.puces{display:flex;flex-wrap:wrap;gap:7px}
+.puces button{padding:7px 12px;border-radius:99px;border:1px solid var(--ligne2);font-size:13px;font-weight:600;color:var(--texte)}
+.puces button.on{border-color:var(--or2);background:rgba(246,222,142,.13);color:var(--or1)}
+.resultat{display:none;margin:12px 16px 0;padding:10px 14px;border-radius:12px;background:var(--panneau);border:1px solid var(--ligne);font-size:13.5px;align-items:center;justify-content:space-between;gap:10px}
+.resultat.vu{display:flex}
+.resultat button{color:var(--or2);font-weight:700;font-size:13.5px;white-space:nowrap}
+
+/* Catégories */
+.cat{padding:22px 12px 4px;scroll-margin-top:118px}
+.bandeau{position:relative;height:118px;border-radius:var(--r);overflow:hidden;display:flex;align-items:flex-end;padding:14px 16px;margin-bottom:10px}
+.bandeau img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.bandeau::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(7,10,18,.88) 0%,rgba(7,10,18,.45) 60%,rgba(7,10,18,.15) 100%)}
+.bandeau div{position:relative;z-index:1}
+.bandeau h2{font:600 26px/1.1 var(--fc);letter-spacing:.05em}
+.bandeau p{font-size:13px;color:#DCE1EA;margin-top:4px;max-width:34ch}
+.cols{display:flex;justify-content:flex-end;gap:6px;padding:4px 16px 2px;font-size:11.5px;font-weight:700;color:var(--or2);letter-spacing:.06em;text-transform:uppercase}
+.cols span{width:58px;text-align:right}
+.plat{display:flex;gap:13px;align-items:center;width:100%;text-align:left;padding:12px;border-radius:16px;background:var(--panneau);border:1px solid var(--ligne2);margin-bottom:8px;position:relative;transition:border-color .2s,transform .15s}
+.plat:active{transform:scale(.99)}
+.plat:hover{border-color:var(--ligne)}
+.plat .vig{flex:none;width:78px;height:78px;border-radius:12px;overflow:hidden;background:var(--nuit2);display:flex;align-items:center;justify-content:center}
+.plat .vig img{width:100%;height:100%;object-fit:cover}
+.plat .vig svg{width:42px;height:42px}
+.plat .mil{flex:1;min-width:0}
+.plat h3{font-size:15.5px;font-weight:700;color:var(--blanc);line-height:1.3}
+.plat .d{font-size:13px;color:var(--doux);margin-top:2px;line-height:1.4}
+.marques{display:flex;flex-wrap:wrap;gap:5px;margin-top:6px}
+.m{font-size:10.5px;font-weight:800;letter-spacing:.05em;padding:3px 7px;border-radius:6px;border:1px solid var(--ligne2);color:var(--doux)}
+.m.v{color:#9FE0AE;border-color:rgba(123,216,143,.3)}
+.m.sg{color:#F6DE8E;border-color:rgba(246,222,142,.3)}
+.m.pm{color:#1A1204;background:var(--or);border-color:transparent}
+.m.ep{color:#fff;background:#6B2B2B;border-color:transparent}
+.plat .px{flex:none;text-align:right;display:flex;gap:6px;align-items:baseline}
+.plat .px b{display:block;width:58px;font-size:15.5px;font-weight:800;color:var(--or2);white-space:nowrap}
+.plat .px s{display:block;font-size:12px;color:var(--doux)}
+.plat.epuise{opacity:.55}
+.plat.epuise .vig img{filter:grayscale(1)}
+.coeur{position:absolute;top:8px;left:8px;width:30px;height:30px;border-radius:50%;background:rgba(7,10,18,.78);display:flex;align-items:center;justify-content:center;z-index:2}
+.coeur svg{width:16px;height:16px;fill:none;stroke:#fff;stroke-width:2}
+.coeur.on svg{fill:var(--orange);stroke:var(--orange)}
+.vide{display:none;text-align:center;padding:30px 20px;color:var(--doux)}
+.vide.vu{display:block}
+
+/* Semaine */
+.semaine{display:grid;gap:8px}
+.jour{display:flex;gap:13px;align-items:flex-start;padding:13px 14px;border-radius:16px;background:var(--panneau);border:1px solid var(--ligne2)}
+.jour svg{flex:none;width:36px;height:36px;padding:7px;border-radius:10px;background:rgba(246,222,142,.1);color:var(--or2)}
+.jour b{display:block;font-size:14.5px}
+.jour span{font-size:13px;color:var(--doux)}
+
+/* Bas */
+.pied{margin:26px 12px 0;padding:20px 18px 26px;border-radius:var(--r) var(--r) 0 0;background:var(--panneau2);border:1px solid var(--ligne);border-bottom:0;text-align:center}
+.pied .infos{font-size:13px;color:var(--doux);line-height:1.6}
+.pied .infos b{color:var(--texte)}
+.pied .mention{font-size:12px;color:#8892A6;margin-top:12px}
+.signature{margin-top:20px;padding-top:18px;border-top:1px solid var(--ligne2);display:flex;flex-direction:column;align-items:center;gap:8px}
+.signature img{width:132px;height:auto}
+.signature p{font-size:12.5px;color:var(--doux)}
+.signature p b{font-family:var(--fc);font-weight:700;letter-spacing:.08em}
+.bpatron{margin-top:8px;font-size:13px;font-weight:700;color:var(--or2);border:1px solid var(--ligne);border-radius:99px;padding:9px 16px;display:inline-flex;gap:8px;align-items:center}
+.bpatron svg{width:15px;height:15px}
+
+/* Ma sélection */
+.barre-sel{position:fixed;left:50%;bottom:14px;transform:translate(-50%,140%);z-index:40;width:min(528px,calc(100% - 24px));display:flex;align-items:center;gap:12px;padding:10px 10px 10px 16px;border-radius:16px;background:rgba(9,12,21,.97);border:1px solid rgba(246,222,142,.4);box-shadow:0 14px 40px rgba(0,0,0,.55);transition:transform .3s cubic-bezier(.2,.8,.2,1)}
+.barre-sel.vue{transform:translate(-50%,0)}
+body.a-sel .page{padding-bottom:86px}
+.barre-sel .t{flex:1;font-size:14px}
+.barre-sel .t b{color:var(--or2)}
+.barre-sel button{height:42px;padding:0 16px;border-radius:12px;font-weight:800;font-size:14px;background:var(--or);color:#1A1204}
+
+/* Fenêtres */
+.voile{position:fixed;inset:0;z-index:50;background:rgba(3,5,10,.72);opacity:0;pointer-events:none;transition:opacity .25s}
+.voile.vu{opacity:1;pointer-events:auto}
+.feuille{position:fixed;left:50%;bottom:0;z-index:60;width:min(560px,100%);max-height:92vh;overflow-y:auto;overscroll-behavior:contain;background:#0B0F1A;border:1px solid var(--ligne);border-bottom:0;border-radius:24px 24px 0 0;transform:translate(-50%,105%);transition:transform .32s cubic-bezier(.2,.8,.2,1);box-shadow:0 -20px 60px rgba(0,0,0,.6)}
+.feuille.vue{transform:translate(-50%,0)}
+.feuille .poignee{position:sticky;top:0;z-index:3;display:flex;justify-content:center;padding:8px 0 0;height:0}
+.feuille .poignee i{width:42px;height:5px;border-radius:99px;background:rgba(255,255,255,.35)}
+.fermer{position:absolute;top:12px;right:12px;z-index:4;width:38px;height:38px;border-radius:50%;background:rgba(7,10,18,.8);border:1px solid var(--ligne2);font-size:20px;line-height:1;display:flex;align-items:center;justify-content:center}
+.fiche .ph{aspect-ratio:16/10;position:relative;overflow:hidden;border-radius:24px 24px 0 0;background:var(--nuit2)}
+.fiche .ph img{width:100%;height:100%;object-fit:cover}
+.fiche .ph::after{content:"";position:absolute;inset:auto 0 0;height:45%;background:linear-gradient(180deg,transparent,#0B0F1A)}
+.fiche .ph.sansphoto{aspect-ratio:auto;height:150px;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at 50% 60%,rgba(246,222,142,.12),transparent 60%),var(--nuit2)}
+.fiche .ph.sansphoto svg{width:90px;height:90px}
+.fiche .co{padding:6px 20px 26px}
+.fiche h2{font:600 25px/1.2 var(--fc);letter-spacing:.02em}
+.fiche .d{color:var(--doux);margin-top:4px}
+.fiche .prix{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap}
+.fiche .prix div{flex:1;min-width:120px;padding:11px 14px;border-radius:14px;background:rgba(246,222,142,.07);border:1px solid var(--ligne)}
+.fiche .prix small{display:block;font-size:11.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--doux)}
+.fiche .prix b{font-size:22px;font-weight:800;color:var(--or2)}
+.fiche .prix s{color:var(--doux);margin-right:6px;font-size:15px}
+.fiche h4{font-size:12px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--or2);margin:20px 0 7px}
+.fiche .txt{font-size:15px;color:#DDE2EB;line-height:1.6}
+.alls{display:flex;flex-wrap:wrap;gap:7px}
+.alls span{padding:6px 11px;border-radius:99px;background:rgba(240,138,126,.1);border:1px solid rgba(240,138,126,.3);font-size:13px;font-weight:600;color:#F7C1BA}
+.alls.aucun span{background:rgba(123,216,143,.08);border-color:rgba(123,216,143,.3);color:#B8ECC3}
+.accord{display:flex;gap:12px;align-items:center;width:100%;text-align:left;padding:11px 13px;border-radius:14px;border:1px solid var(--ligne);background:rgba(255,255,255,.03)}
+.accord .vig{width:52px;height:52px;border-radius:10px;overflow:hidden;flex:none;display:flex;align-items:center;justify-content:center;background:var(--nuit2)}
+.accord .vig img{width:100%;height:100%;object-fit:cover}
+.accord .vig svg{width:32px;height:32px}
+.accord b{display:block;font-size:14.5px}
+.accord span{font-size:12.5px;color:var(--doux)}
+.accord i{margin-left:auto;font-style:normal;color:var(--or2);font-size:20px}
+.alerte{margin-top:14px;padding:11px 14px;border-radius:12px;background:rgba(107,43,43,.35);border:1px solid rgba(240,138,126,.35);color:#F7C1BA;font-size:14px;font-weight:600}
+.fiche .actions{margin-top:20px;display:flex;gap:10px}
+.fiche .actions .btn{flex:1}
+.note{font-size:12px;color:#7F889B;margin-top:14px}
+
+/* Sélection */
+.sel .co{padding:22px 18px 24px}
+.sel h2{font:600 23px/1.2 var(--fc)}
+.sel .sous{font-size:13.5px;color:var(--doux);margin-top:4px}
+.ligne-sel{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--ligne2)}
+.ligne-sel .n{flex:1;font-weight:600;font-size:14.5px}
+.ligne-sel .n small{display:block;color:var(--doux);font-weight:500;font-size:12.5px}
+.qte{display:flex;align-items:center;gap:4px}
+.qte button{width:32px;height:32px;border-radius:10px;border:1px solid var(--ligne2);font-size:18px;font-weight:700}
+.qte b{min-width:22px;text-align:center}
+.ligne-sel .p{width:72px;text-align:right;font-weight:800;color:var(--or2)}
+.total{display:flex;justify-content:space-between;align-items:baseline;padding:16px 0 4px;font-size:16px}
+.total b{font-size:24px;font-weight:800;color:var(--or2)}
+
+/* Patron */
+.patron{position:fixed;inset:0;z-index:80;background:#080B14;overflow-y:auto;display:none}
+.patron.vu{display:block}
+.pat-haut{position:sticky;top:0;z-index:2;display:flex;align-items:center;gap:10px;padding:12px 14px;background:rgba(8,11,20,.97);border-bottom:1px solid var(--ligne)}
+.pat-haut img{width:34px}
+.pat-haut h2{flex:1;font:600 17px/1.2 var(--fc)}
+.pat-haut h2 small{display:block;font:500 12px var(--ff);color:var(--doux)}
+.pat-haut button{width:40px;height:40px;border-radius:12px;border:1px solid var(--ligne2);font-size:20px}
+.pat-in{max-width:560px;margin:0 auto;padding:16px 14px 60px}
+.verrou{text-align:center;padding:26px 10px}
+.verrou h3{font:600 22px var(--fc)}
+.verrou p{color:var(--doux);font-size:14px;margin-top:6px}
+.code{display:flex;justify-content:center;gap:12px;margin:22px 0}
+.code i{width:15px;height:15px;border-radius:50%;border:2px solid var(--or3)}
+.code i.p{background:var(--or2)}
+.code.faux{animation:tremble .35s}
+@keyframes tremble{25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+.pave{display:grid;grid-template-columns:repeat(3,76px);gap:12px;justify-content:center}
+.pave button{height:62px;border-radius:16px;background:rgba(255,255,255,.05);border:1px solid var(--ligne2);font-size:23px;font-weight:700}
+.pave button:active{background:rgba(246,222,142,.18)}
+.astuce{display:inline-block;margin-top:20px;padding:8px 14px;border-radius:99px;background:rgba(246,222,142,.1);border:1px solid var(--ligne);color:var(--or1);font-size:13px;font-weight:600}
+.pat-ong{display:flex;gap:7px;overflow-x:auto;scrollbar-width:none;margin-bottom:14px}
+.pat-ong::-webkit-scrollbar{display:none}
+.pat-ong button{flex:none;padding:9px 14px;border-radius:12px;border:1px solid var(--ligne2);font-size:13.5px;font-weight:700;color:var(--doux)}
+.pat-ong button.on{background:var(--or);color:#1A1204;border-color:transparent}
+.carte-p{padding:14px;border-radius:16px;background:var(--panneau2);border:1px solid var(--ligne2);margin-bottom:10px}
+.carte-p h4{font-size:12px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--or2);margin-bottom:10px}
+.carte-p p.aide{font-size:13px;color:var(--doux);margin:-4px 0 10px}
+.lp{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--ligne2)}
+.lp:last-child{border-bottom:0}
+.lp .n{flex:1;min-width:0;font-size:14px;font-weight:600}
+.lp .n small{display:block;font-size:12px;color:var(--doux);font-weight:500}
+.lp input.pxi{width:74px;height:38px;border-radius:10px;border:1px solid var(--ligne2);background:rgba(255,255,255,.05);text-align:right;padding:0 9px;font-weight:700}
+.inter{position:relative;width:50px;height:30px;flex:none;border-radius:99px;background:#2B3242;transition:.2s}
+.inter::after{content:"";position:absolute;top:3px;left:3px;width:24px;height:24px;border-radius:50%;background:#fff;transition:.2s}
+.inter.on{background:#8E3A3A}
+.inter.on::after{left:23px}
+.inter.ok.on{background:#3F8F55}
+.lp .et{font-size:11px;font-weight:700;color:var(--doux);width:44px;text-align:center;line-height:1.1}
+.champ{display:block;margin-bottom:11px}
+.champ span{display:block;font-size:12.5px;font-weight:700;color:var(--doux);margin-bottom:5px}
+.champ input,.champ select,.champ textarea{width:100%;min-height:44px;border-radius:12px;border:1px solid var(--ligne2);background:rgba(255,255,255,.05);padding:10px 12px;font-size:15px}
+.champ select option{background:#0B0F1A}
+.deux{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.cases{display:flex;gap:16px;margin:4px 0 12px}
+.cases label{display:flex;gap:7px;align-items:center;font-size:14px;font-weight:600}
+.cases input{width:20px;height:20px;accent-color:#D4A93A}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.stats div{padding:12px 8px;border-radius:14px;background:rgba(246,222,142,.06);border:1px solid var(--ligne);text-align:center}
+.stats b{display:block;font-size:22px;font-weight:800;color:var(--or2)}
+.stats span{font-size:11.5px;color:var(--doux)}
+.qrbox{display:flex;flex-direction:column;align-items:center;gap:12px;padding:8px 0}
+.chevalet{width:220px;padding:18px 18px 14px;border-radius:16px;background:#fff;color:#0B0F1A;text-align:center;box-shadow:0 10px 30px rgba(0,0,0,.4)}
+.chevalet b{display:block;font:700 15px var(--fc);letter-spacing:.06em}
+.chevalet small{display:block;font-size:11.5px;color:#4A5160;margin-top:6px}
+.chevalet svg{width:170px;height:170px;margin:10px auto 0}
+.pat-bas{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
+.pat-bas .btn{flex:1;min-width:150px}
+
+/* Message */
+.toast{position:fixed;left:50%;top:16px;transform:translate(-50%,-160%);z-index:100;padding:11px 18px;border-radius:14px;background:#0F1524;border:1px solid rgba(246,222,142,.45);color:var(--or1);font-weight:700;font-size:14px;box-shadow:0 12px 30px rgba(0,0,0,.5);transition:transform .3s cubic-bezier(.2,.8,.2,1);max-width:calc(100% - 28px);text-align:center}
+.toast.vu{transform:translate(-50%,0)}
+
+@media (min-width:700px){
+  .page{margin:24px auto;border-radius:26px;overflow:clip;border:1px solid var(--ligne);box-shadow:0 30px 80px rgba(0,0,0,.6);background:rgba(7,10,18,.35)}
+  .hero{min-height:470px}
+  .hero h1{font-size:52px}
+  .moment{flex-basis:78%}
+  .feuille{bottom:auto;top:50%;border-radius:24px;border-bottom:1px solid var(--ligne);transform:translate(-50%,-44%) scale(.97);opacity:0;pointer-events:none;transition:transform .28s,opacity .28s}
+  .feuille.vue{transform:translate(-50%,-50%) scale(1);opacity:1;pointer-events:auto}
+  .feuille .poignee{display:none}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<div class="page" id="haut">
+  <div class="demo">
+    <img src="img/aigle-site-web.webp" alt="Aigle Agence LDR, création web" width="30" height="38">
+    <div><b>Exemple de carte QR</b> · Agence LDR</div>
+    <div class="esp"></div>
+    <button type="button" id="bPartager">Partager</button>
+  </div>
+
+  <header class="hero">
+    <img class="fond" src="img/salle.webp" alt="La salle du restaurant, dressée pour le soir" fetchpriority="high">
+    <img class="aigle" src="img/aigle-site-web.webp" alt="Aigle orange Agence LDR, création web" width="92" height="115">
+    <div class="lieu" id="hLieu">Châlons-en-Champagne · au bord du canal</div>
+    <h1><span class="or petit">LE</span><span class="or" id="hNom">Quai Sorbier</span></h1>
+    <p class="acc" id="hAcc"></p>
+    <div><span class="etat" id="hEtat"><i></i><span></span></span></div>
+    <div class="btns">
+      <button class="btn btn-or" type="button" data-aller="carte">Voir la carte</button>
+      <button class="btn btn-ligne" type="button" id="bSel2">Ma sélection</button>
+    </div>
+  </header>
+
+  <section class="bloc" id="blocMoment" aria-label="En ce moment">
+    <div class="titre-bloc"><h2 class="or">En ce moment</h2><small id="momentMaj"></small></div>
+    <div class="defile" id="defile"></div>
+    <div class="points" id="points"></div>
+  </section>
+
+  <nav class="onglets" id="carte" aria-label="Rubriques de la carte">
+    <div class="ong" id="ong"></div>
+    <div class="outils">
+      <div class="cherche" id="cherche">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <label class="sr" for="q">Chercher un plat</label>
+        <input id="q" type="search" placeholder="Chercher un plat, un vin…" autocomplete="off">
+        <button class="x" type="button" id="qx" aria-label="Effacer">×</button>
+      </div>
+      <button class="bfiltre" type="button" id="bFiltre" aria-expanded="false">Filtres <span class="n" id="nFiltre">0</span></button>
+    </div>
+    <div class="filtres" id="filtres">
+      <p>Je cherche</p>
+      <div class="puces" id="pucesOui">
+        <button type="button" data-f="v">Végétarien</button>
+        <button type="button" data-f="sg">Sans gluten</button>
+      </div>
+      <p style="margin-top:10px">Je ne mange pas de</p>
+      <div class="puces" id="pucesNon"></div>
+    </div>
+  </nav>
+  <div class="resultat" id="resultat"><span id="resTxt"></span><button type="button" id="resTout">Tout afficher</button></div>
+  <main id="cats"></main>
+  <p class="vide" id="vide">Rien ne correspond. <button type="button" class="or" style="font-weight:800" id="videTout">Tout afficher</button></p>
+
+  <section class="bloc" aria-label="Au fil de la semaine">
+    <div class="titre-bloc"><h2 class="or">Au fil de la semaine</h2></div>
+    <div class="semaine" id="semaine"></div>
+  </section>
+
+  <footer class="pied">
+    <div class="infos" id="infos"></div>
+    <p class="mention" id="mention"></p>
+    <div class="signature">
+      <img src="img/aigle-site-web.webp" alt="Aigle orange Agence LDR, création web" width="132" height="165" loading="lazy">
+      <p>Carte créée par <b class="or">AGENCE LDR</b><br>Le Déclencheur de Résultats</p>
+      <button class="bpatron" type="button" id="bPatron"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>Espace patron · essayez-le</button>
+    </div>
+  </footer>
+</div>
+
+<div class="barre-sel" id="barreSel" role="region" aria-label="Ma sélection">
+  <div class="t" id="selTxt"></div>
+  <button type="button" id="bSel">Voir</button>
+</div>
+
+<div class="voile" id="voile"></div>
+<div class="feuille fiche" id="fiche" role="dialog" aria-modal="true" aria-label="Fiche du plat"></div>
+<div class="feuille sel" id="sel" role="dialog" aria-modal="true" aria-label="Ma sélection"></div>
+
+<div class="patron" id="patron" role="dialog" aria-modal="true" aria-label="Espace patron">
+  <div class="pat-haut">
+    <img src="img/aigle-site-web.webp" alt="">
+    <h2><span class="or">Espace patron</span><small>Le Quai Sorbier · démonstration</small></h2>
+    <button type="button" id="patFermer" aria-label="Fermer">×</button>
+  </div>
+  <div class="pat-in" id="patIn"></div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function(){
+"use strict";
+var CLE="ldr-carte-qr-demo-v1", CLE_SEL="ldr-carte-qr-demo-sel", CODE="2580";
+var LIEN="https://agenceldr.github.io/demos-ldr/exemples/carte-qr-ldr/";
+/* Photos Unsplash : version nette pour les grands écrans, copie locale sinon */
+var UNS={boeuf:"photo-1600891964092-4316c288032e",burrata:"photo-1649400454485-b8ad827f929d",soupe:"photo-1578861256505-d3be7cb037d3",poisson:"photo-1660652377925-d615178531db",risotto:"photo-1609770424775-39ec362f2d94",tarte:"photo-1614174486496-344ef3e9d870",moelleux:"photo-1626125323072-bc20d2674d9e",cafe:"photo-1579992357154-faf4bde95b3d",champagne:"photo-1580657274234-7339717f4541",rose:"photo-1547595628-c61a29f496f0",citronnade:"photo-1633785587089-30e1d1a512c5",rouge:"photo-1587920710219-f6f9804dc10d"};
+var ALL=["gluten","crustacés","œuf","poisson","arachide","soja","lait","fruits à coque","céleri","moutarde","sésame","sulfites","lupin","mollusques"];
+var EXCLU=["gluten","lait","œuf","fruits à coque","poisson","sulfites"];
+
+var EXEMPLE={
+ nom:"Quai Sorbier",lieu:"Châlons-en-Champagne · au bord du canal",adresse:"7 quai des Sorbiers, Châlons-en-Champagne",
+ accroche:"Une carte courte, faite ici, qui suit le marché.",ouverture:19,fermeture:22,
+ jours:"Du mardi au samedi",
+ mention:"L'abus d'alcool est dangereux pour la santé, à consommer avec modération.",
+ moment:{on:true,plat:"p1",prix:"19,00",total:12,reste:7,fin:"21:00"},
+ soir:{on:true,etiquette:"Ce soir",titre:"Le poisson du jour",texte:"Arrivé ce matin. Demandez-nous lequel.",photo:"poisson"},
+ terrasse:{on:true,etiquette:"Les beaux soirs",titre:"La terrasse au bord de l'eau",texte:"Ouverte dès qu'il fait doux. Demandez une table côté canal.",photo:"bord-eau"},
+ semaine:[{ic:"marche",t:"Mercredi et samedi",d:"Retour du marché : la carte bouge avec ce qu'on y trouve."},{ic:"poisson",t:"Vendredi",d:"Le poisson du jour arrive le matin."},{ic:"dimanche",t:"Dimanche midi",d:"Le rôti de la semaine, à partager."}],
+ categories:[
+  {id:"entrees",nom:"Entrées",photo:"legumes",sous:"Les légumes viennent du marché de Châlons, le mercredi et le samedi.",plats:[
+   {id:"e1",nom:"Légumes grillés du marché",desc:"houmous de pois chiches, huile de colza grillé",prix:"10,00",photo:"legumes",v:1,sg:1,all:["sésame"],accord:"v4",descriptif:"Les légumes de la semaine passés à la plancha, posés sur un houmous maison ; un filet d'huile de colza grillé de la Marne."},
+   {id:"e2",nom:"Velouté du moment",desc:"crème crue, croûtons au thym",prix:"8,00",photo:"soupe",v:1,sg:0,all:["lait","gluten"],descriptif:"Un velouté qui change avec le marché, servi bien chaud avec une cuillère de crème crue."},
+   {id:"e3",nom:"Burrata crémeuse",desc:"tomates confites, basilic, huile d'olive",prix:"11,50",photo:"burrata",v:1,sg:1,all:["lait"],accord:"v2",descriptif:"Une burrata entière, des tomates confites doucement au four, du basilic et une huile d'olive fruitée."},
+   {id:"e4",nom:"Terrine de la maison",desc:"pickles d'oignons rouges, pain de campagne",prix:"9,00",photo:"",v:0,sg:0,all:["gluten","moutarde"],descriptif:"Terrine de campagne au poivre, faite ici, servie avec des pickles et du pain grillé."},
+   {id:"e5",nom:"Truite fumée de la vallée",desc:"crème au raifort, pommes de terre tièdes",prix:"11,00",photo:"",v:0,sg:1,all:["poisson","lait"],accord:"v1",descriptif:"Truite fumée en tranches fines, crème légère au raifort, pommes de terre ratte tièdes."}]},
+  {id:"plats",nom:"Plats",photo:"boeuf",sous:"Cuisinés à la commande. Comptez 20 minutes, c'est le temps du bon.",plats:[
+   {id:"p1",nom:"Pièce du boucher",desc:"sauce au vin rouge, pommes grenaille",prix:"24,00",photo:"boeuf",v:0,sg:1,all:["sulfites"],accord:"v3",descriptif:"Pièce de bœuf choisie chez notre boucher, saisie et reposée, sauce réduite au vin rouge, pommes grenaille rôties."},
+   {id:"p2",nom:"Poisson du jour",desc:"beurre blanc, poireaux fondants",prix:"21,00",photo:"poisson",v:0,sg:1,all:["poisson","lait"],accord:"v4",descriptif:"Le poisson qui arrive le matin, cuit sur la peau, beurre blanc et poireaux fondus doucement."},
+   {id:"p3",nom:"Assiette du potager",desc:"céréales, légumes rôtis, sauce verte",prix:"17,50",photo:"potager",v:1,sg:0,all:["gluten"],descriptif:"Petit épeautre, légumes rôtis et crus, sauce verte aux herbes du jardin."},
+   {id:"p4",nom:"Risotto de saison",desc:"champignons, parmesan affiné 24 mois",prix:"18,00",photo:"risotto",v:1,sg:1,all:["lait","céleri"],accord:"v4",descriptif:"Risotto crémeux au bouillon maison, champignons de saison, parmesan affiné 24 mois."},
+   {id:"p5",nom:"Volaille fermière rôtie",desc:"jus au champagne, purée maison",prix:"22,00",photo:"boucher",v:0,sg:1,all:["lait","sulfites"],accord:"v1",epuise:1,descriptif:"Suprême de volaille fermière rôti, jus déglacé au champagne, purée au beurre."}]},
+  {id:"desserts",nom:"Desserts",photo:"tiramisu",sous:"Faits ici le matin même.",plats:[
+   {id:"d1",nom:"Tiramisu de la maison",desc:"biscuits roses de Reims, café serré",prix:"8,50",photo:"tiramisu",v:1,sg:0,all:["gluten","œuf","lait"],descriptif:"Notre tiramisu monté au biscuit rose de Reims et au café serré."},
+   {id:"d2",nom:"Tarte fine aux fruits",desc:"fruits de saison, crème d'amande",prix:"8,00",photo:"tarte",v:1,sg:0,all:["gluten","œuf","lait","fruits à coque"],descriptif:"Pâte sablée fine, crème d'amande et fruits de la saison."},
+   {id:"d3",nom:"Moelleux au chocolat noir",desc:"cœur coulant, chocolat 70 %",prix:"8,00",photo:"moelleux",v:1,sg:0,all:["gluten","œuf","lait"],accord:"v2",descriptif:"Cuit à la commande, cœur coulant au chocolat noir 70 %. Comptez 12 minutes."},
+   {id:"d4",nom:"Café gourmand",desc:"café et trois petites douceurs",prix:"9,00",photo:"cafe",v:1,sg:0,all:["gluten","œuf","lait"],descriptif:"Un café et trois mignardises du jour."}]},
+  {id:"cave",nom:"La cave",photo:"vin",sous:"Au verre (12 cl) ou à la bouteille (75 cl). Nos vins viennent de la Marne.",col1:"12 cl",col2:"75 cl",plats:[
+   {id:"v1",nom:"Champagne brut de vigneron",desc:"12 % vol. · Montagne de Reims",prix:"9,00",prix2:"54,00",photo:"champagne",all:["sulfites"],verre:"flute",couleur:"#D8C27A",descriptif:"Un brut de vigneron, fin et vif, parfait pour commencer."},
+   {id:"v2",nom:"Champagne rosé",desc:"12 % vol. · rosé d'assemblage",prix:"11,00",prix2:"66,00",photo:"rose",all:["sulfites"],verre:"flute",couleur:"#E3A0A0",descriptif:"Un rosé de champagne aux notes de fruits rouges."},
+   {id:"v3",nom:"Coteaux champenois rouge",desc:"12 % vol. · pinot noir",prix:"7,00",prix2:"42,00",photo:"vin",all:["sulfites"],verre:"vin",couleur:"#7A1E2C",descriptif:"Le vin rouge tranquille de la Champagne, léger et fruité."},
+   {id:"v4",nom:"Blanc du moment",desc:"12,5 % vol. · selon l'arrivage",prix:"5,50",prix2:"30,00",photo:"",all:["sulfites"],verre:"vin",couleur:"#E9D98B",descriptif:"Le blanc que l'on a aimé cette semaine. Demandez-nous lequel."}]},
+  {id:"sans-alcool",nom:"Sans alcool",photo:"citronnade",sous:"Jus de ferme et citronnade faite ici.",plats:[
+   {id:"s1",nom:"Jus de pomme fermier",desc:"25 cl · ferme de la Marne",prix:"4,00",photo:"",v:1,sg:1,all:[],verre:"verre",couleur:"#D9A441",descriptif:"Pur jus de pomme d'une ferme de la Marne."},
+   {id:"s2",nom:"Citronnade maison",desc:"33 cl · citron, menthe",prix:"4,50",photo:"citronnade",v:1,sg:1,all:[],verre:"verre",couleur:"#E8E2A0",descriptif:"Citrons pressés, sirop léger maison et menthe fraîche."},
+   {id:"s3",nom:"Eau minérale plate ou gazeuse",desc:"50 cl",prix:"3,50",photo:"",v:1,sg:1,all:[],verre:"verre",couleur:"#BFD7E0",descriptif:"Plate ou gazeuse, servie fraîche."},
+   {id:"s4",nom:"Café",desc:"espresso · torréfié à Reims",prix:"2,20",photo:"",v:1,sg:1,all:[],verre:"tasse",couleur:"#5A3A22",descriptif:"Un espresso serré, café torréfié à Reims."}]}
+ ]
+};
+
+/* ---------- outils ---------- */
+function $(s,r){return (r||document).querySelector(s)}
+function $$(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))}
+function esc(t){return String(t==null?"":t).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})}
+function copie(o){return JSON.parse(JSON.stringify(o))}
+function lire(k,d){try{var v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}}
+function ecrire(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+function num(p){var n=parseFloat(String(p||"").replace(/\s/g,"").replace(",","."));return isNaN(n)?0:n}
+function eur(n){return n.toFixed(2).replace(".",",")+" €"}
+function propre(p){var n=num(p);return n?n.toFixed(2).replace(".",","):""}
+function sansAccent(t){return String(t||"").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"")}
+
+var E=lire(CLE,null);
+if(!E||!E.categories){E=copie(EXEMPLE)}
+var SEL=lire(CLE_SEL,{});
+var F={v:false,sg:false,non:{},q:""};
+
+function tousPlats(){var a=[];E.categories.forEach(function(c){c.plats.forEach(function(p){a.push({p:p,c:c})})});return a}
+function trouve(id){var r=null;tousPlats().forEach(function(x){if(x.p.id===id)r=x});return r}
+function enregistrer(msg){ecrire(CLE,E);tout();if(msg)toast(msg)}
+
+function src(ph){return "img/"+ph+".webp"}
+function img(ph,alt,cls,lazy){
+  if(!ph)return "";
+  var s='<img src="'+src(ph)+'" alt="'+esc(alt)+'"'+(lazy?' loading="lazy"':'')+(cls?' class="'+cls+'"':'');
+  if(UNS[ph])s+=' srcset="'+src(ph)+' 400w, https://images.unsplash.com/'+UNS[ph]+'?auto=format&fit=crop&w=900&q=72 900w" sizes="(min-width:700px) 520px, 100vw"';
+  return s+'>';
+}
+function verreSvg(t,c){
+  c=c||"#D8C27A";
+  if(t==="flute")return '<svg viewBox="0 0 48 48" aria-hidden="true"><path d="M19 5h10l-1 17a4 4 0 0 1-8 0z" fill="'+c+'" opacity=".9"/><path d="M19 5h10l-1 17a4 4 0 0 1-8 0zM24 26v14M18 42h12" fill="none" stroke="#F6DE8E" stroke-width="1.6" stroke-linecap="round"/><circle cx="23" cy="12" r=".9" fill="#fff"/><circle cx="25" cy="16" r=".7" fill="#fff"/></svg>';
+  if(t==="vin")return '<svg viewBox="0 0 48 48" aria-hidden="true"><path d="M15.5 16h17a8.5 8.5 0 0 1-17 0z" fill="'+c+'" opacity=".92"/><path d="M15 6h18l-.5 10a8.5 8.5 0 0 1-17 0zM24 25v14M17 41h14" fill="none" stroke="#F6DE8E" stroke-width="1.6" stroke-linecap="round"/></svg>';
+  if(t==="tasse")return '<svg viewBox="0 0 48 48" aria-hidden="true"><path d="M11 18h22v8a9 9 0 0 1-9 9h-4a9 9 0 0 1-9-9z" fill="'+c+'"/><path d="M11 18h22v8a9 9 0 0 1-9 9h-4a9 9 0 0 1-9-9zM33 21h3a4 4 0 0 1 0 8h-3M8 39h28" fill="none" stroke="#F6DE8E" stroke-width="1.6" stroke-linecap="round"/><path d="M18 8c-2 3 2 4 0 7M24 8c-2 3 2 4 0 7" fill="none" stroke="#A9B1C2" stroke-width="1.4" stroke-linecap="round"/></svg>';
+  if(t==="verre")return '<svg viewBox="0 0 48 48" aria-hidden="true"><path d="M15.6 17h16.8l-1.6 21H17.2z" fill="'+c+'" opacity=".9"/><path d="M14 8h20l-2.6 32H16.6z" fill="none" stroke="#F6DE8E" stroke-width="1.6" stroke-linejoin="round"/></svg>';
+  return '<svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="25" r="15" fill="none" stroke="#F6DE8E" stroke-width="1.6"/><circle cx="24" cy="25" r="9" fill="none" stroke="#9A6E14" stroke-width="1.2"/><path d="M8 10v8M6 10v5a2 2 0 0 0 4 0v-5M40 10c-3 2-3 8 0 9v10" fill="none" stroke="#A9B1C2" stroke-width="1.4" stroke-linecap="round"/></svg>';
+}
+function vignette(p,alt){return p.photo?img(p.photo,alt||p.nom,"",true):verreSvg(p.verre,p.couleur)}
+
+/* ---------- prix du moment ---------- */
+function minutesFin(){var f=(E.moment.fin||"").split(":");if(f.length<2)return null;var d=new Date(),t=new Date();t.setHours(+f[0],+f[1],0,0);return Math.round((t-d)/60000)}
+function momentActif(){var m=E.moment;if(!m||!m.on)return false;var x=trouve(m.plat);if(!x||x.p.epuise)return false;if(m.reste<=0)return false;return true}
+function promoDe(id){return momentActif()&&E.moment.plat===id?E.moment.prix:null}
+function finTxt(){var m=minutesFin();if(m===null)return "";if(m<=0)return "Jusqu'à "+E.moment.fin.replace(":"," h ")+" ce soir";if(m<60)return "Encore "+m+" min";var h=Math.floor(m/60),r=m%60;return "Encore "+h+" h"+(r?" "+(r<10?"0":"")+r:"")}
+
+/* ---------- rendu ---------- */
+function etatOuverture(){
+  var d=new Date(),h=d.getHours()+d.getMinutes()/60,jour=d.getDay(),el=$("#hEtat");
+  var ouvertJour=jour>=2&&jour<=6,o=E.ouverture,f=E.fermeture;
+  var txt,ouv=false;
+  if(ouvertJour&&h>=o&&h<f){ouv=true;var rest=Math.round((f-h)*60);txt="Cuisine ouverte · jusqu'à "+f+" h"+(rest<=45?" (encore "+rest+" min)":"")}
+  else if(ouvertJour&&h<o){txt="Cuisine fermée · ouvre ce soir à "+o+" h"}
+  else{txt="Cuisine fermée · "+E.jours.toLowerCase()+", "+o+" h – "+f+" h"}
+  el.classList.toggle("ouvert",ouv);el.querySelector("span").textContent=txt;
+}
+function rendreHaut(){
+  $("#hNom").textContent=E.nom;$("#hLieu").textContent=E.lieu;$("#hAcc").textContent=E.accroche;etatOuverture();
+  $("#infos").innerHTML="<b>Le "+esc(E.nom)+"</b><br>"+esc(E.adresse)+"<br>"+esc(E.jours)+" · cuisine de "+E.ouverture+" h à "+E.fermeture+" h<br>Allergènes : chaque fiche les indique. Une question ? Demandez-nous.";
+  $("#mention").textContent=E.mention;
+}
+function rendreMoment(){
+  var h=[],m=E.moment;
+  if(momentActif()){
+    var x=trouve(m.plat),p=x.p,pc=Math.max(4,Math.round(m.reste/m.total*100)),gain=num(p.prix)-num(m.prix);
+    h.push('<button type="button" class="moment" data-plat="'+p.id+'"><div class="ph">'+img(p.photo,p.nom)+'<span class="pastille">Prix du moment'+(gain>0?" · −"+eur(gain).replace(",00",""):"")+'</span></div><div class="co"><h3>'+esc(p.nom)+'</h3><p>'+esc(p.desc)+'</p><div class="prixm"><s>'+eur(num(p.prix))+'</s><b>'+eur(num(m.prix))+'</b></div><div class="jauge"><div class="barre"><i style="width:'+pc+'%"></i></div><div class="txt"><span>Plus que <b>'+m.reste+'</b> sur '+m.total+'</span><span>'+esc(finTxt())+'</span></div></div></div></button>');
+  }
+  [E.soir,E.terrasse].forEach(function(a,i){
+    if(!a||!a.on)return;
+    h.push('<button type="button" class="moment" data-info="'+(i?"terrasse":"soir")+'"><div class="ph">'+img(a.photo,a.titre)+'<span class="pastille info">'+esc(a.etiquette)+'</span></div><div class="co"><h3>'+esc(a.titre)+'</h3><p>'+esc(a.texte)+'</p></div></button>');
+  });
+  $("#defile").innerHTML=h.join("");$("#defile").scrollLeft=0;
+  $("#points").innerHTML=h.length>1?h.map(function(_,i){return '<i'+(i?'':' class="on"')+'></i>'}).join(""):"";
+  $("#blocMoment").style.display=h.length?"":"none";
+  $("#momentMaj").textContent="mis à jour "+(E.maj||"ce soir");
+}
+function passe(p){
+  if(F.v&&!p.v)return false;
+  if(F.sg&&!p.sg)return false;
+  for(var k in F.non){if(F.non[k]&&(p.all||[]).indexOf(k)>=0)return false}
+  if(F.q){var t=sansAccent(p.nom+" "+p.desc+" "+(p.descriptif||""));if(t.indexOf(sansAccent(F.q))<0)return false}
+  return true;
+}
+function filtreActif(){var n=(F.v?1:0)+(F.sg?1:0);for(var k in F.non)if(F.non[k])n++;return n}
+function ligne(p,c){
+  var promo=promoDe(p.id),fav=!!SEL[p.id];
+  var mq=[];if(p.v)mq.push('<span class="m v">VÉGÉ</span>');if(p.sg)mq.push('<span class="m sg">SANS GLUTEN</span>');if(promo)mq.push('<span class="m pm">PRIX DU MOMENT</span>');if(p.epuise)mq.push('<span class="m ep">ÉPUISÉ CE SOIR</span>');
+  var px;
+  if(c.col2){px='<b>'+(p.prix?eur(num(p.prix)):"–")+'</b><b>'+(p.prix2?eur(num(p.prix2)):"–")+'</b>'}
+  else if(promo){px='<span><s>'+eur(num(p.prix))+'</s><b>'+eur(num(promo))+'</b></span>'}
+  else px='<b>'+eur(num(p.prix))+'</b>';
+  return '<button type="button" class="plat'+(p.epuise?" epuise":"")+'" data-plat="'+p.id+'"><span class="coeur'+(fav?" on":"")+'" data-coeur="'+p.id+'" role="button" aria-label="'+(fav?"Retirer de":"Ajouter à")+' ma sélection" aria-pressed="'+fav+'"><svg viewBox="0 0 24 24"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg></span><span class="vig">'+vignette(p)+'</span><span class="mil"><h3>'+esc(p.nom)+'</h3><span class="d">'+esc(p.desc)+'</span>'+(mq.length?'<span class="marques">'+mq.join("")+'</span>':'')+'</span><span class="px">'+px+'</span></button>';
+}
+function rendreCarte(){
+  var h=[],n=0,tot=0;
+  E.categories.forEach(function(c){
+    var items=c.plats.filter(function(p){tot++;return passe(p)});n+=items.length;
+    if(!items.length)return;
+    h.push('<section class="cat" id="cat-'+c.id+'" data-cat="'+c.id+'"><div class="bandeau">'+img(c.photo,c.nom,"",true)+'<div><h2 class="or">'+esc(c.nom)+'</h2>'+(c.sous?'<p>'+esc(c.sous)+'</p>':'')+'</div></div>'+(c.col2?'<div class="cols"><span>'+esc(c.col1)+'</span><span>'+esc(c.col2)+'</span></div>':'')+items.map(function(p){return ligne(p,c)}).join("")+'</section>');
+  });
+  $("#cats").innerHTML=h.join("");
+  $("#ong").innerHTML=E.categories.filter(function(c){return c.plats.some(passe)}).map(function(c,i){return '<button type="button" data-ong="'+c.id+'"'+(i?'':' class="on"')+'>'+esc(c.nom)+'</button>'}).join("");
+  var fa=filtreActif(),actif=fa||F.q;
+  $("#resultat").classList.toggle("vu",!!actif&&n>0);
+  $("#resTxt").textContent=n+(n>1?" choix":" choix")+" sur "+tot;
+  $("#vide").classList.toggle("vu",n===0);
+  $("#nFiltre").textContent=fa;$("#bFiltre").classList.toggle("actif",fa>0);
+  espion();
+}
+var ICS={marche:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10h16l-1.5 9a2 2 0 0 1-2 1.7h-9a2 2 0 0 1-2-1.7z"/><path d="M8 10l4-6 4 6"/></svg>',poisson:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12c3-4 7-5 10-5 4 0 6 3 7 5-1 2-3 5-7 5-3 0-7-1-10-5z"/><path d="M3 12l-1-3M3 12l-1 3"/><circle cx="16" cy="11" r=".8" fill="currentColor"/></svg>',dimanche:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M9 3v4M15 3v4"/></svg>'};
+function rendreSemaine(){$("#semaine").innerHTML=E.semaine.map(function(s){return '<div class="jour">'+(ICS[s.ic]||ICS.dimanche)+'<div><b>'+esc(s.t)+'</b><span>'+esc(s.d)+'</span></div></div>'}).join("")}
+function rendrePuces(){$("#pucesNon").innerHTML=EXCLU.map(function(a){return '<button type="button" data-non="'+esc(a)+'"'+(F.non[a]?' class="on"':'')+'>'+esc(a.charAt(0).toUpperCase()+a.slice(1))+'</button>'}).join("");$$("#pucesOui button").forEach(function(b){b.classList.toggle("on",!!F[b.dataset.f])})}
+function rendreSel(){
+  var ids=Object.keys(SEL).filter(function(id){return trouve(id)}),n=0,t=0;
+  ids.forEach(function(id){var x=trouve(id),q=SEL[id];n+=q;t+=q*num(promoDe(id)||x.p.prix)});
+  $("#selTxt").innerHTML="Ma sélection · <b>"+n+"</b> "+(n>1?"choix":"choix")+" · <b>"+eur(t)+"</b>";
+  var vb=n>0&&!$("#patron").classList.contains("vu");$("#barreSel").classList.toggle("vue",vb);document.body.classList.toggle("a-sel",n>0);
+  return {ids:ids,n:n,t:t};
+}
+function tout(){rendreHaut();rendreMoment();rendreCarte();rendreSemaine();rendrePuces();rendreSel()}
+
+/* ---------- onglets + espion ---------- */
+var obs=null;
+function espion(){
+  if(obs)obs.disconnect();
+  if(!("IntersectionObserver" in window))return;
+  obs=new IntersectionObserver(function(en){en.forEach(function(e){if(e.isIntersecting)marque(e.target.dataset.cat)})},{rootMargin:"-130px 0px -60% 0px"});
+  $$(".cat").forEach(function(s){obs.observe(s)});
+}
+function marque(id){$$("#ong button").forEach(function(b){var on=b.dataset.ong===id;b.classList.toggle("on",on);if(on){var o=$("#ong");o.scrollTo({left:b.offsetLeft-o.clientWidth/2+b.clientWidth/2,behavior:"smooth"})}})}
+
+/* ---------- fenêtres ---------- */
+var ouverte=null;
+function ouvrir(el){if(ouverte&&ouverte!==el)ouverte.classList.remove("vue");ouverte=el;el.scrollTop=0;el.classList.add("vue");$("#voile").classList.add("vu");document.body.style.overflow="hidden";var f=el.querySelector(".fermer");if(f)setTimeout(function(){f.focus({preventScroll:true})},50)}
+function fermer(){if(ouverte)ouverte.classList.remove("vue");ouverte=null;$("#voile").classList.remove("vu");document.body.style.overflow=""}
+function fiche(id){
+  var x=trouve(id);if(!x)return;var p=x.p,c=x.c,promo=promoDe(id),fav=!!SEL[id];
+  var ph=p.photo?'<div class="ph">'+img(p.photo,p.nom)+'</div>':'<div class="ph sansphoto">'+verreSvg(p.verre,p.couleur)+'</div>';
+  var prix;
+  if(c.col2)prix='<div><small>Le verre · '+esc(c.col1)+'</small><b>'+eur(num(p.prix))+'</b></div><div><small>La bouteille · '+esc(c.col2)+'</small><b>'+eur(num(p.prix2))+'</b></div>';
+  else if(promo)prix='<div><small>Prix du moment · '+esc(finTxt())+'</small><b><s>'+eur(num(p.prix))+'</s>'+eur(num(promo))+'</b></div>';
+  else prix='<div><small>Prix</small><b>'+eur(num(p.prix))+'</b></div>';
+  var mq=[];if(p.v)mq.push('<span class="m v">VÉGÉTARIEN</span>');if(p.sg)mq.push('<span class="m sg">SANS GLUTEN</span>');
+  var alls=(p.all||[]).length?'<div class="alls">'+p.all.map(function(a){return '<span>'+esc(a)+'</span>'}).join("")+'</div>':'<div class="alls aucun"><span>Aucun des 14 allergènes majeurs</span></div>';
+  var acc="";
+  if(p.accord){var a=trouve(p.accord);if(a)acc='<h4>Le verre qui va avec</h4><button type="button" class="accord" data-plat="'+a.p.id+'"><span class="vig">'+vignette(a.p)+'</span><span><b>'+esc(a.p.nom)+'</b><span>'+esc(a.c.col1||"")+" · "+eur(num(a.p.prix))+'</span></span><i>›</i></button>'}
+  $("#fiche").innerHTML='<div class="poignee"><i></i></div><button type="button" class="fermer" aria-label="Fermer">×</button>'+ph+'<div class="co"><h2 class="or">'+esc(p.nom)+'</h2><p class="d">'+esc(p.desc)+'</p>'+(mq.length?'<div class="marques" style="margin-top:9px">'+mq.join("")+'</div>':'')+(p.epuise?'<div class="alerte">Épuisé ce soir. Il revient vite, demandez-nous ce qu\'on vous conseille à la place.</div>':'')+'<div class="prix">'+prix+'</div>'+(p.descriptif?'<h4>Dans l\'assiette</h4><p class="txt">'+esc(p.descriptif)+'</p>':'')+'<h4>Allergènes</h4>'+alls+acc+'<div class="actions"><button type="button" class="btn '+(fav?"btn-ligne":"btn-or")+'" data-ajout="'+p.id+'"'+(p.epuise?" disabled style=\"opacity:.5\"":"")+'>'+(fav?"Dans ma sélection ✓":"Ajouter à ma sélection")+'</button></div><p class="note">Prix en euros, service compris. Photo non contractuelle.</p></div>';
+  ouvrir($("#fiche"));
+}
+function infoFiche(k){
+  var a=E[k];
+  $("#fiche").innerHTML='<div class="poignee"><i></i></div><button type="button" class="fermer" aria-label="Fermer">×</button><div class="ph">'+img(a.photo,a.titre)+'</div><div class="co"><span class="m sg">'+esc(a.etiquette.toUpperCase())+'</span><h2 class="or" style="margin-top:10px">'+esc(a.titre)+'</h2><p class="txt" style="margin-top:8px">'+esc(a.texte)+'</p><div class="actions"><button type="button" class="btn btn-or" data-ferme-aller="carte">Voir la carte</button></div></div>';
+  ouvrir($("#fiche"));
+}
+function basculeSel(id){
+  var x=trouve(id);if(!x)return;
+  if(SEL[id]){delete SEL[id];toast("Retiré de ma sélection")}
+  else{if(x.p.epuise){toast("Épuisé ce soir");return}SEL[id]=1;toast("Ajouté à ma sélection")}
+  ecrire(CLE_SEL,SEL);rendreCarte();rendreSel();
+}
+function selection(){
+  var r=rendreSel();
+  var h='<div class="poignee"><i></i></div><button type="button" class="fermer" aria-label="Fermer">×</button><div class="co"><h2 class="or">Ma sélection</h2><p class="sous">Gardez vos envies ici, puis montrez cet écran au moment de commander.</p>';
+  if(!r.n)h+='<p class="txt" style="margin-top:18px;color:var(--doux)">Rien pour l\'instant. Touchez le cœur d\'un plat pour le garder ici.</p><div class="actions"><button type="button" class="btn btn-or" data-ferme-aller="carte">Voir la carte</button></div>';
+  else{
+    h+='<div style="margin-top:12px">'+r.ids.map(function(id){var x=trouve(id),pu=num(promoDe(id)||x.p.prix);return '<div class="ligne-sel"><div class="n">'+esc(x.p.nom)+'<small>'+eur(pu)+(x.c.col2?" · "+esc(x.c.col1):"")+(x.p.epuise?" · épuisé ce soir":"")+'</small></div><div class="qte"><button type="button" data-moins="'+id+'" aria-label="Un de moins">−</button><b>'+SEL[id]+'</b><button type="button" data-plus="'+id+'" aria-label="Un de plus">+</button></div><div class="p">'+eur(pu*SEL[id])+'</div></div>'}).join("")+'</div><div class="total"><span>Total indicatif</span><b>'+eur(r.t)+'</b></div><div class="actions"><button type="button" class="btn btn-ligne" id="selVider">Tout effacer</button><button type="button" class="btn btn-or" data-ferme-aller="carte">Ajouter autre chose</button></div><p class="note">Ce n\'est pas une commande : c\'est un pense-bête, la commande se fait à table.</p>';
+  }
+  $("#sel").innerHTML=h+'</div>';
+  if(ouverte!==$("#sel"))ouvrir($("#sel"));
+}
+
+/* ---------- toast ---------- */
+var tt;function toast(m){var t=$("#toast");t.textContent=m;t.classList.add("vu");clearTimeout(tt);tt=setTimeout(function(){t.classList.remove("vu")},2000)}
+
+/* ---------- espace patron ---------- */
+var saisie="",ongP="soir";
+function patronOuvrir(){$("#patron").classList.add("vu");document.body.style.overflow="hidden";$("#barreSel").classList.remove("vue");saisie="";if(sessionStorage.getItem("ldr-pat")==="1")patronMenu();else verrou()}
+function patronFermer(){$("#patron").classList.remove("vu");document.body.style.overflow="";rendreSel()}
+function verrou(){
+  $("#patIn").innerHTML='<div class="verrou"><h3 class="or">Votre code</h3><p>Le patron change sa carte depuis son téléphone, en un geste.</p><div class="code" id="code">'+"<i></i><i></i><i></i><i></i>"+'</div><div class="pave">'+[1,2,3,4,5,6,7,8,9,"",0,"⌫"].map(function(k){return k===""?"<span></span>":'<button type="button" data-k="'+k+'">'+k+'</button>'}).join("")+'</div><span class="astuce">Code de démonstration : 2580</span></div>';
+}
+function touche(k){
+  if(k==="⌫")saisie=saisie.slice(0,-1);else if(saisie.length<4)saisie+=k;
+  $$("#code i").forEach(function(i,n){i.classList.toggle("p",n<saisie.length)});
+  if(saisie.length===4){if(saisie===CODE){try{sessionStorage.setItem("ldr-pat","1")}catch(e){}setTimeout(patronMenu,180)}else{var c=$("#code");c.classList.add("faux");setTimeout(function(){c.classList.remove("faux");saisie="";$$("#code i").forEach(function(i){i.classList.remove("p")})},380)}}
+}
+function stats(){
+  var ep=tousPlats().filter(function(x){return x.p.epuise}).length,m=momentActif()?E.moment.reste:0;
+  return '<div class="stats"><div><b>'+tousPlats().length+'</b><span>plats et boissons</span></div><div><b>'+ep+'</b><span>épuisé'+(ep>1?"s":"")+' ce soir</span></div><div><b>'+(momentActif()?m:"–")+'</b><span>restant'+(m>1?"s":"")+' au prix du moment</span></div></div>';
+}
+function patronMenu(){
+  var o=[["soir","Ce soir"],["prix","Prix"],["moment","Prix du moment"],["message","Message"],["ajout","Ajouter"],["qr","QR code"]];
+  var h='<div class="pat-ong">'+o.map(function(x){return '<button type="button" data-po="'+x[0]+'"'+(ongP===x[0]?' class="on"':'')+'>'+x[1]+'</button>'}).join("")+'</div>';
+  if(ongP==="soir"){
+    h+=stats()+'<div class="carte-p" style="margin-top:10px"><h4>Épuisé ce soir ?</h4><p class="aide">Un geste : le plat passe en « épuisé » sur tous les téléphones.</p>'+E.categories.map(function(c){return c.plats.map(function(p){return '<div class="lp"><div class="n">'+esc(p.nom)+'<small>'+esc(c.nom)+'</small></div><span class="et">'+(p.epuise?"Épuisé":"Dispo")+'</span><button type="button" class="inter'+(p.epuise?" on":"")+'" data-ep="'+p.id+'" aria-label="Épuisé : '+esc(p.nom)+'" aria-pressed="'+!!p.epuise+'"></button></div>'}).join("")}).join("")+'</div>';
+  }else if(ongP==="prix"){
+    h+='<div class="carte-p"><h4>Changer un prix</h4><p class="aide">Tapez le nouveau prix : il est en ligne dès que vous quittez la case.</p>'+E.categories.map(function(c){return c.plats.map(function(p){return '<div class="lp"><div class="n">'+esc(p.nom)+'<small>'+esc(c.nom)+(c.col2?" · "+esc(c.col1)+" / "+esc(c.col2):"")+'</small></div><input class="pxi" inputmode="decimal" data-px="'+p.id+'" value="'+esc(p.prix)+'" aria-label="Prix de '+esc(p.nom)+'">'+(c.col2?'<input class="pxi" inputmode="decimal" data-px2="'+p.id+'" value="'+esc(p.prix2||"")+'" aria-label="Prix bouteille de '+esc(p.nom)+'">':'')+'</div>'}).join("")}).join("")+'</div>';
+  }else if(ongP==="moment"){
+    var m=E.moment,opts=tousPlats().filter(function(x){return !x.c.col2}).map(function(x){return '<option value="'+x.p.id+'"'+(x.p.id===m.plat?" selected":"")+'>'+esc(x.p.nom)+' · '+eur(num(x.p.prix))+'</option>'}).join("");
+    h+='<div class="carte-p"><h4>Prix du moment</h4><p class="aide">Pour écouler un plat ou faire venir du monde : il s\'affiche en haut de la carte, avec le nombre restant.</p><label class="champ"><span>Le plat</span><select id="mPlat">'+opts+'</select></label><div class="deux"><label class="champ"><span>Prix du moment (€)</span><input id="mPrix" inputmode="decimal" value="'+esc(m.prix)+'"></label><label class="champ"><span>Jusqu\'à</span><input id="mFin" type="time" value="'+esc(m.fin)+'"></label></div><div class="deux"><label class="champ"><span>Nombre prévu</span><input id="mTotal" type="number" min="1" value="'+m.total+'"></label><label class="champ"><span>Il en reste</span><input id="mReste" type="number" min="0" value="'+m.reste+'"></label></div><div class="pat-bas"><button type="button" class="btn btn-or" id="mOk">'+(m.on?"Mettre à jour":"Lancer le prix du moment")+'</button>'+(m.on?'<button type="button" class="btn btn-ligne" id="mStop">Arrêter</button>':'')+'</div>'+(m.on?'<div class="pat-bas" style="margin-top:10px"><button type="button" class="btn btn-ligne" id="mVendu">Un de vendu (−1)</button></div>':'')+'</div>';
+  }else if(ongP==="message"){
+    var s=E.soir;
+    h+='<div class="carte-p"><h4>Le message du soir</h4><p class="aide">Une info qui change : arrivage, plat du jour, soirée spéciale.</p><label class="champ"><span>Petit titre</span><input id="sEt" maxlength="22" value="'+esc(s.etiquette)+'"></label><label class="champ"><span>Titre</span><input id="sTi" maxlength="48" value="'+esc(s.titre)+'"></label><label class="champ"><span>Texte</span><textarea id="sTx" rows="3" maxlength="140">'+esc(s.texte)+'</textarea></label><div class="cases"><label><input type="checkbox" id="sOn"'+(s.on?" checked":"")+'> Afficher sur la carte</label></div><div class="pat-bas"><button type="button" class="btn btn-or" id="sOk">Mettre en ligne</button></div></div>';
+  }else if(ongP==="ajout"){
+    h+='<div class="carte-p"><h4>Ajouter un plat</h4><p class="aide">Pour la photo, envoyez-la à l\'agence : on la met en valeur pour vous.</p><label class="champ"><span>Rubrique</span><select id="aCat">'+E.categories.filter(function(c){return !c.col2}).map(function(c){return '<option value="'+c.id+'">'+esc(c.nom)+'</option>'}).join("")+'</select></label><label class="champ"><span>Nom du plat</span><input id="aNom" maxlength="48" placeholder="Ex. : Tarte au citron meringuée"></label><label class="champ"><span>En quelques mots</span><input id="aDesc" maxlength="70" placeholder="Ex. : citron de Menton, meringue brûlée"></label><div class="deux"><label class="champ"><span>Prix (€)</span><input id="aPrix" inputmode="decimal" placeholder="8,50"></label><span></span></div><div class="cases"><label><input type="checkbox" id="aV"> Végétarien</label><label><input type="checkbox" id="aSg"> Sans gluten</label></div><div class="pat-bas"><button type="button" class="btn btn-or" id="aOk">Ajouter à la carte</button></div></div>';
+  }else if(ongP==="qr"){
+    h+='<div class="carte-p"><h4>Votre QR code</h4><p class="aide">Le même QR code pour toujours : vous changez la carte, pas les chevalets.</p><div class="qrbox"><div class="chevalet"><b>LE '+esc(E.nom.toUpperCase())+'</b><small>Scannez pour voir la carte</small>'+QR+'</div><div class="pat-bas" style="width:100%"><button type="button" class="btn btn-or" id="qImp">Imprimer le chevalet</button></div></div></div>';
+  }
+  h+='<div class="carte-p"><h4>Exemple</h4><p class="aide">Vos essais restent sur ce téléphone. Vous pouvez tout remettre comme au départ.</p><div class="pat-bas"><button type="button" class="btn btn-ligne" id="pVoir">Voir la carte</button><button type="button" class="btn btn-ligne" id="pReset">Remettre l\'exemple</button></div></div>';
+  $("#patIn").innerHTML=h;
+}
+function stamp(){var d=new Date();E.maj="à "+d.getHours()+" h "+(d.getMinutes()<10?"0":"")+d.getMinutes()}
+var QR='<svg viewBox="-2 -2 37 37" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges" aria-hidden="true"><rect x="-2" y="-2" width="37" height="37" fill="#fff"/><path d="M0 0h1v1h-1zM1 0h1v1h-1zM2 0h1v1h-1zM3 0h1v1h-1zM4 0h1v1h-1zM5 0h1v1h-1zM6 0h1v1h-1zM8 0h1v1h-1zM9 0h1v1h-1zM13 0h1v1h-1zM16 0h1v1h-1zM17 0h1v1h-1zM18 0h1v1h-1zM19 0h1v1h-1zM20 0h1v1h-1zM21 0h1v1h-1zM23 0h1v1h-1zM26 0h1v1h-1zM27 0h1v1h-1zM28 0h1v1h-1zM29 0h1v1h-1zM30 0h1v1h-1zM31 0h1v1h-1zM32 0h1v1h-1zM0 1h1v1h-1zM6 1h1v1h-1zM8 1h1v1h-1zM10 1h1v1h-1zM12 1h1v1h-1zM13 1h1v1h-1zM17 1h1v1h-1zM18 1h1v1h-1zM20 1h1v1h-1zM22 1h1v1h-1zM23 1h1v1h-1zM24 1h1v1h-1zM26 1h1v1h-1zM32 1h1v1h-1zM0 2h1v1h-1zM2 2h1v1h-1zM3 2h1v1h-1zM4 2h1v1h-1zM6 2h1v1h-1zM9 2h1v1h-1zM12 2h1v1h-1zM18 2h1v1h-1zM19 2h1v1h-1zM20 2h1v1h-1zM23 2h1v1h-1zM26 2h1v1h-1zM28 2h1v1h-1zM29 2h1v1h-1zM30 2h1v1h-1zM32 2h1v1h-1zM0 3h1v1h-1zM2 3h1v1h-1zM3 3h1v1h-1zM4 3h1v1h-1zM6 3h1v1h-1zM8 3h1v1h-1zM9 3h1v1h-1zM10 3h1v1h-1zM11 3h1v1h-1zM14 3h1v1h-1zM15 3h1v1h-1zM17 3h1v1h-1zM22 3h1v1h-1zM24 3h1v1h-1zM26 3h1v1h-1zM28 3h1v1h-1zM29 3h1v1h-1zM30 3h1v1h-1zM32 3h1v1h-1zM0 4h1v1h-1zM2 4h1v1h-1zM3 4h1v1h-1zM4 4h1v1h-1zM6 4h1v1h-1zM9 4h1v1h-1zM12 4h1v1h-1zM14 4h1v1h-1zM18 4h1v1h-1zM19 4h1v1h-1zM20 4h1v1h-1zM22 4h1v1h-1zM24 4h1v1h-1zM26 4h1v1h-1zM28 4h1v1h-1zM29 4h1v1h-1zM30 4h1v1h-1zM32 4h1v1h-1zM0 5h1v1h-1zM6 5h1v1h-1zM9 5h1v1h-1zM10 5h1v1h-1zM12 5h1v1h-1zM13 5h1v1h-1zM14 5h1v1h-1zM19 5h1v1h-1zM20 5h1v1h-1zM26 5h1v1h-1zM32 5h1v1h-1zM0 6h1v1h-1zM1 6h1v1h-1zM2 6h1v1h-1zM3 6h1v1h-1zM4 6h1v1h-1zM5 6h1v1h-1zM6 6h1v1h-1zM8 6h1v1h-1zM10 6h1v1h-1zM12 6h1v1h-1zM14 6h1v1h-1zM16 6h1v1h-1zM18 6h1v1h-1zM20 6h1v1h-1zM22 6h1v1h-1zM24 6h1v1h-1zM26 6h1v1h-1zM27 6h1v1h-1zM28 6h1v1h-1zM29 6h1v1h-1zM30 6h1v1h-1zM31 6h1v1h-1zM32 6h1v1h-1zM8 7h1v1h-1zM9 7h1v1h-1zM12 7h1v1h-1zM15 7h1v1h-1zM16 7h1v1h-1zM17 7h1v1h-1zM22 7h1v1h-1zM23 7h1v1h-1zM24 7h1v1h-1zM0 8h1v1h-1zM2 8h1v1h-1zM3 8h1v1h-1zM5 8h1v1h-1zM6 8h1v1h-1zM7 8h1v1h-1zM9 8h1v1h-1zM10 8h1v1h-1zM12 8h1v1h-1zM14 8h1v1h-1zM15 8h1v1h-1zM16 8h1v1h-1zM17 8h1v1h-1zM18 8h1v1h-1zM19 8h1v1h-1zM20 8h1v1h-1zM21 8h1v1h-1zM23 8h1v1h-1zM26 8h1v1h-1zM29 8h1v1h-1zM31 8h1v1h-1zM32 8h1v1h-1zM2 9h1v1h-1zM5 9h1v1h-1zM10 9h1v1h-1zM12 9h1v1h-1zM16 9h1v1h-1zM19 9h1v1h-1zM20 9h1v1h-1zM21 9h1v1h-1zM23 9h1v1h-1zM26 9h1v1h-1zM27 9h1v1h-1zM29 9h1v1h-1zM30 9h1v1h-1zM32 9h1v1h-1zM3 10h1v1h-1zM6 10h1v1h-1zM12 10h1v1h-1zM14 10h1v1h-1zM16 10h1v1h-1zM17 10h1v1h-1zM21 10h1v1h-1zM23 10h1v1h-1zM25 10h1v1h-1zM26 10h1v1h-1zM27 10h1v1h-1zM28 10h1v1h-1zM29 10h1v1h-1zM32 10h1v1h-1zM2 11h1v1h-1zM3 11h1v1h-1zM5 11h1v1h-1zM7 11h1v1h-1zM9 11h1v1h-1zM11 11h1v1h-1zM12 11h1v1h-1zM13 11h1v1h-1zM14 11h1v1h-1zM15 11h1v1h-1zM18 11h1v1h-1zM19 11h1v1h-1zM23 11h1v1h-1zM24 11h1v1h-1zM27 11h1v1h-1zM29 11h1v1h-1zM32 11h1v1h-1zM0 12h1v1h-1zM1 12h1v1h-1zM2 12h1v1h-1zM4 12h1v1h-1zM6 12h1v1h-1zM7 12h1v1h-1zM9 12h1v1h-1zM10 12h1v1h-1zM11 12h1v1h-1zM12 12h1v1h-1zM17 12h1v1h-1zM19 12h1v1h-1zM23 12h1v1h-1zM24 12h1v1h-1zM25 12h1v1h-1zM27 12h1v1h-1zM28 12h1v1h-1zM29 12h1v1h-1zM0 13h1v1h-1zM1 13h1v1h-1zM4 13h1v1h-1zM5 13h1v1h-1zM8 13h1v1h-1zM10 13h1v1h-1zM11 13h1v1h-1zM13 13h1v1h-1zM15 13h1v1h-1zM17 13h1v1h-1zM18 13h1v1h-1zM19 13h1v1h-1zM21 13h1v1h-1zM24 13h1v1h-1zM25 13h1v1h-1zM27 13h1v1h-1zM30 13h1v1h-1zM31 13h1v1h-1zM1 14h1v1h-1zM2 14h1v1h-1zM3 14h1v1h-1zM4 14h1v1h-1zM6 14h1v1h-1zM9 14h1v1h-1zM12 14h1v1h-1zM13 14h1v1h-1zM16 14h1v1h-1zM18 14h1v1h-1zM19 14h1v1h-1zM26 14h1v1h-1zM27 14h1v1h-1zM29 14h1v1h-1zM2 15h1v1h-1zM4 15h1v1h-1zM10 15h1v1h-1zM12 15h1v1h-1zM14 15h1v1h-1zM20 15h1v1h-1zM21 15h1v1h-1zM24 15h1v1h-1zM25 15h1v1h-1zM26 15h1v1h-1zM28 15h1v1h-1zM29 15h1v1h-1zM30 15h1v1h-1zM0 16h1v1h-1zM2 16h1v1h-1zM3 16h1v1h-1zM5 16h1v1h-1zM6 16h1v1h-1zM8 16h1v1h-1zM9 16h1v1h-1zM12 16h1v1h-1zM14 16h1v1h-1zM18 16h1v1h-1zM20 16h1v1h-1zM21 16h1v1h-1zM22 16h1v1h-1zM23 16h1v1h-1zM25 16h1v1h-1zM26 16h1v1h-1zM28 16h1v1h-1zM29 16h1v1h-1zM30 16h1v1h-1zM0 17h1v1h-1zM2 17h1v1h-1zM3 17h1v1h-1zM4 17h1v1h-1zM11 17h1v1h-1zM13 17h1v1h-1zM15 17h1v1h-1zM16 17h1v1h-1zM20 17h1v1h-1zM21 17h1v1h-1zM22 17h1v1h-1zM23 17h1v1h-1zM24 17h1v1h-1zM25 17h1v1h-1zM26 17h1v1h-1zM28 17h1v1h-1zM29 17h1v1h-1zM32 17h1v1h-1zM0 18h1v1h-1zM4 18h1v1h-1zM5 18h1v1h-1zM6 18h1v1h-1zM8 18h1v1h-1zM10 18h1v1h-1zM12 18h1v1h-1zM13 18h1v1h-1zM14 18h1v1h-1zM15 18h1v1h-1zM16 18h1v1h-1zM17 18h1v1h-1zM18 18h1v1h-1zM20 18h1v1h-1zM22 18h1v1h-1zM26 18h1v1h-1zM27 18h1v1h-1zM28 18h1v1h-1zM30 18h1v1h-1zM31 18h1v1h-1zM0 19h1v1h-1zM2 19h1v1h-1zM3 19h1v1h-1zM7 19h1v1h-1zM8 19h1v1h-1zM9 19h1v1h-1zM10 19h1v1h-1zM11 19h1v1h-1zM12 19h1v1h-1zM13 19h1v1h-1zM15 19h1v1h-1zM16 19h1v1h-1zM17 19h1v1h-1zM19 19h1v1h-1zM22 19h1v1h-1zM23 19h1v1h-1zM24 19h1v1h-1zM26 19h1v1h-1zM28 19h1v1h-1zM31 19h1v1h-1zM0 20h1v1h-1zM1 20h1v1h-1zM3 20h1v1h-1zM4 20h1v1h-1zM5 20h1v1h-1zM6 20h1v1h-1zM7 20h1v1h-1zM8 20h1v1h-1zM9 20h1v1h-1zM11 20h1v1h-1zM13 20h1v1h-1zM14 20h1v1h-1zM15 20h1v1h-1zM17 20h1v1h-1zM19 20h1v1h-1zM20 20h1v1h-1zM21 20h1v1h-1zM24 20h1v1h-1zM29 20h1v1h-1zM30 20h1v1h-1zM32 20h1v1h-1zM0 21h1v1h-1zM1 21h1v1h-1zM2 21h1v1h-1zM3 21h1v1h-1zM4 21h1v1h-1zM5 21h1v1h-1zM8 21h1v1h-1zM9 21h1v1h-1zM10 21h1v1h-1zM11 21h1v1h-1zM12 21h1v1h-1zM16 21h1v1h-1zM18 21h1v1h-1zM19 21h1v1h-1zM20 21h1v1h-1zM21 21h1v1h-1zM23 21h1v1h-1zM26 21h1v1h-1zM27 21h1v1h-1zM29 21h1v1h-1zM32 21h1v1h-1zM2 22h1v1h-1zM4 22h1v1h-1zM5 22h1v1h-1zM6 22h1v1h-1zM7 22h1v1h-1zM8 22h1v1h-1zM9 22h1v1h-1zM12 22h1v1h-1zM13 22h1v1h-1zM14 22h1v1h-1zM20 22h1v1h-1zM22 22h1v1h-1zM23 22h1v1h-1zM24 22h1v1h-1zM26 22h1v1h-1zM28 22h1v1h-1zM29 22h1v1h-1zM31 22h1v1h-1zM32 22h1v1h-1zM1 23h1v1h-1zM4 23h1v1h-1zM5 23h1v1h-1zM13 23h1v1h-1zM22 23h1v1h-1zM24 23h1v1h-1zM28 23h1v1h-1zM29 23h1v1h-1zM31 23h1v1h-1zM0 24h1v1h-1zM5 24h1v1h-1zM6 24h1v1h-1zM9 24h1v1h-1zM10 24h1v1h-1zM12 24h1v1h-1zM13 24h1v1h-1zM15 24h1v1h-1zM17 24h1v1h-1zM18 24h1v1h-1zM22 24h1v1h-1zM23 24h1v1h-1zM24 24h1v1h-1zM25 24h1v1h-1zM26 24h1v1h-1zM27 24h1v1h-1zM28 24h1v1h-1zM31 24h1v1h-1zM32 24h1v1h-1zM8 25h1v1h-1zM9 25h1v1h-1zM10 25h1v1h-1zM13 25h1v1h-1zM15 25h1v1h-1zM16 25h1v1h-1zM19 25h1v1h-1zM22 25h1v1h-1zM23 25h1v1h-1zM24 25h1v1h-1zM28 25h1v1h-1zM29 25h1v1h-1zM0 26h1v1h-1zM1 26h1v1h-1zM2 26h1v1h-1zM3 26h1v1h-1zM4 26h1v1h-1zM5 26h1v1h-1zM6 26h1v1h-1zM8 26h1v1h-1zM10 26h1v1h-1zM14 26h1v1h-1zM18 26h1v1h-1zM19 26h1v1h-1zM21 26h1v1h-1zM22 26h1v1h-1zM23 26h1v1h-1zM24 26h1v1h-1zM26 26h1v1h-1zM28 26h1v1h-1zM0 27h1v1h-1zM6 27h1v1h-1zM8 27h1v1h-1zM9 27h1v1h-1zM10 27h1v1h-1zM12 27h1v1h-1zM13 27h1v1h-1zM14 27h1v1h-1zM15 27h1v1h-1zM19 27h1v1h-1zM20 27h1v1h-1zM21 27h1v1h-1zM22 27h1v1h-1zM23 27h1v1h-1zM24 27h1v1h-1zM28 27h1v1h-1zM29 27h1v1h-1zM30 27h1v1h-1zM31 27h1v1h-1zM0 28h1v1h-1zM2 28h1v1h-1zM3 28h1v1h-1zM4 28h1v1h-1zM6 28h1v1h-1zM9 28h1v1h-1zM10 28h1v1h-1zM11 28h1v1h-1zM15 28h1v1h-1zM18 28h1v1h-1zM19 28h1v1h-1zM21 28h1v1h-1zM22 28h1v1h-1zM23 28h1v1h-1zM24 28h1v1h-1zM25 28h1v1h-1zM26 28h1v1h-1zM27 28h1v1h-1zM28 28h1v1h-1zM30 28h1v1h-1zM31 28h1v1h-1zM0 29h1v1h-1zM2 29h1v1h-1zM3 29h1v1h-1zM4 29h1v1h-1zM6 29h1v1h-1zM8 29h1v1h-1zM9 29h1v1h-1zM10 29h1v1h-1zM11 29h1v1h-1zM15 29h1v1h-1zM17 29h1v1h-1zM20 29h1v1h-1zM22 29h1v1h-1zM23 29h1v1h-1zM24 29h1v1h-1zM27 29h1v1h-1zM29 29h1v1h-1zM32 29h1v1h-1zM0 30h1v1h-1zM2 30h1v1h-1zM3 30h1v1h-1zM4 30h1v1h-1zM6 30h1v1h-1zM8 30h1v1h-1zM9 30h1v1h-1zM10 30h1v1h-1zM12 30h1v1h-1zM15 30h1v1h-1zM17 30h1v1h-1zM20 30h1v1h-1zM23 30h1v1h-1zM24 30h1v1h-1zM26 30h1v1h-1zM27 30h1v1h-1zM30 30h1v1h-1zM0 31h1v1h-1zM6 31h1v1h-1zM10 31h1v1h-1zM13 31h1v1h-1zM14 31h1v1h-1zM16 31h1v1h-1zM17 31h1v1h-1zM20 31h1v1h-1zM23 31h1v1h-1zM24 31h1v1h-1zM25 31h1v1h-1zM26 31h1v1h-1zM27 31h1v1h-1zM28 31h1v1h-1zM32 31h1v1h-1zM0 32h1v1h-1zM1 32h1v1h-1zM2 32h1v1h-1zM3 32h1v1h-1zM4 32h1v1h-1zM5 32h1v1h-1zM6 32h1v1h-1zM8 32h1v1h-1zM9 32h1v1h-1zM12 32h1v1h-1zM13 32h1v1h-1zM14 32h1v1h-1zM15 32h1v1h-1zM16 32h1v1h-1zM17 32h1v1h-1zM18 32h1v1h-1zM19 32h1v1h-1zM21 32h1v1h-1zM22 32h1v1h-1zM23 32h1v1h-1zM28 32h1v1h-1zM29 32h1v1h-1zM30 32h1v1h-1z" fill="#0B0F1A"/></svg>';
+
+/* ---------- événements ---------- */
+document.addEventListener("click",function(e){
+  var t=e.target,b;
+  if((b=t.closest("[data-coeur]"))){e.preventDefault();e.stopPropagation();basculeSel(b.dataset.coeur);return}
+  if((b=t.closest("[data-ajout]"))){basculeSel(b.dataset.ajout);fiche(b.dataset.ajout);return}
+  if((b=t.closest("[data-plat]"))){fiche(b.dataset.plat);return}
+  if((b=t.closest("[data-info]"))){infoFiche(b.dataset.info);return}
+  if(t.closest(".fermer")||t.id==="voile"){fermer();return}
+  if((b=t.closest("[data-ferme-aller]"))){fermer();aller(b.dataset.fermeAller);return}
+  if((b=t.closest("[data-aller]"))){aller(b.dataset.aller);return}
+  if((b=t.closest("[data-ong]"))){var s=$("#cat-"+b.dataset.ong);if(s){marque(b.dataset.ong);s.scrollIntoView({behavior:"smooth",block:"start"})}return}
+  if((b=t.closest("[data-f]"))){F[b.dataset.f]=!F[b.dataset.f];rendrePuces();rendreCarte();return}
+  if((b=t.closest("[data-non]"))){var a=b.dataset.non;F.non[a]=!F.non[a];rendrePuces();rendreCarte();return}
+  if((b=t.closest("[data-plus]"))){SEL[b.dataset.plus]++;ecrire(CLE_SEL,SEL);selection();return}
+  if((b=t.closest("[data-moins]"))){var id=b.dataset.moins;SEL[id]--;if(SEL[id]<=0)delete SEL[id];ecrire(CLE_SEL,SEL);selection();rendreCarte();return}
+  if(t.id==="selVider"){SEL={};ecrire(CLE_SEL,SEL);selection();rendreCarte();return}
+  if(t.closest("#bSel")||t.closest("#bSel2")){selection();return}
+  if(t.closest("#bFiltre")){var f=$("#filtres"),o=!f.classList.contains("ouvert");f.classList.toggle("ouvert",o);$("#bFiltre").setAttribute("aria-expanded",o);return}
+  if(t.closest("#resTout")||t.closest("#videTout")){F={v:false,sg:false,non:{},q:""};$("#q").value="";$("#cherche").classList.remove("plein");rendrePuces();rendreCarte();return}
+  if(t.closest("#qx")){$("#q").value="";F.q="";$("#cherche").classList.remove("plein");rendreCarte();$("#q").focus();return}
+  if(t.closest("#bPartager")){partager();return}
+  if(t.closest("#bPatron")){patronOuvrir();return}
+  if(t.closest("#patFermer")||t.closest("#pVoir")){patronFermer();return}
+  if((b=t.closest("[data-k]"))){touche(b.dataset.k);return}
+  if((b=t.closest("[data-po]"))){ongP=b.dataset.po;patronMenu();return}
+  if((b=t.closest("[data-ep]"))){var x=trouve(b.dataset.ep);x.p.epuise=x.p.epuise?0:1;if(x.p.epuise&&SEL[x.p.id]){}stamp();enregistrer(x.p.nom+(x.p.epuise?" : épuisé, c'est en ligne":" : de nouveau disponible"));patronMenu();return}
+  if(t.id==="mOk"){var m=E.moment,pr=propre($("#mPrix").value),pl=trouve($("#mPlat").value);if(!pr){toast("Indiquez un prix");return}if(num(pr)>=num(pl.p.prix)){toast("Le prix du moment doit être plus bas que "+eur(num(pl.p.prix)));return}m.plat=pl.p.id;m.prix=pr;m.fin=$("#mFin").value||"21:00";m.total=Math.max(1,parseInt($("#mTotal").value,10)||1);m.reste=Math.min(m.total,Math.max(0,parseInt($("#mReste").value,10)||0));m.on=true;stamp();enregistrer("Prix du moment en ligne");patronMenu();return}
+  if(t.id==="mStop"){E.moment.on=false;stamp();enregistrer("Prix du moment arrêté");patronMenu();return}
+  if(t.id==="mVendu"){var mm=E.moment;mm.reste=Math.max(0,mm.reste-1);stamp();enregistrer(mm.reste?"Plus que "+mm.reste:"Tout est parti : le prix du moment disparaît de la carte");if(!mm.reste)mm.on=false,ecrire(CLE,E);patronMenu();return}
+  if(t.id==="sOk"){var s=E.soir;s.etiquette=$("#sEt").value.trim()||"Ce soir";s.titre=$("#sTi").value.trim()||s.titre;s.texte=$("#sTx").value.trim();s.on=$("#sOn").checked;stamp();enregistrer(s.on?"Message en ligne":"Message masqué");patronMenu();return}
+  if(t.id==="aOk"){var nom=$("#aNom").value.trim(),pa=propre($("#aPrix").value);if(!nom){toast("Donnez un nom au plat");return}if(!pa){toast("Indiquez un prix");return}var c=E.categories.filter(function(c){return c.id===$("#aCat").value})[0];var nid="n"+Date.now().toString(36);c.plats.push({id:nid,nom:nom,desc:$("#aDesc").value.trim(),prix:pa,photo:"",v:$("#aV").checked?1:0,sg:$("#aSg").checked?1:0,all:[],descriptif:"",nouveau:1});stamp();enregistrer(nom+" : ajouté à la carte");patronMenu();return}
+  if(t.id==="qImp"){var w=window.open("","_blank");if(!w){toast("Autorisez les fenêtres pour imprimer");return}w.document.write('<!doctype html><meta charset="utf-8"><title>Chevalet QR</title><body style="font-family:Georgia,serif;text-align:center;padding:40px"><h1 style="letter-spacing:.08em">LE '+esc(E.nom.toUpperCase())+'</h1><p>Scannez pour voir la carte</p><div style="width:260px;margin:20px auto">'+QR+'</div><p style="font-size:12px;color:#555">Carte créée par Agence LDR</p><script>setTimeout(function(){print()},300)<\/script>');w.document.close();return}
+  if(t.id==="pReset"){E=copie(EXEMPLE);SEL={};ecrire(CLE_SEL,SEL);try{localStorage.removeItem(CLE)}catch(e){}tout();toast("La carte d'exemple est revenue");patronMenu();return}
+});
+document.addEventListener("change",function(e){
+  var t=e.target,x;
+  if(t.dataset.px&&(x=trouve(t.dataset.px))){var v=propre(t.value);if(!v){t.value=x.p.prix;toast("Prix non valide");return}x.p.prix=v;t.value=v;stamp();enregistrer(x.p.nom+" : "+eur(num(v))+", c'est en ligne")}
+  if(t.dataset.px2&&(x=trouve(t.dataset.px2))){var v2=propre(t.value);if(!v2){t.value=x.p.prix2;toast("Prix non valide");return}x.p.prix2=v2;t.value=v2;stamp();enregistrer(x.p.nom+" (bouteille) : "+eur(num(v2)))}
+});
+$("#q").addEventListener("input",function(){F.q=this.value.trim();$("#cherche").classList.toggle("plein",!!this.value);rendreCarte()});
+document.addEventListener("keydown",function(e){if(e.key==="Escape"){if(ouverte)fermer();else if($("#patron").classList.contains("vu"))patronFermer()}});
+$("#defile").addEventListener("scroll",function(){var d=this,c=d.children,i=0,best=1e9;for(var k=0;k<c.length;k++){var dx=Math.abs(c[k].offsetLeft-d.scrollLeft);if(dx<best){best=dx;i=k}}$$("#points i").forEach(function(p,n){p.classList.toggle("on",n===i)})},{passive:true});
+function aller(id){var el=$("#"+id);if(el)el.scrollIntoView({behavior:"smooth",block:"start"})}
+function partager(){var d={title:"Le "+E.nom+" · la carte",text:"La carte du "+E.nom,url:LIEN};if(navigator.share){navigator.share(d).catch(function(){})}else if(navigator.clipboard){navigator.clipboard.writeText(LIEN).then(function(){toast("Lien copié")},function(){toast(LIEN)})}else toast(LIEN)}
+/* glisser vers le bas pour fermer (téléphone) */
+(function(){var y0=null,el=null;document.addEventListener("touchstart",function(e){var f=e.target.closest(".feuille");if(f&&f.scrollTop<=0){y0=e.touches[0].clientY;el=f}},{passive:true});document.addEventListener("touchmove",function(e){if(el&&y0!==null){var dy=e.touches[0].clientY-y0;if(dy>0&&window.innerWidth<700){el.style.transition="none";el.style.transform="translate(-50%,"+dy+"px)"}}},{passive:true});document.addEventListener("touchend",function(e){if(el&&y0!==null){var dy=(e.changedTouches[0].clientY-y0);el.style.transition="";el.style.transform="";if(dy>110)fermer()}y0=null;el=null})})();
+setInterval(function(){etatOuverture();if(momentActif())rendreMoment()},60000);
+if(/[?&]patron=1/.test(location.search))setTimeout(patronOuvrir,300);
+tout();
+})();
+</script>
+</body>
+</html>
