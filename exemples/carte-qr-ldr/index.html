@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Le Quai Sorbier · la carte · démonstration Agence LDR</title>
+<title>Le Quai Sorbier · la carte · exemple Agence LDR</title>
 <meta name="robots" content="noindex">
-<meta name="description" content="Exemple de carte QR créée par Agence LDR : la carte d'un restaurant dans le téléphone de ses clients, modifiable par le patron en un geste.">
+<meta name="description" content="Exemple de carte QR (données fictives) créée par Agence LDR : la carte d'un restaurant dans le téléphone de ses clients, modifiable par le patron en un geste.">
 <meta name="theme-color" content="#070A12">
 <link rel="icon" href="img/aigle-site-web.webp">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -32,7 +32,7 @@ input,select,textarea{font:inherit;color:var(--texte)}
 .or{background:var(--or);-webkit-background-clip:text;background-clip:text;color:transparent}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
 
-/* Bandeau démonstration */
+/* Bandeau exemple */
 .demo{display:flex;align-items:center;gap:10px;padding:8px 14px;background:rgba(7,10,18,.92);border-bottom:1px solid var(--ligne);font-size:12px;color:var(--doux)}
 .demo img{width:30px;height:auto;flex:none}
 .demo b{color:var(--or2);font-weight:700}
@@ -306,7 +306,7 @@ body.a-sel .page{padding-bottom:86px}
 <div class="page" id="haut">
   <div class="demo">
     <img src="img/aigle-site-web.webp" alt="Aigle Agence LDR, création web" width="30" height="38">
-    <div><b>Exemple de carte QR</b> · Agence LDR</div>
+    <div><b>Exemple · données fictives</b> · Agence LDR</div>
     <div class="esp"></div>
     <button type="button" id="bPartager">Partager</button>
   </div>
@@ -383,7 +383,7 @@ body.a-sel .page{padding-bottom:86px}
 <div class="patron" id="patron" role="dialog" aria-modal="true" aria-label="Espace patron">
   <div class="pat-haut">
     <img src="img/aigle-site-web.webp" alt="">
-    <h2><span class="or">Espace patron</span><small>Le Quai Sorbier · démonstration</small></h2>
+    <h2><span class="or">Espace patron</span><small>Exemple · données fictives</small></h2>
     <button type="button" id="patFermer" aria-label="Fermer">×</button>
   </div>
   <div class="pat-in" id="patIn"></div>
@@ -618,7 +618,7 @@ var saisie="",ongP="soir";
 function patronOuvrir(){$("#patron").classList.add("vu");document.body.style.overflow="hidden";$("#barreSel").classList.remove("vue");saisie="";if(sessionStorage.getItem("ldr-pat")==="1")patronMenu();else verrou()}
 function patronFermer(){$("#patron").classList.remove("vu");document.body.style.overflow="";rendreSel()}
 function verrou(){
-  $("#patIn").innerHTML='<div class="verrou"><h3 class="or">Votre code</h3><p>Le patron change sa carte depuis son téléphone, en un geste.</p><div class="code" id="code">'+"<i></i><i></i><i></i><i></i>"+'</div><div class="pave">'+[1,2,3,4,5,6,7,8,9,"",0,"⌫"].map(function(k){return k===""?"<span></span>":'<button type="button" data-k="'+k+'">'+k+'</button>'}).join("")+'</div><span class="astuce">Code de démonstration : 2580</span></div>';
+  $("#patIn").innerHTML='<div class="verrou"><h3 class="or">Votre code</h3><p>Le patron change sa carte depuis son téléphone, en un geste.</p><div class="code" id="code">'+"<i></i><i></i><i></i><i></i>"+'</div><div class="pave">'+[1,2,3,4,5,6,7,8,9,"",0,"⌫"].map(function(k){return k===""?"<span></span>":'<button type="button" data-k="'+k+'">'+k+'</button>'}).join("")+'</div><span class="astuce">Code de l'exemple : 2580</span></div>';
 }
 function touche(k){
   if(k==="⌫")saisie=saisie.slice(0,-1);else if(saisie.length<4)saisie+=k;
